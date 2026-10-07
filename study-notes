@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Study Notes | Lifting & Rigging Study Hub</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e5e7eb;
+        }
+
+        header {
+            background: #111827;
+            padding: 25px;
+            text-align: center;
+            border-bottom: 1px solid #334155;
+        }
+
+        header h1 {
+            margin: 0;
+            color: #38bdf8;
+        }
+
+        header p {
+            color: #cbd5e1;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e5e7eb;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .intro h2 {
+            color: #38bdf8;
+        }
+
+        .notes {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .note-card {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 12px;
+            border: 1px solid #334155;
+        }
+
+        .note-card h3 {
+            color: #f8fafc;
+            margin-top: 0;
+        }
+
+        .note-card p {
+            color: #cbd5e1;
+            line-height: 1.6;
+        }
+
+        .download {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 10px 16px;
+            background: #0284c7;
+            color: white;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: bold;
+        }
+
+        .download:hover {
+            background: #0369a1;
+        }
+
+        .notice {
+            margin-top: 35px;
+            padding: 20px;
+            background: #3f2f0b;
+            border-left: 5px solid #f59e0b;
+            border-radius: 8px;
+            color: #fde68a;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+            background: #111827;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📚 Lifting & Rigging Study Notes</h1>
+    <p>Study materials and reference notes for lifting operations</p>
+</header>
+
+<nav>
+    <a href="index.html">Home</a>
+    <a href="rigging.html">Equipment</a>
+    <a href="calculations.html">Calculations</a>
+    <a href="cranes.html">Cranes</a>
+    <a href="planning.html">Lift Planning</a>
+    <a href="safety.html">Safety</a>
+    <a href="study-notes.html">Study Notes</a>
+</nav>
+
+<div class="container">
+
+    <div class="intro">
+        <h2>Study Notes & Downloads</h2>
+
+        <p>
+            Download study materials covering lifting, rigging, cranes,
+            calculations, lift planning and safety.
+        </p>
+    </div>
+
+    <div class="notes">
+
+        <div class="note-card">
+            <h3>🔗 Rigging Equipment Notes</h3>
+
+            <p>
+                Study notes covering slings, shackles, hooks, master links,
+                lifting clamps and other common lifting accessories.
+            </p>
+
+            <a class="download" href="notes/rigging-notes.pdf" download>
+                Download Notes
+            </a>
+        </div>
+
+        <div class="note-card">
+            <h3>🏗️ Crane Operations Notes</h3>
+
+            <p>
+                Study material covering crane types, load charts,
+                operating radius, outriggers and crane operations.
+            </p>
+
+            <a class="download" href="notes/crane-notes.pdf" download>
+                Download Notes
+            </a>
+        </div>
+
+        <div class="note-card">
+            <h3>📐 Lifting Calculations Notes</h3>
+
+            <p>
+                Study notes covering load weight, sling angles,
+                load distribution, WLL and basic lifting calculations.
+            </p>
+
+            <a class="download" href="notes/lifting-calculations.pdf" download>
+                Download Notes
+            </a>
+        </div>
+
+        <div class="note-card">
+            <h3>📝 Lift Planning Notes</h3>
+
+            <p>
+                Reference material covering lift plans, crane selection,
+                rigging arrangements, risk assessment and site planning.
+            </p>
+
+            <a class="download" href="notes/lift-planning-notes.pdf" download>
+                Download Notes
+            </a>
+        </div>
+
+        <div class="note-card">
+            <h3>⚠️ Lifting Safety Notes</h3>
+
+            <p>
+                Study material covering suspended loads, exclusion zones,
+                inspections, communication and emergency planning.
+            </p>
+
+            <a class="download" href="notes/lifting-safety-notes.pdf" download>
+                Download Notes
+            </a>
+        </div>
+
+        <div class="note-card">
+            <h3>📚 Lifting Questions & Answers</h3>
+
+            <p>
+                Practice questions and answers to help students prepare
+                for lifting and rigging assessments.
+            </p>
+
+            <a class="download" href="notes/lifting-questions.pdf" download>
+                Download Questions
+            </a>
+        </div>
+
+    </div>
+
+    <div class="notice">
+        <strong>Important:</strong>
+        These materials are provided for study and reference purposes.
+        They do not replace approved lift plans, engineering calculations,
+        manufacturer instructions, applicable regulations or standards,
+        company procedures, or competent-person verification.
+    </div>
+
+</div>
+
+<footer>
+    Lifting & Rigging Study Hub
+</footer>
+
+</body>
+</html>
