@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Crane Radius Calculator | Lifting & Rigging Study</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #020617;
+    padding: 25px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: #38bdf8;
+}
+
+header p {
+    margin-top: 8px;
+    color: #cbd5e1;
+}
+
+.container {
+    max-width: 900px;
+    margin: auto;
+    padding: 25px 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+label {
+    display: block;
+    margin-top: 15px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 18px;
+    background: #0f172a;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-family: monospace;
+    color: #7dd3fc;
+}
+
+.warning {
+    margin-top: 20px;
+    padding: 15px;
+    background: #451a03;
+    border-left: 4px solid #f59e0b;
+    border-radius: 6px;
+    color: #fde68a;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 20px;
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Crane Radius Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Radius from Boom Length & Angle</h2>
+
+        <p>
+            This study calculator determines the horizontal radius and
+            vertical boom component using basic right-triangle geometry.
+        </p>
+
+        <label for="boomLength">
+            Boom Length (m)
+        </label>
+
+        <input
+            type="number"
+            id="boomLength"
+            placeholder="Example: 50"
+            step="0.01"
+            min="0"
+        >
+
+        <label for="boomAngle">
+            Boom Angle from Horizontal (degrees)
+        </label>
+
+        <input
+            type="number"
+            id="boomAngle"
+            placeholder="Example: 60"
+            step="0.1"
+            min="0"
+            max="90"
+        >
+
+        <button onclick="calculateRadius()">
+            Calculate
+        </button>
+
+        <div id="result" class="result" style="display:none;"></div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Formula</h2>
+
+        <div class="formula">
+            R = L × cos(θ)
+            <br><br>
+            H = L × sin(θ)
+        </div>
+
+        <p>
+            <strong>R</strong> = horizontal radius component<br>
+            <strong>L</strong> = boom length<br>
+            <strong>θ</strong> = boom angle from horizontal<br>
+            <strong>H</strong> = vertical boom component
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Worked Example</h2>
+
+        <p>
+            Boom length = 50 m
+        </p>
+
+        <p>
+            Boom angle = 60°
+        </p>
+
+        <div class="formula">
+            R = 50 × cos(60°)
+            <br>
+            R = 25.00 m
+            <br><br>
+            H = 50 × sin(60°)
+            <br>
+            H ≈ 43.30 m
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Important Study Note</h2>
+
+        <p>
+            Actual crane radius, boom tip height, hook height and
+            operating geometry must be verified using the specific
+            crane manufacturer's load chart, operating manual and
+            configuration information.
+        </p>
+
+        <p>
+            Factors such as boom deflection, boom angle measurement,
+            jib configuration, reeving, hook block, ground conditions,
+            load position and crane configuration can affect the
+            actual lifting operation.
+        </p>
+
+        <div class="warning">
+            <strong>Safety Notice:</strong><br>
+            This calculator is for study and training purposes only.
+            It must not replace an approved lift plan, manufacturer's
+            load chart, engineering calculation, competent-person
+            verification or applicable site requirements.
+        </div>
+
+    </div>
+
+
+    <a class="back" href="../calculation.html">
+        ← Back to Calculations
+    </a>
+
+</div>
+
+
+<script>
+
+function calculateRadius() {
+
+    const L = parseFloat(
+        document.getElementById("boomLength").value
+    );
+
+    const angle = parseFloat(
+        document.getElementById("boomAngle").value
+    );
+
+    const result = document.getElementById("result");
+
+    if (
+        isNaN(L) ||
+        isNaN(angle) ||
+        L <= 0 ||
+        angle < 0 ||
+        angle > 90
+    ) {
+
+        result.style.display = "block";
+
+        result.innerHTML =
+            "<strong>Please enter a valid boom length and angle.</strong>";
+
+        return;
+    }
+
+    const radians = angle * Math.PI / 180;
+
+    const radius = L * Math.cos(radians);
+
+    const height = L * Math.sin(radians);
+
+    result.style.display = "block";
+
+    result.innerHTML = `
+        <h3>Calculation Result</h3>
+
+        <p>
+            <strong>Horizontal Radius:</strong>
+            ${radius.toFixed(2)} m
+        </p>
+
+        <p>
+            <strong>Vertical Boom Component:</strong>
+            ${height.toFixed(2)} m
+        </p>
+    `;
+}
+
+</script>
+
+</body>
+</html>
