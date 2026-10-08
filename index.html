@@ -14,63 +14,51 @@
         body {
             margin: 0;
             font-family: Arial, sans-serif;
-            color: #e5e7eb;
-            background: #0f172a;
-            line-height: 1.6;
+            background: #f1f5f9;
+            color: #0f172a;
         }
 
-        /* TOP HEADER */
         .main-header {
             display: flex;
             align-items: center;
             justify-content: space-between;
             gap: 20px;
-            background-image: linear-gradient(rgba(2, 6, 23, 0.55), rgba(2, 6, 23, 0.55)), url("gasplant.png");
-background-size: cover;
-background-position: center;
-            padding: 20px;
+
+            background-image:
+                linear-gradient(
+                    rgba(2, 6, 23, 0.55),
+                    rgba(2, 6, 23, 0.55)
+                ),
+                url("gasplant.png");
+
+            background-size: cover;
+            background-position: center;
+
+            padding: 30px 20px;
             border-bottom: 2px solid #38bdf8;
+            color: white;
         }
 
-        .main-header img {
-            width: 150px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 10px;
-            border: 2px solid #38bdf8;
+        .header-text h1 {
+            margin: 0 0 8px 0;
+            font-size: 32px;
         }
 
-        .header-title {
-            flex: 1;
-            text-align: center;
-        }
-
-        .header-title h1 {
+        .header-text p {
             margin: 0;
-            color: #38bdf8;
-            font-size: 36px;
+            font-size: 17px;
         }
 
-        .header-title p {
-            margin: 10px 0 0;
-            color: #cbd5e1;
-            font-size: 18px;
-        }
-
-        /* NAVIGATION */
         nav {
             background: #1e293b;
-            padding: 15px;
+            padding: 14px;
             text-align: center;
-            position: sticky;
-            top: 0;
-            z-index: 10;
         }
 
         nav a {
-            color: #f8fafc;
+            color: white;
             text-decoration: none;
-            margin: 0 10px;
+            margin: 0 9px;
             font-weight: bold;
         }
 
@@ -78,203 +66,111 @@ background-position: center;
             color: #38bdf8;
         }
 
-        /* MAIN CONTENT */
-        main {
-            max-width: 1100px;
+        .container {
+            max-width: 1150px;
             margin: auto;
             padding: 30px 20px;
         }
 
-        /* MAIN BANNER */
-        .hero {
-            background-image:
-                linear-gradient(
-                    rgba(2, 6, 23, 0.45),
-                    rgba(2, 6, 23, 0.65)
-                ),
-                url("lifting.png");
-
-            background-size: cover;
-            background-position: center;
-
-            padding: 70px 30px;
-            min-height: 360px;
-
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-
-            text-align: center;
-            border-radius: 15px;
+        .welcome {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
             margin-bottom: 30px;
-            border: 1px solid #334155;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
         }
 
-        .hero h2 {
-            color: #ffffff;
-            font-size: 34px;
+        .welcome h2 {
             margin-top: 0;
-            text-shadow: 2px 2px 5px #000000;
+            color: #0369a1;
         }
 
-        .hero p {
-            color: #ffffff;
-            max-width: 800px;
-            margin: auto;
-            font-size: 18px;
-            text-shadow: 1px 1px 4px #000000;
+        .welcome p {
+            line-height: 1.7;
         }
 
-        /* CARDS */
-        .cards {
+        .grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+            grid-template-columns:
+                repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
         }
 
         .card {
-            background: #1e293b;
-            padding: 25px;
+            background: white;
+            padding: 24px;
             border-radius: 12px;
-            border: 1px solid #334155;
-            text-align: center;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+
+            display: flex;
+            flex-direction: column;
         }
 
         .card h3 {
-            color: #38bdf8;
             margin-top: 0;
+            color: #0369a1;
         }
 
         .card p {
-            color: #cbd5e1;
+            line-height: 1.6;
+            flex-grow: 1;
         }
 
-        .card a {
-            display: inline-block;
-            margin-top: 10px;
-            padding: 10px 18px;
+        .button {
+            display: block;
+            text-align: center;
             background: #0284c7;
             color: white;
             text-decoration: none;
-            border-radius: 6px;
+            padding: 12px;
+            border-radius: 7px;
+            font-weight: bold;
+            margin-top: 15px;
         }
 
-        .card a:hover {
+        .button:hover {
             background: #0369a1;
         }
 
-        /* SAFETY NOTICE */
         .notice {
-            max-width: 900px;
-            margin: 30px auto;
+            background: #fff7ed;
+            border-left: 5px solid #f97316;
             padding: 20px;
-            background: #172033;
-            border-left: 4px solid #f59e0b;
-            color: #cbd5e1;
+            border-radius: 8px;
+            margin-top: 30px;
+            line-height: 1.6;
         }
 
-        /* ABOUT CREATOR */
-        .about-creator {
-            max-width: 900px;
-            margin: 60px auto;
-            padding: 30px;
-            background: rgba(15, 23, 42, 0.95);
-            border: 1px solid #334155;
-            border-radius: 15px;
-            text-align: center;
-        }
-
-        .about-creator h2 {
-            color: #38bdf8;
-            margin-bottom: 25px;
-        }
-
-        .creator-content {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 30px;
-            text-align: left;
-        }
-
-        .creator-content img {
-            width: 120px;
-            height: 120px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 3px solid #38bdf8;
-            flex-shrink: 0;
-        }
-
-        .creator-content h3 {
-            margin: 0;
-            color: #f8fafc;
-            font-size: 26px;
-        }
-
-        .creator-content h4 {
-            color: #38bdf8;
-            margin: 8px 0;
-        }
-
-        .creator-content p {
-            color: #cbd5e1;
-            line-height: 1.7;
-        }
-
-        /* FOOTER */
         footer {
-            background: #020617;
+            background: #0f172a;
+            color: white;
             text-align: center;
             padding: 25px;
             margin-top: 40px;
-            color: #cbd5e1;
-            border-top: 1px solid #334155;
         }
 
-        /* MOBILE */
-        @media (max-width: 800px) {
+        footer small {
+            opacity: 0.8;
+        }
+
+        @media (max-width: 700px) {
 
             .main-header {
-                gap: 10px;
-                padding: 15px 10px;
-            }
-
-            .main-header img {
-                width: 80px;
-                height: 70px;
-            }
-
-            .header-title h1 {
-                font-size: 22px;
-            }
-
-            .header-title p {
-                font-size: 14px;
-            }
-
-            .cards {
-                grid-template-columns: 1fr;
-            }
-
-            .creator-content {
-                flex-direction: column;
                 text-align: center;
+                justify-content: center;
             }
 
-            .hero {
-                min-height: 300px;
-                padding: 50px 20px;
-            }
-
-            .hero h2 {
+            .header-text h1 {
                 font-size: 26px;
             }
 
             nav a {
-                display: inline-block;
-                margin: 5px;
+                display: block;
+                margin: 9px 0;
+            }
+
+            .container {
+                padding: 20px 15px;
             }
         }
     </style>
@@ -282,180 +178,236 @@ background-position: center;
 
 <body>
 
-    <!-- TOP HEADER -->
-    <header class="main-header">
+<header class="main-header">
 
-        <img src="left.png" alt="Lifting operation">
+    <div class="header-text">
 
-        <div class="header-title">
-            <h1>Lifting & Rigging Study Hub</h1>
-            <p>Study • Reference • Calculations • Safety</p>
-        </div>
+        <h1>Lifting & Rigging Study Hub</h1>
 
-        <img src="right.png" alt="Rigging equipment">
+        <p>
+            Lifting Engineer Study, Calculations & Safety Reference
+        </p>
 
-    </header>
+    </div>
 
-
-    <!-- NAVIGATION -->
-    <nav>
-        <a href="index.html">Home</a>
-        <a href="rigging.html">Lifting Accessories</a>
-        <a href="calculation.html">Calculations</a>
-        <a href="cranes.html">Cranes</a>
-        <a href="planning.html">Lift Planning</a>
-        <a href="safety.html">Safety</a>
-        <a href="study-notes.html">Study Notes</a>
-    </nav>
+</header>
 
 
-    <!-- MAIN CONTENT -->
-    <main>
+<nav>
 
-        <!-- MAIN BANNER -->
-        <section class="hero">
+    <a href="index.html">Home</a>
 
-            <h2>Welcome to the Lifting & Rigging Study Hub</h2>
+    <a href="rigging.html">Lifting Accessories</a>
+
+    <a href="calculation.html">Calculations</a>
+
+    <a href="cranes.html">Cranes</a>
+
+    <a href="planning.html">Lift Planning</a>
+
+    <a href="safety.html">Safety</a>
+
+    <a href="study-notes.html">Study Notes</a>
+
+</nav>
+
+
+<div class="container">
+
+
+    <section class="welcome">
+
+        <h2>Welcome to the Lifting & Rigging Study Hub</h2>
+
+        <p>
+            This website is designed as a study and reference resource
+            for lifting and rigging operations.
+        </p>
+
+        <p>
+            It covers lifting accessories, cranes, lifting calculations,
+            lift planning, safety, inspection and study notes.
+        </p>
+
+        <p>
+            The material is intended to support learning and preparation
+            for lifting and rigging activities.
+        </p>
+
+    </section>
+
+
+    <div class="grid">
+
+
+        <!-- LIFTING ACCESSORIES -->
+
+        <div class="card">
+
+            <h3>Lifting Accessories</h3>
 
             <p>
-                A study and reference website covering lifting operations,
-                rigging equipment, cranes, lifting calculations,
-                lift planning and lifting safety.
+                Study lifting accessories used in lifting and rigging
+                operations, including slings, shackles, hooks, master
+                links, lifting beams, clamps, magnets and other equipment.
             </p>
 
-        </section>
+            <a
+                class="button"
+                href="rigging.html"
+            >
+                Open Lifting Accessories
+            </a>
+
+        </div>
 
 
-        <!-- STUDY CARDS -->
-        <section class="cards">
+        <!-- CALCULATIONS -->
 
-            <div class="card">
-                <h3>Rigging Equipment</h3>
+        <div class="card">
 
-                <p>
-                    Study wire rope slings, web slings, shackles,
-                    hooks, master links and other lifting equipment.
-                </p>
+            <h3>Lifting Calculations</h3>
 
-                <a href="rigging.html">Study Equipment</a>
-            </div>
+            <p>
+                Access lifting and rigging calculators for load weight,
+                sling tension, crane utilization, load moment, center
+                of gravity, ground bearing and other study calculations.
+            </p>
 
+            <a
+                class="button"
+                href="calculation.html"
+            >
+                Open Calculations
+            </a>
 
-            <div class="card">
-                <h3>Lifting Calculations</h3>
-
-                <p>
-                    Study load weight, center of gravity,
-                    sling angles, WLL/SWL and load distribution.
-                </p>
-
-                <a href="calculation.html">View Calculations</a>
-            </div>
+        </div>
 
 
-            <div class="card">
-                <h3>Cranes</h3>
+        <!-- CRANES -->
 
-                <p>
-                    Learn about mobile cranes, crawler cranes,
-                    tower cranes, load charts and crane operations.
-                </p>
+        <div class="card">
 
-                <a href="cranes.html">Study Cranes</a>
-            </div>
+            <h3>Cranes</h3>
 
+            <p>
+                Study different crane types, crane components, capacity,
+                specifications, inspection, operation and environmental
+                considerations.
+            </p>
 
-            <div class="card">
-                <h3>Lift Planning</h3>
+            <a
+                class="button"
+                href="cranes.html"
+            >
+                Open Crane Study
+            </a>
 
-                <p>
-                    Study lift plans, risk assessment,
-                    method statements, crane selection and communication.
-                </p>
-
-                <a href="planning.html">Lift Planning</a>
-            </div>
+        </div>
 
 
-            <div class="card">
-                <h3>Lifting Safety</h3>
+        <!-- LIFT PLANNING -->
 
-                <p>
-                    Study suspended loads, exclusion zones,
-                    inspections, weather, communication and emergency planning.
-                </p>
+        <div class="card">
 
-                <a href="safety.html">Safety Topics</a>
-            </div>
+            <h3>Lift Planning</h3>
 
+            <p>
+                Study lift planning topics including load information,
+                crane selection, rigging arrangements, ground conditions,
+                exclusion zones and communication.
+            </p>
 
-            <div class="card">
-                <h3>Study Notes</h3>
+            <a
+                class="button"
+                href="planning.html"
+            >
+                Open Lift Planning
+            </a>
 
-                <p>
-                    Access downloadable study notes and
-                    lifting and rigging reference material.
-                </p>
-
-                <a href="study-notes.html">Study Notes</a>
-            </div>
-
-        </section>
+        </div>
 
 
-        <!-- SAFETY NOTICE -->
-        <section class="notice">
+        <!-- SAFETY -->
 
-            <strong>Safety & Reference Notice:</strong>
+        <div class="card">
 
-            This website is intended for study and reference purposes.
-            Lifting operations must be carried out according to approved
-            lift plans, manufacturer information, applicable regulations,
-            site procedures and competent-person requirements.
+            <h3>Lifting Safety</h3>
 
-        </section>
+            <p>
+                Study hazards and precautions related to suspended loads,
+                rigging, cranes, personnel, environment, communication,
+                inspection and emergency planning.
+            </p>
 
+            <a
+                class="button"
+                href="safety.html"
+            >
+                Open Safety
+            </a>
 
-        <!-- ABOUT CREATOR -->
-        <section class="about-creator">
-
-            <h2>About the Creator</h2>
-
-            <div class="creator-content">
-
-                <img src="jawad.jpeg" alt="Jawad Wains">
-
-                <div>
-
-                    <h3>Jawad Wains</h3>
-
-                    <h4>Lifting Engineer</h4>
-
-                    <p>
-                        Welcome to the Lifting & Rigging Study Hub.
-                        This website provides study and reference material
-                        covering lifting operations, rigging equipment,
-                        cranes, calculations, lift planning and safety.
-                    </p>
-
-                </div>
-
-            </div>
-
-        </section>
-
-    </main>
+        </div>
 
 
-    <!-- FOOTER -->
-    <footer>
+        <!-- STUDY NOTES -->
 
-        Lifting & Rigging Study Hub
-        <br>
+        <div class="card">
 
-        <small>Created by Jawad Wains</small>
+            <h3>Study Notes</h3>
 
-    </footer>
+            <p>
+                Access lifting and rigging study material, including
+                TÜV-related topics and Saudi Aramco lifting references.
+            </p>
+
+            <a
+                class="button"
+                href="study-notes.html"
+            >
+                Open Study Notes
+            </a>
+
+        </div>
+
+
+    </div>
+
+
+    <div class="notice">
+
+        <strong>Important Safety Notice</strong>
+
+        <p>
+            This website is intended for education and study purposes.
+            Calculator results and study information must not replace
+            approved lift plans, manufacturer instructions, certified
+            equipment data, applicable regulations, standards or
+            competent-person verification.
+        </p>
+
+        <p>
+            Always follow the requirements applicable to the specific
+            lifting operation, equipment and worksite.
+        </p>
+
+    </div>
+
+
+</div>
+
+
+<footer>
+
+    Lifting & Rigging Study Hub
+
+    <br>
+
+    <small>
+        Created by Jawad Wains
+    </small>
+
+</footer>
 
 </body>
 </html>
