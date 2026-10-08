@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Center of Gravity Calculator</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #020617;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        header h1 {
+            color: #38bdf8;
+            margin: 0;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 14px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        main {
+            max-width: 850px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .calculator,
+        .info,
+        .warning {
+            background: #1e293b;
+            padding: 25px;
+            border-radius: 14px;
+            border: 1px solid #334155;
+            margin-bottom: 25px;
+        }
+
+        label {
+            display: block;
+            margin-top: 15px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #7dd3fc;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 12px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #020617;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 22px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #0284c7;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0369a1;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #020617;
+            border-radius: 10px;
+            border-left: 5px solid #38bdf8;
+        }
+
+        .formula {
+            background: #020617;
+            padding: 18px;
+            border-radius: 8px;
+            font-family: Consolas, monospace;
+            color: #7dd3fc;
+            margin-top: 20px;
+        }
+
+        .info {
+            background: #172554;
+            border-left: 5px solid #60a5fa;
+        }
+
+        .warning {
+            background: #451a03;
+            border-left: 5px solid #f59e0b;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 5px;
+            color: #7dd3fc;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            background: #020617;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>⚖️ Center of Gravity Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<nav>
+    <a href="../index.html">Home</a>
+    <a href="../rigging.html">Lifting Accessories</a>
+    <a href="../calculations.html">Calculations</a>
+    <a href="../cranes.html">Cranes</a>
+    <a href="../planning.html">Lift Planning</a>
+    <a href="../safety.html">Safety</a>
+    <a href="../study-notes.html">Study Notes</a>
+</nav>
+
+<main>
+
+<div class="calculator">
+
+    <h2>Calculate Combined Center of Gravity</h2>
+
+    <p>
+        Enter two component weights and their distances from a common
+        reference point. The calculator determines the combined
+        center of gravity along one axis.
+    </p>
+
+    <label for="weight1">
+        Component 1 Weight (kg)
+    </label>
+
+    <input
+        type="number"
+        id="weight1"
+        placeholder="Example: 2000"
+        min="0"
+        step="any"
+    >
+
+    <label for="position1">
+        Component 1 Position (m)
+    </label>
+
+    <input
+        type="number"
+        id="position1"
+        placeholder="Example: 2"
+        step="any"
+    >
+
+    <label for="weight2">
+        Component 2 Weight (kg)
+    </label>
+
+    <input
+        type="number"
+        id="weight2"
+        placeholder="Example: 3000"
+        min="0"
+        step="any"
+    >
+
+    <label for="position2">
+        Component 2 Position (m)
+    </label>
+
+    <input
+        type="number"
+        id="position2"
+        placeholder="Example: 5"
+        step="any"
+    >
+
+    <button onclick="calculateCG()">
+        Calculate Center of Gravity
+    </button>
+
+    <div class="formula">
+        x = Σ(W × x) ÷ ΣW
+        <br><br>
+        x = Combined Center of Gravity
+        <br>
+        W = Component Weight
+        <br>
+        x = Component Position
+    </div>
+
+    <div id="result" class="result">
+        Enter the component information and calculate.
+    </div>
+
+</div>
+
+<div class="info">
+
+    <strong>📚 Why Center of Gravity Matters</strong>
+
+    <p>
+        The center of gravity affects how a load behaves when it is
+        lifted. If the lifting arrangement does not properly account
+        for the load's center of gravity, the load can tilt, rotate
+        or become unstable.
+    </p>
+
+</div>
+
+<div class="warning">
+
+    <strong>⚠️ Study Use Only</strong>
+
+    <p>
+        This calculator is a simplified one-dimensional educational
+        model. Real loads may require two-dimensional or
+        three-dimensional analysis and consideration of actual
+        geometry, lifting points, rigging arrangement and load
+        distribution.
+    </p>
+
+    <p>
+        Actual lifting operations require verified engineering
+        calculations and competent-person review.
+    </p>
+
+</div>
+
+<a class="back" href="../calculations.html">
+    ← Back to Calculations
+</a>
+
+</main>
+
+<footer>
+    Lifting & Rigging Study Hub
+    <br>
+    <small>Created by Jawad Wains — Lifting Engineer</small>
+</footer>
+
+<script>
+
+function calculateCG() {
+
+    const w1 = parseFloat(document.getElementById("weight1").value);
+    const x1 = parseFloat(document.getElementById("position1").value);
+
+    const w2 = parseFloat(document.getElementById("weight2").value);
+    const x2 = parseFloat(document.getElementById("position2").value);
+
+    const result = document.getElementById("result");
+
+    if (
+        isNaN(w1) ||
+        isNaN(x1) ||
+        isNaN(w2) ||
+        isNaN(x2) ||
+        w1 <= 0 ||
+        w2 <= 0
+    ) {
+        result.innerHTML =
+            "<strong>Please enter valid weights and positions.</strong>";
+        return;
+    }
+
+    const totalWeight = w1 + w2;
+
+    const moment1 = w1 * x1;
+    const moment2 = w2 * x2;
+
+    const totalMoment = moment1 + moment2;
+
+    const cg = totalMoment / totalWeight;
+
+    result.innerHTML =
+        "<strong>Result</strong><br><br>" +
+
+        "Total Weight = <strong>" +
+        totalWeight.toFixed(3) +
+        " kg</strong><br>" +
+
+        "Component 1 Moment = " +
+        moment1.toFixed(3) +
+        " kg·m<br>" +
+
+        "Component 2 Moment = " +
+        moment2.toFixed(3) +
+        " kg·m<br>" +
+
+        "Total Moment = " +
+        totalMoment.toFixed(3) +
+        " kg·m<br><br>" +
+
+        "Combined Center of Gravity = <strong>" +
+        cg.toFixed(3) +
+        " m</strong>";
+}
+
+</script>
+
+</body>
+</html>
