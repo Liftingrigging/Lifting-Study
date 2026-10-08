@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Chain Sling Capacity Study Calculator</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+    }
+
+    header {
+        background: #0b1f3a;
+        padding: 25px 20px;
+        text-align: center;
+        border-bottom: 2px solid #38bdf8;
+    }
+
+    header h1 {
+        margin: 0;
+        color: white;
+    }
+
+    header p {
+        color: #94a3b8;
+        margin: 8px 0 0;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .card {
+        background: #1e293b;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        border: 1px solid #334155;
+    }
+
+    h2 {
+        color: #38bdf8;
+        margin-top: 0;
+    }
+
+    label {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    input,
+    select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #475569;
+        background: #0f172a;
+        color: white;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 13px 20px;
+        border: none;
+        border-radius: 6px;
+        background: #0284c7;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0369a1;
+    }
+
+    .result {
+        margin-top: 20px;
+        padding: 18px;
+        background: #0f172a;
+        border-left: 4px solid #38bdf8;
+        border-radius: 6px;
+        line-height: 1.7;
+    }
+
+    .formula {
+        background: #020617;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 15px;
+        font-family: monospace;
+        color: #cbd5e1;
+        overflow-x: auto;
+    }
+
+    .warning {
+        background: #3f2a16;
+        border-left: 4px solid #f59e0b;
+        padding: 15px;
+        margin-top: 20px;
+        color: #fde68a;
+        line-height: 1.6;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+    }
+
+    th,
+    td {
+        border: 1px solid #475569;
+        padding: 10px;
+        text-align: left;
+    }
+
+    th {
+        background: #0b1f3a;
+        color: #38bdf8;
+    }
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        color: #64748b;
+        border-top: 1px solid #334155;
+        margin-top: 40px;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Chain Sling Capacity Study Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Input Data</h2>
+
+        <label for="load">
+            Total Load (tonnes)
+        </label>
+
+        <input
+            type="number"
+            id="load"
+            step="0.01"
+            placeholder="Example: 8"
+        >
+
+        <label for="legs">
+            Number of Effective Chain Legs
+        </label>
+
+        <select id="legs">
+            <option value="1">1 leg</option>
+            <option value="2" selected>2 legs</option>
+            <option value="3">3 legs</option>
+            <option value="4">4 legs</option>
+        </select>
+
+        <label for="angle">
+            Chain Sling Angle from Horizontal (degrees)
+        </label>
+
+        <input
+            type="number"
+            id="angle"
+            value="60"
+            step="0.1"
+            placeholder="Example: 60"
+        >
+
+        <label for="chainWll">
+            Manufacturer Chain Sling WLL per Leg (tonnes)
+        </label>
+
+        <input
+            type="number"
+            id="chainWll"
+            step="0.01"
+            placeholder="Optional"
+        >
+
+        <button onclick="calculate()">
+            Calculate
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Study Formula</h2>
+
+        <div class="formula">
+            T = W ÷ (N × sin θ)
+        </div>
+
+        <p>
+            Where:
+        </p>
+
+        <ul>
+            <li><strong>T</strong> = calculated tension/load per effective chain leg</li>
+            <li><strong>W</strong> = total suspended load</li>
+            <li><strong>N</strong> = number of effective load-sharing legs</li>
+            <li><strong>θ</strong> = angle measured from horizontal</li>
+        </ul>
+
+        <p>
+            The calculation assumes an ideal symmetric arrangement with equal
+            load sharing.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Chain Diameter & Grade</h2>
+
+        <p>
+            Chain sling capacity cannot safely be determined from chain diameter
+            alone.
+        </p>
+
+        <p>
+            The rated WLL depends on factors such as:
+        </p>
+
+        <ul>
+            <li>Chain diameter</li>
+            <li>Chain grade</li>
+            <li>Number of legs</li>
+            <li>Sling angle</li>
+            <li>Hitch configuration</li>
+            <li>Master link and connecting components</li>
+            <li>Manufacturer's rated WLL</li>
+            <li>Applicable standard</li>
+            <li>Condition and inspection status</li>
+        </ul>
+
+        <div class="warning">
+            <strong>Important:</strong><br><br>
+            Do not use a generic diameter-to-capacity formula to determine the
+            actual WLL of a chain sling. Always use the manufacturer's certified
+            WLL table for the exact chain grade, configuration and application.
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Example Study Values</h2>
+
+        <table>
+
+            <tr>
+                <th>Load</th>
+                <th>Legs</th>
+                <th>Angle</th>
+                <th>Calculated Load / Leg</th>
+            </tr>
+
+            <tr>
+                <td>4 t</td>
+                <td>2</td>
+                <td>60°</td>
+                <td>2.309 t</td>
+            </tr>
+
+            <tr>
+                <td>8 t</td>
+                <td>2</td>
+                <td>60°</td>
+                <td>4.619 t</td>
+            </tr>
+
+            <tr>
+                <td>8 t</td>
+                <td>2</td>
+                <td>45°</td>
+                <td>5.657 t</td>
+            </tr>
+
+            <tr>
+                <td>8 t</td>
+                <td>2</td>
+                <td>30°</td>
+                <td>8.000 t</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Safety & Study Notice</h2>
+
+        <p>
+            This calculator is intended for lifting and rigging study purposes.
+        </p>
+
+        <p>
+            It does not determine the certified WLL of a chain sling.
+        </p>
+
+        <p>
+            Actual lifting operations require verification of the complete
+            chain sling assembly, including chain, hooks, master links,
+            connectors and other components.
+        </p>
+
+        <p>
+            Follow the approved lift plan, manufacturer documentation,
+            applicable standards, site procedures and competent-person
+            verification.
+        </p>
+
+    </div>
+
+</div>
+
+
+<footer>
+
+    Lifting & Rigging Study Hub
+    <br>
+
+    <small>
+        Study Tool — Verify actual lifting requirements
+    </small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const load =
+        parseFloat(document.getElementById("load").value);
+
+    const legs =
+        parseFloat(document.getElementById("legs").value);
+
+    const angle =
+        parseFloat(document.getElementById("angle").value);
+
+    const chainWll =
+        parseFloat(document.getElementById("chainWll").value);
+
+    const result =
+        document.getElementById("result");
+
+
+    if (isNaN(load) || load <= 0) {
+
+        result.innerHTML =
+            "Please enter a valid total load.";
+
+        return;
+    }
+
+
+    if (
+        isNaN(angle) ||
+        angle <= 0 ||
+        angle > 90
+    ) {
+
+        result.innerHTML =
+            "Please enter an angle between 0° and 90°.";
+
+        return;
+    }
+
+
+    const angleRad =
+        angle * Math.PI / 180;
+
+
+    const sinAngle =
+        Math.sin(angleRad);
+
+
+    const angleFactor =
+        1 / sinAngle;
+
+
+    const loadPerLeg =
+        load / (legs * sinAngle);
+
+
+    let html = "";
+
+
+    html +=
+        "<strong>Angle Factor:</strong><br>" +
+        angleFactor.toFixed(3) +
+        "<br><br>";
+
+
+    html +=
+        "<strong>Calculated Load per Effective Chain Leg:</strong><br>" +
+        loadPerLeg.toFixed(3) +
+        " tonnes<br><br>";
+
+
+    html +=
+        "<strong>Study Minimum Chain WLL per Leg:</strong><br>" +
+        "≥ " +
+        loadPerLeg.toFixed(3) +
+        " tonnes";
+
+
+    if (!isNaN(chainWll) && chainWll > 0) {
+
+        const utilization =
+            (loadPerLeg / chainWll) * 100;
+
+
+        html +=
+            "<br><br>" +
+            "<strong>Manufacturer Rated WLL:</strong><br>" +
+            chainWll.toFixed(3) +
+            " tonnes<br><br>";
+
+
+        html +=
+            "<strong>Calculated Utilization:</strong><br>" +
+            utilization.toFixed(1) +
+            "%<br><br>";
+
+
+        if (chainWll >= loadPerLeg) {
+
+            html +=
+                "<strong style='color:#22c55e;'>" +
+                "Study Comparison: PASS" +
+                "</strong>";
+
+        } else {
+
+            html +=
+                "<strong style='color:#ef4444;'>" +
+                "Study Comparison: NOT SUFFICIENT" +
+                "</strong>";
+
+        }
+
+    }
+
+
+    result.innerHTML = html;
+
+}
+
+</script>
+
+</body>
+</html>
