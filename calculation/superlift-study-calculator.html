@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Superlift Study Calculator</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+header{
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    padding:25px;
+    border-bottom:4px solid #0284c7;
+}
+
+.container{
+    max-width:900px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+input{
+    width:100%;
+    box-sizing:border-box;
+    padding:12px;
+    margin-top:6px;
+    border:1px solid #cbd5e1;
+    border-radius:6px;
+    font-size:16px;
+}
+
+button{
+    margin-top:20px;
+    padding:13px 22px;
+    background:#0284c7;
+    color:white;
+    border:0;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0369a1;
+}
+
+.result{
+    margin-top:20px;
+    padding:20px;
+    background:#e0f2fe;
+    border-left:5px solid #0284c7;
+    border-radius:6px;
+}
+
+.formula{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:6px;
+    font-family:monospace;
+    line-height:1.7;
+}
+
+.warning{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:18px;
+    border-radius:6px;
+}
+
+.status{
+    font-size:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Superlift Study Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Superlift / Crane Capacity Study</h2>
+
+<p>
+Use this calculator to study the relationship between gross suspended
+load and the crane's rated capacity for a selected configuration.
+</p>
+
+<label>Main Lifted Load (tonnes)</label>
+<input type="number" id="mainLoad" step="any" placeholder="Example: 40">
+
+<label>Rigging & Lifting Accessories (tonnes)</label>
+<input type="number" id="rigging" step="any" placeholder="Example: 2">
+
+<label>Hook Block / Ball (tonnes)</label>
+<input type="number" id="hookBlock" step="any" placeholder="Example: 5">
+
+<label>Other Suspended Equipment (tonnes)</label>
+<input type="number" id="other" step="any" placeholder="Example: 1">
+
+<label>Crane Rated Capacity at Actual Configuration (tonnes)</label>
+<input type="number" id="capacity" step="any" placeholder="Example: 60">
+
+<button onclick="calculate()">Calculate</button>
+
+<div id="result"></div>
+
+</div>
+
+<div class="card">
+
+<h2>Study Formulas</h2>
+
+<div class="formula">
+
+Gross Load =
+Main Load + Rigging + Hook Block + Other Suspended Equipment
+
+<br><br>
+
+Utilization (%) =
+(Gross Load ÷ Rated Capacity) × 100
+
+<br><br>
+
+Remaining Capacity =
+Rated Capacity − Gross Load
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Example</h2>
+
+<p>
+Main load = 40 t
+</p>
+
+<p>
+Rigging = 2 t
+</p>
+
+<p>
+Hook block = 5 t
+</p>
+
+<p>
+Other suspended equipment = 1 t
+</p>
+
+<p>
+Rated capacity = 60 t
+</p>
+
+<p>
+Gross load = 40 + 2 + 5 + 1 = <strong>48 t</strong>
+</p>
+
+<p>
+Utilization = 48 ÷ 60 × 100 =
+<strong>80%</strong>
+</p>
+
+<p>
+Remaining capacity = 60 − 48 =
+<strong>12 t</strong>
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>Important Superlift Concept</h2>
+
+<p>
+A superlift system can increase the crane's lifting capability by
+changing the crane's operating configuration and counterweight
+arrangement.
+</p>
+
+<p>
+The actual benefit depends on the specific crane model, boom
+configuration, superlift system, counterweight, radius, boom angle,
+reeving and manufacturer load chart.
+</p>
+
+</div>
+
+<div class="warning">
+
+<strong>Critical Safety Notice</strong>
+
+<p>
+This calculator is for study and preliminary understanding only.
+It does <strong>not</strong> calculate or approve a crane's actual
+superlift capacity.
+</p>
+
+<p>
+Do not use the calculated percentage as permission to perform a lift.
+Actual capacity must be verified using the specific manufacturer's
+load chart and configuration data.
+</p>
+
+<p>
+Actual lifting operations require an approved lift plan, competent
+person verification, applicable standards, manufacturer requirements,
+site procedures and required inspections.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+    const mainLoad = parseFloat(
+        document.getElementById("mainLoad").value
+    );
+
+    const rigging = parseFloat(
+        document.getElementById("rigging").value
+    ) || 0;
+
+    const hookBlock = parseFloat(
+        document.getElementById("hookBlock").value
+    ) || 0;
+
+    const other = parseFloat(
+        document.getElementById("other").value
+    ) || 0;
+
+    const capacity = parseFloat(
+        document.getElementById("capacity").value
+    );
+
+    if(
+        isNaN(mainLoad) ||
+        isNaN(capacity) ||
+        mainLoad < 0 ||
+        capacity <= 0
+    ){
+        document.getElementById("result").innerHTML =
+        '<div class="result"><strong>Please enter valid load and capacity values.</strong></div>';
+        return;
+    }
+
+    const grossLoad =
+        mainLoad +
+        rigging +
+        hookBlock +
+        other;
+
+    const utilization =
+        (grossLoad / capacity) * 100;
+
+    const remaining =
+        capacity - grossLoad;
+
+    let status;
+
+    if(utilization <= 75){
+
+        status =
+        "Study utilization: 75% or below";
+
+    }else if(utilization <= 85){
+
+        status =
+        "Study utilization: above 75% and up to 85%";
+
+    }else if(utilization <= 100){
+
+        status =
+        "Study utilization: above 85% and up to 100%";
+
+    }else{
+
+        status =
+        "Gross load exceeds entered rated capacity";
+
+    }
+
+    document.getElementById("result").innerHTML = `
+
+        <div class="result">
+
+        <h3>Calculation Result</h3>
+
+        <p>
+        <strong>Gross Suspended Load:</strong>
+        ${grossLoad.toFixed(3)} t
+        </p>
+
+        <p>
+        <strong>Rated Capacity:</strong>
+        ${capacity.toFixed(3)} t
+        </p>
+
+        <p>
+        <strong>Utilization:</strong>
+        ${utilization.toFixed(2)}%
+        </p>
+
+        <p>
+        <strong>Remaining Capacity:</strong>
+        ${remaining.toFixed(3)} t
+        </p>
+
+        <p class="status">
+        ${status}
+        </p>
+
+        </div>
+
+    `;
+}
+
+</script>
+
+</body>
+</html>
