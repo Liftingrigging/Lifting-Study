@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Universal Units & Measurements Converter</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 1000px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.result-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.result-box {
+    background: #1e293b;
+    padding: 15px;
+    border-radius: 6px;
+    border: 1px solid #334155;
+}
+
+.result-box strong {
+    color: #38bdf8;
+}
+
+.note {
+    background: #172554;
+    border-left: 4px solid #38bdf8;
+    padding: 18px;
+    border-radius: 6px;
+    line-height: 1.6;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+Universal Units & Measurements Converter
+</h1>
+
+<p>
+Lifting, Rigging, Crane and Engineering Study Converter
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Select Measurement
+</h2>
+
+
+<label for="category">
+Measurement Type
+</label>
+
+<select id="category" onchange="updateUnits()">
+
+<option value="mass">
+Mass / Weight
+</option>
+
+<option value="force">
+Force
+</option>
+
+<option value="length">
+Length / Distance
+</option>
+
+<option value="area">
+Area
+</option>
+
+<option value="volume">
+Volume
+</option>
+
+<option value="pressure">
+Pressure
+</option>
+
+<option value="moment">
+Load Moment
+</option>
+
+<option value="speed">
+Speed
+</option>
+
+<option value="angle">
+Angle
+</option>
+
+<option value="temperature">
+Temperature
+</option>
+
+</select>
+
+
+<label for="value">
+Value
+</label>
+
+<input
+type="number"
+id="value"
+step="any"
+placeholder="Enter value"
+>
+
+
+<label for="fromUnit">
+From Unit
+</label>
+
+<select id="fromUnit"></select>
+
+
+<label for="toUnit">
+To Unit
+</label>
+
+<select id="toUnit"></select>
+
+
+<button onclick="convert()">
+Convert
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Supported Units
+</h2>
+
+
+<h3>Mass / Weight</h3>
+
+<p>
+tonne, kilogram, gram, pound, US short ton
+</p>
+
+
+<h3>Force</h3>
+
+<p>
+kN, N, kgf, tonne-force, lbf
+</p>
+
+
+<h3>Length / Distance</h3>
+
+<p>
+metre, millimetre, centimetre, kilometre,
+inch, foot, yard
+</p>
+
+
+<h3>Area</h3>
+
+<p>
+m², cm², mm², ft², in²
+</p>
+
+
+<h3>Volume</h3>
+
+<p>
+m³, litre, US gallon, ft³, ft³
+</p>
+
+
+<h3>Pressure</h3>
+
+<p>
+kPa, MPa, Pa, bar, psi, kgf/cm²
+</p>
+
+
+<h3>Load Moment</h3>
+
+<p>
+tonne-metre, kN-metre, N-metre,
+foot-pound force
+</p>
+
+
+<h3>Speed</h3>
+
+<p>
+m/s, km/h, mph, ft/s
+</p>
+
+
+<h3>Angle</h3>
+
+<p>
+degrees, radians
+</p>
+
+
+<h3>Temperature</h3>
+
+<p>
+Celsius, Fahrenheit, Kelvin
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Common Lifting Conversions
+</h2>
+
+
+<div class="formula">
+
+1 tonne = 1000 kg
+
+<br>
+
+1 tonne-force ≈ 9.80665 kN
+
+<br>
+
+1 kN ≈ 0.10197 tonne-force
+
+<br>
+
+1 metre = 1000 mm
+
+<br>
+
+1 metre ≈ 3.28084 ft
+
+<br>
+
+1 inch = 25.4 mm
+
+<br>
+
+1 MPa = 1000 kPa
+
+<br>
+
+1 bar = 100 kPa
+
+<br>
+
+1 psi ≈ 6.89476 kPa
+
+</div>
+
+</div>
+
+
+<div class="note">
+
+<strong>
+Important Unit Note
+</strong>
+
+<br><br>
+
+Mass and force are not the same physical quantity.
+
+<br><br>
+
+For example, 10 tonnes is a mass, while approximately
+98.0665 kN is the gravitational force corresponding
+to that mass using standard gravity.
+
+<br><br>
+
+Always check whether a manufacturer, crane load chart,
+rigging certificate or engineering document specifies
+mass, force, WLL, SWL or another measurement.
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Study and Safety Notice
+</strong>
+
+<br><br>
+
+This converter performs mathematical unit conversions.
+It does not determine lifting capacity, WLL, SWL,
+crane capacity or equipment suitability.
+
+<br><br>
+
+For lifting operations, use the units and values specified
+by the applicable manufacturer documentation, certificates,
+standards, approved lift plan and competent person.
+
+<br><br>
+
+Do not convert a manufacturer's rated value and assume
+that the converted number is automatically valid for a
+different lifting configuration.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Universal Study Unit Converter
+</small>
+
+</footer>
+
+
+<script>
+
+
+const units = {
+
+
+mass: {
+
+"tonne": 1000,
+
+"kg": 1,
+
+"g": 0.001,
+
+"lb": 0.45359237,
+
+"US short ton": 907.18474
+
+},
+
+
+force: {
+
+"kN": 1000,
+
+"N": 1,
+
+"kgf": 9.80665,
+
+"tonne-force": 9806.65,
+
+"lbf": 4.448221615
+
+},
+
+
+length: {
+
+"m": 1,
+
+"mm": 0.001,
+
+"cm": 0.01,
+
+"km": 1000,
+
+"in": 0.0254,
+
+"ft": 0.3048,
+
+"yd": 0.9144
+
+},
+
+
+area: {
+
+"m²": 1,
+
+"cm²": 0.0001,
+
+"mm²": 0.000001,
+
+"ft²": 0.09290304,
+
+"in²": 0.00064516
+
+},
+
+
+volume: {
+
+"m³": 1,
+
+"litre": 0.001,
+
+"US gallon": 0.003785411784,
+
+"ft³": 0.028316846592
+
+},
+
+
+pressure: {
+
+"Pa": 1,
+
+"kPa": 1000,
+
+"MPa": 1000000,
+
+"bar": 100000,
+
+"psi": 6894.757293,
+
+"kgf/cm²": 98066.5
+
+},
+
+
+moment: {
+
+"tonne-m": 1,
+
+"kN-m": 0.1019716213,
+
+"N-m": 0.0001019716213,
+
+"ft-lbf": 0.0001382549544
+
+},
+
+
+speed: {
+
+"m/s": 1,
+
+"km/h": 0.2777777778,
+
+"mph": 0.44704,
+
+"ft/s": 0.3048
+
+},
+
+
+angle: {
+
+"degrees": 1,
+
+"radians": 57.295779513
+
+},
+
+
+temperature: {
+
+"Celsius": "C",
+
+"Fahrenheit": "F",
+
+"Kelvin": "K"
+
+}
+
+};
+
+
+function updateUnits() {
+
+    const category =
+        document.getElementById("category").value;
+
+    const from =
+        document.getElementById("fromUnit");
+
+    const to =
+        document.getElementById("toUnit");
+
+
+    from.innerHTML = "";
+
+    to.innerHTML = "";
+
+
+    Object.keys(units[category]).forEach(unit => {
+
+        const option1 =
+            document.createElement("option");
+
+        option1.value = unit;
+
+        option1.textContent = unit;
+
+        from.appendChild(option1);
+
+
+        const option2 =
+            document.createElement("option");
+
+        option2.value = unit;
+
+        option2.textContent = unit;
+
+        to.appendChild(option2);
+
+    });
+
+
+    if (to.options.length > 1) {
+
+        to.selectedIndex = 1;
+
+    }
+
+}
+
+
+function convert() {
+
+    const category =
+        document.getElementById("category").value;
+
+    const value =
+        parseFloat(
+            document.getElementById("value").value
+        );
+
+    const from =
+        document.getElementById("fromUnit").value;
+
+    const to =
+        document.getElementById("toUnit").value;
+
+    const result =
+        document.getElementById("result");
+
+
+    if (isNaN(value)) {
+
+        result.innerHTML =
+        "<strong>Please enter a valid value.</strong>";
+
+        return;
+
+    }
+
+
+    let converted;
+
+
+    if (category === "temperature") {
+
+        converted =
+            convertTemperature(
+                value,
+                from,
+                to
+            );
+
+    }
+
+    else {
+
+        const baseValue =
+            value *
+            units[category][from];
+
+        converted =
+            baseValue /
+            units[category][to];
+
+    }
+
+
+    result.innerHTML =
+
+    "<strong>" +
+
+    value +
+
+    " " +
+
+    from +
+
+    " = " +
+
+    converted.toLocaleString(
+        undefined,
+        {
+            maximumFractionDigits: 8
+        }
+    ) +
+
+    " " +
+
+    to +
+
+    "</strong>";
+
+}
+
+
+function convertTemperature(
+    value,
+    from,
+    to
+) {
+
+    let celsius;
+
+
+    if (from === "Celsius") {
+
+        celsius = value;
+
+    }
+
+    else if (from === "Fahrenheit") {
+
+        celsius =
+            (value - 32) *
+            5 / 9;
+
+    }
+
+    else if (from === "Kelvin") {
+
+        celsius =
+            value - 273.15;
+
+    }
+
+
+    if (to === "Celsius") {
+
+        return celsius;
+
+    }
+
+
+    if (to === "Fahrenheit") {
+
+        return (
+            celsius *
+            9 / 5
+        ) + 32;
+
+    }
+
+
+    if (to === "Kelvin") {
+
+        return celsius + 273.15;
+
+    }
+
+}
+
+
+updateUnits();
+
+</script>
+
+
+</body>
+
+</html>
