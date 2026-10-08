@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Load Moment Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #cbd5e1;
+    margin-top: 15px;
+    line-height: 1.8;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+.good {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+Load Moment Calculator
+</h1>
+
+<p>
+Lifting & Rigging Study Tool
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Input Data
+</h2>
+
+
+<label for="load">
+Load (tonnes)
+</label>
+
+<input
+type="number"
+id="load"
+step="0.01"
+placeholder="Example: 20"
+>
+
+
+<label for="radius">
+Operating Radius (m)
+</label>
+
+<input
+type="number"
+id="radius"
+step="0.01"
+placeholder="Example: 15"
+>
+
+
+<label for="capacity">
+Crane Rated Capacity at This Radius (tonnes)
+</label>
+
+<input
+type="number"
+id="capacity"
+step="0.01"
+placeholder="Optional"
+>
+
+
+<button onclick="calculate()">
+Calculate Load Moment
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Study Formula
+</h2>
+
+
+<div class="formula">
+
+Load Moment = Load × Radius
+
+M = W × R
+
+</div>
+
+
+<p>
+Where:
+</p>
+
+<ul>
+
+<li>
+<strong>M</strong> = load moment
+</li>
+
+<li>
+<strong>W</strong> = load
+</li>
+
+<li>
+<strong>R</strong> = horizontal operating radius
+</li>
+
+</ul>
+
+
+<p>
+When load is entered in tonnes and radius in metres,
+the result is expressed as tonne-metres (t·m).
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Example Study Calculation
+</h2>
+
+
+<div class="formula">
+
+Load = 20 t
+
+Radius = 15 m
+
+M = 20 × 15
+
+M = 300 t·m
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Important Crane Capacity Note
+</h2>
+
+<p>
+Load moment is useful for understanding the relationship
+between load and radius, but it must not be used as a
+replacement for the crane manufacturer's load chart.
+</p>
+
+<p>
+Two cranes can have similar theoretical load moments
+but different rated capacities because of their
+configuration and structural limitations.
+</p>
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Important Safety Notice
+</strong>
+
+<br><br>
+
+This calculator is intended for study and reference.
+
+<br><br>
+
+Actual crane capacity must be determined from the
+manufacturer's load chart for the exact crane,
+configuration, boom length, radius, counterweight,
+outrigger configuration, reeving and other applicable
+conditions.
+
+<br><br>
+
+Do not approve or plan an actual lift using load moment
+alone. Follow the approved lift plan and competent-person
+requirements.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Study Tool — Verify actual crane capacity
+</small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const load =
+        parseFloat(document.getElementById("load").value);
+
+    const radius =
+        parseFloat(document.getElementById("radius").value);
+
+    const capacity =
+        parseFloat(document.getElementById("capacity").value);
+
+    const result =
+        document.getElementById("result");
+
+
+    if (
+        isNaN(load) ||
+        load <= 0
+    ) {
+
+        result.innerHTML =
+        "<span style='color:#ef4444;font-weight:bold;'>" +
+        "Please enter a valid load." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(radius) ||
+        radius < 0
+    ) {
+
+        result.innerHTML =
+        "<span style='color:#ef4444;font-weight:bold;'>" +
+        "Please enter a valid radius." +
+        "</span>";
+
+        return;
+    }
+
+
+    const moment =
+        load * radius;
+
+
+    let html =
+
+    "<strong>Load:</strong><br>" +
+
+    load.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Operating Radius:</strong><br>" +
+
+    radius.toFixed(3) +
+
+    " m<br><br>" +
+
+    "<strong>Load Moment:</strong><br>" +
+
+    moment.toFixed(3) +
+
+    " t·m";
+
+
+    if (
+        !isNaN(capacity) &&
+        capacity > 0
+    ) {
+
+        const simpleMomentCapacity =
+            capacity * radius;
+
+        const comparison =
+            (load / capacity) * 100;
+
+
+        html +=
+
+        "<br><br>" +
+
+        "<strong>Entered Rated Capacity:</strong><br>" +
+
+        capacity.toFixed(3) +
+
+        " tonnes<br><br>" +
+
+        "<strong>Simple Load / Capacity Comparison:</strong><br>" +
+
+        comparison.toFixed(1) +
+
+        "%";
+
+
+        html +=
+
+        "<br><br>" +
+
+        "<small>" +
+
+        "Note: this percentage is only a simple " +
+        "study comparison and is not a crane load-chart approval." +
+
+        "</small>";
+
+    }
+
+
+    result.innerHTML = html;
+
+}
+
+</script>
+
+
+</body>
+
+</html>
