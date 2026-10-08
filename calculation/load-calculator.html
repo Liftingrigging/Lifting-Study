@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Load Weight Calculator</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #020617;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        header h1 {
+            color: #38bdf8;
+            margin: 0;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 14px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        main {
+            max-width: 700px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .calculator {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 14px;
+            border: 1px solid #334155;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #7dd3fc;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #020617;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #0284c7;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0369a1;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #020617;
+            border-radius: 10px;
+            border-left: 5px solid #38bdf8;
+        }
+
+        .result strong {
+            color: #7dd3fc;
+        }
+
+        .formula {
+            background: #020617;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: Consolas, monospace;
+            color: #7dd3fc;
+        }
+
+        .warning {
+            margin-top: 25px;
+            padding: 18px;
+            background: #451a03;
+            border-left: 5px solid #f59e0b;
+            border-radius: 8px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            color: #7dd3fc;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            background: #020617;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>⚖️ Load Weight Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<nav>
+    <a href="../index.html">Home</a>
+    <a href="../rigging.html">Lifting Accessories</a>
+    <a href="../calculations.html">Calculations</a>
+    <a href="../cranes.html">Cranes</a>
+    <a href="../planning.html">Lift Planning</a>
+    <a href="../safety.html">Safety</a>
+    <a href="../study-notes.html">Study Notes</a>
+</nav>
+
+<main>
+
+<div class="calculator">
+
+    <h2>Calculate Load Weight</h2>
+
+    <p>
+        Enter the mass of the load in kilograms.
+        The calculator converts the mass into weight in kilonewtons.
+    </p>
+
+    <label for="mass">Mass (kg)</label>
+
+    <input
+        type="number"
+        id="mass"
+        placeholder="Example: 5000"
+        min="0"
+        step="any"
+    >
+
+    <label for="gravity">Gravitational Acceleration (m/s²)</label>
+
+    <input
+        type="number"
+        id="gravity"
+        value="9.81"
+        min="0"
+        step="any"
+    >
+
+    <button onclick="calculateWeight()">
+        Calculate Load Weight
+    </button>
+
+    <div class="formula">
+        W = m × g
+        <br><br>
+        W = Load Weight (N)
+        <br>
+        m = Mass (kg)
+        <br>
+        g = Gravitational Acceleration (m/s²)
+    </div>
+
+    <div id="result" class="result">
+        Enter a mass and click Calculate.
+    </div>
+
+</div>
+
+<div class="warning">
+
+    <strong>⚠️ Study Use Only</strong>
+
+    <p>
+        This calculator is intended for learning and basic reference.
+        Actual lifting operations require verified load information,
+        approved lift planning, manufacturer data, applicable standards
+        and competent-person review.
+    </p>
+
+</div>
+
+<a class="back" href="../calculations.html">
+    ← Back to Calculations
+</a>
+
+</main>
+
+<footer>
+    Lifting & Rigging Study Hub
+    <br>
+    <small>Created by Jawad Wains — Lifting Engineer</small>
+</footer>
+
+<script>
+
+function calculateWeight() {
+
+    const mass = parseFloat(document.getElementById("mass").value);
+    const gravity = parseFloat(document.getElementById("gravity").value);
+
+    const result = document.getElementById("result");
+
+    if (isNaN(mass) || mass < 0) {
+        result.innerHTML = "<strong>Please enter a valid mass.</strong>";
+        return;
+    }
+
+    if (isNaN(gravity) || gravity <= 0) {
+        result.innerHTML = "<strong>Please enter a valid gravitational acceleration.</strong>";
+        return;
+    }
+
+    const weightNewtons = mass * gravity;
+    const weightKN = weightNewtons / 1000;
+
+    result.innerHTML =
+        "<strong>Result</strong><br><br>" +
+        "Mass = " + mass.toLocaleString() + " kg<br>" +
+        "Gravity = " + gravity + " m/s²<br><br>" +
+        "Load Weight = <strong>" +
+        weightKN.toFixed(3) +
+        " kN</strong>";
+}
+
+</script>
+
+</body>
+</html>
