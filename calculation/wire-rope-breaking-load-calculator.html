@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Wire Rope Breaking Load Calculator</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+header{
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    padding:25px;
+    border-bottom:4px solid #0284c7;
+}
+
+.container{
+    max-width:900px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+input{
+    width:100%;
+    box-sizing:border-box;
+    padding:12px;
+    margin-top:6px;
+    border:1px solid #cbd5e1;
+    border-radius:6px;
+    font-size:16px;
+}
+
+button{
+    margin-top:20px;
+    padding:13px 22px;
+    background:#0284c7;
+    color:white;
+    border:0;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0369a1;
+}
+
+.result{
+    margin-top:20px;
+    padding:20px;
+    background:#e0f2fe;
+    border-left:5px solid #0284c7;
+    border-radius:6px;
+}
+
+.formula{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:6px;
+    font-family:monospace;
+    line-height:1.7;
+}
+
+.warning{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:18px;
+    border-radius:6px;
+    line-height:1.6;
+}
+
+.status{
+    font-size:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Wire Rope Breaking Load Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Wire Rope Study</h2>
+
+<p>
+This calculator uses manufacturer-provided minimum breaking force
+(MBL/MBF) to study a simple design-factor relationship.
+</p>
+
+<label>Manufacturer Minimum Breaking Force (kN)</label>
+<input type="number" id="breakingForce" step="any" placeholder="Example: 200">
+
+<label>Study Design Factor</label>
+<input type="number" id="factor" step="any" placeholder="Example: 5">
+
+<label>Applied Rope Load (kN) — Optional</label>
+<input type="number" id="appliedLoad" step="any" placeholder="Example: 30">
+
+<button onclick="calculate()">Calculate</button>
+
+<div id="result"></div>
+
+</div>
+
+<div class="card">
+
+<h2>Basic Study Formula</h2>
+
+<div class="formula">
+
+Study Reference Load =
+Minimum Breaking Force ÷ Study Design Factor
+
+<br><br>
+
+Utilization (%) =
+Applied Load ÷ Study Reference Load × 100
+
+</div>
+
+<p>
+Example:
+</p>
+
+<p>
+MBF = 200 kN
+</p>
+
+<p>
+Design factor = 5
+</p>
+
+<p>
+Study reference load = 200 ÷ 5 =
+<strong>40 kN</strong>
+</p>
+
+</div>
+
+<div class="card">
+
+<h2>Important Wire Rope Factors</h2>
+
+<ul>
+<li>Rope diameter</li>
+<li>Rope construction</li>
+<li>Rope grade</li>
+<li>Core type</li>
+<li>Manufacturer</li>
+<li>End termination</li>
+<li>Bending and D/d ratio</li>
+<li>Sheave and drum condition</li>
+<li>Fleet angle</li>
+<li>Corrosion and mechanical damage</li>
+<li>Lubrication and maintenance</li>
+<li>Rope reeving arrangement</li>
+</ul>
+
+</div>
+
+<div class="warning">
+
+<strong>Important Safety Notice</strong>
+
+<p>
+There is no single universal breaking-load formula that should be
+used to determine the actual lifting capacity of every wire rope.
+</p>
+
+<p>
+Use the actual manufacturer's certified minimum breaking force,
+rope specification, termination requirements and applicable standard.
+</p>
+
+<p>
+The design factor entered here is only a study input. It does not
+establish the legally or technically required factor for a particular
+lifting application.
+</p>
+
+<p>
+Do not use this calculator to approve a crane rope, hoist rope,
+guy rope or lifting application. Actual suitability requires the
+manufacturer's data, applicable standards and competent-person
+verification.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+    const breakingForce =
+        parseFloat(
+            document.getElementById("breakingForce").value
+        );
+
+    const factor =
+        parseFloat(
+            document.getElementById("factor").value
+        );
+
+    const appliedLoad =
+        parseFloat(
+            document.getElementById("appliedLoad").value
+        );
+
+    if(
+        isNaN(breakingForce) ||
+        isNaN(factor) ||
+        breakingForce <= 0 ||
+        factor <= 0
+    ){
+
+        document.getElementById("result").innerHTML = `
+        <div class="result">
+        <strong>
+        Please enter a valid breaking force and design factor.
+        </strong>
+        </div>
+        `;
+
+        return;
+    }
+
+    const referenceLoad =
+        breakingForce / factor;
+
+    let appliedResult = "";
+
+    if(
+        !isNaN(appliedLoad) &&
+        appliedLoad >= 0
+    ){
+
+        const utilization =
+            (appliedLoad / referenceLoad) * 100;
+
+        let status;
+
+        if(utilization <= 100){
+
+            status =
+            "Applied load is within the entered study reference load.";
+
+        }else{
+
+            status =
+            "Applied load exceeds the entered study reference load.";
+
+        }
+
+        appliedResult = `
+
+        <hr>
+
+        <p>
+        <strong>Applied Rope Load:</strong>
+        ${appliedLoad.toFixed(3)} kN
+        </p>
+
+        <p>
+        <strong>Study Utilization:</strong>
+        ${utilization.toFixed(2)}%
+        </p>
+
+        <p class="status">
+        ${status}
+        </p>
+
+        `;
+
+    }
+
+    document.getElementById("result").innerHTML = `
+
+    <div class="result">
+
+        <h3>Study Result</h3>
+
+        <p>
+        <strong>Manufacturer Breaking Force:</strong>
+        ${breakingForce.toFixed(3)} kN
+        </p>
+
+        <p>
+        <strong>Entered Design Factor:</strong>
+        ${factor.toFixed(2)}
+        </p>
+
+        <p>
+        <strong>Study Reference Load:</strong>
+        ${referenceLoad.toFixed(3)} kN
+        </p>
+
+        ${appliedResult}
+
+    </div>
+
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
