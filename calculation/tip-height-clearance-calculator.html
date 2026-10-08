@@ -1,0 +1,572 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Tip Height & Clearance Calculator | Lifting & Rigging Study</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #020617;
+    padding: 25px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: #38bdf8;
+}
+
+header p {
+    color: #cbd5e1;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 25px 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.clear-button {
+    background: #475569;
+    margin-left: 8px;
+}
+
+.result {
+    margin-top: 25px;
+    padding: 20px;
+    background: #0f172a;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+}
+
+.result table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.result th,
+.result td {
+    padding: 12px;
+    border-bottom: 1px solid #334155;
+    text-align: left;
+}
+
+.formula {
+    background: #020617;
+    padding: 18px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-family: monospace;
+    line-height: 1.8;
+    color: #7dd3fc;
+}
+
+.warning {
+    margin-top: 20px;
+    padding: 15px;
+    background: #451a03;
+    border-left: 4px solid #f59e0b;
+    border-radius: 6px;
+    color: #fde68a;
+}
+
+.error {
+    color: #fecaca;
+    background: #450a0a;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #ef4444;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 10px;
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+@media (max-width: 650px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .clear-button {
+        margin-left: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Tip Height & Clearance Calculator</h1>
+    <p>Crane Geometry & Obstacle Clearance Study Tool</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Crane Geometry</h2>
+
+        <div class="input-grid">
+
+            <div>
+                <label for="boomLength">
+                    Boom Length (m)
+                </label>
+
+                <input
+                    type="number"
+                    id="boomLength"
+                    placeholder="Example: 50"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+            <div>
+                <label for="boomAngle">
+                    Boom Angle (degrees)
+                </label>
+
+                <input
+                    type="number"
+                    id="boomAngle"
+                    placeholder="Example: 60"
+                    step="0.001"
+                    min="0"
+                    max="90"
+                >
+            </div>
+
+            <div>
+                <label for="pivotHeight">
+                    Boom Pivot Height (m)
+                </label>
+
+                <input
+                    type="number"
+                    id="pivotHeight"
+                    placeholder="Example: 2.0"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+            <div>
+                <label for="obstacleHeight">
+                    Obstacle Height (m)
+                </label>
+
+                <input
+                    type="number"
+                    id="obstacleHeight"
+                    placeholder="Example: 20"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+            <div>
+                <label for="clearance">
+                    Required Clearance (m)
+                </label>
+
+                <input
+                    type="number"
+                    id="clearance"
+                    placeholder="Example: 3"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+        </div>
+
+        <button onclick="calculate()">
+            Calculate
+        </button>
+
+        <button class="clear-button" onclick="clearAll()">
+            Clear
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Geometry Formulas</h2>
+
+        <div class="formula">
+
+            Horizontal Radius:
+            <br>
+            R = L × cos(θ)
+
+            <br><br>
+
+            Vertical Boom Component:
+            <br>
+            H = L × sin(θ)
+
+            <br><br>
+
+            Tip Height:
+            <br>
+            Tip Height = Pivot Height + H
+
+            <br><br>
+
+            Minimum Required Tip Height:
+            <br>
+            Required Height = Obstacle Height + Clearance
+
+            <br><br>
+
+            Clearance:
+            <br>
+            Available Clearance =
+            Tip Height − Obstacle Height
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>How to Use</h2>
+
+        <ol>
+            <li>Enter the boom length.</li>
+            <li>Enter the boom angle.</li>
+            <li>Enter the boom pivot height.</li>
+            <li>Enter the obstacle height if clearance is required.</li>
+            <li>Enter the required clearance.</li>
+            <li>Press Calculate.</li>
+        </ol>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Clearance Check</h2>
+
+        <p>
+            The calculator compares the calculated geometric tip height
+            with the obstacle height and required clearance.
+        </p>
+
+        <div class="formula">
+
+            Available Clearance =
+            Tip Height − Obstacle Height
+
+            <br><br>
+
+            Clearance Margin =
+            Available Clearance − Required Clearance
+
+        </div>
+
+        <p>
+            A positive clearance margin means the calculated geometry
+            provides more clearance than the entered minimum.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Important Study Note</h2>
+
+        <p>
+            This is a simplified geometric calculation. Actual crane
+            tip height, hook height and obstacle clearance must be
+            verified using the specific crane manufacturer's documentation
+            and configuration.
+        </p>
+
+        <p>
+            Actual lifting geometry may be affected by boom deflection,
+            jib configuration, hook block, reeving, load position,
+            ground conditions and the crane's operating configuration.
+        </p>
+
+        <div class="warning">
+
+            <strong>Safety Notice:</strong><br><br>
+
+            This calculator is for study and training purposes only.
+            It must not replace an approved lift plan, manufacturer's
+            load chart, crane operating manual, engineering calculation,
+            competent-person verification or applicable site requirements.
+
+        </div>
+
+    </div>
+
+
+    <a class="back" href="../calculation.html">
+        ← Back to Calculations
+    </a>
+
+</div>
+
+
+<script>
+
+function calculate() {
+
+    const L = parseFloat(
+        document.getElementById("boomLength").value
+    );
+
+    const angle = parseFloat(
+        document.getElementById("boomAngle").value
+    );
+
+    const pivot = parseFloat(
+        document.getElementById("pivotHeight").value
+    );
+
+    const obstacle = parseFloat(
+        document.getElementById("obstacleHeight").value
+    );
+
+    const requiredClearance = parseFloat(
+        document.getElementById("clearance").value
+    );
+
+    const result = document.getElementById("result");
+
+    if (
+        isNaN(L) ||
+        isNaN(angle) ||
+        isNaN(pivot)
+    ) {
+
+        result.innerHTML = `
+            <div class="error">
+                Please enter boom length, boom angle and
+                boom pivot height.
+            </div>
+        `;
+
+        return;
+    }
+
+    if (
+        L <= 0 ||
+        pivot < 0 ||
+        angle <= 0 ||
+        angle >= 90
+    ) {
+
+        result.innerHTML = `
+            <div class="error">
+                Please enter valid values.
+                Boom angle must be greater than 0°
+                and less than 90°.
+            </div>
+        `;
+
+        return;
+    }
+
+    const radians = angle * Math.PI / 180;
+
+    const radius = L * Math.cos(radians);
+
+    const verticalComponent = L * Math.sin(radians);
+
+    const tipHeight = pivot + verticalComponent;
+
+    let clearanceHTML = "";
+
+    if (!isNaN(obstacle)) {
+
+        const availableClearance =
+            tipHeight - obstacle;
+
+        clearanceHTML += `
+            <tr>
+                <td>Obstacle Height</td>
+                <td>${obstacle.toFixed(3)} m</td>
+            </tr>
+
+            <tr>
+                <td>Available Clearance</td>
+                <td>${availableClearance.toFixed(3)} m</td>
+            </tr>
+        `;
+
+        if (!isNaN(requiredClearance)) {
+
+            const margin =
+                availableClearance - requiredClearance;
+
+            clearanceHTML += `
+                <tr>
+                    <td>Required Clearance</td>
+                    <td>${requiredClearance.toFixed(3)} m</td>
+                </tr>
+
+                <tr>
+                    <td>Clearance Margin</td>
+                    <td>${margin.toFixed(3)} m</td>
+                </tr>
+            `;
+
+            if (margin >= 0) {
+
+                clearanceHTML += `
+                    <tr>
+                        <td colspan="2">
+                            <strong>
+                                Geometric clearance check:
+                                POSITIVE
+                            </strong>
+                        </td>
+                    </tr>
+                `;
+
+            } else {
+
+                clearanceHTML += `
+                    <tr>
+                        <td colspan="2">
+                            <strong>
+                                Geometric clearance check:
+                                INSUFFICIENT
+                            </strong>
+                        </td>
+                    </tr>
+                `;
+            }
+        }
+    }
+
+    result.innerHTML = `
+
+        <div class="result">
+
+            <h3>Calculation Results</h3>
+
+            <table>
+
+                <tr>
+                    <th>Parameter</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>Horizontal Radius</td>
+                    <td>${radius.toFixed(3)} m</td>
+                </tr>
+
+                <tr>
+                    <td>Vertical Boom Component</td>
+                    <td>${verticalComponent.toFixed(3)} m</td>
+                </tr>
+
+                <tr>
+                    <td>Boom Pivot Height</td>
+                    <td>${pivot.toFixed(3)} m</td>
+                </tr>
+
+                <tr>
+                    <td>Calculated Tip Height</td>
+                    <td>${tipHeight.toFixed(3)} m</td>
+                </tr>
+
+                ${clearanceHTML}
+
+            </table>
+
+        </div>
+    `;
+}
+
+
+function clearAll() {
+
+    document.getElementById("boomLength").value = "";
+
+    document.getElementById("boomAngle").value = "";
+
+    document.getElementById("pivotHeight").value = "";
+
+    document.getElementById("obstacleHeight").value = "";
+
+    document.getElementById("clearance").value = "";
+
+    document.getElementById("result").innerHTML = "";
+}
+
+</script>
+
+</body>
+</html>
