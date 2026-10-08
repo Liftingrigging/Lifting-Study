@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Outrigger Reaction & Mat Size Calculator</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+header{
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    padding:25px;
+    border-bottom:4px solid #0284c7;
+}
+
+.container{
+    max-width:900px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+input{
+    width:100%;
+    box-sizing:border-box;
+    padding:12px;
+    margin-top:6px;
+    border:1px solid #cbd5e1;
+    border-radius:6px;
+    font-size:16px;
+}
+
+button{
+    margin-top:20px;
+    padding:13px 22px;
+    background:#0284c7;
+    color:white;
+    border:0;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0369a1;
+}
+
+.result{
+    margin-top:20px;
+    padding:20px;
+    background:#e0f2fe;
+    border-left:5px solid #0284c7;
+    border-radius:6px;
+}
+
+.formula{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:6px;
+    font-family:monospace;
+    line-height:1.7;
+}
+
+.warning{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:18px;
+    border-radius:6px;
+    line-height:1.6;
+}
+
+.status{
+    font-size:20px;
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Outrigger Reaction & Mat Size Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Ground Support Study</h2>
+
+<p>
+Use this calculator to study the relationship between an estimated
+outrigger reaction, allowable ground pressure and support area.
+</p>
+
+<label>Estimated Outrigger Reaction (kN)</label>
+<input type="number" id="reaction" step="any" placeholder="Example: 400">
+
+<label>Allowable Ground Bearing Pressure (kN/m²)</label>
+<input type="number" id="allowable" step="any" placeholder="Example: 250">
+
+<label>Mat Length (m)</label>
+<input type="number" id="length" step="any" placeholder="Example: 2">
+
+<label>Mat Width (m)</label>
+<input type="number" id="width" step="any" placeholder="Example: 2">
+
+<button onclick="calculate()">Calculate</button>
+
+<div id="result"></div>
+
+</div>
+
+<div class="card">
+
+<h2>Formulas</h2>
+
+<div class="formula">
+
+Required Support Area:
+
+A(required) = R ÷ Pallow
+
+<br><br>
+
+Mat Area:
+
+A(mat) = Length × Width
+
+<br><br>
+
+Actual Bearing Pressure:
+
+P(actual) = R ÷ A(mat)
+
+<br><br>
+
+Study Margin:
+
+Margin = Pallow − P(actual)
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Example</h2>
+
+<p>
+Estimated outrigger reaction = <strong>400 kN</strong>
+</p>
+
+<p>
+Allowable ground pressure = <strong>250 kN/m²</strong>
+</p>
+
+<p>
+Required area:
+</p>
+
+<p>
+400 ÷ 250 = <strong>1.60 m²</strong>
+</p>
+
+<p>
+For a 2 m × 2 m mat:
+</p>
+
+<p>
+Area = <strong>4.00 m²</strong>
+</p>
+
+<p>
+Actual bearing pressure:
+</p>
+
+<p>
+400 ÷ 4 = <strong>100 kN/m²</strong>
+</p>
+
+</div>
+
+<div class="warning">
+
+<strong>Important Safety Notice</strong>
+
+<p>
+This is a simplified study calculation. It does not determine the
+actual maximum outrigger reaction of a crane or approve the use of
+any mat, pad or support system.
+</p>
+
+<p>
+Actual outrigger reactions must be obtained from the crane
+manufacturer, approved engineering calculations or the applicable
+lift plan.
+</p>
+
+<p>
+Ground capacity depends on actual soil conditions, depth, moisture,
+underground structures, voids, slopes, drainage and the complete
+support arrangement.
+</p>
+
+<p>
+Mat strength, stiffness, thickness, material, bending, punching,
+shear and load distribution also require appropriate engineering
+verification.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+    const reaction =
+        parseFloat(document.getElementById("reaction").value);
+
+    const allowable =
+        parseFloat(document.getElementById("allowable").value);
+
+    const length =
+        parseFloat(document.getElementById("length").value);
+
+    const width =
+        parseFloat(document.getElementById("width").value);
+
+    if(
+        isNaN(reaction) ||
+        isNaN(allowable) ||
+        reaction < 0 ||
+        allowable <= 0
+    ){
+
+        document.getElementById("result").innerHTML = `
+        <div class="result">
+        <strong>Please enter valid reaction and allowable pressure values.</strong>
+        </div>
+        `;
+
+        return;
+    }
+
+    const requiredArea =
+        reaction / allowable;
+
+    let matResult = "";
+
+    if(
+        !isNaN(length) &&
+        !isNaN(width) &&
+        length > 0 &&
+        width > 0
+    ){
+
+        const matArea =
+            length * width;
+
+        const actualPressure =
+            reaction / matArea;
+
+        const margin =
+            allowable - actualPressure;
+
+        let status;
+
+        if(actualPressure <= allowable){
+
+            status =
+            "Study check: actual pressure is below the entered allowable pressure.";
+
+        }else{
+
+            status =
+            "Study check: actual pressure exceeds the entered allowable pressure.";
+
+        }
+
+        matResult = `
+
+        <hr>
+
+        <p>
+        <strong>Mat Area:</strong>
+        ${matArea.toFixed(3)} m²
+        </p>
+
+        <p>
+        <strong>Actual Bearing Pressure:</strong>
+        ${actualPressure.toFixed(3)} kN/m²
+        </p>
+
+        <p>
+        <strong>Pressure Margin:</strong>
+        ${margin.toFixed(3)} kN/m²
+        </p>
+
+        <p class="status">
+        ${status}
+        </p>
+
+        `;
+
+    }else{
+
+        matResult = `
+
+        <p>
+        Enter valid mat length and width to calculate actual bearing
+        pressure.
+        </p>
+
+        `;
+
+    }
+
+    document.getElementById("result").innerHTML = `
+
+    <div class="result">
+
+        <h3>Study Results</h3>
+
+        <p>
+        <strong>Estimated Outrigger Reaction:</strong>
+        ${reaction.toFixed(3)} kN
+        </p>
+
+        <p>
+        <strong>Allowable Ground Pressure:</strong>
+        ${allowable.toFixed(3)} kN/m²
+        </p>
+
+        <p>
+        <strong>Minimum Study Support Area:</strong>
+        ${requiredArea.toFixed(3)} m²
+        </p>
+
+        ${matResult}
+
+    </div>
+
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
