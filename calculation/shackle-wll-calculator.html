@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shackle WLL Study Calculator</title>
+
+<style>
+    body {
+        margin: 0;
+        font-family: Arial, sans-serif;
+        background: #0f172a;
+        color: #e2e8f0;
+    }
+
+    header {
+        background: #0b1f3a;
+        padding: 25px 20px;
+        text-align: center;
+        border-bottom: 2px solid #38bdf8;
+    }
+
+    header h1 {
+        margin: 0;
+        color: #ffffff;
+    }
+
+    header p {
+        margin: 8px 0 0;
+        color: #94a3b8;
+    }
+
+    .container {
+        max-width: 900px;
+        margin: 30px auto;
+        padding: 0 20px;
+    }
+
+    .card {
+        background: #1e293b;
+        padding: 25px;
+        margin-bottom: 20px;
+        border-radius: 10px;
+        border: 1px solid #334155;
+    }
+
+    h2 {
+        color: #38bdf8;
+        margin-top: 0;
+    }
+
+    label {
+        display: block;
+        margin-top: 15px;
+        margin-bottom: 6px;
+        font-weight: bold;
+    }
+
+    input, select {
+        width: 100%;
+        box-sizing: border-box;
+        padding: 12px;
+        border-radius: 6px;
+        border: 1px solid #475569;
+        background: #0f172a;
+        color: #ffffff;
+        font-size: 16px;
+    }
+
+    button {
+        margin-top: 20px;
+        padding: 13px 20px;
+        border: none;
+        border-radius: 6px;
+        background: #0284c7;
+        color: white;
+        font-size: 16px;
+        cursor: pointer;
+    }
+
+    button:hover {
+        background: #0369a1;
+    }
+
+    .result {
+        margin-top: 20px;
+        padding: 18px;
+        background: #0f172a;
+        border-left: 4px solid #38bdf8;
+        border-radius: 6px;
+    }
+
+    .result strong {
+        color: #38bdf8;
+    }
+
+    .warning {
+        background: #3f2a16;
+        border-left: 4px solid #f59e0b;
+        padding: 15px;
+        margin-top: 20px;
+        color: #fde68a;
+    }
+
+    .formula {
+        background: #020617;
+        padding: 15px;
+        border-radius: 6px;
+        margin-top: 15px;
+        font-family: monospace;
+        color: #cbd5e1;
+    }
+
+    footer {
+        text-align: center;
+        padding: 25px;
+        color: #64748b;
+        border-top: 1px solid #334155;
+        margin-top: 40px;
+    }
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Shackle WLL Study Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+        <h2>Input Data</h2>
+
+        <label for="load">Total Load (tonnes)</label>
+        <input type="number" id="load" step="0.01" placeholder="Example: 10">
+
+        <label for="legs">Number of Effective Load-Sharing Points</label>
+        <select id="legs">
+            <option value="1">1</option>
+            <option value="2" selected>2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+        </select>
+
+        <label for="angle">Sling Angle from Horizontal (degrees)</label>
+        <input type="number" id="angle" step="0.1" value="60" placeholder="Example: 60">
+
+        <label for="ratedWll">Manufacturer Rated Shackle WLL (tonnes)</label>
+        <input type="number" id="ratedWll" step="0.01" placeholder="Optional">
+
+        <button onclick="calculate()">Calculate</button>
+
+        <div id="result"></div>
+    </div>
+
+    <div class="card">
+        <h2>Study Formula</h2>
+
+        <div class="formula">
+            T = W ÷ (N × sin θ)
+        </div>
+
+        <p>
+            Where:
+        </p>
+
+        <ul>
+            <li><strong>T</strong> = calculated load at each load-sharing point</li>
+            <li><strong>W</strong> = total load</li>
+            <li><strong>N</strong> = number of effective load-sharing points</li>
+            <li><strong>θ</strong> = sling angle measured from horizontal</li>
+        </ul>
+
+        <p>
+            The calculated load is a study value for a symmetric/equal-load arrangement.
+        </p>
+    </div>
+
+    <div class="card">
+        <h2>Important Shackle Information</h2>
+
+        <p>
+            Shackle WLL is not determined by a universal mathematical formula.
+            The actual allowable WLL must come from the shackle manufacturer's
+            identification, certification and applicable rating tables.
+        </p>
+
+        <p>
+            Shackle type, grade, pin configuration, loading direction, connection
+            geometry and side loading can significantly affect allowable capacity.
+        </p>
+
+        <div class="warning">
+            <strong>Safety Notice:</strong><br><br>
+            This calculator is a study aid only. Never use a calculated value to
+            override the manufacturer's rated WLL, certification, load-angle
+            limitations or side-loading requirements.
+            Actual lifting operations must follow the approved lift plan,
+            manufacturer instructions, applicable standards and competent-person
+            verification.
+        </div>
+    </div>
+
+</div>
+
+<footer>
+    Lifting & Rigging Study Hub<br>
+    <small>Study Tool — Verify all actual lifting requirements</small>
+</footer>
+
+<script>
+
+function calculate() {
+
+    const load = parseFloat(document.getElementById("load").value);
+    const legs = parseFloat(document.getElementById("legs").value);
+    const angle = parseFloat(document.getElementById("angle").value);
+    const ratedWll = parseFloat(document.getElementById("ratedWll").value);
+
+    const result = document.getElementById("result");
+
+    if (isNaN(load) || load <= 0) {
+        result.innerHTML = "Please enter a valid load.";
+        return;
+    }
+
+    if (isNaN(angle) || angle <= 0 || angle > 90) {
+        result.innerHTML = "Please enter an angle between 0° and 90°.";
+        return;
+    }
+
+    const angleRad = angle * Math.PI / 180;
+    const sinAngle = Math.sin(angleRad);
+
+    const loadPerPoint = load / (legs * sinAngle);
+
+    let html = "";
+
+    html += "<strong>Calculated Load per Shackle / Load Point:</strong><br>";
+    html += loadPerPoint.toFixed(3) + " tonnes<br><br>";
+
+    html += "<strong>Angle Factor:</strong><br>";
+    html += (1 / sinAngle).toFixed(3) + "<br><br>";
+
+    html += "<strong>Minimum Study WLL Requirement:</strong><br>";
+    html += "≥ " + loadPerPoint.toFixed(3) + " tonnes";
+
+    if (!isNaN(ratedWll) && ratedWll > 0) {
+
+        const utilization = (loadPerPoint / ratedWll) * 100;
+
+        html += "<br><br>";
+        html += "<strong>Manufacturer Rated WLL:</strong><br>";
+        html += ratedWll.toFixed(3) + " tonnes<br><br>";
+
+        html += "<strong>Calculated Utilization:</strong><br>";
+        html += utilization.toFixed(1) + "%<br><br>";
+
+        if (ratedWll >= loadPerPoint) {
+            html += "<strong style='color:#22c55e;'>Study Comparison: PASS</strong>";
+        } else {
+            html += "<strong style='color:#ef4444;'>Study Comparison: NOT SUFFICIENT</strong>";
+        }
+    }
+
+    result.innerHTML = html;
+}
+
+</script>
+
+</body>
+</html>
