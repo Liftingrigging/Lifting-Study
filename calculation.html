@@ -1,620 +1,755 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<meta charset="UTF-8">
+    <title>Lifting & Rigging Calculators</title>
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
 
-<title>Lifting & Rigging Calculations</title>
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+        }
 
-<style>
+        nav {
+            background: #1e293b;
+            padding: 14px;
+            text-align: center;
+        }
 
-* {
-    box-sizing: border-box;
-}
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
-}
+        .container {
+            max-width: 1100px;
+            margin: 30px auto;
+            padding: 20px;
+        }
 
-header {
-    background: #0b1f3a;
-    padding: 30px 20px;
-    text-align: center;
-    border-bottom: 2px solid #38bdf8;
-}
+        .intro {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
 
-header h1 {
-    margin: 0;
-    color: white;
-    font-size: 32px;
-}
+        .section-title {
+            margin-top: 35px;
+            margin-bottom: 15px;
+        }
 
-header p {
-    color: #94a3b8;
-    margin-top: 10px;
-}
+        .calculator-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
 
-nav {
-    background: #020617;
-    padding: 14px;
-    text-align: center;
-    border-bottom: 1px solid #334155;
-}
+        .calculator-card {
+            background: white;
+            padding: 22px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+        }
 
-nav a {
-    color: #e2e8f0;
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-}
+        .calculator-card h3 {
+            margin-top: 0;
+            color: #0369a1;
+        }
 
-nav a:hover {
-    color: #38bdf8;
-}
+        .calculator-card p {
+            line-height: 1.6;
+            flex-grow: 1;
+        }
 
-.container {
-    max-width: 1100px;
-    margin: 35px auto;
-    padding: 0 20px;
-}
+        .button {
+            display: inline-block;
+            text-align: center;
+            background: #0284c7;
+            color: white;
+            padding: 12px;
+            border-radius: 7px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 15px;
+        }
 
-.intro {
-    background: #1e293b;
-    padding: 25px;
-    border-radius: 10px;
-    border: 1px solid #334155;
-    margin-bottom: 30px;
-}
+        .button:hover {
+            background: #0369a1;
+        }
 
-.intro h2 {
-    color: #38bdf8;
-    margin-top: 0;
-}
+        .notice {
+            background: #fff7ed;
+            border-left: 5px solid #f97316;
+            padding: 18px;
+            margin-top: 35px;
+            border-radius: 8px;
+        }
 
-.calculator-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-    gap: 20px;
-}
+        footer {
+            text-align: center;
+            background: #0f172a;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
 
-.calculator-card {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 10px;
-    padding: 22px;
-    transition: 0.2s;
-}
+        @media (max-width: 600px) {
 
-.calculator-card:hover {
-    border-color: #38bdf8;
-    transform: translateY(-3px);
-}
+            nav a {
+                display: block;
+                margin: 9px 0;
+            }
 
-.calculator-card h3 {
-    color: #38bdf8;
-    margin-top: 0;
-}
-
-.calculator-card p {
-    color: #cbd5e1;
-    line-height: 1.6;
-}
-
-.button {
-    display: inline-block;
-    background: #0284c7;
-    color: white;
-    text-decoration: none;
-    padding: 11px 16px;
-    border-radius: 6px;
-    margin-top: 10px;
-    font-weight: bold;
-}
-
-.button:hover {
-    background: #0369a1;
-}
-
-.section-title {
-    color: #38bdf8;
-    margin-top: 40px;
-    margin-bottom: 20px;
-}
-
-.warning {
-    background: #3f2a16;
-    border-left: 4px solid #f59e0b;
-    padding: 18px;
-    border-radius: 6px;
-    color: #fde68a;
-    line-height: 1.6;
-    margin-top: 30px;
-}
-
-footer {
-    margin-top: 50px;
-    padding: 30px;
-    text-align: center;
-    color: #64748b;
-    border-top: 1px solid #334155;
-}
-
-</style>
-
+            .container {
+                padding: 15px;
+            }
+        }
+    </style>
 </head>
-
 
 <body>
 
-
 <header>
-
-<h1>
-Lifting & Rigging Calculation Hub
-</h1>
-
-<p>
-Study Calculators & Engineering Reference Tools
-</p>
-
+    <h1>Lifting & Rigging Calculators</h1>
+    <p>Study and reference tools for lifting operations</p>
 </header>
 
-
 <nav>
-
-<a href="index.html">Home</a>
-
-<a href="rigging.html">Lifting Accessories</a>
-
-<a href="calculation.html">Calculations</a>
-
-<a href="cranes.html">Cranes</a>
-
-<a href="planning.html">Lift Planning</a>
-
-<a href="safety.html">Safety</a>
-
-<a href="study-notes.html">Study Notes</a>
-
+    <a href="index.html">Home</a>
+    <a href="rigging.html">Lifting Accessories</a>
+    <a href="calculation.html">Calculations</a>
+    <a href="cranes.html">Cranes</a>
+    <a href="planning.html">Lift Planning</a>
+    <a href="safety.html">Safety</a>
+    <a href="study-notes.html">Study Notes</a>
 </nav>
-
 
 <div class="container">
 
+    <div class="intro">
 
-<div class="intro">
+        <h2>Lifting Calculation Tools</h2>
 
-<h2>
-Lifting & Rigging Calculators
-</h2>
+        <p>
+            Use these calculators for lifting, rigging and crane study.
+            They are intended for educational and preliminary calculation
+            purposes.
+        </p>
 
-<p>
-This section provides calculation tools for lifting,
-rigging, crane operations and study purposes.
-</p>
+        <p>
+            Always verify actual lifting conditions using approved lift
+            plans, manufacturer data, load charts, certificates,
+            applicable standards and competent-person review.
+        </p>
 
-<p>
-The calculators are intended as educational and
-reference tools. Actual lifting operations must be
-verified against approved lift plans, manufacturer
-data, applicable standards, site procedures and
-competent-person requirements.
-</p>
+    </div>
 
-</div>
 
+    <!-- MATERIAL & LOAD CALCULATORS -->
 
-<h2 class="section-title">
-Load & Rigging Calculators
-</h2>
+    <h2 class="section-title">Material & Load Calculators</h2>
 
+    <div class="calculator-grid">
 
-<div class="calculator-grid">
+        <div class="calculator-card">
 
+            <h3>Material Weight Calculator</h3>
 
-<div class="calculator-card">
+            <p>
+                Calculate the estimated mass and weight force of a material
+                using its volume and density.
+            </p>
 
-<h3>
-Load Weight Calculator
-</h3>
+            <p>
+                Supports steel, stainless steel, aluminium, concrete,
+                copper, brass, water and other common materials.
+            </p>
 
-<p>
-Calculate load force from mass using
-W = m × g.
-</p>
+            <a
+                class="button"
+                href="calculation/universal-shape-material-weight-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<a class="button"
-href="calculation/load-calculator.html">
-Open Calculator
-</a>
+        </div>
 
-</div>
 
+        <div class="calculator-card">
 
-<div class="calculator-card">
+            <h3>Load Weight Calculator</h3>
 
-<h3>
-Sling Tension Calculator
-</h3>
+            <p>
+                Calculate load weight and gravitational force from mass.
+            </p>
 
-<p>
-Calculate approximate tension in symmetric
-two-leg sling arrangements.
-</p>
+            <a
+                class="button"
+                href="calculation/load-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<a class="button"
-href="calculation/sling-calculation.html">
-Open Calculator
-</a>
+        </div>
 
-</div>
 
+        <div class="calculator-card">
 
-<div class="calculator-card">
+            <h3>Gross Load Calculator</h3>
 
-<h3>
-Sling Angle Calculator
-</h3>
+            <p>
+                Calculate total suspended load including rigging,
+                hook block, lifting beam and other equipment.
+            </p>
 
-<p>
-Study the effect of sling angle and angle
-factor on sling tension.
-</p>
+            <a
+                class="button"
+                href="calculation/gross-load-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<a class="button"
-href="calculation/angle-calculator.html">
-Open Calculator
-</a>
+        </div>
 
-</div>
 
+        <div class="calculator-card">
 
-<div class="calculator-card">
+            <h3>Hook Load Calculator</h3>
 
-<h3>
-Sling Tension & SWL Calculator
-</h3>
+            <p>
+                Estimate total hook load from the lifted load and
+                suspended lifting accessories.
+            </p>
 
-<p>
-Calculate study tension per sling leg and
-compare against entered manufacturer WLL.
-</p>
+            <a
+                class="button"
+                href="calculation/hook-load-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<a class="button"
-href="calculation/sling-tension-swl-calculator.html">
-Open Calculator
-</a>
+        </div>
 
-</div>
+    </div>
 
 
-<div class="calculator-card">
+    <!-- SLING & RIGGING CALCULATORS -->
 
-<h3>
-Shackle WLL Calculator
-</h3>
+    <h2 class="section-title">Sling & Rigging Calculators</h2>
 
-<p>
-Calculate study load per shackle/load-sharing
-point and compare against manufacturer WLL.
-</p>
+    <div class="calculator-grid">
 
-<a class="button"
-href="calculation/shackle-wll-calculator.html">
-Open Calculator
-</a>
+        <div class="calculator-card">
 
-</div>
+            <h3>Sling Calculation</h3>
 
+            <p>
+                Calculate approximate tension in a symmetrical two-leg
+                sling arrangement.
+            </p>
 
-<div class="calculator-card">
+            <a
+                class="button"
+                href="calculation/sling-calculation.html"
+            >
+                Open Calculator
+            </a>
 
-<h3>
-Chain Sling Capacity Calculator
-</h3>
+        </div>
 
-<p>
-Calculate study load per effective chain leg
-and compare against manufacturer-rated WLL.
-</p>
 
-<a class="button"
-href="calculation/chain-sling-capacity-calculator.html">
-Open Calculator
-</a>
+        <div class="calculator-card">
 
-</div>
+            <h3>Sling Tension & SWL Study</h3>
 
+            <p>
+                Study sling-leg tension and compare it with an entered
+                manufacturer-rated WLL.
+            </p>
 
-</div>
+            <a
+                class="button"
+                href="calculation/sling-tension-swl-calculator.html"
+            >
+                Open Calculator
+            </a>
 
+        </div>
 
-<h2 class="section-title">
-Load & Geometry Calculators
-</h2>
 
+        <div class="calculator-card">
 
-<div class="calculator-grid">
+            <h3>Angle Calculator</h3>
 
+            <p>
+                Calculate sling angle factors and approximate leg tension
+                for symmetrical two-leg lifting.
+            </p>
 
-<div class="calculator-card">
+            <a
+                class="button"
+                href="calculation/angle-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<h3>
-Center of Gravity Calculator
-</h3>
+        </div>
 
-<p>
-Calculate the approximate center of gravity
-using weight and position data.
-</p>
 
-<a class="button"
-href="calculation/center-of-gravity-calculator.html">
-Open Calculator
-</a>
+        <div class="calculator-card">
 
-</div>
+            <h3>Shackle WLL Study</h3>
 
+            <p>
+                Estimate load sharing between effective lifting points
+                and compare against a manufacturer-rated shackle WLL.
+            </p>
 
-<div class="calculator-card">
+            <a
+                class="button"
+                href="calculation/shackle-wll-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<h3>
-Ground Bearing Calculator
-</h3>
+        </div>
 
-<p>
-Calculate ground pressure and approximate
-required bearing area.
-</p>
 
-<a class="button"
-href="calculation/ground-bearing-calculator.html">
-Open Calculator
-</a>
+        <div class="calculator-card">
 
-</div>
+            <h3>Chain Sling Capacity Study</h3>
 
+            <p>
+                Estimate load per effective chain leg using the selected
+                sling angle and manufacturer WLL.
+            </p>
 
-<div class="calculator-card">
+            <a
+                class="button"
+                href="calculation/chain-sling-capacity-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<h3>
-Crane Boom Geometry Calculator
-</h3>
+        </div>
 
-<p>
-Calculate boom length, radius, vertical height
-and boom angle from known geometry.
-</p>
 
-<a class="button"
-href="calculation/boom-height-calculator.html">
-Open Calculator
-</a>
+        <div class="calculator-card">
 
-</div>
+            <h3>D/d Ratio Calculator</h3>
 
+            <p>
+                Calculate the mathematical D/d ratio for wire rope and
+                sling bending studies.
+            </p>
 
-<div class="calculator-card">
+            <a
+                class="button"
+                href="calculation/d-d-ratio-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<h3>
-Tip Height & Clearance Calculator
-</h3>
+        </div>
 
-<p>
-Study boom-tip height, obstacle clearance and
-geometric clearance margin.
-</p>
 
-<a class="button"
-href="calculation/tip-height-clearance-calculator.html">
-Open Calculator
-</a>
+        <div class="calculator-card">
 
-</div>
+            <h3>Sling Length & Angle</h3>
 
+            <p>
+                Calculate sling length and lifting angles from vertical
+                height and horizontal distance.
+            </p>
 
-<div class="calculator-card">
+            <a
+                class="button"
+                href="calculation/sling-length-angle-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<h3>
-Radius Calculator
-</h3>
+        </div>
 
-<p>
-Calculate horizontal radius and vertical boom
-component from boom length and angle.
-</p>
 
-<a class="button"
-href="calculation/radius-calculator.html">
-Open Calculator
-</a>
+        <div class="calculator-card">
 
-</div>
+            <h3>Wire Rope Breaking Load Study</h3>
 
+            <p>
+                Compare manufacturer-entered minimum breaking force with
+                a study design factor and applied load.
+            </p>
 
-</div>
+            <a
+                class="button"
+                href="calculation/wire-rope-breaking-load-calculator.html"
+            >
+                Open Calculator
+            </a>
 
+        </div>
 
-<h2 class="section-title">
-More Calculators Coming
-</h2>
+    </div>
 
 
-<div class="calculator-grid">
+    <!-- CRANE CALCULATORS -->
 
+    <h2 class="section-title">Crane Calculators</h2>
 
-<div class="calculator-card">
+    <div class="calculator-grid">
 
-<h3>
-Crane Utilization Calculator
-</h3>
+        <div class="calculator-card">
 
-<p>
-Study crane load-chart utilization and
-percentage of rated capacity.
-</p>
+            <h3>Crane Utilization Calculator</h3>
 
-</div>
+            <p>
+                Calculate gross load and preliminary crane utilization
+                percentage.
+            </p>
 
+            <a
+                class="button"
+                href="calculation/crane-utilization-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<div class="calculator-card">
+        </div>
 
-<h3>
-Gross Load Calculator
-</h3>
 
-<p>
-Combine lifted load, rigging equipment,
-hook block and accessory weights.
-</p>
+        <div class="calculator-card">
 
-</div>
+            <h3>Crane Selection Calculator</h3>
 
+            <p>
+                Compare estimated gross load with the crane rated capacity
+                entered for the actual configuration.
+            </p>
 
-<div class="calculator-card">
+            <a
+                class="button"
+                href="calculation/crane-selection-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<h3>
-Load Moment Calculator
-</h3>
+        </div>
 
-<p>
-Study load moment using load and operating
-radius.
-</p>
 
-</div>
+        <div class="calculator-card">
 
+            <h3>Load Moment Calculator</h3>
 
-<div class="calculator-card">
+            <p>
+                Calculate load moment from gross load and operating radius.
+            </p>
 
-<h3>
-Tailing Load Distribution
-</h3>
+            <a
+                class="button"
+                href="calculation/load-moment-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<p>
-Study load distribution during controlled
-tailing operations.
-</p>
+        </div>
 
-</div>
 
+        <div class="calculator-card">
 
-<div class="calculator-card">
+            <h3>Superlift Study Calculator</h3>
 
-<h3>
-Superlift Study Calculator
-</h3>
+            <p>
+                Study gross suspended load, crane utilization and remaining
+                rated capacity.
+            </p>
 
-<p>
-Study superlift configuration and related
-lifting parameters.
-</p>
+            <a
+                class="button"
+                href="calculation/superlift-study-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-</div>
+        </div>
 
 
-<div class="calculator-card">
+        <div class="calculator-card">
 
-<h3>
-D/d Ratio Calculator
-</h3>
+            <h3>Radius Calculator</h3>
 
-<p>
-Calculate the D/d ratio for wire rope sling
-bending studies.
-</p>
+            <p>
+                Calculate horizontal radius and vertical boom component
+                from boom length and angle.
+            </p>
 
-</div>
+            <a
+                class="button"
+                href="calculation/radius-calculator.html"
+            >
+                Open Calculator
+            </a>
 
+        </div>
 
-<div class="calculator-card">
 
-<h3>
-Snatch Block / Reeving Calculator
-</h3>
+        <div class="calculator-card">
 
-<p>
-Study mechanical advantage and reeving
-arrangements.
-</p>
+            <h3>Boom Height Calculator</h3>
 
-</div>
+            <p>
+                Calculate boom length, horizontal radius, vertical height
+                and boom angle.
+            </p>
 
+            <a
+                class="button"
+                href="calculation/boom-height-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-<div class="calculator-card">
+        </div>
 
-<h3>
-Lifting Beam Reaction Calculator
-</h3>
+    </div>
 
-<p>
-Study reactions and load distribution for
-lifting beam arrangements.
-</p>
 
-</div>
+    <!-- LIFT PLANNING CALCULATORS -->
 
+    <h2 class="section-title">Lift Planning Calculators</h2>
 
-</div>
+    <div class="calculator-grid">
 
+        <div class="calculator-card">
 
-<div class="warning">
+            <h3>Center of Gravity Calculator</h3>
 
-<strong>
-Important Safety Notice
-</strong>
+            <p>
+                Calculate the approximate center of gravity from multiple
+                weights and their positions.
+            </p>
 
-<br><br>
+            <a
+                class="button"
+                href="calculation/center-of-gravity-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-These calculators are provided for study and
-reference purposes only.
+        </div>
 
-<br><br>
 
-A calculation result does not constitute an
-approved lift plan or engineering approval.
+        <div class="calculator-card">
 
-<br><br>
+            <h3>Ground Bearing Calculator</h3>
 
-For actual lifting operations, verify the
-specific crane configuration, manufacturer's
-load chart, lifting accessories, WLL/SWL,
-ground conditions, environmental conditions,
-load geometry and applicable requirements.
+            <p>
+                Calculate bearing pressure and approximate required support
+                area from load and allowable pressure.
+            </p>
 
-<br><br>
+            <a
+                class="button"
+                href="calculation/ground-bearing-calculator.html"
+            >
+                Open Calculator
+            </a>
 
-Always follow the approved lift plan,
-manufacturer instructions, applicable
-standards and site procedures and obtain
-competent-person verification where required.
+        </div>
 
-</div>
 
+        <div class="calculator-card">
+
+            <h3>Outrigger Reaction & Mat Size</h3>
+
+            <p>
+                Study required support area and bearing pressure from an
+                estimated outrigger reaction.
+            </p>
+
+            <a
+                class="button"
+                href="calculation/outrigger-reaction-mat-size-calculator.html"
+            >
+                Open Calculator
+            </a>
+
+        </div>
+
+
+        <div class="calculator-card">
+
+            <h3>Tailing Load Distribution</h3>
+
+            <p>
+                Study simplified two-point load reactions for a tailing
+                lift arrangement.
+            </p>
+
+            <a
+                class="button"
+                href="calculation/tailing-load-distribution-calculator.html"
+            >
+                Open Calculator
+            </a>
+
+        </div>
+
+
+        <div class="calculator-card">
+
+            <h3>Lifting Beam Reaction</h3>
+
+            <p>
+                Study simplified reactions for a symmetrical lifting beam
+                arrangement.
+            </p>
+
+            <a
+                class="button"
+                href="calculation/lifting-beam-reaction-calculator.html"
+            >
+                Open Calculator
+            </a>
+
+        </div>
+
+
+        <div class="calculator-card">
+
+            <h3>Critical Lift Planning Calculator</h3>
+
+            <p>
+                Combine gross load, crane utilization, load moment and
+                preliminary ground-support calculations.
+            </p>
+
+            <a
+                class="button"
+                href="calculation/critical-lift-planning-calculator.html"
+            >
+                Open Calculator
+            </a>
+
+        </div>
+
+
+        <div class="calculator-card">
+
+            <h3>Tip Height & Clearance</h3>
+
+            <p>
+                Study boom tip height, obstacle clearance and clearance
+                margin.
+            </p>
+
+            <a
+                class="button"
+                href="calculation/tip-height-clearance-calculator.html"
+            >
+                Open Calculator
+            </a>
+
+        </div>
+
+
+        <div class="calculator-card">
+
+            <h3>Snatch Block / Reeving</h3>
+
+            <p>
+                Study simplified rope tension based on supporting rope
+                parts and estimated reeving efficiency.
+            </p>
+
+            <a
+                class="button"
+                href="calculation/snatch-block-reeving-calculator.html"
+            >
+                Open Calculator
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <!-- UNIT CONVERTER -->
+
+    <h2 class="section-title">Units & Measurements</h2>
+
+    <div class="calculator-grid">
+
+        <div class="calculator-card">
+
+            <h3>Universal Units Converter</h3>
+
+            <p>
+                Convert mass, force, length, area, volume, pressure,
+                load moment, speed, angle and temperature.
+            </p>
+
+            <a
+                class="button"
+                href="calculation/force-unit-converter.html"
+            >
+                Open Converter
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="notice">
+
+        <strong>Safety & Engineering Notice</strong>
+
+        <p>
+            These calculators are provided for study, learning and
+            preliminary calculation purposes only.
+        </p>
+
+        <p>
+            Calculator results do not replace an approved lift plan,
+            manufacturer load chart, certified equipment data,
+            engineering calculations, applicable standards or
+            competent-person verification.
+        </p>
+
+        <p>
+            Actual crane capacity, rigging WLL, ground conditions,
+            structural capacity and lifting arrangements must be
+            verified before any lifting operation.
+        </p>
+
+    </div>
 
 </div>
 
 
 <footer>
-
-Lifting & Rigging Study Hub
-
-<br>
-
-<small>
-Created by Jawad Wains
-</small>
-
+    Lifting & Rigging Study Hub
+    <br>
+    <small>Created by Jawad Wains</small>
 </footer>
 
-
 </body>
-
 </html>
