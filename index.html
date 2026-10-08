@@ -20,6 +20,7 @@ body {
     font-family: Arial, Helvetica, sans-serif;
     background: #eef3f8;
     color: #1e293b;
+    line-height: 1.6;
 }
 
 /* =========================
@@ -27,11 +28,11 @@ body {
 ========================= */
 
 .hero {
-    min-height: 390px;
+    min-height: 380px;
 
     background:
         linear-gradient(
-            rgba(3, 25, 48, 0.62),
+            rgba(3, 25, 48, 0.58),
             rgba(3, 25, 48, 0.78)
         ),
         url("gasplant.png");
@@ -48,26 +49,19 @@ body {
 .hero-content {
     width: 100%;
     max-width: 1200px;
-
     margin: auto;
-
     padding: 60px 25px;
 }
 
 .hero h1 {
     font-size: 44px;
     margin: 0 0 12px;
-
     letter-spacing: 0.5px;
 }
 
 .hero p {
     font-size: 18px;
-
-    max-width: 700px;
-
     margin: 0;
-
     color: #e0f2fe;
 }
 
@@ -77,23 +71,16 @@ body {
 
 nav {
     background: #09233d;
-
     text-align: center;
-
     padding: 15px 10px;
-
     border-bottom: 3px solid #22aee8;
 }
 
 nav a {
     color: white;
-
     text-decoration: none;
-
     font-weight: bold;
-
     font-size: 14px;
-
     margin: 0 10px;
 }
 
@@ -107,9 +94,7 @@ nav a:hover {
 
 .container {
     max-width: 1200px;
-
     margin: auto;
-
     padding: 35px 20px 60px;
 }
 
@@ -119,13 +104,9 @@ nav a:hover {
 
 .welcome {
     background: white;
-
     border-left: 5px solid #0284c7;
-
     border-radius: 12px;
-
     padding: 30px;
-
     margin-bottom: 35px;
 
     box-shadow:
@@ -134,20 +115,17 @@ nav a:hover {
 
 .welcome h2 {
     margin-top: 0;
-
     color: #075985;
-
     font-size: 27px;
 }
 
 .welcome p {
     color: #475569;
-
     font-size: 15px;
 }
 
 /* =========================
-   MIDDLE PHOTO BANNER
+   MIDDLE BACKGROUND PHOTO
 ========================= */
 
 .middle-photo {
@@ -162,10 +140,10 @@ nav a:hover {
 
     background:
         linear-gradient(
-            rgba(2, 30, 55, 0.45),
-            rgba(2, 30, 55, 0.65)
+            rgba(3, 25, 48, 0.40),
+            rgba(3, 25, 48, 0.68)
         ),
-        url("gasplant.png");
+        url("images.jpg");
 
     background-size: cover;
 
@@ -185,21 +163,17 @@ nav a:hover {
 
 .middle-photo-content {
     color: white;
-
     padding: 30px;
 }
 
 .middle-photo h2 {
     font-size: 32px;
-
     margin: 0 0 10px;
 }
 
 .middle-photo p {
-    font-size: 16px;
-
+    font-size: 17px;
     margin: 0;
-
     color: #e0f2fe;
 }
 
@@ -209,13 +183,11 @@ nav a:hover {
 
 .section-title {
     text-align: center;
-
     margin: 45px 0 25px;
 }
 
 .section-title h2 {
     color: #075985;
-
     margin-bottom: 5px;
 }
 
@@ -267,74 +239,67 @@ nav a:hover {
 
 .card-photo {
 
-    height: 165px;
+    height: 175px;
 
     background-size: cover;
 
     background-position: center;
 
-    background-color: #16324f;
+    background-repeat: no-repeat;
 }
-
-/*
-   These photos are optional.
-
-   If you have these files in the repository,
-   they will appear automatically.
-*/
 
 .photo-rigging {
     background-image:
         linear-gradient(
-            rgba(3,25,48,0.15),
+            rgba(3,25,48,0.12),
             rgba(3,25,48,0.25)
         ),
-        url("rigging.jpg");
+        url("lifting.png");
 }
 
 .photo-calculations {
     background-image:
         linear-gradient(
-            rgba(3,25,48,0.15),
+            rgba(3,25,48,0.12),
             rgba(3,25,48,0.25)
         ),
-        url("calculations.jpg");
+        url("left.png");
 }
 
 .photo-crane {
     background-image:
         linear-gradient(
-            rgba(3,25,48,0.15),
+            rgba(3,25,48,0.12),
             rgba(3,25,48,0.25)
         ),
-        url("crane.jpg");
+        url("right.png");
 }
 
 .photo-planning {
     background-image:
         linear-gradient(
-            rgba(3,25,48,0.15),
+            rgba(3,25,48,0.12),
             rgba(3,25,48,0.25)
         ),
-        url("lifting.jpg");
+        url("lifting.png");
 }
 
 .photo-safety {
     background-image:
         linear-gradient(
-            rgba(3,25,48,0.15),
+            rgba(3,25,48,0.12),
             rgba(3,25,48,0.25)
         ),
-        url("safety.jpg");
+        url("right.png");
 }
 
 .photo-study {
     background-image:
         linear-gradient(
-            rgba(3,25,48,0.15),
+            rgba(3,25,48,0.12),
             rgba(3,25,48,0.25)
         ),
-        url("study.jpg");
+        url("images.jpg");
 }
 
 /* =========================
@@ -345,7 +310,7 @@ nav a:hover {
 
     padding: 22px;
 
-    min-height: 245px;
+    min-height: 250px;
 
     display: flex;
 
@@ -398,7 +363,6 @@ nav a:hover {
 }
 
 .button:hover {
-
     background: #0369a1;
 }
 
@@ -410,12 +374,14 @@ nav a:hover {
 
     margin-top: 50px;
 
+    min-height: 260px;
+
     background:
         linear-gradient(
-            rgba(3,25,48,0.88),
-            rgba(3,25,48,0.88)
+            rgba(3,25,48,0.45),
+            rgba(3,25,48,0.78)
         ),
-        url("gasplant.png");
+        url("jawad.jpeg");
 
     background-size: cover;
 
@@ -423,7 +389,15 @@ nav a:hover {
 
     border-radius: 12px;
 
-    padding: 35px 20px;
+    padding: 45px 20px;
+
+    display: flex;
+
+    flex-direction: column;
+
+    align-items: center;
+
+    justify-content: center;
 
     text-align: center;
 
@@ -437,23 +411,21 @@ nav a:hover {
 
     margin: 0 0 8px;
 
-    font-size: 25px;
+    font-size: 26px;
 }
 
 .creator p {
 
-    margin: 0;
+    margin: 4px 0;
 
     color: #bae6fd;
-
-    font-size: 15px;
 }
 
 .creator strong {
 
     color: white;
 
-    font-size: 18px;
+    font-size: 21px;
 }
 
 /* =========================
@@ -521,7 +493,6 @@ footer small {
 
     nav a {
         display: block;
-
         margin: 9px 0;
     }
 
@@ -535,6 +506,10 @@ footer small {
 
     .container {
         padding: 25px 15px 45px;
+    }
+
+    .creator {
+        min-height: 230px;
     }
 
 }
@@ -625,7 +600,7 @@ footer small {
 
 
 <!-- =========================
-     MIDDLE BACKGROUND PHOTO
+     MIDDLE PHOTO
 ========================= -->
 
 <section class="middle-photo">
