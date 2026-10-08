@@ -1,0 +1,644 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Lifting Beam Reaction Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 950px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #cbd5e1;
+    margin-top: 15px;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+
+.note {
+    background: #172554;
+    border-left: 4px solid #38bdf8;
+    padding: 18px;
+    border-radius: 6px;
+    line-height: 1.6;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+.good {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.danger {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+Lifting Beam Reaction Calculator
+</h1>
+
+<p>
+Two-Point Lifting Beam Reaction Study Tool
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Input Data
+</h2>
+
+
+<label for="load">
+Total Suspended Load (tonnes)
+</label>
+
+<input
+type="number"
+id="load"
+step="0.01"
+placeholder="Example: 20"
+>
+
+
+<label for="beamWeight">
+Lifting Beam Weight (tonnes)
+</label>
+
+<input
+type="number"
+id="beamWeight"
+step="0.01"
+value="0"
+placeholder="Example: 1"
+>
+
+
+<label for="distanceMain">
+Distance from Beam Centre to Main Lift Point (m)
+</label>
+
+<input
+type="number"
+id="distanceMain"
+step="0.01"
+placeholder="Example: 3"
+>
+
+
+<label for="distanceEnd">
+Distance from Beam Centre to End Load Point (m)
+</label>
+
+<input
+type="number"
+id="distanceEnd"
+step="0.01"
+placeholder="Example: 2"
+>
+
+
+<button onclick="calculate()">
+Calculate Reactions
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Study Model
+</h2>
+
+<p>
+This calculator models a simplified symmetrical lifting
+beam arrangement where the main lifting point is at the
+beam centre and two lower load points are equally arranged
+about the centre.
+</p>
+
+
+<div class="formula">
+
+Total Weight
+=
+Suspended Load + Beam Weight
+
+<br><br>
+
+For a symmetrical arrangement:
+
+Left Load Point Reaction
+=
+Total Weight ÷ 2
+
+<br>
+
+Right Load Point Reaction
+=
+Total Weight ÷ 2
+
+</div>
+
+
+<div class="note">
+
+<strong>Important:</strong>
+
+<br><br>
+
+The distances are shown for study of beam geometry and
+moment concepts. For a perfectly symmetrical two-point
+arrangement, the two lower reactions are equal.
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Example Calculation
+</h2>
+
+
+<div class="formula">
+
+Suspended Load = 20 t
+
+Beam Weight = 1 t
+
+<br><br>
+
+Total Weight:
+
+20 + 1
+
+= 21 t
+
+<br><br>
+
+Left Reaction:
+
+21 ÷ 2
+
+= 10.5 t
+
+<br><br>
+
+Right Reaction:
+
+21 ÷ 2
+
+= 10.5 t
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Moment Equilibrium Concept
+</h2>
+
+
+<p>
+For an asymmetric lifting arrangement, support reactions
+are determined from static equilibrium.
+</p>
+
+
+<div class="formula">
+
+ΣF = 0
+
+<br><br>
+
+ΣM = 0
+
+</div>
+
+
+<p>
+For a two-support beam with a load located between the
+supports:
+</p>
+
+
+<div class="formula">
+
+R₁ = W × b ÷ (a + b)
+
+<br>
+
+R₂ = W × a ÷ (a + b)
+
+</div>
+
+
+<p>
+Where:
+</p>
+
+<ul>
+
+<li>
+<strong>W</strong> = applied load
+</li>
+
+<li>
+<strong>a</strong> = distance from load to support 1
+</li>
+
+<li>
+<strong>b</strong> = distance from load to support 2
+</li>
+
+<li>
+<strong>R₁ / R₂</strong> = support reactions
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+What This Calculator Does Not Determine
+</h2>
+
+<ul>
+
+<li>
+Lifting beam WLL
+</li>
+
+<li>
+Structural beam strength
+</li>
+
+<li>
+Deflection
+</li>
+
+<li>
+Buckling
+</li>
+
+<li>
+Weld strength
+</li>
+
+<li>
+Pin or connection capacity
+</li>
+
+<li>
+Padeye capacity
+</li>
+
+<li>
+Shackle capacity
+</li>
+
+<li>
+Sling WLL
+</li>
+
+<li>
+Crane capacity
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Important Safety Notice
+</strong>
+
+<br><br>
+
+This is a simplified study calculator.
+
+<br><br>
+
+A lifting beam is a structural lifting device and its
+capacity cannot be established from load distribution
+alone.
+
+<br><br>
+
+Actual lifting beam design and use requires verification
+of the beam's certified WLL, structural calculations,
+connections, lifting points, rigging configuration and
+manufacturer or engineering requirements.
+
+<br><br>
+
+The actual lift must follow the approved lift plan and
+competent-person requirements.
+
+<br><br>
+
+Do not use this calculator to approve a lifting beam or
+determine whether a beam is safe for a specific lift.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Study Tool — Verify actual lifting equipment requirements
+</small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const load =
+        parseFloat(
+            document.getElementById("load").value
+        );
+
+    const beamWeight =
+        parseFloat(
+            document.getElementById("beamWeight").value
+        );
+
+    const distanceMain =
+        parseFloat(
+            document.getElementById("distanceMain").value
+        );
+
+    const distanceEnd =
+        parseFloat(
+            document.getElementById("distanceEnd").value
+        );
+
+    const result =
+        document.getElementById("result");
+
+
+    if (
+        isNaN(load) ||
+        load <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid suspended load." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(beamWeight) ||
+        beamWeight < 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid beam weight." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(distanceMain) ||
+        distanceMain <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid main lift distance." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(distanceEnd) ||
+        distanceEnd <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid load point distance." +
+        "</span>";
+
+        return;
+    }
+
+
+    const totalWeight =
+        load + beamWeight;
+
+
+    const leftReaction =
+        totalWeight / 2;
+
+
+    const rightReaction =
+        totalWeight / 2;
+
+
+    result.innerHTML =
+
+    "<strong>Total Weight:</strong><br>" +
+
+    totalWeight.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Left Load Point Reaction:</strong><br>" +
+
+    leftReaction.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Right Load Point Reaction:</strong><br>" +
+
+    rightReaction.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Reaction Check:</strong><br>" +
+
+    (
+        leftReaction +
+        rightReaction
+    ).toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<span class='good'>" +
+
+    "Symmetrical reaction calculation completed." +
+
+    "</span>";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
