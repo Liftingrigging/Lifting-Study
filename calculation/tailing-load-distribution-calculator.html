@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Tailing Load Distribution Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 950px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #cbd5e1;
+    margin-top: 15px;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+.note {
+    background: #172554;
+    border-left: 4px solid #38bdf8;
+    padding: 18px;
+    border-radius: 6px;
+    line-height: 1.6;
+}
+
+.good {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.danger {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+Tailing Load Distribution Calculator
+</h1>
+
+<p>
+Two-Point Tailing / Equilibrium Study Tool
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Input Data
+</h2>
+
+
+<label for="load">
+Total Load (tonnes)
+</label>
+
+<input
+type="number"
+id="load"
+step="0.01"
+placeholder="Example: 20"
+>
+
+
+<label for="distanceA">
+Distance from Main Lift Point to COG (m)
+</label>
+
+<input
+type="number"
+id="distanceA"
+step="0.01"
+placeholder="Example: 6"
+>
+
+
+<label for="distanceB">
+Distance from COG to Tailing Point (m)
+</label>
+
+<input
+type="number"
+id="distanceB"
+step="0.01"
+placeholder="Example: 4"
+>
+
+
+<button onclick="calculate()">
+Calculate Load Distribution
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Study Model
+</h2>
+
+
+<div class="formula">
+
+Total Length = A + B
+
+</div>
+
+
+<div class="formula">
+
+Main Lift Reaction = W × B ÷ (A + B)
+
+</div>
+
+
+<div class="formula">
+
+Tailing Reaction = W × A ÷ (A + B)
+
+</div>
+
+
+<p>
+Where:
+</p>
+
+<ul>
+
+<li>
+<strong>W</strong> = total load
+</li>
+
+<li>
+<strong>A</strong> = distance from main lifting point to COG
+</li>
+
+<li>
+<strong>B</strong> = distance from COG to tailing point
+</li>
+
+<li>
+<strong>Main Lift Reaction</strong> = ideal vertical reaction at the main lift point
+</li>
+
+<li>
+<strong>Tailing Reaction</strong> = ideal vertical reaction at the tailing point
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Example Study Calculation
+</h2>
+
+
+<div class="formula">
+
+Total Load = 20 t
+
+A = 6 m
+
+B = 4 m
+
+Total Length = 10 m
+
+<br><br>
+
+Main Lift Reaction:
+
+20 × 4 ÷ 10
+
+= 8 t
+
+<br><br>
+
+Tailing Reaction:
+
+20 × 6 ÷ 10
+
+= 12 t
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Understanding the Result
+</h2>
+
+<p>
+The load distribution changes as the COG moves
+relative to the two lifting points.
+</p>
+
+<p>
+The point closer to the COG generally carries the
+larger share of the vertical reaction in this
+idealized two-support equilibrium model.
+</p>
+
+<div class="note">
+
+<strong>Study Note:</strong><br><br>
+
+This calculator represents an idealized static
+two-point equilibrium model. Actual tailing operations
+can involve changing geometry, sling angles, crane
+motions, acceleration, friction, dynamic effects,
+unequal rigging and other factors.
+
+</div>
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Important Safety Notice
+</strong>
+
+<br><br>
+
+This calculator is for study purposes only and does
+not approve a tailing lift.
+
+<br><br>
+
+Actual tailing operations require an engineered or
+approved lift plan addressing crane configuration,
+load geometry, COG, lifting points, rigging,
+sling angles, ground conditions, clearances and
+communication.
+
+<br><br>
+
+Do not assume the calculated vertical reaction is the
+actual crane or rigging load when the system is moving
+or when the geometry differs from the simplified model.
+
+<br><br>
+
+Always follow the approved lift plan, manufacturer's
+instructions and competent-person requirements.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Study Tool — Verify actual lifting requirements
+</small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const load =
+        parseFloat(document.getElementById("load").value);
+
+    const A =
+        parseFloat(document.getElementById("distanceA").value);
+
+    const B =
+        parseFloat(document.getElementById("distanceB").value);
+
+    const result =
+        document.getElementById("result");
+
+
+    if (
+        isNaN(load) ||
+        load <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid total load." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(A) ||
+        A <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid distance A." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(B) ||
+        B <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid distance B." +
+        "</span>";
+
+        return;
+    }
+
+
+    const totalLength =
+        A + B;
+
+
+    const mainReaction =
+        load * B / totalLength;
+
+
+    const tailingReaction =
+        load * A / totalLength;
+
+
+    const totalCheck =
+        mainReaction + tailingReaction;
+
+
+    result.innerHTML =
+
+    "<strong>Total Distance:</strong><br>" +
+
+    totalLength.toFixed(3) +
+
+    " m<br><br>" +
+
+    "<strong>Main Lift Reaction:</strong><br>" +
+
+    mainReaction.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Tailing Reaction:</strong><br>" +
+
+    tailingReaction.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Reaction Check:</strong><br>" +
+
+    totalCheck.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<span class='good'>" +
+
+    "Study equilibrium calculation completed." +
+
+    "</span>";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
