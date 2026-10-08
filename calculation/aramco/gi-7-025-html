@@ -1,0 +1,587 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Saudi Aramco GI 7.025 - Lifting & Rigging Study</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #1e293b;
+            line-height: 1.7;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 30px 15px;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 32px;
+        }
+
+        header p {
+            margin: 8px 0 0;
+            color: #cbd5e1;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 12px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        main {
+            max-width: 1100px;
+            margin: auto;
+            padding: 25px;
+        }
+
+        section {
+            background: white;
+            margin-bottom: 22px;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        h2 {
+            color: #0f4c81;
+            border-bottom: 2px solid #38bdf8;
+            padding-bottom: 8px;
+        }
+
+        h3 {
+            color: #155e75;
+        }
+
+        .formula {
+            background: #e0f2fe;
+            border-left: 5px solid #0284c7;
+            padding: 15px;
+            margin: 15px 0;
+            font-weight: bold;
+            font-size: 18px;
+        }
+
+        .warning {
+            background: #fff7ed;
+            border-left: 5px solid #f97316;
+            padding: 18px;
+            margin: 20px 0;
+        }
+
+        .important {
+            background: #ecfdf5;
+            border-left: 5px solid #10b981;
+            padding: 18px;
+            margin: 20px 0;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+
+        th, td {
+            border: 1px solid #cbd5e1;
+            padding: 10px;
+            text-align: left;
+        }
+
+        th {
+            background: #e2e8f0;
+        }
+
+        ul {
+            padding-left: 25px;
+        }
+
+        .back {
+            display: inline-block;
+            background: #0f4c81;
+            color: white;
+            padding: 10px 18px;
+            border-radius: 8px;
+            text-decoration: none;
+            margin-top: 10px;
+        }
+
+        footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Saudi Aramco GI 7.025</h1>
+    <p>Heavy Equipment Operator and Rigger Testing & Certification - Study Reference</p>
+</header>
+
+<nav>
+    <a href="../../index.html">Home</a>
+    <a href="../../rigging.html">Lifting Accessories</a>
+    <a href="../../calculations.html">Calculations</a>
+    <a href="../../cranes.html">Cranes</a>
+    <a href="../../planning.html">Lift Planning</a>
+    <a href="../../safety.html">Safety</a>
+    <a href="../../study-notes.html">Study Notes</a>
+</nav>
+
+<main>
+
+<section>
+    <h2>About GI 7.025</h2>
+
+    <p>
+        This section is a study aid covering important subjects associated
+        with heavy equipment operator and rigger testing and certification.
+    </p>
+
+    <div class="warning">
+        <strong>Important:</strong>
+        This website is for study and reference purposes only.
+        Always use the current approved Saudi Aramco requirements,
+        applicable regulations, manufacturer instructions, approved lift
+        plans and competent-person verification for actual lifting work.
+    </div>
+</section>
+
+<section>
+    <h2>1. Rigger Responsibilities</h2>
+
+    <ul>
+        <li>Understand the lifting operation before starting.</li>
+        <li>Verify the load information provided for the lift.</li>
+        <li>Select suitable lifting accessories.</li>
+        <li>Inspect rigging equipment before use.</li>
+        <li>Understand sling configurations and lifting angles.</li>
+        <li>Protect slings from sharp edges.</li>
+        <li>Ensure loads are properly connected.</li>
+        <li>Maintain safe communication with the crane operator.</li>
+        <li>Keep personnel away from suspended loads.</li>
+        <li>Stop the operation if an unsafe condition develops.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>2. Load Weight</h2>
+
+    <p>
+        Correct load weight is fundamental to safe lifting.
+        The rigger should understand the difference between mass,
+        weight and the total lifted load.
+    </p>
+
+    <div class="formula">
+        Weight = Mass × Gravity
+        <br>
+        W = m × g
+    </div>
+
+    <p>
+        Where:
+    </p>
+
+    <ul>
+        <li><strong>W</strong> = weight in Newtons</li>
+        <li><strong>m</strong> = mass in kilograms</li>
+        <li><strong>g</strong> = gravitational acceleration</li>
+    </ul>
+
+    <div class="important">
+        In practical lifting work, use the approved load weight and
+        engineering information specified for the lift rather than
+        relying only on an estimated calculation.
+    </div>
+</section>
+
+<section>
+    <h2>3. Working Load Limit / Safe Working Load</h2>
+
+    <p>
+        Lifting accessories are normally identified with a rated
+        capacity such as WLL or SWL.
+    </p>
+
+    <div class="formula">
+        The lifting system is limited by its weakest rated component.
+    </div>
+
+    <p>
+        For example, if a lifting arrangement contains a sling,
+        shackle and hook, the complete arrangement cannot safely be
+        treated as having a capacity greater than the applicable
+        limiting component.
+    </p>
+</section>
+
+<section>
+    <h2>4. Sling Angle</h2>
+
+    <p>
+        Sling angle has a major effect on sling-leg tension.
+        As the angle becomes smaller relative to the horizontal,
+        sling tension increases.
+    </p>
+
+    <div class="formula">
+        T = W ÷ (2 × sin θ)
+    </div>
+
+    <p>
+        This simplified equation applies to a symmetrical two-leg
+        arrangement under the assumptions of the model.
+    </p>
+
+    <ul>
+        <li><strong>T</strong> = tension in each sling leg</li>
+        <li><strong>W</strong> = load weight</li>
+        <li><strong>θ</strong> = sling angle measured from the horizontal</li>
+    </ul>
+
+    <div class="warning">
+        Actual sling capacity must be verified against the applicable
+        sling manufacturer's rated capacities, configuration,
+        connection method, angle and applicable requirements.
+    </div>
+</section>
+
+<section>
+    <h2>5. Sling Configurations</h2>
+
+    <table>
+        <tr>
+            <th>Configuration</th>
+            <th>Study Point</th>
+        </tr>
+
+        <tr>
+            <td>Vertical</td>
+            <td>Load carried directly by the sling arrangement.</td>
+        </tr>
+
+        <tr>
+            <td>Basket</td>
+            <td>Capacity depends on configuration, angle and manufacturer's rating.</td>
+        </tr>
+
+        <tr>
+            <td>Choker</td>
+            <td>Capacity is affected by choke angle, hardware and manufacturer requirements.</td>
+        </tr>
+
+        <tr>
+            <td>Two-leg bridle</td>
+            <td>Load sharing depends on geometry and center of gravity.</td>
+        </tr>
+
+        <tr>
+            <td>Multi-leg arrangement</td>
+            <td>Requires careful assessment of load distribution and geometry.</td>
+        </tr>
+    </table>
+</section>
+
+<section>
+    <h2>6. D/d Ratio</h2>
+
+    <p>
+        The D/d ratio is important when a sling bends around a support
+        or fitting.
+    </p>
+
+    <div class="formula">
+        D/d = D ÷ d
+    </div>
+
+    <ul>
+        <li><strong>D</strong> = diameter of curvature around which the sling body is bent</li>
+        <li><strong>d</strong> = diameter of the sling body</li>
+    </ul>
+
+    <p>
+        The applicable rated capacity must be determined using the
+        relevant manufacturer's data and applicable requirements.
+    </p>
+</section>
+
+<section>
+    <h2>7. Rigging Hardware</h2>
+
+    <h3>Shackles</h3>
+
+    <ul>
+        <li>Check identification and rated capacity.</li>
+        <li>Inspect body and pin.</li>
+        <li>Check for deformation, cracks and excessive wear.</li>
+        <li>Use the correct configuration.</li>
+        <li>Do not exceed the applicable rated capacity.</li>
+    </ul>
+
+    <h3>Hooks</h3>
+
+    <ul>
+        <li>Inspect the hook before use.</li>
+        <li>Check for deformation and cracks.</li>
+        <li>Check hook throat opening.</li>
+        <li>Verify safety latch condition where applicable.</li>
+        <li>Ensure the load is properly seated in the hook.</li>
+    </ul>
+
+    <h3>Master Links</h3>
+
+    <ul>
+        <li>Verify identification and rating.</li>
+        <li>Inspect for distortion and damage.</li>
+        <li>Ensure compatible connections are used.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>8. Lifting Accessories Inspection</h2>
+
+    <p>Before use, examine lifting accessories for defects such as:</p>
+
+    <ul>
+        <li>Broken wires</li>
+        <li>Severe abrasion</li>
+        <li>Cuts</li>
+        <li>Burn damage</li>
+        <li>Corrosion</li>
+        <li>Distortion</li>
+        <li>Cracks</li>
+        <li>Damaged fittings</li>
+        <li>Missing identification</li>
+        <li>Damaged hooks or latches</li>
+    </ul>
+
+    <div class="warning">
+        Damaged or questionable lifting equipment should not be used.
+        Follow the applicable inspection, quarantine and replacement
+        procedure.
+    </div>
+</section>
+
+<section>
+    <h2>9. Sling Protection</h2>
+
+    <p>
+        Sharp edges can damage synthetic and wire rope slings.
+        Suitable protection should be used where required.
+    </p>
+
+    <ul>
+        <li>Identify sharp edges before lifting.</li>
+        <li>Use suitable edge protection.</li>
+        <li>Prevent uncontrolled movement of the sling.</li>
+        <li>Keep slings away from crushing points.</li>
+        <li>Follow manufacturer requirements.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>10. Center of Gravity</h2>
+
+    <p>
+        Understanding the center of gravity helps determine how a load
+        will behave when lifted.
+    </p>
+
+    <div class="formula">
+        x = Σ(W × x) ÷ ΣW
+    </div>
+
+    <p>
+        A load may tilt or rotate if the lifting points are not properly
+        related to its center of gravity.
+    </p>
+
+    <div class="important">
+        Before the main lift, the approved lifting arrangement should
+        account for load geometry, center of gravity and expected load
+        behavior.
+    </div>
+</section>
+
+<section>
+    <h2>11. Load Control</h2>
+
+    <ul>
+        <li>Use suitable tag lines where required.</li>
+        <li>Keep hands away from pinch points.</li>
+        <li>Do not stand under suspended loads.</li>
+        <li>Control unwanted rotation.</li>
+        <li>Prevent personnel from entering danger zones.</li>
+        <li>Use controlled crane movements.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>12. Communication</h2>
+
+    <p>
+        Clear communication between the rigger, signaller and crane
+        operator is essential.
+    </p>
+
+    <ul>
+        <li>Use agreed hand signals.</li>
+        <li>Use radio communication when required.</li>
+        <li>Maintain clear communication during critical movements.</li>
+        <li>Use one designated signaller where required by the lift procedure.</li>
+        <li>If communication is lost or unclear, stop the movement.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>13. Suspended Load Safety</h2>
+
+    <ul>
+        <li>Never position personnel beneath suspended loads.</li>
+        <li>Establish appropriate exclusion zones.</li>
+        <li>Control access to the lifting area.</li>
+        <li>Consider swing and rotation.</li>
+        <li>Consider dropped-object hazards.</li>
+        <li>Follow the approved lift plan.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>14. Critical Lift Awareness</h2>
+
+    <p>
+        Critical lifts require additional planning and controls according
+        to the applicable site and project requirements.
+    </p>
+
+    <ul>
+        <li>Confirm load weight.</li>
+        <li>Confirm crane selection.</li>
+        <li>Confirm lifting accessories.</li>
+        <li>Review crane configuration.</li>
+        <li>Review load radius.</li>
+        <li>Review ground conditions.</li>
+        <li>Review environmental conditions.</li>
+        <li>Confirm communication arrangements.</li>
+        <li>Confirm personnel responsibilities.</li>
+        <li>Conduct the required pre-lift meeting.</li>
+    </ul>
+</section>
+
+<section>
+    <h2>15. Rigger Examination Topics - Study Checklist</h2>
+
+    <ul>
+        <li>Rigging terminology</li>
+        <li>Load weight</li>
+        <li>Center of gravity</li>
+        <li>Sling types</li>
+        <li>Sling configurations</li>
+        <li>Sling angles</li>
+        <li>Shackles</li>
+        <li>Hooks</li>
+        <li>Master links</li>
+        <li>Wire rope</li>
+        <li>Webbing slings</li>
+        <li>Round slings</li>
+        <li>Chain slings</li>
+        <li>Inspection requirements</li>
+        <li>Load control</li>
+        <li>Tag lines</li>
+        <li>Hand signals</li>
+        <li>Radio communication</li>
+        <li>Suspended-load hazards</li>
+        <li>Crane hazards</li>
+        <li>Critical lifts</li>
+        <li>Lift planning</li>
+        <li>Personal protective equipment</li>
+        <li>Emergency procedures</li>
+    </ul>
+</section>
+
+<section>
+    <h2>16. Key Formulas - Quick Revision</h2>
+
+    <div class="formula">
+        W = m × g
+    </div>
+
+    <div class="formula">
+        T = W ÷ (2 × sin θ)
+    </div>
+
+    <div class="formula">
+        D/d = D ÷ d
+    </div>
+
+    <div class="formula">
+        x = Σ(W × x) ÷ ΣW
+    </div>
+
+    <p>
+        These formulas are study aids. Actual lifting calculations must
+        be checked against the applicable engineered lift plan,
+        manufacturer's data and governing requirements.
+    </p>
+</section>
+
+<section>
+    <h2>17. Important Reference Areas</h2>
+
+    <p>
+        For serious study, review the current applicable Saudi Aramco
+        General Instructions, project requirements, manufacturer
+        documentation and applicable international standards.
+    </p>
+
+    <p>
+        Important subjects include heavy equipment operator and rigger
+        certification, crane lift procedures, rigging hardware,
+        inspection/testing and crane operations near power lines.
+    </p>
+</section>
+
+<section>
+    <h2>Back to Saudi Aramco Study</h2>
+
+    <a class="back" href="index.html">
+        ← Back to Saudi Aramco Study
+    </a>
+</section>
+
+</main>
+
+<footer>
+    Lifting & Rigging Study Hub
+    <br>
+    <small>Created by Jawad Wains - Lifting Engineer</small>
+</footer>
+
+</body>
+</html>
