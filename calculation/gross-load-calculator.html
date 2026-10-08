@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Gross Load Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #cbd5e1;
+    margin-top: 15px;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+.good {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+Gross Load Calculator
+</h1>
+
+<p>
+Lifting & Rigging Study Tool
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Load Components
+</h2>
+
+
+<label for="load">
+Main Lifted Load (tonnes)
+</label>
+
+<input
+type="number"
+id="load"
+step="0.01"
+placeholder="Example: 20"
+>
+
+
+<label for="slings">
+Slings Weight (tonnes)
+</label>
+
+<input
+type="number"
+id="slings"
+step="0.01"
+value="0"
+placeholder="Example: 0.25"
+>
+
+
+<label for="shackles">
+Shackles & Connecting Hardware (tonnes)
+</label>
+
+<input
+type="number"
+id="shackles"
+step="0.01"
+value="0"
+placeholder="Example: 0.10"
+>
+
+
+<label for="liftingBeam">
+Lifting Beam / Spreader Weight (tonnes)
+</label>
+
+<input
+type="number"
+id="liftingBeam"
+step="0.01"
+value="0"
+placeholder="Example: 0.80"
+>
+
+
+<label for="hookBlock">
+Hook Block / Hook Weight (tonnes)
+</label>
+
+<input
+type="number"
+id="hookBlock"
+step="0.01"
+value="0"
+placeholder="Example: 1.20"
+>
+
+
+<label for="other">
+Other Suspended Equipment (tonnes)
+</label>
+
+<input
+type="number"
+id="other"
+step="0.01"
+value="0"
+placeholder="Example: 0.50"
+>
+
+
+<button onclick="calculate()">
+Calculate Gross Load
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Study Formula
+</h2>
+
+
+<div class="formula">
+
+Gross Load =
+
+Main Load
+
++ Slings
+
++ Shackles
+
++ Lifting Beam
+
++ Hook Block
+
++ Other Suspended Equipment
+
+</div>
+
+
+<p>
+All weights must use the same unit.
+This calculator uses tonnes.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Example Study Calculation
+</h2>
+
+
+<div class="formula">
+
+Main Load = 20.00 t
+
+Slings = 0.25 t
+
+Shackles = 0.10 t
+
+Lifting Beam = 0.80 t
+
+Hook Block = 1.20 t
+
+Other Equipment = 0.50 t
+
+----------------------------
+
+Gross Load = 22.85 t
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Why Gross Load Matters
+</h2>
+
+<p>
+Crane capacity checks must consider the load being
+supported by the crane, not only the weight of the
+main object.
+</p>
+
+<p>
+Depending on the crane configuration and lift
+arrangement, items such as hook blocks, lifting
+beams, slings, shackles and other suspended
+equipment may contribute to the crane load.
+</p>
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Important Safety Notice
+</strong>
+
+<br><br>
+
+This calculator is a study and planning aid only.
+
+<br><br>
+
+The actual load to be considered for a crane lift
+must be determined from the approved lift plan,
+crane manufacturer's requirements, lifting
+arrangement and applicable engineering requirements.
+
+<br><br>
+
+Do not use this calculator to replace a crane
+load chart, engineered lift calculation or
+competent-person review.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Study Tool — Verify actual lifting requirements
+</small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const load =
+        parseFloat(document.getElementById("load").value);
+
+    const slings =
+        parseFloat(document.getElementById("slings").value) || 0;
+
+    const shackles =
+        parseFloat(document.getElementById("shackles").value) || 0;
+
+    const liftingBeam =
+        parseFloat(document.getElementById("liftingBeam").value) || 0;
+
+    const hookBlock =
+        parseFloat(document.getElementById("hookBlock").value) || 0;
+
+    const other =
+        parseFloat(document.getElementById("other").value) || 0;
+
+    const result =
+        document.getElementById("result");
+
+
+    if (isNaN(load) || load <= 0) {
+
+        result.innerHTML =
+        "<span style='color:#ef4444;font-weight:bold;'>" +
+        "Please enter a valid main lifted load." +
+        "</span>";
+
+        return;
+    }
+
+
+    const grossLoad =
+        load +
+        slings +
+        shackles +
+        liftingBeam +
+        hookBlock +
+        other;
+
+
+    result.innerHTML =
+
+    "<strong>Main Lifted Load:</strong><br>" +
+
+    load.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Total Additional Suspended Weight:</strong><br>" +
+
+    (
+        grossLoad - load
+    ).toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>GROSS LOAD:</strong><br>" +
+
+    grossLoad.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<span class='good'>" +
+    "Calculation completed" +
+    "</span>";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
