@@ -1,667 +1,1005 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Saudi Aramco Lifting & Rigging Study</title>
+    <title>Lifting & Rigging Calculations</title>
 
-<style>
-    * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0;
-    }
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-    body {
-        font-family: Arial, Helvetica, sans-serif;
-        background: #07111f;
-        color: #e5eef7;
-        line-height: 1.7;
-    }
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+            background: #07111f;
+            color: #e5eef7;
+            line-height: 1.7;
+        }
 
-    header {
-        background:
-            linear-gradient(rgba(2, 6, 23, 0.72), rgba(2, 6, 23, 0.72)),
-            url("../../gasplant.png");
-        background-size: cover;
-        background-position: center;
-        padding: 45px 20px;
-        text-align: center;
-        border-bottom: 3px solid #38bdf8;
-    }
+        header {
+            background:
+                linear-gradient(
+                    rgba(2, 6, 23, 0.70),
+                    rgba(2, 6, 23, 0.70)
+                ),
+                url("gasplant.png");
 
-    header h1 {
-        font-size: 38px;
-        color: #ffffff;
-        margin-bottom: 10px;
-    }
+            background-size: cover;
+            background-position: center;
 
-    header p {
-        font-size: 18px;
-        color: #bae6fd;
-    }
+            padding: 45px 20px;
+            text-align: center;
 
-    nav {
-        background: #0b1b2d;
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-        gap: 8px;
-        padding: 14px;
-        border-bottom: 1px solid #1e3a5f;
-    }
+            border-bottom: 3px solid #38bdf8;
+        }
 
-    nav a {
-        color: #e0f2fe;
-        text-decoration: none;
-        padding: 9px 15px;
-        border-radius: 7px;
-        background: #102a43;
-        font-weight: bold;
-        transition: 0.2s;
-    }
-
-    nav a:hover {
-        background: #0ea5e9;
-        color: white;
-    }
-
-    main {
-        max-width: 1200px;
-        margin: auto;
-        padding: 30px 18px;
-    }
-
-    .intro {
-        background: #0d2034;
-        border-left: 5px solid #38bdf8;
-        padding: 25px;
-        border-radius: 10px;
-        margin-bottom: 30px;
-    }
-
-    .intro h2 {
-        color: #7dd3fc;
-        margin-bottom: 10px;
-    }
-
-    .notice {
-        background: #33240b;
-        border: 1px solid #d97706;
-        color: #fde68a;
-        padding: 20px;
-        border-radius: 10px;
-        margin-bottom: 30px;
-    }
-
-    .notice strong {
-        color: #fbbf24;
-    }
-
-    .grid {
-        display: grid;
-        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-        gap: 20px;
-    }
-
-    .card {
-        background: #0d2034;
-        border: 1px solid #1e4668;
-        border-radius: 12px;
-        padding: 23px;
-        transition: 0.25s;
-    }
-
-    .card:hover {
-        transform: translateY(-4px);
-        border-color: #38bdf8;
-        box-shadow: 0 8px 25px rgba(0,0,0,0.3);
-    }
-
-    .card h3 {
-        color: #38bdf8;
-        margin-bottom: 10px;
-    }
-
-    .card p {
-        color: #cbd5e1;
-        margin-bottom: 15px;
-    }
-
-    .card a {
-        display: inline-block;
-        text-decoration: none;
-        background: #0284c7;
-        color: white;
-        padding: 9px 15px;
-        border-radius: 6px;
-        font-weight: bold;
-    }
-
-    .card a:hover {
-        background: #0ea5e9;
-    }
-
-    .formula-section {
-        margin-top: 35px;
-    }
-
-    .formula-section h2 {
-        color: #7dd3fc;
-        margin-bottom: 18px;
-        border-bottom: 1px solid #1e4668;
-        padding-bottom: 8px;
-    }
-
-    .formula {
-        background: #020b16;
-        border: 1px solid #164e6d;
-        padding: 18px;
-        margin-bottom: 15px;
-        border-radius: 8px;
-    }
-
-    .formula h3 {
-        color: #38bdf8;
-        margin-bottom: 8px;
-    }
-
-    .equation {
-        display: block;
-        background: #061522;
-        color: #a5f3fc;
-        padding: 12px;
-        margin: 10px 0;
-        border-radius: 6px;
-        font-family: "Courier New", monospace;
-        font-size: 17px;
-        overflow-x: auto;
-    }
-
-    ul {
-        padding-left: 22px;
-    }
-
-    li {
-        margin-bottom: 5px;
-    }
-
-    footer {
-        margin-top: 40px;
-        background: #020817;
-        border-top: 2px solid #1e4668;
-        text-align: center;
-        padding: 25px;
-        color: #94a3b8;
-    }
-
-    @media (max-width: 600px) {
         header h1 {
-            font-size: 28px;
+            font-size: 38px;
+            color: white;
+            margin-bottom: 10px;
         }
 
         header p {
-            font-size: 15px;
+            color: #bae6fd;
+            font-size: 18px;
         }
-    }
-</style>
+
+        nav {
+            background: #0b1b2d;
+
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+
+            gap: 8px;
+
+            padding: 14px;
+
+            border-bottom: 1px solid #1e3a5f;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #e0f2fe;
+
+            background: #102a43;
+
+            padding: 9px 15px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            background: #0ea5e9;
+            color: white;
+        }
+
+        main {
+            max-width: 1200px;
+            margin: auto;
+
+            padding: 30px 18px;
+        }
+
+        .intro {
+            background: #0d2034;
+
+            border-left: 5px solid #38bdf8;
+
+            padding: 25px;
+
+            border-radius: 10px;
+
+            margin-bottom: 35px;
+        }
+
+        .intro h2 {
+            color: #7dd3fc;
+
+            margin-bottom: 12px;
+        }
+
+        .warning {
+            background: #33240b;
+
+            border: 1px solid #d97706;
+
+            color: #fde68a;
+
+            padding: 20px;
+
+            border-radius: 10px;
+
+            margin-bottom: 35px;
+        }
+
+        .warning h3 {
+            color: #fbbf24;
+
+            margin-bottom: 10px;
+        }
+
+        .section-title {
+            color: #7dd3fc;
+
+            font-size: 28px;
+
+            margin-top: 35px;
+            margin-bottom: 20px;
+
+            border-bottom: 1px solid #1e4668;
+
+            padding-bottom: 10px;
+        }
+
+        .cards {
+            display: grid;
+
+            grid-template-columns:
+                repeat(auto-fit, minmax(280px, 1fr));
+
+            gap: 20px;
+        }
+
+        .card {
+            background: #0d2034;
+
+            border: 1px solid #1e4668;
+
+            border-radius: 12px;
+
+            padding: 25px;
+
+            transition: 0.25s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+
+            border-color: #38bdf8;
+
+            box-shadow:
+                0 8px 25px rgba(0, 0, 0, 0.35);
+        }
+
+        .card h3 {
+            color: #38bdf8;
+
+            margin-bottom: 12px;
+
+            font-size: 22px;
+        }
+
+        .card p {
+            color: #cbd5e1;
+
+            margin-bottom: 15px;
+        }
+
+        .card ul {
+            padding-left: 20px;
+
+            margin-bottom: 20px;
+
+            color: #cbd5e1;
+        }
+
+        .card li {
+            margin-bottom: 5px;
+        }
+
+        .button {
+            display: inline-block;
+
+            text-decoration: none;
+
+            background: #0284c7;
+
+            color: white;
+
+            padding: 10px 17px;
+
+            border-radius: 7px;
+
+            font-weight: bold;
+        }
+
+        .button:hover {
+            background: #0ea5e9;
+        }
+
+        .formula-box {
+            background: #020b16;
+
+            border: 1px solid #164e6d;
+
+            border-radius: 10px;
+
+            padding: 22px;
+
+            margin-bottom: 18px;
+        }
+
+        .formula-box h3 {
+            color: #38bdf8;
+
+            margin-bottom: 8px;
+        }
+
+        .formula {
+            display: block;
+
+            background: #061522;
+
+            color: #a5f3fc;
+
+            padding: 13px;
+
+            border-radius: 7px;
+
+            margin: 12px 0;
+
+            font-family: "Courier New", monospace;
+
+            font-size: 17px;
+
+            overflow-x: auto;
+        }
+
+        .formula-box ul {
+            padding-left: 22px;
+
+            color: #cbd5e1;
+        }
+
+        .formula-box li {
+            margin-bottom: 5px;
+        }
+
+        footer {
+            margin-top: 45px;
+
+            background: #020817;
+
+            border-top: 2px solid #1e4668;
+
+            text-align: center;
+
+            padding: 25px;
+
+            color: #94a3b8;
+        }
+
+        @media (max-width: 600px) {
+
+            header h1 {
+                font-size: 28px;
+            }
+
+            header p {
+                font-size: 15px;
+            }
+
+            .section-title {
+                font-size: 24px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
-    <h1>Saudi Aramco Lifting & Rigging Study</h1>
-    <p>Calculations • Rigging • Cranes • Lift Planning • Inspection • Safety</p>
+
+    <h1>Lifting & Rigging Calculations</h1>
+
+    <p>
+        Study Formulas • Sling Calculations • Crane Calculations •
+        Lift Planning
+    </p>
+
 </header>
 
+
 <nav>
-    <a href="../../index.html">Home</a>
-    <a href="../../rigging.html">Lifting Accessories</a>
-    <a href="../calculations.html">Calculations</a>
-    <a href="../../cranes.html">Cranes</a>
-    <a href="../../planning.html">Lift Planning</a>
-    <a href="../../safety.html">Safety</a>
+
+    <a href="index.html">Home</a>
+
+    <a href="rigging.html">
+        Lifting Accessories
+    </a>
+
+    <a href="calculations.html">
+        Calculations
+    </a>
+
+    <a href="cranes.html">
+        Cranes
+    </a>
+
+    <a href="planning.html">
+        Lift Planning
+    </a>
+
+    <a href="safety.html">
+        Safety
+    </a>
+
+    <a href="study-notes.html">
+        Study Notes
+    </a>
+
 </nav>
+
 
 <main>
 
+
+<!-- INTRODUCTION -->
+
 <section class="intro">
-    <h2>Saudi Aramco Reference Section</h2>
+
+    <h2>
+        Lifting & Rigging Calculation Study
+    </h2>
 
     <p>
-        This section is dedicated to the study of lifting and rigging
-        requirements associated with Saudi Aramco work, including
-        rigging hardware, crane lifts, inspection, testing,
-        certification, lifting calculations and power-line hazards.
+        This section provides a structured study reference for
+        lifting and rigging calculations.
     </p>
 
     <p>
-        The material is organized around applicable Saudi Aramco
-        General Instructions and related lifting standards.
-    </p>
-</section>
-
-<section class="notice">
-
-    <strong>IMPORTANT SAFETY NOTICE</strong>
-
-    <p>
-        This website is intended for education, study and reference only.
-        It is not a substitute for an approved lifting plan, engineered
-        calculation, manufacturer load chart, equipment certificate,
-        current Saudi Aramco requirements, applicable Saudi regulations,
-        applicable ASME standards, or verification by a competent person.
-    </p>
-
-    <p>
-        Always verify the current revision of the applicable document
-        before using any requirement for an actual lifting operation.
+        The calculation library is divided into separate
+        <strong>TÜV / general lifting study</strong> and
+        <strong>Saudi Aramco study</strong> sections.
     </p>
 
 </section>
 
-<section class="grid">
 
-    <div class="card">
-        <h3>GI 7.025</h3>
+<!-- SAFETY -->
 
-        <p>
-            Heavy Equipment Operator and Rigger Testing and Certification.
-        </p>
+<section class="warning">
 
-        <ul>
-            <li>Rigger competency</li>
-            <li>Operator requirements</li>
-            <li>Rigging knowledge</li>
-            <li>Testing concepts</li>
-            <li>Communication</li>
-        </ul>
+    <h3>
+        Important Safety Notice
+    </h3>
 
-        <br>
+    <p>
+        These calculations are provided for education and study.
+        They must not replace an approved lift plan, engineered
+        calculation, crane manufacturer's load chart, rigging
+        manufacturer's data, applicable standards, site procedures,
+        or competent-person verification.
+    </p>
 
-        <a href="gi-7-025.html">Open GI 7.025</a>
-    </div>
+    <p>
+        Always use the current applicable revision of the governing
+        standard, Saudi Aramco requirement, manufacturer information
+        and project procedure before carrying out an actual lifting
+        operation.
+    </p>
+
+</section>
 
 
-    <div class="card">
-        <h3>GI 7.028</h3>
+<!-- TÜV -->
 
-        <p>
-            Crane Lifts: Types and Procedures.
-        </p>
+<h2 class="section-title">
+    TÜV / General Lifting & Rigging Study
+</h2>
 
-        <ul>
-            <li>Crane lift planning</li>
-            <li>Standard lifts</li>
-            <li>Critical lifts</li>
-            <li>Crane configuration</li>
-            <li>Load charts</li>
-            <li>Lift procedures</li>
-        </ul>
 
-        <br>
-
-        <a href="gi-7-028.html">Open GI 7.028</a>
-    </div>
+<div class="cards">
 
 
     <div class="card">
-        <h3>GI 7.029</h3>
+
+        <h3>
+            TÜV Lifting & Rigging Study
+        </h3>
 
         <p>
-            Rigging Hardware Requirements.
+            Comprehensive study material covering lifting,
+            rigging, cranes, accessories, calculations and
+            inspection concepts.
         </p>
 
         <ul>
-            <li>Wire rope slings</li>
-            <li>Web slings</li>
-            <li>Chain slings</li>
-            <li>Shackles</li>
-            <li>Hooks</li>
-            <li>D/d ratio</li>
-            <li>SWL / WLL</li>
-        </ul>
 
-        <br>
-
-        <a href="gi-7-029.html">Open GI 7.029</a>
-    </div>
-
-
-    <div class="card">
-        <h3>GI 7.030</h3>
-
-        <p>
-            Inspection and Testing Requirements for
-            Elevating and Lifting Equipment.
-        </p>
-
-        <ul>
-            <li>Inspection</li>
-            <li>Testing</li>
-            <li>Certification</li>
-            <li>Defects</li>
-            <li>Equipment identification</li>
-        </ul>
-
-        <br>
-
-        <a href="gi-7-030.html">Open GI 7.030</a>
-    </div>
-
-
-    <div class="card">
-        <h3>GI 2.702</h3>
-
-        <p>
-            Moving equipment or loads and operating cranes
-            under or near power lines.
-        </p>
-
-        <ul>
-            <li>Electrical hazards</li>
-            <li>Power lines</li>
-            <li>Planning</li>
-            <li>Clearance</li>
-            <li>Controls</li>
-        </ul>
-
-        <br>
-
-        <a href="gi-2-702.html">Open GI 2.702</a>
-    </div>
-
-
-    <div class="card">
-        <h3>Aramco Calculation Study</h3>
-
-        <p>
-            Main lifting and rigging calculation concepts used
-            for study and engineering reference.
-        </p>
-
-        <ul>
             <li>Load calculations</li>
-            <li>Sling forces</li>
-            <li>D/d ratio</li>
-            <li>Load moment</li>
-            <li>Ground pressure</li>
-            <li>Load distribution</li>
+
+            <li>Sling calculations</li>
+
+            <li>Wire rope</li>
+
+            <li>Shackles and hooks</li>
+
+            <li>Lifting beams</li>
+
+            <li>Crane calculations</li>
+
+            <li>Ground bearing</li>
+
+            <li>Tandem lifting</li>
+
+            <li>Inspection and testing</li>
+
         </ul>
 
-        <br>
-
-        <a href="rigging-calculations.html">
-            Open Calculations
+        <a
+            class="button"
+            href="calculations/tuv/index.html"
+        >
+            Open TÜV Study
         </a>
+
     </div>
 
-</section>
 
+    <div class="card">
 
-<section class="formula-section">
-
-    <h2>Core Lifting Calculation Reference</h2>
-
-
-    <div class="formula">
-
-        <h3>1. Load Weight</h3>
+        <h3>
+            Basic Load Calculations
+        </h3>
 
         <p>
-            Weight is calculated from mass and gravitational acceleration.
+            Fundamental calculations used throughout lifting
+            and rigging studies.
         </p>
-
-        <span class="equation">
-            W = m × g
-        </span>
 
         <ul>
-            <li>W = weight / force in newtons</li>
-            <li>m = mass in kilograms</li>
-            <li>g ≈ 9.81 m/s²</li>
+
+            <li>Mass and weight</li>
+
+            <li>Unit conversion</li>
+
+            <li>Center of gravity</li>
+
+            <li>Moments</li>
+
+            <li>Force equilibrium</li>
+
+            <li>Load distribution</li>
+
         </ul>
 
+        <a
+            class="button"
+            href="calculations/tuv/load-calculations.html"
+        >
+            Load Calculations
+        </a>
+
     </div>
 
 
-    <div class="formula">
+    <div class="card">
 
-        <h3>2. Metric Tonnes</h3>
-
-        <span class="equation">
-            Tonnes = Kilograms ÷ 1000
-        </span>
+        <h3>
+            Sling Calculations
+        </h3>
 
         <p>
-            Example: 5,000 kg = 5 tonnes.
+            Study of sling angles, leg forces and load
+            distribution.
         </p>
-
-    </div>
-
-
-    <div class="formula">
-
-        <h3>3. Load Moment</h3>
-
-        <span class="equation">
-            M = W × R
-        </span>
 
         <ul>
-            <li>M = moment</li>
-            <li>W = load</li>
-            <li>R = horizontal working radius</li>
+
+            <li>Two-leg slings</li>
+
+            <li>Three-leg arrangements</li>
+
+            <li>Four-leg arrangements</li>
+
+            <li>Angle effects</li>
+
+            <li>Load sharing</li>
+
         </ul>
 
-        <p>
-            For study purposes, when load is expressed in tonnes and
-            radius in metres, the result may be expressed as tonne-metres.
-        </p>
+        <a
+            class="button"
+            href="calculations/tuv/sling-calculations.html"
+        >
+            Sling Calculations
+        </a>
 
     </div>
 
 
-    <div class="formula">
+</div>
 
-        <h3>4. Two-Leg Sling Tension</h3>
+
+<!-- ARAMCO -->
+
+<h2 class="section-title">
+    Saudi Aramco Lifting & Rigging Study
+</h2>
+
+
+<div class="cards">
+
+
+    <div class="card">
+
+        <h3>
+            Saudi Aramco Study
+        </h3>
 
         <p>
-            For a simplified symmetrical two-leg sling arrangement,
-            with the sling angle measured from the horizontal:
+            Dedicated Saudi Aramco lifting and rigging reference
+            section.
         </p>
-
-        <span class="equation">
-            T = W ÷ (2 × sin θ)
-        </span>
 
         <ul>
-            <li>T = tension in each sling leg</li>
-            <li>W = total supported load</li>
-            <li>θ = sling angle from horizontal</li>
+
+            <li>GI 7.025</li>
+
+            <li>GI 7.028</li>
+
+            <li>GI 7.029</li>
+
+            <li>GI 7.030</li>
+
+            <li>GI 2.702</li>
+
+            <li>Rigging calculations</li>
+
+            <li>Crane calculations</li>
+
+            <li>Critical lifts</li>
+
+            <li>Inspection and testing</li>
+
         </ul>
 
-        <p>
-            Actual sling capacity must always be checked against the
-            applicable manufacturer data and approved lifting arrangement.
-        </p>
+        <a
+            class="button"
+            href="calculations/aramco/index.html"
+        >
+            Open Saudi Aramco Study
+        </a>
 
     </div>
 
 
-    <div class="formula">
+    <div class="card">
 
-        <h3>5. D/d Ratio</h3>
+        <h3>
+            Aramco Rigging Calculations
+        </h3>
 
-        <span class="equation">
-            D/d = D ÷ d
-        </span>
+        <p>
+            Study section for rigging-related calculations and
+            capacity concepts.
+        </p>
 
         <ul>
-            <li>D = diameter of curvature around the support</li>
-            <li>d = sling or wire-rope diameter</li>
+
+            <li>D/d ratio</li>
+
+            <li>SWL / WLL</li>
+
+            <li>Sling angles</li>
+
+            <li>Shackle capacity</li>
+
+            <li>Hook loading</li>
+
+            <li>Load distribution</li>
+
         </ul>
 
-        <p>
-            The applicable capacity or reduction requirement must be
-            taken from the applicable manufacturer documentation or
-            governing requirement. The D/d ratio by itself must not be
-            used to invent a capacity reduction factor.
-        </p>
+        <a
+            class="button"
+            href="calculations/aramco/rigging-calculations.html"
+        >
+            Rigging Calculations
+        </a>
 
     </div>
 
 
-    <div class="formula">
+    <div class="card">
 
-        <h3>6. Ground Bearing Pressure</h3>
+        <h3>
+            Crane Calculations
+        </h3>
 
-        <span class="equation">
-            P = F ÷ A
-        </span>
+        <p>
+            Study of crane capacity, radius, load moment and
+            utilization.
+        </p>
 
         <ul>
-            <li>P = pressure</li>
-            <li>F = applied force</li>
-            <li>A = bearing area</li>
+
+            <li>Load chart</li>
+
+            <li>Working radius</li>
+
+            <li>Boom configuration</li>
+
+            <li>Load moment</li>
+
+            <li>Crane utilization</li>
+
+            <li>Ground conditions</li>
+
         </ul>
 
-        <p>
-            Actual crane outrigger reactions must come from the crane
-            manufacturer, approved engineering calculation or applicable
-            lift plan. Do not simply divide total crane weight equally
-            between outriggers.
-        </p>
+        <a
+            class="button"
+            href="calculations/aramco/crane-calculations.html"
+        >
+            Crane Calculations
+        </a>
 
     </div>
 
 
-    <div class="formula">
-
-        <h3>7. Required Bearing Area</h3>
-
-        <span class="equation">
-            A = F ÷ Pallow
-        </span>
-
-        <p>
-            Pallow must be based on an appropriate site-specific
-            geotechnical or engineering assessment.
-        </p>
-
-    </div>
+</div>
 
 
-    <div class="formula">
+<!-- QUICK FORMULAS -->
 
-        <h3>8. Static Equilibrium</h3>
-
-        <span class="equation">
-            ΣFx = 0
-        </span>
-
-        <span class="equation">
-            ΣFy = 0
-        </span>
-
-        <span class="equation">
-            ΣM = 0
-        </span>
-
-        <p>
-            These relationships are fundamental to determining forces,
-            reactions and load distribution in lifting arrangements.
-        </p>
-
-    </div>
+<h2 class="section-title">
+    Quick Formula Reference
+</h2>
 
 
-    <div class="formula">
+<div class="formula-box">
 
-        <h3>9. Gross Suspended Load</h3>
+    <h3>
+        1. Weight
+    </h3>
 
-        <span class="equation">
-            Gross Load =
-            Payload + Rigging + Lifting Device + Other Suspended Items
-        </span>
+    <span class="formula">
+        W = m × g
+    </span>
 
-        <p>
-            Crane capacity checks must account for the applicable
-            suspended components, not only the payload.
-        </p>
+    <ul>
 
-    </div>
+        <li>
+            W = weight / force
+        </li>
 
+        <li>
+            m = mass
+        </li>
 
-    <div class="formula">
+        <li>
+            g ≈ 9.81 m/s²
+        </li>
 
-        <h3>10. Crane Utilization</h3>
+    </ul>
 
-        <span class="equation">
-            Utilization (%) =
-            Actual Load ÷ Applicable Crane Capacity × 100
-        </span>
-
-        <p>
-            The applicable capacity must be obtained from the correct
-            crane load chart for the actual crane configuration,
-            radius, boom, counterweight, outrigger condition and
-            other applicable parameters.
-        </p>
-
-    </div>
-
-</section>
+</div>
 
 
-<section class="formula-section">
+<div class="formula-box">
 
-    <h2>Important Reference Standards</h2>
+    <h3>
+        2. Two-Leg Sling Tension
+    </h3>
 
-    <div class="formula">
+    <span class="formula">
+        T = W ÷ (2 × sin θ)
+    </span>
 
-        <ul>
-            <li>Saudi Aramco GI 7.025</li>
-            <li>Saudi Aramco GI 7.028</li>
-            <li>Saudi Aramco GI 7.029</li>
-            <li>Saudi Aramco GI 7.030</li>
-            <li>Saudi Aramco GI 2.702</li>
-            <li>ASME B30 series</li>
-            <li>Applicable Saudi regulations</li>
-            <li>Applicable SASO requirements</li>
-            <li>Manufacturer instructions and load charts</li>
-        </ul>
+    <ul>
 
-    </div>
+        <li>
+            T = tension in each sling leg
+        </li>
 
-</section>
+        <li>
+            W = supported load
+        </li>
+
+        <li>
+            θ = sling angle measured from horizontal
+        </li>
+
+    </ul>
+
+</div>
 
 
-<section class="notice">
+<div class="formula-box">
 
-    <strong>VERSION CONTROL</strong>
+    <h3>
+        3. Load Moment
+    </h3>
+
+    <span class="formula">
+        M = W × R
+    </span>
+
+    <ul>
+
+        <li>
+            M = load moment
+        </li>
+
+        <li>
+            W = load
+        </li>
+
+        <li>
+            R = working radius
+        </li>
+
+    </ul>
+
+</div>
+
+
+<div class="formula-box">
+
+    <h3>
+        4. D/d Ratio
+    </h3>
+
+    <span class="formula">
+        D/d = D ÷ d
+    </span>
+
+    <ul>
+
+        <li>
+            D = diameter of curvature
+        </li>
+
+        <li>
+            d = sling or wire-rope diameter
+        </li>
+
+    </ul>
+
+</div>
+
+
+<div class="formula-box">
+
+    <h3>
+        5. Ground Bearing Pressure
+    </h3>
+
+    <span class="formula">
+        P = F ÷ A
+    </span>
+
+    <ul>
+
+        <li>
+            P = pressure
+        </li>
+
+        <li>
+            F = applied force
+        </li>
+
+        <li>
+            A = bearing area
+        </li>
+
+    </ul>
+
+</div>
+
+
+<div class="formula-box">
+
+    <h3>
+        6. Required Bearing Area
+    </h3>
+
+    <span class="formula">
+        A = F ÷ Pallow
+    </span>
 
     <p>
-        Requirements can change when standards, Saudi Aramco General
-        Instructions, regulations, manufacturer instructions or project
-        procedures are revised.
+        The allowable ground pressure must be based on the
+        appropriate engineering or geotechnical assessment.
     </p>
 
-    <p>
-        Always confirm the current applicable revision before using
-        information for an actual lifting operation.
-    </p>
+</div>
 
-</section>
+
+<div class="formula-box">
+
+    <h3>
+        7. Static Equilibrium
+    </h3>
+
+    <span class="formula">
+        ΣFx = 0
+    </span>
+
+    <span class="formula">
+        ΣFy = 0
+    </span>
+
+    <span class="formula">
+        ΣM = 0
+    </span>
+
+</div>
+
+
+<div class="formula-box">
+
+    <h3>
+        8. Gross Suspended Load
+    </h3>
+
+    <span class="formula">
+        Gross Load = Payload + Rigging + Lifting Device + Other Suspended Items
+    </span>
+
+</div>
+
+
+<!-- STUDY TOPICS -->
+
+<h2 class="section-title">
+    Complete Study Topics
+</h2>
+
+
+<div class="cards">
+
+
+    <div class="card">
+
+        <h3>
+            Rigging
+        </h3>
+
+        <ul>
+
+            <li>Wire rope slings</li>
+
+            <li>Web slings</li>
+
+            <li>Round slings</li>
+
+            <li>Chain slings</li>
+
+            <li>Shackles</li>
+
+            <li>Hooks</li>
+
+            <li>Master links</li>
+
+            <li>Turnbuckles</li>
+
+            <li>Snatch blocks</li>
+
+            <li>Clamps</li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Crane Calculations
+        </h3>
+
+        <ul>
+
+            <li>Load charts</li>
+
+            <li>Radius</li>
+
+            <li>Boom length</li>
+
+            <li>Boom angle</li>
+
+            <li>Counterweight</li>
+
+            <li>Load moment</li>
+
+            <li>Crane utilization</li>
+
+            <li>Outrigger loading</li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Lift Planning
+        </h3>
+
+        <ul>
+
+            <li>Load weight</li>
+
+            <li>Center of gravity</li>
+
+            <li>Rigging arrangement</li>
+
+            <li>Crane selection</li>
+
+            <li>Ground conditions</li>
+
+            <li>Lift radius</li>
+
+            <li>Communication</li>
+
+            <li>Exclusion zones</li>
+
+        </ul>
+
+    </div>
+
+
+    <div class="card">
+
+        <h3>
+            Safety
+        </h3>
+
+        <ul>
+
+            <li>Suspended loads</li>
+
+            <li>Dropped objects</li>
+
+            <li>Crane overturning</li>
+
+            <li>Power lines</li>
+
+            <li>Pinch points</li>
+
+            <li>Wind</li>
+
+            <li>Ground failure</li>
+
+            <li>Emergency planning</li>
+
+        </ul>
+
+    </div>
+
+
+</div>
+
 
 </main>
 
+
 <footer>
-    <p>Lifting & Rigging Study Hub</p>
-    <p>Saudi Aramco Lifting & Rigging Study Section</p>
-    <p>Created by Jawad Wains</p>
+
+    <p>
+        Lifting & Rigging Study Hub
+    </p>
+
+    <p>
+        Created by Jawad Wains — Lifting Engineer
+    </p>
+
+    <p>
+        Educational and study reference only
+    </p>
+
 </footer>
+
 
 </body>
 </html>
