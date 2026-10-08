@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Ground Bearing Calculator</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #020617;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        header h1 {
+            color: #38bdf8;
+            margin: 0;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 14px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        main {
+            max-width: 850px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .calculator {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 14px;
+            border: 1px solid #334155;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #7dd3fc;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #020617;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #0284c7;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0369a1;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #020617;
+            border-radius: 10px;
+            border-left: 5px solid #38bdf8;
+        }
+
+        .formula {
+            background: #020617;
+            padding: 18px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: Consolas, monospace;
+            color: #7dd3fc;
+        }
+
+        .info {
+            margin-top: 25px;
+            padding: 20px;
+            background: #172554;
+            border-left: 5px solid #60a5fa;
+            border-radius: 8px;
+        }
+
+        .warning {
+            margin-top: 25px;
+            padding: 20px;
+            background: #451a03;
+            border-left: 5px solid #f59e0b;
+            border-radius: 8px;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            color: #7dd3fc;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            background: #020617;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>🌍 Ground Bearing Calculator</h1>
+    <p>Crane & Outrigger Study Tool</p>
+</header>
+
+<nav>
+    <a href="../index.html">Home</a>
+    <a href="../rigging.html">Lifting Accessories</a>
+    <a href="../calculations.html">Calculations</a>
+    <a href="../cranes.html">Cranes</a>
+    <a href="../planning.html">Lift Planning</a>
+    <a href="../safety.html">Safety</a>
+    <a href="../study-notes.html">Study Notes</a>
+</nav>
+
+<main>
+
+<div class="calculator">
+
+    <h2>Calculate Ground Bearing Pressure</h2>
+
+    <p>
+        Enter the applied force and supporting area to calculate
+        the average pressure on the ground.
+    </p>
+
+    <label for="force">
+        Applied Force (kN)
+    </label>
+
+    <input
+        type="number"
+        id="force"
+        placeholder="Example: 500"
+        min="0"
+        step="any"
+    >
+
+    <label for="area">
+        Support Area (m²)
+    </label>
+
+    <input
+        type="number"
+        id="area"
+        placeholder="Example: 2"
+        min="0"
+        step="any"
+    >
+
+    <button onclick="calculatePressure()">
+        Calculate Ground Pressure
+    </button>
+
+    <div class="formula">
+        P = F ÷ A
+        <br><br>
+        P = Ground Pressure (kN/m²)
+        <br>
+        F = Applied Force (kN)
+        <br>
+        A = Supporting Area (m²)
+    </div>
+
+    <div id="pressureResult" class="result">
+        Enter force and support area.
+    </div>
+
+</div>
+
+
+<div class="calculator">
+
+    <h2>Calculate Required Support Area</h2>
+
+    <p>
+        Enter the applied force and allowable ground pressure
+        to estimate the minimum theoretical support area.
+    </p>
+
+    <label for="requiredForce">
+        Applied Force (kN)
+    </label>
+
+    <input
+        type="number"
+        id="requiredForce"
+        placeholder="Example: 500"
+        min="0"
+        step="any"
+    >
+
+    <label for="allowablePressure">
+        Allowable Ground Pressure (kN/m²)
+    </label>
+
+    <input
+        type="number"
+        id="allowablePressure"
+        placeholder="Example: 250"
+        min="0"
+        step="any"
+    >
+
+    <button onclick="calculateArea()">
+        Calculate Required Area
+    </button>
+
+    <div class="formula">
+        A = F ÷ Pallow
+        <br><br>
+        A = Required Support Area
+        <br>
+        F = Applied Force
+        <br>
+        Pallow = Allowable Ground Pressure
+    </div>
+
+    <div id="areaResult" class="result">
+        Enter force and allowable ground pressure.
+    </div>
+
+</div>
+
+
+<div class="info">
+
+    <strong>📚 Study Concept</strong>
+
+    <p>
+        Increasing the supporting area reduces the average pressure
+        applied to the ground, assuming the applied force remains constant.
+    </p>
+
+    <p>
+        For crane operations, actual outrigger reactions can vary
+        significantly depending on crane configuration, load radius,
+        boom configuration and operating conditions.
+    </p>
+
+</div>
+
+
+<div class="warning">
+
+    <strong>⚠️ Important Safety Notice</strong>
+
+    <p>
+        These calculations are simplified educational calculations.
+        They do not determine whether actual ground conditions are
+        suitable for a crane.
+    </p>
+
+    <p>
+        Actual crane setup requires verified outrigger reactions,
+        ground investigation, allowable bearing capacity, support
+        system design and competent engineering review.
+    </p>
+
+</div>
+
+<a class="back" href="../calculations.html">
+    ← Back to Calculations
+</a>
+
+</main>
+
+<footer>
+    Lifting & Rigging Study Hub
+    <br>
+    <small>Created by Jawad Wains — Lifting Engineer</small>
+</footer>
+
+<script>
+
+function calculatePressure() {
+
+    const force = parseFloat(
+        document.getElementById("force").value
+    );
+
+    const area = parseFloat(
+        document.getElementById("area").value
+    );
+
+    const result = document.getElementById("pressureResult");
+
+    if (isNaN(force) || force <= 0) {
+
+        result.innerHTML =
+            "<strong>Please enter a valid applied force.</strong>";
+
+        return;
+    }
+
+    if (isNaN(area) || area <= 0) {
+
+        result.innerHTML =
+            "<strong>Please enter a valid support area.</strong>";
+
+        return;
+    }
+
+    const pressure = force / area;
+
+    result.innerHTML =
+        "<strong>Result</strong><br><br>" +
+        "Applied Force = " +
+        force.toFixed(3) +
+        " kN<br>" +
+        "Support Area = " +
+        area.toFixed(3) +
+        " m²<br><br>" +
+        "Average Ground Pressure = <strong>" +
+        pressure.toFixed(3) +
+        " kN/m²</strong>";
+}
+
+
+function calculateArea() {
+
+    const force = parseFloat(
+        document.getElementById("requiredForce").value
+    );
+
+    const allowable = parseFloat(
+        document.getElementById("allowablePressure").value
+    );
+
+    const result = document.getElementById("areaResult");
+
+    if (isNaN(force) || force <= 0) {
+
+        result.innerHTML =
+            "<strong>Please enter a valid applied force.</strong>";
+
+        return;
+    }
+
+    if (isNaN(allowable) || allowable <= 0) {
+
+        result.innerHTML =
+            "<strong>Please enter a valid allowable ground pressure.</strong>";
+
+        return;
+    }
+
+    const area = force / allowable;
+
+    result.innerHTML =
+        "<strong>Result</strong><br><br>" +
+        "Applied Force = " +
+        force.toFixed(3) +
+        " kN<br>" +
+        "Allowable Pressure = " +
+        allowable.toFixed(3) +
+        " kN/m²<br><br>" +
+        "Theoretical Required Area = <strong>" +
+        area.toFixed(3) +
+        " m²</strong>";
+}
+
+</script>
+
+</body>
+</html>
