@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Material Weight Calculator</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 25px 20px;
+            text-align: center;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 12px;
+            text-align: center;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
+
+        h1, h2 {
+            margin-top: 0;
+        }
+
+        label {
+            display: block;
+            font-weight: bold;
+            margin-top: 15px;
+            margin-bottom: 6px;
+        }
+
+        input,
+        select {
+            width: 100%;
+            padding: 12px;
+            box-sizing: border-box;
+            border: 1px solid #cbd5e1;
+            border-radius: 7px;
+            font-size: 16px;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 20px;
+            padding: 14px;
+            background: #0284c7;
+            color: white;
+            border: none;
+            border-radius: 7px;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0369a1;
+        }
+
+        .result {
+            background: #e0f2fe;
+            border-left: 5px solid #0284c7;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        .result-row {
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            padding: 9px 0;
+            border-bottom: 1px solid #bae6fd;
+        }
+
+        .result-row:last-child {
+            border-bottom: none;
+        }
+
+        .value {
+            font-weight: bold;
+        }
+
+        .warning {
+            background: #fff7ed;
+            border-left: 5px solid #f97316;
+            padding: 15px;
+            margin-top: 20px;
+            border-radius: 8px;
+        }
+
+        footer {
+            text-align: center;
+            background: #0f172a;
+            color: white;
+            padding: 20px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 600px) {
+            nav a {
+                display: block;
+                margin: 8px 0;
+            }
+
+            .result-row {
+                flex-direction: column;
+                gap: 3px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>Material Weight Calculator</h1>
+    <p>Calculate material weight from volume and density</p>
+</header>
+
+<nav>
+    <a href="../index.html">Home</a>
+    <a href="../calculation.html">Calculations</a>
+    <a href="../rigging.html">Lifting Accessories</a>
+    <a href="../cranes.html">Cranes</a>
+    <a href="../safety.html">Safety</a>
+</nav>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Material Selection</h2>
+
+        <label for="material">Select Material</label>
+
+        <select id="material">
+            <option value="7850">Steel</option>
+            <option value="8000">Stainless Steel</option>
+            <option value="7200">Cast Iron</option>
+            <option value="2700">Aluminium</option>
+            <option value="8960">Copper</option>
+            <option value="8500">Brass</option>
+            <option value="8800">Bronze</option>
+            <option value="11340">Lead</option>
+            <option value="7140">Zinc</option>
+            <option value="4500">Titanium</option>
+            <option value="2400">Concrete</option>
+            <option value="2500">Reinforced Concrete</option>
+            <option value="2500">Glass</option>
+            <option value="1000">Water</option>
+            <option value="600">Wood</option>
+            <option value="1600">Sand</option>
+            <option value="1800">Soil</option>
+            <option value="1100">Rubber</option>
+            <option value="950">Plastic</option>
+            <option value="custom">Custom Density</option>
+        </select>
+
+        <label for="density">Density (kg/m³)</label>
+
+        <input
+            type="number"
+            id="density"
+            value="7850"
+            min="0"
+            step="any"
+        >
+
+        <label for="volume">Volume (m³)</label>
+
+        <input
+            type="number"
+            id="volume"
+            placeholder="Example: 2.5"
+            min="0"
+            step="any"
+        >
+
+        <label for="gravity">Gravity (m/s²)</label>
+
+        <input
+            type="number"
+            id="gravity"
+            value="9.81"
+            min="0"
+            step="any"
+        >
+
+        <button onclick="calculateWeight()">
+            Calculate Material Weight
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+    <div class="card">
+
+        <h2>Formula</h2>
+
+        <p><strong>Mass = Volume × Density</strong></p>
+
+        <p><strong>Weight Force = Mass × Gravity</strong></p>
+
+        <p>
+            The calculator uses the material density to estimate the
+            mass of the material.
+        </p>
+
+    </div>
+
+    <div class="warning">
+
+        <strong>Important Safety Notice:</strong>
+
+        <p>
+            This calculator provides an estimated material weight for
+            study and preliminary lifting calculations only.
+        </p>
+
+        <p>
+            Actual lifting weight should be verified using manufacturer
+            data, drawings, nameplates, weighbridge data, engineering
+            calculations, or another approved source.
+        </p>
+
+        <p>
+            Do not use this calculator alone to determine crane capacity,
+            sling WLL, lifting accessory capacity, or approval of a lift.
+        </p>
+
+    </div>
+
+</div>
+
+<footer>
+    Lifting & Rigging Study Hub
+    <br>
+    <small>Created by Jawad Wains</small>
+</footer>
+
+<script>
+
+    const materialSelect = document.getElementById("material");
+    const densityInput = document.getElementById("density");
+
+    materialSelect.addEventListener("change", function () {
+
+        if (this.value === "custom") {
+            densityInput.value = "";
+            densityInput.focus();
+        } else {
+            densityInput.value = this.value;
+        }
+
+    });
+
+
+    function calculateWeight() {
+
+        const density = parseFloat(
+            document.getElementById("density").value
+        );
+
+        const volume = parseFloat(
+            document.getElementById("volume").value
+        );
+
+        const gravity = parseFloat(
+            document.getElementById("gravity").value
+        );
+
+        const result = document.getElementById("result");
+
+        if (
+            isNaN(density) ||
+            isNaN(volume) ||
+            isNaN(gravity) ||
+            density <= 0 ||
+            volume <= 0 ||
+            gravity <= 0
+        ) {
+
+            result.innerHTML = `
+                <div class="warning">
+                    Please enter valid positive values for
+                    density, volume and gravity.
+                </div>
+            `;
+
+            return;
+        }
+
+
+        // Mass in kilograms
+        const massKg = volume * density;
+
+
+        // Mass in tonnes
+        const massTonnes = massKg / 1000;
+
+
+        // Weight force in Newtons
+        const weightN = massKg * gravity;
+
+
+        // Weight force in kN
+        const weightKN = weightN / 1000;
+
+
+        result.innerHTML = `
+
+            <div class="result">
+
+                <h2>Calculation Result</h2>
+
+                <div class="result-row">
+                    <span>Density</span>
+                    <span class="value">
+                        ${density.toLocaleString()} kg/m³
+                    </span>
+                </div>
+
+                <div class="result-row">
+                    <span>Volume</span>
+                    <span class="value">
+                        ${volume.toLocaleString()} m³
+                    </span>
+                </div>
+
+                <div class="result-row">
+                    <span>Mass</span>
+                    <span class="value">
+                        ${massKg.toLocaleString(undefined, {
+                            maximumFractionDigits: 3
+                        })} kg
+                    </span>
+                </div>
+
+                <div class="result-row">
+                    <span>Mass</span>
+                    <span class="value">
+                        ${massTonnes.toLocaleString(undefined, {
+                            maximumFractionDigits: 3
+                        })} tonnes
+                    </span>
+                </div>
+
+                <div class="result-row">
+                    <span>Weight Force</span>
+                    <span class="value">
+                        ${weightKN.toLocaleString(undefined, {
+                            maximumFractionDigits: 3
+                        })} kN
+                    </span>
+                </div>
+
+            </div>
+
+        `;
+    }
+
+</script>
+
+</body>
+</html>
