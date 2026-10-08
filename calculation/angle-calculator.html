@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Sling Angle Factor Calculator</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.6;
+        }
+
+        header {
+            background: #020617;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid #38bdf8;
+        }
+
+        header h1 {
+            color: #38bdf8;
+            margin: 0;
+        }
+
+        nav {
+            background: #1e293b;
+            padding: 14px;
+            text-align: center;
+        }
+
+        nav a {
+            color: #e2e8f0;
+            text-decoration: none;
+            margin: 0 10px;
+            font-weight: bold;
+        }
+
+        nav a:hover {
+            color: #38bdf8;
+        }
+
+        main {
+            max-width: 750px;
+            margin: auto;
+            padding: 30px 20px;
+        }
+
+        .calculator {
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 14px;
+            border: 1px solid #334155;
+        }
+
+        label {
+            display: block;
+            margin-top: 18px;
+            margin-bottom: 6px;
+            font-weight: bold;
+            color: #7dd3fc;
+        }
+
+        input {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 13px;
+            border-radius: 8px;
+            border: 1px solid #475569;
+            background: #020617;
+            color: white;
+            font-size: 16px;
+        }
+
+        button {
+            margin-top: 25px;
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 8px;
+            background: #0284c7;
+            color: white;
+            font-size: 17px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #0369a1;
+        }
+
+        .result {
+            margin-top: 25px;
+            padding: 20px;
+            background: #020617;
+            border-radius: 10px;
+            border-left: 5px solid #38bdf8;
+        }
+
+        .formula {
+            background: #020617;
+            padding: 18px;
+            border-radius: 8px;
+            margin-top: 20px;
+            font-family: Consolas, monospace;
+            color: #7dd3fc;
+        }
+
+        .warning {
+            margin-top: 25px;
+            padding: 18px;
+            background: #451a03;
+            border-left: 5px solid #f59e0b;
+            border-radius: 8px;
+        }
+
+        .info {
+            margin-top: 20px;
+            padding: 18px;
+            background: #172554;
+            border-left: 5px solid #60a5fa;
+            border-radius: 8px;
+        }
+
+        .table-box {
+            margin-top: 25px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: #020617;
+        }
+
+        th,
+        td {
+            padding: 12px;
+            border: 1px solid #334155;
+            text-align: center;
+        }
+
+        th {
+            color: #7dd3fc;
+        }
+
+        .back {
+            display: inline-block;
+            margin-top: 25px;
+            color: #7dd3fc;
+            text-decoration: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 25px;
+            margin-top: 30px;
+            background: #020617;
+            color: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+
+<header>
+    <h1>📐 Sling Angle Factor Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<nav>
+    <a href="../index.html">Home</a>
+    <a href="../rigging.html">Lifting Accessories</a>
+    <a href="../calculations.html">Calculations</a>
+    <a href="../cranes.html">Cranes</a>
+    <a href="../planning.html">Lift Planning</a>
+    <a href="../safety.html">Safety</a>
+    <a href="../study-notes.html">Study Notes</a>
+</nav>
+
+<main>
+
+<div class="calculator">
+
+    <h2>Calculate Angle Factor</h2>
+
+    <p>
+        Enter the sling angle measured from the horizontal.
+        The calculator determines the angle factor used in the
+        simplified two-leg symmetrical sling calculation.
+    </p>
+
+    <label for="angle">
+        Sling Angle from Horizontal (degrees)
+    </label>
+
+    <input
+        type="number"
+        id="angle"
+        placeholder="Example: 60"
+        min="0"
+        max="90"
+        step="any"
+    >
+
+    <button onclick="calculateFactor()">
+        Calculate Angle Factor
+    </button>
+
+    <div class="formula">
+        Angle Factor = 1 ÷ sin(θ)
+        <br><br>
+        For a symmetrical two-leg sling:
+        <br>
+        Tension per leg = W × Angle Factor ÷ 2
+    </div>
+
+    <div id="result" class="result">
+        Enter a sling angle and click Calculate.
+    </div>
+
+</div>
+
+<div class="info">
+
+    <strong>📚 Important Concept</strong>
+
+    <p>
+        As the sling becomes flatter, the tension in each sling leg
+        increases. This is why sling angle is an important part of
+        lifting and rigging calculations.
+    </p>
+
+</div>
+
+<div class="table-box">
+
+    <h2>Reference Table</h2>
+
+    <table>
+
+        <tr>
+            <th>Angle</th>
+            <th>Angle Factor</th>
+        </tr>
+
+        <tr>
+            <td>90°</td>
+            <td>1.000</td>
+        </tr>
+
+        <tr>
+            <td>60°</td>
+            <td>1.155</td>
+        </tr>
+
+        <tr>
+            <td>45°</td>
+            <td>1.414</td>
+        </tr>
+
+        <tr>
+            <td>30°</td>
+            <td>2.000</td>
+        </tr>
+
+        <tr>
+            <td>20°</td>
+            <td>2.924</td>
+        </tr>
+
+        <tr>
+            <td>10°</td>
+            <td>5.759</td>
+        </tr>
+
+    </table>
+
+</div>
+
+<div class="warning">
+
+    <strong>⚠️ Study Use Only</strong>
+
+    <p>
+        This is a simplified educational calculation for a symmetrical
+        two-leg sling arrangement. Actual lifting operations require
+        consideration of sling configuration, center of gravity,
+        load distribution, connection conditions, hitch type,
+        equipment WLL, manufacturer information and applicable
+        requirements.
+    </p>
+
+    <p>
+        Do not use this calculator as a substitute for an approved
+        lift plan or competent-person verification.
+    </p>
+
+</div>
+
+<a class="back" href="../calculations.html">
+    ← Back to Calculations
+</a>
+
+</main>
+
+<footer>
+    Lifting & Rigging Study Hub
+    <br>
+    <small>Created by Jawad Wains — Lifting Engineer</small>
+</footer>
+
+<script>
+
+function calculateFactor() {
+
+    const angle = parseFloat(
+        document.getElementById("angle").value
+    );
+
+    const result = document.getElementById("result");
+
+    if (isNaN(angle) || angle <= 0 || angle > 90) {
+
+        result.innerHTML =
+            "<strong>Please enter an angle greater than 0° and up to 90°.</strong>";
+
+        return;
+    }
+
+    const radians = angle * Math.PI / 180;
+
+    const factor = 1 / Math.sin(radians);
+
+    result.innerHTML =
+        "<strong>Result</strong><br><br>" +
+        "Sling Angle = " +
+        angle.toFixed(1) +
+        "° from horizontal<br><br>" +
+        "Angle Factor = <strong>" +
+        factor.toFixed(3) +
+        "</strong>";
+}
+
+</script>
+
+</body>
+</html>
