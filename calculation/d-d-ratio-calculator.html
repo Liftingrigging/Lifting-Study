@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>D/d Ratio Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+}
+
+.container {
+    max-width: 900px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #cbd5e1;
+    margin-top: 15px;
+    line-height: 1.8;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+D/d Ratio Calculator
+</h1>
+
+<p>
+Wire Rope Sling Bending Study Tool
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Input Data
+</h2>
+
+
+<label for="D">
+Diameter of Bend / Curvature (D)
+</label>
+
+<input
+type="number"
+id="D"
+step="0.01"
+placeholder="Example: 300"
+>
+
+
+<label for="d">
+Wire Rope / Sling Diameter (d)
+</label>
+
+<input
+type="number"
+id="d"
+step="0.01"
+placeholder="Example: 20"
+>
+
+
+<button onclick="calculate()">
+Calculate D/d Ratio
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Study Formula
+</h2>
+
+
+<div class="formula">
+
+D/d = D ÷ d
+
+</div>
+
+
+<p>
+Where:
+</p>
+
+<ul>
+
+<li>
+<strong>D</strong> = diameter of the curvature around which
+the sling body is bent
+</li>
+
+<li>
+<strong>d</strong> = nominal diameter of the wire rope or sling
+</li>
+
+</ul>
+
+
+<p>
+Both values must use the same unit.
+For example, both can be entered in millimetres.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Example Study Calculation
+</h2>
+
+
+<div class="formula">
+
+D = 300 mm
+
+d = 20 mm
+
+D/d = 300 ÷ 20
+
+D/d = 15
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Why D/d Matters
+</h2>
+
+<p>
+When a wire rope sling bends around a small diameter,
+the bending condition can affect the sling's performance
+and allowable capacity.
+</p>
+
+<p>
+The D/d ratio is therefore an important consideration
+when evaluating wire rope sling arrangements.
+</p>
+
+<p>
+The applicable minimum ratio and any capacity adjustment
+must come from the relevant standard, manufacturer or
+approved engineering requirement for the specific sling.
+</p>
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Important Safety Notice
+</strong>
+
+<br><br>
+
+This calculator only calculates the mathematical D/d ratio.
+It does not determine sling WLL or establish whether a
+specific lifting arrangement is acceptable.
+
+<br><br>
+
+Do not apply a generic D/d ratio as a universal capacity
+factor. Use the manufacturer's sling data and applicable
+standards for the exact sling and configuration.
+
+<br><br>
+
+Inspect lifting equipment and follow the approved lift
+plan and competent-person requirements.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Study Tool — Verify actual sling requirements
+</small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const D =
+        parseFloat(document.getElementById("D").value);
+
+    const d =
+        parseFloat(document.getElementById("d").value);
+
+    const result =
+        document.getElementById("result");
+
+
+    if (
+        isNaN(D) ||
+        D <= 0
+    ) {
+
+        result.innerHTML =
+        "<span style='color:#ef4444;font-weight:bold;'>" +
+        "Please enter a valid bend diameter D." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(d) ||
+        d <= 0
+    ) {
+
+        result.innerHTML =
+        "<span style='color:#ef4444;font-weight:bold;'>" +
+        "Please enter a valid sling diameter d." +
+        "</span>";
+
+        return;
+    }
+
+
+    const ratio =
+        D / d;
+
+
+    result.innerHTML =
+
+    "<strong>Bend Diameter D:</strong><br>" +
+
+    D.toFixed(3) +
+
+    "<br><br>" +
+
+    "<strong>Sling Diameter d:</strong><br>" +
+
+    d.toFixed(3) +
+
+    "<br><br>" +
+
+    "<strong>D/d Ratio:</strong><br>" +
+
+    ratio.toFixed(3);
+
+}
+
+</script>
+
+
+</body>
+
+</html>
