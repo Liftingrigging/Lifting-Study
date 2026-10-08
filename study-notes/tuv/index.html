@@ -1,11 +1,1019 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>TÜV Study Notes</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>TÜV Lifting & Rigging Study</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    background: #07111f;
+    color: #e5eef7;
+    line-height: 1.7;
+}
+
+header {
+    background:
+        linear-gradient(
+            rgba(2, 6, 23, 0.72),
+            rgba(2, 6, 23, 0.72)
+        ),
+        url("../../gasplant.png");
+
+    background-size: cover;
+    background-position: center;
+
+    text-align: center;
+    padding: 50px 20px;
+
+    border-bottom: 3px solid #38bdf8;
+}
+
+header h1 {
+    font-size: 38px;
+    color: white;
+    margin-bottom: 10px;
+}
+
+header p {
+    color: #bae6fd;
+    font-size: 18px;
+}
+
+nav {
+    background: #0b1b2d;
+    padding: 15px;
+    text-align: center;
+}
+
+nav a {
+    display: inline-block;
+    margin: 5px;
+    padding: 9px 15px;
+
+    background: #102a43;
+    color: white;
+
+    text-decoration: none;
+    border-radius: 7px;
+
+    font-weight: bold;
+}
+
+nav a:hover {
+    background: #0284c7;
+}
+
+main {
+    max-width: 1200px;
+    margin: auto;
+    padding: 30px 18px;
+}
+
+.intro {
+    background: #0d2034;
+
+    border-left: 5px solid #38bdf8;
+
+    padding: 25px;
+
+    border-radius: 10px;
+
+    margin-bottom: 30px;
+}
+
+.intro h2 {
+    color: #7dd3fc;
+    margin-bottom: 10px;
+}
+
+.warning {
+    background: #33240b;
+
+    border: 1px solid #d97706;
+
+    color: #fde68a;
+
+    padding: 20px;
+
+    border-radius: 10px;
+
+    margin-bottom: 35px;
+}
+
+.warning h3 {
+    color: #fbbf24;
+    margin-bottom: 10px;
+}
+
+.section-title {
+    color: #7dd3fc;
+
+    font-size: 28px;
+
+    margin: 35px 0 20px;
+
+    border-bottom: 1px solid #1e4668;
+
+    padding-bottom: 10px;
+}
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 20px;
+}
+
+.card {
+    background: #0d2034;
+
+    border: 1px solid #1e4668;
+
+    border-radius: 12px;
+
+    padding: 25px;
+
+    transition: 0.25s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+
+    border-color: #38bdf8;
+
+    box-shadow:
+        0 8px 25px rgba(0, 0, 0, 0.35);
+}
+
+.card h3 {
+    color: #38bdf8;
+
+    margin-bottom: 10px;
+
+    font-size: 21px;
+}
+
+.card p {
+    color: #cbd5e1;
+
+    margin-bottom: 12px;
+}
+
+.card ul {
+    padding-left: 20px;
+
+    color: #cbd5e1;
+
+    margin-bottom: 18px;
+}
+
+.formula {
+    background: #020b16;
+
+    border: 1px solid #164e6d;
+
+    border-radius: 10px;
+
+    padding: 22px;
+
+    margin-bottom: 18px;
+}
+
+.formula h3 {
+    color: #38bdf8;
+
+    margin-bottom: 8px;
+}
+
+.equation {
+    display: block;
+
+    background: #061522;
+
+    color: #a5f3fc;
+
+    padding: 13px;
+
+    margin: 12px 0;
+
+    border-radius: 7px;
+
+    font-family: "Courier New", monospace;
+
+    font-size: 17px;
+
+    overflow-x: auto;
+}
+
+footer {
+    margin-top: 45px;
+
+    background: #020817;
+
+    border-top: 2px solid #1e4668;
+
+    text-align: center;
+
+    padding: 25px;
+
+    color: #94a3b8;
+}
+
+</style>
 </head>
+
 <body>
-    <h1>TÜV Lifting & Rigging Study Notes</h1>
-    <p>This is the TÜV study notes section.</p>
+
+
+<header>
+
+<h1>TÜV Lifting & Rigging Study</h1>
+
+<p>
+Lifting Operations • Rigging • Cranes • Calculations • Inspection
+</p>
+
+</header>
+
+
+<nav>
+
+<a href="../../index.html">Home</a>
+
+<a href="../../rigging.html">
+Lifting Accessories
+</a>
+
+<a href="../../calculations.html">
+Calculations
+</a>
+
+<a href="../../cranes.html">
+Cranes
+</a>
+
+<a href="../../planning.html">
+Lift Planning
+</a>
+
+<a href="../../safety.html">
+Safety
+</a>
+
+<a href="../../study-notes.html">
+Study Notes
+</a>
+
+</nav>
+
+
+<main>
+
+
+<section class="intro">
+
+<h2>
+TÜV / General Lifting & Rigging Study
+</h2>
+
+<p>
+This section is designed as a structured study reference
+for lifting and rigging subjects commonly encountered in
+professional training, inspection and lifting operations.
+</p>
+
+<p>
+Topics include rigging equipment, crane operations,
+calculations, load control, inspection, planning and safety.
+</p>
+
+</section>
+
+
+<section class="warning">
+
+<h3>
+⚠️ Important Safety Notice
+</h3>
+
+<p>
+This material is for study and educational purposes. It is
+not a substitute for an approved lift plan, engineering
+calculation, manufacturer's instructions, load charts,
+applicable standards, site procedures or competent-person
+verification.
+</p>
+
+</section>
+
+
+<h2 class="section-title">
+1. Load Calculations
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Weight</h3>
+
+<p>
+Basic relationship between mass and weight.
+</p>
+
+<span class="equation">
+W = m × g
+</span>
+
+<ul>
+<li>W = weight</li>
+<li>m = mass</li>
+<li>g ≈ 9.81 m/s²</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Load Moment</h3>
+
+<p>
+Moment created by a load at a horizontal distance.
+</p>
+
+<span class="equation">
+M = W × R
+</span>
+
+<ul>
+<li>M = moment</li>
+<li>W = load</li>
+<li>R = radius</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Center of Gravity</h3>
+
+<p>
+For simplified discrete loads:
+</p>
+
+<span class="equation">
+x = Σ(W × x) ÷ ΣW
+</span>
+
+<p>
+The actual centre of gravity should be verified where
+uncertainty exists.
+</p>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+2. Sling Calculations
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Two-Leg Sling</h3>
+
+<p>
+Simplified symmetrical two-leg arrangement.
+Angle measured from horizontal.
+</p>
+
+<span class="equation">
+T = W ÷ (2 × sin θ)
+</span>
+
+</div>
+
+
+<div class="card">
+
+<h3>Sling Angle</h3>
+
+<p>
+As sling angle decreases from horizontal, leg tension
+increases.
+</p>
+
+<span class="equation">
+Angle Factor = 1 ÷ (2 × sin θ)
+</span>
+
+</div>
+
+
+<div class="card">
+
+<h3>Vertical Angle</h3>
+
+<p>
+If the angle is measured from vertical:
+</p>
+
+<span class="equation">
+T = W ÷ (2 × cos θ)
+</span>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+3. Sling Types
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Wire Rope Slings</h3>
+
+<ul>
+<li>Construction</li>
+<li>Diameter</li>
+<li>End terminations</li>
+<li>Identification</li>
+<li>Inspection</li>
+<li>WLL</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Webbing Slings</h3>
+
+<ul>
+<li>Material</li>
+<li>Width</li>
+<li>Length</li>
+<li>Eye configuration</li>
+<li>Protection from sharp edges</li>
+<li>Inspection</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Round Slings</h3>
+
+<ul>
+<li>Core construction</li>
+<li>Protective cover</li>
+<li>WLL</li>
+<li>Choking</li>
+<li>Inspection</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Chain Slings</h3>
+
+<ul>
+<li>Chain grade</li>
+<li>Master link</li>
+<li>Hooks</li>
+<li>Shortening devices</li>
+<li>WLL</li>
+<li>Inspection</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+4. D/d Ratio
+</h2>
+
+<div class="formula">
+
+<h3>
+D/d Ratio
+</h3>
+
+<span class="equation">
+D/d = D ÷ d
+</span>
+
+<p>
+D represents the diameter of curvature around which the
+sling or wire rope is bent, while d represents the relevant
+sling or wire-rope diameter.
+</p>
+
+<p>
+Capacity effects must be determined from the applicable
+manufacturer data or governing standard. Do not assume a
+capacity factor without the applicable source.
+</p>
+
+</div>
+
+
+<h2 class="section-title">
+5. Shackles & Hooks
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Shackles</h3>
+
+<ul>
+<li>Bow shackles</li>
+<li>D shackles</li>
+<li>Pin types</li>
+<li>WLL marking</li>
+<li>Inspection</li>
+<li>Side loading considerations</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Hooks</h3>
+
+<ul>
+<li>Eye hooks</li>
+<li>Clevis hooks</li>
+<li>Self-locking hooks</li>
+<li>Hook latch</li>
+<li>Hook deformation</li>
+<li>Inspection</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+6. Lifting Beams & Spreader Beams
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Lifting Beams</h3>
+
+<ul>
+<li>Load application</li>
+<li>Beam reactions</li>
+<li>Centre of gravity</li>
+<li>Rated capacity</li>
+<li>Inspection</li>
+<li>Identification</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Spreader Beams</h3>
+
+<ul>
+<li>Compression forces</li>
+<li>Sling geometry</li>
+<li>End loads</li>
+<li>Bridles</li>
+<li>Rated capacity</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+7. Crane Calculations
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Crane Capacity</h3>
+
+<p>
+Always use the applicable manufacturer's load chart.
+</p>
+
+<ul>
+<li>Crane configuration</li>
+<li>Boom length</li>
+<li>Boom angle</li>
+<li>Radius</li>
+<li>Counterweight</li>
+<li>Outriggers</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Crane Utilization</h3>
+
+<span class="equation">
+Utilization = Actual Load ÷ Applicable Capacity × 100
+</span>
+
+<p>
+The applicable capacity must come from the correct
+configuration and load chart.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h3>Gross Load</h3>
+
+<span class="equation">
+Gross Load =
+Payload + Rigging + Lifting Device + Other Suspended Items
+</span>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+8. Ground Bearing
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Ground Pressure</h3>
+
+<span class="equation">
+P = F ÷ A
+</span>
+
+<ul>
+<li>P = pressure</li>
+<li>F = force</li>
+<li>A = bearing area</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Required Area</h3>
+
+<span class="equation">
+A = F ÷ Pallow
+</span>
+
+<p>
+The allowable bearing pressure must be established from
+appropriate site engineering information.
+</p>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+9. Reeving & Mechanical Advantage
+</h2>
+
+<div class="formula">
+
+<h3>
+Ideal Mechanical Advantage
+</h3>
+
+<span class="equation">
+MA ≈ Number of Supporting Rope Parts
+</span>
+
+<p>
+This is an idealized relationship. Real systems are affected
+by sheave and rope efficiency, reeving arrangement and
+equipment limitations.
+</p>
+
+</div>
+
+
+<h2 class="section-title">
+10. Tandem Lifting
+</h2>
+
+<div class="formula">
+
+<h3>
+Equilibrium
+</h3>
+
+<span class="equation">
+ΣFx = 0
+</span>
+
+<span class="equation">
+ΣFy = 0
+</span>
+
+<span class="equation">
+ΣM = 0
+</span>
+
+<p>
+Tandem lifts require detailed planning, load sharing,
+communication, crane configuration and engineering review.
+</p>
+
+</div>
+
+
+<h2 class="section-title">
+11. Inspection & Testing
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Pre-Use Inspection</h3>
+
+<ul>
+<li>Identification</li>
+<li>WLL marking</li>
+<li>Damage</li>
+<li>Deformation</li>
+<li>Wear</li>
+<li>Corrosion</li>
+<li>Connections</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Periodic Inspection</h3>
+
+<ul>
+<li>Competent inspection</li>
+<li>Records</li>
+<li>Certificates</li>
+<li>Defect control</li>
+<li>Equipment history</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+12. Lift Planning
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Planning Topics</h3>
+
+<ul>
+<li>Load identification</li>
+<li>Load weight</li>
+<li>Centre of gravity</li>
+<li>Crane selection</li>
+<li>Rigging selection</li>
+<li>Radius</li>
+<li>Ground conditions</li>
+<li>Weather</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Critical Lift</h3>
+
+<ul>
+<li>Detailed planning</li>
+<li>Risk assessment</li>
+<li>Communication</li>
+<li>Equipment verification</li>
+<li>Exclusion zone</li>
+<li>Pre-lift meeting</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+13. Communication
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Signaller / Banksman</h3>
+
+<ul>
+<li>Standard hand signals</li>
+<li>Clear communication</li>
+<li>Visibility</li>
+<li>One designated signal source</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Radio Communication</h3>
+
+<ul>
+<li>Correct channel</li>
+<li>Clear commands</li>
+<li>Confirmation</li>
+<li>Emergency stop communication</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+14. Safety Hazards
+</h2>
+
+<div class="grid">
+
+<div class="card">
+
+<h3>Suspended Loads</h3>
+
+<ul>
+<li>Never stand under suspended loads</li>
+<li>Control load movement</li>
+<li>Maintain exclusion zones</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Crane Overturning</h3>
+
+<ul>
+<li>Ground failure</li>
+<li>Incorrect setup</li>
+<li>Overloading</li>
+<li>Incorrect configuration</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Power Lines</h3>
+
+<ul>
+<li>Identify electrical hazards</li>
+<li>Maintain required controls</li>
+<li>Follow site procedures</li>
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>Pinch Points</h3>
+
+<ul>
+<li>Hands clear of load</li>
+<li>Use appropriate tag lines where planned</li>
+<li>Control movement</li>
+</ul>
+
+</div>
+
+</div>
+
+
+<h2 class="section-title">
+15. Study Checklist
+</h2>
+
+<div class="formula">
+
+<ul>
+
+<li>✓ Understand load weight</li>
+
+<li>✓ Understand centre of gravity</li>
+
+<li>✓ Understand sling angles</li>
+
+<li>✓ Understand sling tension</li>
+
+<li>✓ Understand D/d ratio</li>
+
+<li>✓ Understand WLL / SWL</li>
+
+<li>✓ Understand shackles and hooks</li>
+
+<li>✓ Understand crane load charts</li>
+
+<li>✓ Understand radius</li>
+
+<li>✓ Understand ground bearing</li>
+
+<li>✓ Understand lift planning</li>
+
+<li>✓ Understand critical lifts</li>
+
+<li>✓ Understand inspection</li>
+
+<li>✓ Understand communication</li>
+
+<li>✓ Understand lifting hazards</li>
+
+</ul>
+
+</div>
+
+
+</main>
+
+
+<footer>
+
+<p>
+Lifting & Rigging Study Hub
+</p>
+
+<p>
+TÜV / General Lifting & Rigging Study
+</p>
+
+<p>
+Created by Jawad Wains — Lifting Engineer
+</p>
+
+</footer>
+
+
 </body>
 </html>
