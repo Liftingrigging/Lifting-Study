@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Snatch Block / Reeving Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 950px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #cbd5e1;
+    margin-top: 15px;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+
+.note {
+    background: #172554;
+    border-left: 4px solid #38bdf8;
+    padding: 18px;
+    border-radius: 6px;
+    line-height: 1.6;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+.good {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.danger {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+Snatch Block / Reeving Calculator
+</h1>
+
+<p>
+Mechanical Advantage and Ideal Rope-Tension Study Tool
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Input Data
+</h2>
+
+
+<label for="load">
+Load / Hook Load (tonnes)
+</label>
+
+<input
+type="number"
+id="load"
+step="0.01"
+placeholder="Example: 10"
+>
+
+
+<label for="parts">
+Number of Supporting Rope Parts
+</label>
+
+<select id="parts">
+
+<option value="2">2 Parts</option>
+<option value="3">3 Parts</option>
+<option value="4">4 Parts</option>
+<option value="5">5 Parts</option>
+<option value="6">6 Parts</option>
+<option value="7">7 Parts</option>
+<option value="8">8 Parts</option>
+<option value="9">9 Parts</option>
+<option value="10">10 Parts</option>
+
+</select>
+
+
+<label for="efficiency">
+Estimated Reeving Efficiency (%)
+</label>
+
+<input
+type="number"
+id="efficiency"
+value="100"
+min="1"
+max="100"
+step="1"
+>
+
+
+<button onclick="calculate()">
+Calculate
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Basic Study Formulas
+</h2>
+
+
+<div class="formula">
+
+Ideal Mechanical Advantage = Number of Supporting Rope Parts
+
+</div>
+
+
+<div class="formula">
+
+Ideal Rope Tension = Load ÷ Number of Supporting Parts
+
+</div>
+
+
+<div class="formula">
+
+Estimated Actual Rope Tension
+=
+Ideal Rope Tension ÷ Efficiency
+
+</div>
+
+
+<p>
+The number of supporting rope parts is sometimes
+referred to as the number of parts of line.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Example Calculation
+</h2>
+
+
+<div class="formula">
+
+Load = 10 t
+
+Supporting Rope Parts = 4
+
+Efficiency = 100%
+
+<br><br>
+
+Mechanical Advantage = 4
+
+<br><br>
+
+Ideal Rope Tension:
+
+10 ÷ 4
+
+= 2.50 t
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Efficiency Example
+</h2>
+
+
+<div class="formula">
+
+Load = 10 t
+
+Supporting Parts = 4
+
+Efficiency = 90%
+
+<br><br>
+
+Ideal Tension:
+
+10 ÷ 4
+
+= 2.50 t
+
+<br><br>
+
+Estimated Tension:
+
+2.50 ÷ 0.90
+
+= 2.78 t
+
+</div>
+
+
+<div class="note">
+
+The efficiency input is a simplified study allowance.
+Actual reeving efficiency depends on sheave and bearing
+condition, rope construction, sheave geometry, friction,
+alignment and the specific equipment.
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Important Reeving Concepts
+</h2>
+
+<ul>
+
+<li>
+More supporting rope parts can increase ideal mechanical advantage.
+</li>
+
+<li>
+Rope tension is not automatically equal to the lifted load.
+</li>
+
+<li>
+The actual rope path must be identified correctly.
+</li>
+
+<li>
+The dead end and running end arrangements can affect the
+force distribution.
+</li>
+
+<li>
+Sheave friction reduces the ideal mechanical advantage.
+</li>
+
+<li>
+Rope fleet angle and sheave condition can affect rope performance.
+</li>
+
+<li>
+The snatch block itself has a rated capacity that must be verified.
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Important Safety Notice
+</strong>
+
+<br><br>
+
+This calculator is a simplified study tool only.
+
+<br><br>
+
+It does not determine the permissible load of a crane,
+wire rope, snatch block, sheave, hook, anchor point or
+other lifting equipment.
+
+<br><br>
+
+Actual reeving arrangements must be checked against the
+specific crane and manufacturer's documentation, including
+the approved reeving configuration and rated capacities.
+
+<br><br>
+
+Do not use the calculated mechanical advantage by itself
+to approve a lifting operation.
+
+<br><br>
+
+Actual lifting operations require an approved lift plan,
+manufacturer information and competent-person verification.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Study Tool — Verify actual equipment requirements
+</small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const load =
+        parseFloat(
+            document.getElementById("load").value
+        );
+
+    const parts =
+        parseInt(
+            document.getElementById("parts").value
+        );
+
+    const efficiency =
+        parseFloat(
+            document.getElementById("efficiency").value
+        );
+
+    const result =
+        document.getElementById("result");
+
+
+    if (
+        isNaN(load) ||
+        load <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid load." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(efficiency) ||
+        efficiency <= 0 ||
+        efficiency > 100
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Efficiency must be between 1% and 100%." +
+        "</span>";
+
+        return;
+    }
+
+
+    const idealMechanicalAdvantage =
+        parts;
+
+
+    const idealTension =
+        load / parts;
+
+
+    const efficiencyDecimal =
+        efficiency / 100;
+
+
+    const estimatedActualTension =
+        idealTension / efficiencyDecimal;
+
+
+    result.innerHTML =
+
+    "<strong>Ideal Mechanical Advantage:</strong><br>" +
+
+    idealMechanicalAdvantage.toFixed(2) +
+
+    "<br><br>" +
+
+    "<strong>Ideal Rope Tension:</strong><br>" +
+
+    idealTension.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Estimated Rope Tension with Efficiency:</strong><br>" +
+
+    estimatedActualTension.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<span class='good'>" +
+
+    "Study calculation completed." +
+
+    "</span>";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
