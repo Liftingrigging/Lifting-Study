@@ -4,19 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Lifting Calculations & Formulas</title>
+    <title>Calculations & Formulas | Lifting & Rigging Study Hub</title>
 
     <style>
+        * {
+            box-sizing: border-box;
+        }
+
         body {
             margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f172a;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #020617;
             color: #e2e8f0;
-            line-height: 1.7;
+            line-height: 1.6;
         }
 
         header {
-            background: #020617;
+            background: linear-gradient(135deg, #0f172a, #1e3a5f);
             padding: 35px 20px;
             text-align: center;
             border-bottom: 2px solid #38bdf8;
@@ -24,71 +28,83 @@
 
         header h1 {
             margin: 0;
-            color: #38bdf8;
-            font-size: 34px;
+            font-size: 32px;
+            color: #ffffff;
         }
 
         header p {
-            color: #cbd5e1;
-            margin-bottom: 0;
+            margin: 10px 0 0;
+            color: #bae6fd;
         }
 
         nav {
-            background: #1e293b;
-            padding: 14px;
+            background: #0f172a;
+            padding: 12px;
             text-align: center;
+            border-bottom: 1px solid #334155;
         }
 
         nav a {
-            color: #e2e8f0;
+            display: inline-block;
+            color: #e0f2fe;
             text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
+            margin: 5px 8px;
+            padding: 8px 12px;
+            border-radius: 6px;
         }
 
         nav a:hover {
-            color: #38bdf8;
+            background: #0369a1;
+            color: white;
         }
 
-        main {
-            max-width: 1150px;
+        .container {
+            max-width: 1200px;
             margin: auto;
             padding: 30px 20px;
         }
 
         .intro {
-            text-align: center;
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 14px;
-            margin-bottom: 30px;
+            background: #0f172a;
+            padding: 25px;
+            border-radius: 12px;
             border: 1px solid #334155;
+            margin-bottom: 30px;
         }
 
         .intro h2 {
-            color: #7dd3fc;
+            color: #38bdf8;
+            margin-top: 0;
         }
 
-        .grid {
+        .section-title {
+            color: #7dd3fc;
+            border-left: 5px solid #38bdf8;
+            padding-left: 12px;
+            margin-top: 40px;
+        }
+
+        .cards {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 22px;
+            gap: 20px;
+            margin-top: 20px;
         }
 
         .card {
-            background: #1e293b;
-            padding: 25px;
-            border-radius: 14px;
+            background: #0f172a;
             border: 1px solid #334155;
-            transition: transform 0.2s, border-color 0.2s;
+            border-radius: 12px;
+            padding: 22px;
+            transition: 0.2s;
         }
 
         .card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             border-color: #38bdf8;
         }
 
-        .card h2 {
+        .card h3 {
             color: #38bdf8;
             margin-top: 0;
         }
@@ -99,12 +115,12 @@
 
         .button {
             display: inline-block;
-            margin-top: 12px;
-            padding: 11px 17px;
+            margin-top: 10px;
+            padding: 10px 16px;
             background: #0284c7;
             color: white;
             text-decoration: none;
-            border-radius: 8px;
+            border-radius: 7px;
             font-weight: bold;
         }
 
@@ -112,31 +128,43 @@
             background: #0369a1;
         }
 
+        .formula {
+            background: #020617;
+            border-left: 4px solid #38bdf8;
+            padding: 12px;
+            margin: 12px 0;
+            font-family: "Courier New", monospace;
+            color: #bae6fd;
+            overflow-x: auto;
+        }
+
         .warning {
             background: #451a03;
-            border-left: 5px solid #f59e0b;
-            padding: 20px;
-            margin: 30px 0;
-            border-radius: 8px;
-        }
-
-        .topics {
-            background: #172554;
-            padding: 25px;
-            border-radius: 12px;
+            border: 1px solid #f59e0b;
+            color: #fde68a;
+            padding: 18px;
+            border-radius: 10px;
             margin-top: 30px;
-        }
-
-        .topics h2 {
-            color: #7dd3fc;
         }
 
         footer {
+            margin-top: 40px;
+            padding: 25px;
             text-align: center;
-            padding: 28px;
-            background: #020617;
+            background: #0f172a;
+            border-top: 1px solid #334155;
             color: #94a3b8;
-            margin-top: 30px;
+        }
+
+        @media (max-width: 600px) {
+            header h1 {
+                font-size: 25px;
+            }
+
+            nav a {
+                display: block;
+                margin: 4px 0;
+            }
         }
     </style>
 </head>
@@ -144,8 +172,8 @@
 <body>
 
 <header>
-    <h1>🧮 Lifting Calculations & Formulas</h1>
-    <p>Professional Study Reference for Lifting & Rigging Operations</p>
+    <h1>Lifting & Rigging Calculations</h1>
+    <p>Formulas, Calculators, TÜV Study and Saudi Aramco References</p>
 </header>
 
 <nav>
@@ -158,187 +186,259 @@
     <a href="study-notes.html">Study Notes</a>
 </nav>
 
-<main>
+<main class="container">
 
-<section class="intro">
-
-    <h2>Complete Lifting Calculation Study Hub</h2>
-
-    <p>
-        This section provides formulas, calculation methods and study
-        references covering lifting operations, rigging, cranes,
-        sling angles, load control, ground bearing and lift planning.
-    </p>
-
-    <p>
-        The material is organized into separate general/TÜV-style study
-        material and Saudi Aramco reference sections.
-    </p>
-
-</section>
-
-<div class="grid">
-
-    <div class="card">
-
-        <h2>📘 General / TÜV Study</h2>
+    <section class="intro">
+        <h2>Calculations & Formulas Study Hub</h2>
 
         <p>
-            Comprehensive lifting and rigging calculations including
-            load weight, sling tension, angles, D/d ratio, crane
-            utilization, ground bearing, reeving and tandem lifting.
+            This section provides lifting and rigging calculation study material,
+            interactive calculators, formula references, TÜV-related study topics,
+            and Saudi Aramco lifting and rigging references.
         </p>
 
-        <a class="button" href="calculations/tuv/index.html">
-            Open TÜV / General Study
-        </a>
+        <p>
+            Use these tools for study and reference only. Actual lifting operations
+            must follow the approved lift plan, manufacturer information, applicable
+            standards, site procedures, and competent-person verification.
+        </p>
+    </section>
+
+
+    <!-- STUDY REFERENCES -->
+
+    <h2 class="section-title">Study & Reference Sections</h2>
+
+    <div class="cards">
+
+        <div class="card">
+            <h3>TÜV / General Lifting & Rigging</h3>
+
+            <p>
+                Study calculations, rigging principles, crane calculations,
+                sling angles, ground bearing, lifting planning, inspection,
+                communication and safety topics.
+            </p>
+
+            <a class="button" href="calculations/tuv/index.html">
+                Open TÜV Study
+            </a>
+        </div>
+
+
+        <div class="card">
+            <h3>Saudi Aramco Lifting & Rigging</h3>
+
+            <p>
+                Study references covering Saudi Aramco lifting, rigging hardware,
+                crane lifts, inspection requirements, certification and
+                power-line hazards.
+            </p>
+
+            <a class="button" href="calculations/aramco/index.html">
+                Open Aramco Study
+            </a>
+        </div>
 
     </div>
 
 
-    <div class="card">
+    <!-- CALCULATORS -->
 
-        <h2>🏗️ Saudi Aramco Study</h2>
+    <h2 class="section-title">Interactive Calculators</h2>
 
-        <p>
-            Saudi Aramco lifting and rigging reference material covering
-            operator and rigger certification, crane lifts, rigging
-            hardware, inspection and power-line hazards.
-        </p>
+    <div class="cards">
 
-        <a class="button" href="calculations/aramco/index.html">
-            Open Saudi Aramco Study
-        </a>
+        <div class="card">
+            <h3>Load Weight Calculator</h3>
+
+            <p>
+                Calculate load weight from mass using gravitational acceleration.
+            </p>
+
+            <div class="formula">
+                W = m × g
+            </div>
+
+            <a class="button" href="calculations/load-calculator.html">
+                Open Calculator
+            </a>
+        </div>
+
+
+        <div class="card">
+            <h3>Sling Tension Calculator</h3>
+
+            <p>
+                Calculate tension in each leg of a symmetrical two-leg sling.
+            </p>
+
+            <div class="formula">
+                T = W ÷ (2 × sin θ)
+            </div>
+
+            <a class="button" href="calculations/sling-calculator.html">
+                Open Calculator
+            </a>
+        </div>
+
+
+        <div class="card">
+            <h3>Sling Angle Factor Calculator</h3>
+
+            <p>
+                Calculate the angle factor and understand how sling angle
+                affects leg tension.
+            </p>
+
+            <div class="formula">
+                Angle Factor = 1 ÷ sin θ
+            </div>
+
+            <a class="button" href="calculations/angle-factor-calculator.html">
+                Open Calculator
+            </a>
+        </div>
+
+
+        <div class="card">
+            <h3>Center of Gravity Calculator</h3>
+
+            <p>
+                Calculate the center of gravity for a two-component load
+                using the weighted-position method.
+            </p>
+
+            <div class="formula">
+                x = Σ(W × x) ÷ ΣW
+            </div>
+
+            <a class="button" href="calculations/center-of-gravity-calculator.html">
+                Open Calculator
+            </a>
+        </div>
+
+
+        <div class="card">
+            <h3>Ground Bearing Calculator</h3>
+
+            <p>
+                Calculate average ground pressure and estimate the required
+                support area.
+            </p>
+
+            <div class="formula">
+                P = F ÷ A
+            </div>
+
+            <a class="button" href="calculations/ground-bearing-calculator.html">
+                Open Calculator
+            </a>
+        </div>
 
     </div>
 
 
-    <div class="card">
+    <!-- FORMULA REFERENCE -->
 
-        <h2>⚖️ Load Calculations</h2>
+    <h2 class="section-title">Quick Formula Reference</h2>
 
-        <p>
-            Study load weight, force, moments, center of gravity,
-            gross load and basic mechanical principles used in lifting.
-        </p>
+    <div class="cards">
 
-        <a class="button" href="calculations/tuv/index.html">
-            Study Load Formulas
-        </a>
+        <div class="card">
+            <h3>Load Weight</h3>
+            <div class="formula">
+                W = m × g
+            </div>
+            <p>
+                W = weight in newtons<br>
+                m = mass in kilograms<br>
+                g = gravitational acceleration
+            </p>
+        </div>
+
+
+        <div class="card">
+            <h3>Moment</h3>
+            <div class="formula">
+                M = W × R
+            </div>
+            <p>
+                M = moment<br>
+                W = load force<br>
+                R = horizontal radius
+            </p>
+        </div>
+
+
+        <div class="card">
+            <h3>Ground Pressure</h3>
+            <div class="formula">
+                P = F ÷ A
+            </div>
+            <p>
+                P = pressure<br>
+                F = applied force<br>
+                A = supporting area
+            </p>
+        </div>
+
+
+        <div class="card">
+            <h3>Required Support Area</h3>
+            <div class="formula">
+                A = F ÷ Pallow
+            </div>
+            <p>
+                A = required area<br>
+                F = applied force<br>
+                Pallow = allowable ground pressure
+            </p>
+        </div>
+
+
+        <div class="card">
+            <h3>Two-Leg Sling Tension</h3>
+            <div class="formula">
+                T = W ÷ (2 × sin θ)
+            </div>
+            <p>
+                θ is measured from the horizontal for this formula.
+            </p>
+        </div>
+
+
+        <div class="card">
+            <h3>Center of Gravity</h3>
+            <div class="formula">
+                x = Σ(W × x) ÷ ΣW
+            </div>
+            <p>
+                Useful for estimating the load balance point in a simple
+                one-dimensional case.
+            </p>
+        </div>
 
     </div>
 
 
-    <div class="card">
+    <div class="warning">
+        <strong>Safety Notice:</strong><br><br>
 
-        <h2>🔗 Sling Calculations</h2>
-
-        <p>
-            Learn sling tension, sling angles, angle factors,
-            multi-leg sling concepts and D/d ratio.
-        </p>
-
-        <a class="button" href="calculations/tuv/index.html">
-            Study Sling Formulas
-        </a>
-
+        These calculators and formulas are provided for educational and
+        study purposes. They do not replace an engineered lift plan,
+        crane load chart, manufacturer instructions, certified equipment,
+        competent-person assessment, applicable regulations, or site
+        requirements.
     </div>
-
-
-    <div class="card">
-
-        <h2>🏗️ Crane Calculations</h2>
-
-        <p>
-            Study crane capacity, utilization, radius, load chart
-            concepts, gross load and operating conditions.
-        </p>
-
-        <a class="button" href="calculations/tuv/index.html">
-            Study Crane Calculations
-        </a>
-
-    </div>
-
-
-    <div class="card">
-    <h2>Ground Bearing Calculator</h2>
-
-    <p>
-        Calculate average ground pressure and estimate the
-        minimum support area required for a lifting operation.
-    </p>
-
-    <a href="calculations/ground-bearing-calculator.html">
-        Open Ground Bearing Calculator
-    </a>
-</div>
-
-</div>
-
-
-<section class="topics">
-
-    <h2>📚 Topics Covered</h2>
-
-    <ul>
-        <li>Load weight calculations</li>
-        <li>Force and gravitational acceleration</li>
-        <li>Moments and overturning concepts</li>
-        <li>Center of gravity</li>
-        <li>Gross lifted load</li>
-        <li>Sling tension</li>
-        <li>Sling angle calculations</li>
-        <li>Angle factors</li>
-        <li>D/d ratio</li>
-        <li>Shackle loading concepts</li>
-        <li>Hook loading concepts</li>
-        <li>Lifting beam calculations</li>
-        <li>Spreader beam concepts</li>
-        <li>Crane utilization</li>
-        <li>Working radius</li>
-        <li>Load chart interpretation</li>
-        <li>Ground bearing pressure</li>
-        <li>Outrigger support area</li>
-        <li>Mechanical advantage</li>
-        <li>Reeving systems</li>
-        <li>Tandem lifting</li>
-        <li>Equilibrium equations</li>
-        <li>Lift planning</li>
-        <li>Rigging inspection</li>
-        <li>Load control</li>
-        <li>Communication</li>
-        <li>Safety and hazard control</li>
-    </ul>
-
-</section>
-
-
-<div class="warning">
-
-    <strong>⚠️ Safety & Engineering Notice</strong>
-
-    <p>
-        These calculations are provided for study and reference purposes.
-        They are not a substitute for an engineered lift plan,
-        manufacturer load charts, equipment certificates, applicable
-        standards, Saudi Aramco requirements, site procedures or
-        competent-person verification.
-    </p>
-
-    <p>
-        Always verify actual lifting operations using the current
-        applicable requirements and approved documentation.
-    </p>
-
-</div>
 
 </main>
+
 
 <footer>
     Lifting & Rigging Study Hub
     <br>
-    <small>Created by Jawad Wains — Lifting Engineer</small>
+    <small>Created by Jawad Wains</small>
 </footer>
 
 </body>
