@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Crane Boom Geometry Calculator | Lifting & Rigging Study</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #020617;
+    padding: 25px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: #38bdf8;
+}
+
+header p {
+    color: #cbd5e1;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 25px 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.clear-button {
+    background: #475569;
+    margin-left: 8px;
+}
+
+.result {
+    margin-top: 25px;
+    padding: 20px;
+    background: #0f172a;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+}
+
+.result table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.result th,
+.result td {
+    padding: 12px;
+    border-bottom: 1px solid #334155;
+    text-align: left;
+}
+
+.formula {
+    background: #020617;
+    padding: 18px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-family: monospace;
+    line-height: 1.8;
+    color: #7dd3fc;
+}
+
+.warning {
+    margin-top: 20px;
+    padding: 15px;
+    background: #451a03;
+    border-left: 4px solid #f59e0b;
+    border-radius: 6px;
+    color: #fde68a;
+}
+
+.error {
+    color: #fecaca;
+    background: #450a0a;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #ef4444;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 10px;
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+.back:hover {
+    text-decoration: underline;
+}
+
+@media (max-width: 650px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .clear-button {
+        margin-left: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Crane Boom Geometry Calculator</h1>
+    <p>Right-Triangle Geometry Study Tool</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Enter Any Two Values</h2>
+
+        <p>
+            Enter any two independent values. The calculator will determine
+            the remaining two values using right-triangle geometry.
+        </p>
+
+        <div class="input-grid">
+
+            <div>
+                <label for="boomLength">
+                    Boom Length L (m)
+                </label>
+
+                <input
+                    type="number"
+                    id="boomLength"
+                    placeholder="Example: 50"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+            <div>
+                <label for="radius">
+                    Horizontal Radius R (m)
+                </label>
+
+                <input
+                    type="number"
+                    id="radius"
+                    placeholder="Example: 25"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+            <div>
+                <label for="height">
+                    Vertical Height H (m)
+                </label>
+
+                <input
+                    type="number"
+                    id="height"
+                    placeholder="Example: 43.301"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+            <div>
+                <label for="angle">
+                    Boom Angle θ (degrees)
+                </label>
+
+                <input
+                    type="number"
+                    id="angle"
+                    placeholder="Example: 60"
+                    step="0.001"
+                    min="0"
+                    max="90"
+                >
+            </div>
+
+        </div>
+
+        <button onclick="calculate()">
+            Calculate
+        </button>
+
+        <button class="clear-button" onclick="clearAll()">
+            Clear
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Basic Geometry</h2>
+
+        <div class="formula">
+
+            L² = R² + H²
+
+            <br><br>
+
+            sin(θ) = H / L
+
+            <br>
+
+            cos(θ) = R / L
+
+            <br>
+
+            tan(θ) = H / R
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Calculation Formulas</h2>
+
+        <div class="formula">
+
+            L = √(R² + H²)
+
+            <br><br>
+
+            R = √(L² − H²)
+
+            <br><br>
+
+            H = √(L² − R²)
+
+            <br><br>
+
+            θ = sin⁻¹(H / L)
+
+            <br><br>
+
+            θ = cos⁻¹(R / L)
+
+            <br><br>
+
+            θ = tan⁻¹(H / R)
+
+            <br><br>
+
+            R = L × cos(θ)
+
+            <br><br>
+
+            H = L × sin(θ)
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Possible Input Combinations</h2>
+
+        <table style="width:100%; border-collapse:collapse;">
+
+            <tr>
+                <th style="text-align:left; padding:10px;">
+                    Known
+                </th>
+
+                <th style="text-align:left; padding:10px;">
+                    Calculated
+                </th>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">L + R</td>
+                <td style="padding:10px;">H + θ</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">L + H</td>
+                <td style="padding:10px;">R + θ</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">R + H</td>
+                <td style="padding:10px;">L + θ</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">L + θ</td>
+                <td style="padding:10px;">R + H</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">R + θ</td>
+                <td style="padding:10px;">L + H</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">H + θ</td>
+                <td style="padding:10px;">L + R</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Worked Example</h2>
+
+        <p>
+            Suppose:
+        </p>
+
+        <div class="formula">
+            L = 50 m
+            <br>
+            R = 25 m
+        </div>
+
+        <p>
+            Then:
+        </p>
+
+        <div class="formula">
+            H = √(50² − 25²)
+            <br>
+            H = √1875
+            <br>
+            H ≈ 43.30 m
+            <br><br>
+            θ = cos⁻¹(25 / 50)
+            <br>
+            θ = 60°
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Important Study Note</h2>
+
+        <p>
+            This calculator uses ideal right-triangle geometry.
+            Actual crane boom geometry can be affected by the specific
+            crane configuration, boom deflection, jib configuration,
+            hook block, reeving, manufacturer geometry and operating
+            conditions.
+        </p>
+
+        <div class="warning">
+
+            <strong>Safety Notice:</strong><br><br>
+
+            This calculator is for study and training purposes only.
+            It must not replace the crane manufacturer's load chart,
+            operating manual, approved lift plan, engineering calculation,
+            competent-person verification or applicable regulations and
+            site requirements.
+
+        </div>
+
+    </div>
+
+
+    <a class="back" href="../calculation.html">
+        ← Back to Calculations
+    </a>
+
+</div>
+
+
+<script>
+
+function calculate() {
+
+    let L = parseFloat(
+        document.getElementById("boomLength").value
+    );
+
+    let R = parseFloat(
+        document.getElementById("radius").value
+    );
+
+    let H = parseFloat(
+        document.getElementById("height").value
+    );
+
+    let angle = parseFloat(
+        document.getElementById("angle").value
+    );
+
+    const result = document.getElementById("result");
+
+    let known = [];
+
+    if (!isNaN(L)) known.push("L");
+    if (!isNaN(R)) known.push("R");
+    if (!isNaN(H)) known.push("H");
+    if (!isNaN(angle)) known.push("angle");
+
+    if (known.length !== 2) {
+
+        result.innerHTML = `
+            <div class="error">
+                <strong>Please enter exactly two values.</strong>
+                <br><br>
+                Enter any two of:
+                Boom Length, Radius, Height or Boom Angle.
+            </div>
+        `;
+
+        return;
+    }
+
+    /*
+       Convert angle from degrees to radians
+       when supplied.
+    */
+
+    if (!isNaN(angle)) {
+
+        if (angle <= 0 || angle >= 90) {
+
+            result.innerHTML = `
+                <div class="error">
+                    For this right-triangle calculator,
+                    the boom angle must be greater than 0°
+                    and less than 90°.
+                </div>
+            `;
+
+            return;
+        }
+
+        let radians = angle * Math.PI / 180;
+
+        /*
+           L + angle
+        */
+
+        if (!isNaN(L)) {
+
+            R = L * Math.cos(radians);
+
+            H = L * Math.sin(radians);
+        }
+
+        /*
+           R + angle
+        */
+
+        else if (!isNaN(R)) {
+
+            L = R / Math.cos(radians);
+
+            H = R * Math.tan(radians);
+        }
+
+        /*
+           H + angle
+        */
+
+        else if (!isNaN(H)) {
+
+            L = H / Math.sin(radians);
+
+            R = H / Math.tan(radians);
+        }
+    }
+
+    /*
+       L + R
+    */
+
+    else if (!isNaN(L) && !isNaN(R)) {
+
+        if (R >= L) {
+
+            result.innerHTML = `
+                <div class="error">
+                    Radius cannot be equal to or greater than
+                    boom length in this simplified geometry.
+                </div>
+            `;
+
+            return;
+        }
+
+        H = Math.sqrt(
+            (L * L) - (R * R)
+        );
+
+        angle = Math.acos(R / L) * 180 / Math.PI;
+    }
+
+    /*
+       L + H
+    */
+
+    else if (!isNaN(L) && !isNaN(H)) {
+
+        if (H >= L) {
+
+            result.innerHTML = `
+                <div class="error">
+                    Height cannot be equal to or greater than
+                    boom length.
+                </div>
+            `;
+
+            return;
+        }
+
+        R = Math.sqrt(
+            (L * L) - (H * H)
+        );
+
+        angle = Math.asin(H / L) * 180 / Math.PI;
+    }
+
+    /*
+       R + H
+    */
+
+    else if (!isNaN(R) && !isNaN(H)) {
+
+        if (R <= 0 || H <= 0) {
+
+            result.innerHTML = `
+                <div class="error">
+                    Radius and height must be greater than zero.
+                </div>
+            `;
+
+            return;
+        }
+
+        L = Math.sqrt(
+            (R * R) + (H * H)
+        );
+
+        angle = Math.atan(H / R) * 180 / Math.PI;
+    }
+
+    /*
+       Final validation
+    */
+
+    if (
+        !isFinite(L) ||
+        !isFinite(R) ||
+        !isFinite(H) ||
+        !isFinite(angle)
+    ) {
+
+        result.innerHTML = `
+            <div class="error">
+                The entered values cannot produce a valid
+                right triangle.
+            </div>
+        `;
+
+        return;
+    }
+
+    result.innerHTML = `
+
+        <div class="result">
+
+            <h3>Calculation Results</h3>
+
+            <table>
+
+                <tr>
+                    <th>Parameter</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>Boom Length (L)</td>
+                    <td>${L.toFixed(3)} m</td>
+                </tr>
+
+                <tr>
+                    <td>Horizontal Radius (R)</td>
+                    <td>${R.toFixed(3)} m</td>
+                </tr>
+
+                <tr>
+                    <td>Vertical Height (H)</td>
+                    <td>${H.toFixed(3)} m</td>
+                </tr>
+
+                <tr>
+                    <td>Boom Angle (θ)</td>
+                    <td>${angle.toFixed(3)}°</td>
+                </tr>
+
+            </table>
+
+        </div>
+
+    `;
+}
+
+
+function clearAll() {
+
+    document.getElementById("boomLength").value = "";
+
+    document.getElementById("radius").value = "";
+
+    document.getElementById("height").value = "";
+
+    document.getElementById("angle").value = "";
+
+    document.getElementById("result").innerHTML = "";
+
+}
+
+</script>
+
+</body>
+</html>
