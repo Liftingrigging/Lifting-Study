@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Critical Lift Planning Calculator</title>
+
+<style>
+body{
+    margin:0;
+    font-family:Arial,sans-serif;
+    background:#f1f5f9;
+    color:#0f172a;
+}
+
+header{
+    background:#0f172a;
+    color:white;
+    text-align:center;
+    padding:25px;
+    border-bottom:4px solid #0284c7;
+}
+
+.container{
+    max-width:950px;
+    margin:30px auto;
+    padding:20px;
+}
+
+.card{
+    background:white;
+    padding:25px;
+    margin-bottom:20px;
+    border-radius:12px;
+    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+}
+
+label{
+    display:block;
+    font-weight:bold;
+    margin-top:15px;
+}
+
+input{
+    width:100%;
+    box-sizing:border-box;
+    padding:12px;
+    margin-top:6px;
+    border:1px solid #cbd5e1;
+    border-radius:6px;
+    font-size:16px;
+}
+
+button{
+    margin-top:20px;
+    padding:13px 22px;
+    background:#0284c7;
+    color:white;
+    border:0;
+    border-radius:6px;
+    font-size:16px;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#0369a1;
+}
+
+.result{
+    margin-top:20px;
+    padding:20px;
+    background:#e0f2fe;
+    border-left:5px solid #0284c7;
+    border-radius:6px;
+}
+
+.check{
+    background:#f8fafc;
+    padding:15px;
+    margin-top:10px;
+    border-radius:6px;
+}
+
+.warning{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:18px;
+    border-radius:6px;
+    line-height:1.6;
+}
+
+.formula{
+    background:#f8fafc;
+    padding:15px;
+    border-radius:6px;
+    font-family:monospace;
+    line-height:1.7;
+}
+
+.good{
+    font-weight:bold;
+}
+
+.review{
+    font-weight:bold;
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Critical Lift Planning Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<div class="container">
+
+<div class="card">
+
+<h2>Lift Planning Inputs</h2>
+
+<p>
+This tool provides a preliminary numerical study of common lift-planning
+parameters. It is not a substitute for an approved critical lift plan.
+</p>
+
+<label>Main Lifted Load (tonnes)</label>
+<input type="number" id="load" step="any" placeholder="Example: 40">
+
+<label>Rigging & Accessories (tonnes)</label>
+<input type="number" id="rigging" step="any" placeholder="Example: 2">
+
+<label>Hook Block / Ball (tonnes)</label>
+<input type="number" id="hook" step="any" placeholder="Example: 5">
+
+<label>Other Suspended Equipment (tonnes)</label>
+<input type="number" id="other" step="any" placeholder="Example: 1">
+
+<label>Crane Rated Capacity at Actual Configuration (tonnes)</label>
+<input type="number" id="capacity" step="any" placeholder="Example: 60">
+
+<label>Operating Radius (m)</label>
+<input type="number" id="radius" step="any" placeholder="Example: 20">
+
+<label>Allowable Ground Bearing Pressure (kN/m²)</label>
+<input type="number" id="groundPressure" step="any" placeholder="Example: 250">
+
+<label>Estimated Crane Ground Reaction (kN)</label>
+<input type="number" id="groundReaction" step="any" placeholder="Example: 400">
+
+<button onclick="calculate()">Calculate Study</button>
+
+<div id="result"></div>
+
+</div>
+
+<div class="card">
+
+<h2>Basic Formulas</h2>
+
+<div class="formula">
+
+Gross Load =
+Main Load + Rigging + Hook Block + Other Equipment
+
+<br><br>
+
+Crane Utilization (%) =
+(Gross Load ÷ Rated Capacity) × 100
+
+<br><br>
+
+Load Moment =
+Gross Load × Operating Radius
+
+<br><br>
+
+Required Ground Bearing Area =
+Ground Reaction ÷ Allowable Ground Bearing Pressure
+
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Planning Checks</h2>
+
+<div class="check">
+<strong>1. Load Identification</strong>
+<br>
+Confirm actual load weight, dimensions and center of gravity from
+reliable information.
+</div>
+
+<div class="check">
+<strong>2. Crane Configuration</strong>
+<br>
+Confirm crane model, boom configuration, counterweight, outriggers,
+reeving and other applicable configuration details.
+</div>
+
+<div class="check">
+<strong>3. Load Chart</strong>
+<br>
+Confirm the manufacturer's rated capacity at the actual operating
+radius and configuration.
+</div>
+
+<div class="check">
+<strong>4. Rigging</strong>
+<br>
+Verify sling, shackle, hook, lifting beam and other accessory
+identification, certification, WLL and configuration.
+</div>
+
+<div class="check">
+<strong>5. Ground Conditions</strong>
+<br>
+Verify ground suitability, outrigger support, mats/pads and actual
+ground-bearing requirements.
+</div>
+
+<div class="check">
+<strong>6. Environment</strong>
+<br>
+Consider wind, weather, visibility, overhead obstructions, power lines
+and nearby operations.
+</div>
+
+<div class="check">
+<strong>7. Communication</strong>
+<br>
+Confirm designated signaler/banksman, communication method and
+emergency arrangements.
+</div>
+
+<div class="check">
+<strong>8. Exclusion Zone</strong>
+<br>
+Establish suitable controls to prevent unauthorized personnel from
+entering the lifting area.
+</div>
+
+</div>
+
+<div class="card">
+
+<h2>Example</h2>
+
+<p>
+Main load = 40 t
+</p>
+
+<p>
+Rigging = 2 t
+</p>
+
+<p>
+Hook block = 5 t
+</p>
+
+<p>
+Other suspended equipment = 1 t
+</p>
+
+<p>
+Crane rated capacity = 60 t
+</p>
+
+<p>
+Operating radius = 20 m
+</p>
+
+<p>
+Gross load = <strong>48 t</strong>
+</p>
+
+<p>
+Utilization = <strong>80%</strong>
+</p>
+
+<p>
+Load moment = <strong>960 tonne-m</strong>
+</p>
+
+</div>
+
+<div class="warning">
+
+<strong>Critical Safety Notice</strong>
+
+<p>
+This calculator is an educational and preliminary planning tool only.
+A numerical result does not mean that a lift is approved or safe to
+perform.
+</p>
+
+<p>
+Crane capacity must be verified from the specific manufacturer's
+load chart for the actual crane configuration and operating conditions.
+</p>
+
+<p>
+Ground-bearing calculations require competent engineering assessment
+of the actual ground, outrigger reactions, support system and mats or
+pads. This simplified tool must not be used to determine final
+outrigger support requirements.
+</p>
+
+<p>
+Critical lifts must follow the applicable company procedure, approved
+lift plan, manufacturer requirements, applicable standards and
+competent-person review.
+</p>
+
+</div>
+
+</div>
+
+<script>
+
+function calculate(){
+
+    const load =
+        parseFloat(document.getElementById("load").value);
+
+    const rigging =
+        parseFloat(document.getElementById("rigging").value) || 0;
+
+    const hook =
+        parseFloat(document.getElementById("hook").value) || 0;
+
+    const other =
+        parseFloat(document.getElementById("other").value) || 0;
+
+    const capacity =
+        parseFloat(document.getElementById("capacity").value);
+
+    const radius =
+        parseFloat(document.getElementById("radius").value);
+
+    const groundPressure =
+        parseFloat(document.getElementById("groundPressure").value);
+
+    const groundReaction =
+        parseFloat(document.getElementById("groundReaction").value);
+
+    if(
+        isNaN(load) ||
+        isNaN(capacity) ||
+        isNaN(radius) ||
+        load < 0 ||
+        capacity <= 0 ||
+        radius < 0
+    ){
+
+        document.getElementById("result").innerHTML = `
+        <div class="result">
+        <strong>Please enter valid load, capacity and radius values.</strong>
+        </div>
+        `;
+
+        return;
+    }
+
+    const grossLoad =
+        load +
+        rigging +
+        hook +
+        other;
+
+    const utilization =
+        (grossLoad / capacity) * 100;
+
+    const loadMoment =
+        grossLoad * radius;
+
+    let utilizationStatus;
+
+    if(utilization <= 75){
+
+        utilizationStatus =
+        "Lower study utilization band";
+
+    }else if(utilization <= 85){
+
+        utilizationStatus =
+        "Higher study utilization band — review carefully";
+
+    }else if(utilization <= 100){
+
+        utilizationStatus =
+        "Very high study utilization — detailed review required";
+
+    }else{
+
+        utilizationStatus =
+        "Gross load exceeds entered rated capacity";
+
+    }
+
+    let groundResult = "";
+
+    if(
+        !isNaN(groundPressure) &&
+        !isNaN(groundReaction) &&
+        groundPressure > 0 &&
+        groundReaction >= 0
+    ){
+
+        const requiredArea =
+            groundReaction / groundPressure;
+
+        groundResult = `
+
+        <p>
+        <strong>Estimated Required Support Area:</strong>
+        ${requiredArea.toFixed(3)} m²
+        </p>
+
+        `;
+
+    }else{
+
+        groundResult = `
+
+        <p>
+        <strong>Ground Support:</strong>
+        Enter ground pressure and ground reaction to perform the
+        simplified study calculation.
+        </p>
+
+        `;
+
+    }
+
+    document.getElementById("result").innerHTML = `
+
+    <div class="result">
+
+        <h3>Study Results</h3>
+
+        <p>
+        <strong>Gross Load:</strong>
+        ${grossLoad.toFixed(3)} t
+        </p>
+
+        <p>
+        <strong>Crane Rated Capacity:</strong>
+        ${capacity.toFixed(3)} t
+        </p>
+
+        <p>
+        <strong>Crane Utilization:</strong>
+        ${utilization.toFixed(2)}%
+        </p>
+
+        <p>
+        <strong>Operating Radius:</strong>
+        ${radius.toFixed(3)} m
+        </p>
+
+        <p>
+        <strong>Load Moment:</strong>
+        ${loadMoment.toFixed(3)} tonne-m
+        </p>
+
+        <p class="review">
+        ${utilizationStatus}
+        </p>
+
+        ${groundResult}
+
+    </div>
+
+    `;
+
+}
+
+</script>
+
+</body>
+</html>
