@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Hook Load Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 950px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #cbd5e1;
+    margin-top: 15px;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+
+.note {
+    background: #172554;
+    border-left: 4px solid #38bdf8;
+    padding: 18px;
+    border-radius: 6px;
+    line-height: 1.6;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+.good {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.danger {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+Hook Load Calculator
+</h1>
+
+<p>
+Suspended Load and Hook Load Study Tool
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Input Suspended Weights
+</h2>
+
+
+<label for="load">
+Main Lifted Load (tonnes)
+</label>
+
+<input
+type="number"
+id="load"
+step="0.01"
+placeholder="Example: 20"
+>
+
+
+<label for="slings">
+Slings Weight (tonnes)
+</label>
+
+<input
+type="number"
+id="slings"
+step="0.01"
+value="0"
+placeholder="Example: 0.25"
+>
+
+
+<label for="shackles">
+Shackles & Connecting Hardware (tonnes)
+</label>
+
+<input
+type="number"
+id="shackles"
+step="0.01"
+value="0"
+placeholder="Example: 0.10"
+>
+
+
+<label for="beam">
+Lifting Beam / Spreader Weight (tonnes)
+</label>
+
+<input
+type="number"
+id="beam"
+step="0.01"
+value="0"
+placeholder="Example: 0.80"
+>
+
+
+<label for="hook">
+Hook Block / Hook Weight (tonnes)
+</label>
+
+<input
+type="number"
+id="hook"
+step="0.01"
+value="0"
+placeholder="Example: 1.20"
+>
+
+
+<label for="other">
+Other Suspended Equipment (tonnes)
+</label>
+
+<input
+type="number"
+id="other"
+step="0.01"
+value="0"
+placeholder="Example: 0.50"
+>
+
+
+<button onclick="calculate()">
+Calculate Hook Load
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Calculation Formula
+</h2>
+
+
+<div class="formula">
+
+Hook Load
+
+=
+
+Main Load
+
++
+
+Slings
+
++
+
+Shackles
+
++
+
+Lifting Beam / Spreader
+
++
+
+Hook Block
+
++
+
+Other Suspended Equipment
+
+</div>
+
+
+<p>
+All weights must be expressed in the same unit.
+This calculator uses tonnes.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Example Calculation
+</h2>
+
+
+<div class="formula">
+
+Main Load = 20.00 t
+
+Slings = 0.25 t
+
+Shackles = 0.10 t
+
+Lifting Beam = 0.80 t
+
+Hook Block = 1.20 t
+
+Other Equipment = 0.50 t
+
+<br><br>
+
+Hook Load:
+
+20 + 0.25 + 0.10 + 0.80 + 1.20 + 0.50
+
+<br>
+
+= 22.85 t
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Important Study Points
+</h2>
+
+<ul>
+
+<li>
+The crane hook can carry more than the main lifted load.
+</li>
+
+<li>
+Rigging and suspended accessories contribute to the suspended load.
+</li>
+
+<li>
+Hook block or overhaul ball weight may need to be included.
+</li>
+
+<li>
+Lifting beams and spreaders have their own weight.
+</li>
+
+<li>
+Other suspended equipment must be considered where applicable.
+</li>
+
+</ul>
+
+
+<div class="note">
+
+<strong>Study Note:</strong><br><br>
+
+Always identify every component that is actually
+suspended from the crane and determine which weights
+must be included according to the crane manufacturer
+and approved lift plan.
+
+</div>
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Important Safety Notice
+</strong>
+
+<br><br>
+
+This calculator is a simple weight-summation study tool.
+
+<br><br>
+
+It does not determine crane capacity or approve a lift.
+
+<br><br>
+
+Actual crane loading can also depend on configuration,
+reeving, hook block arrangement, radius, boom configuration,
+dynamic effects and manufacturer-specific requirements.
+
+<br><br>
+
+Use the manufacturer's load chart and the approved lift
+plan for actual lifting operations.
+
+<br><br>
+
+A competent person must verify the applicable loads and
+configuration before lifting.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Study Tool — Verify actual suspended load requirements
+</small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const load =
+        parseFloat(
+            document.getElementById("load").value
+        );
+
+    const slings =
+        parseFloat(
+            document.getElementById("slings").value
+        ) || 0;
+
+    const shackles =
+        parseFloat(
+            document.getElementById("shackles").value
+        ) || 0;
+
+    const beam =
+        parseFloat(
+            document.getElementById("beam").value
+        ) || 0;
+
+    const hook =
+        parseFloat(
+            document.getElementById("hook").value
+        ) || 0;
+
+    const other =
+        parseFloat(
+            document.getElementById("other").value
+        ) || 0;
+
+    const result =
+        document.getElementById("result");
+
+
+    if (
+        isNaN(load) ||
+        load <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid main load." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        slings < 0 ||
+        shackles < 0 ||
+        beam < 0 ||
+        hook < 0 ||
+        other < 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Suspended weights cannot be negative." +
+        "</span>";
+
+        return;
+    }
+
+
+    const hookLoad =
+        load +
+        slings +
+        shackles +
+        beam +
+        hook +
+        other;
+
+
+    result.innerHTML =
+
+    "<strong>Main Lifted Load:</strong><br>" +
+
+    load.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Additional Suspended Weight:</strong><br>" +
+
+    (
+        slings +
+        shackles +
+        beam +
+        hook +
+        other
+    ).toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Total Hook Load:</strong><br>" +
+
+    hookLoad.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<span class='good'>" +
+
+    "Hook load study calculation completed." +
+
+    "</span>";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
