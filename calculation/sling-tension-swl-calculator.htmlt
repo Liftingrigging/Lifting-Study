@@ -1,0 +1,722 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Sling Tension & WLL Calculator | Lifting & Rigging Study</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #020617;
+    padding: 25px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: #38bdf8;
+}
+
+header p {
+    color: #cbd5e1;
+}
+
+.container {
+    max-width: 950px;
+    margin: auto;
+    padding: 25px 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
+}
+
+.input-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: bold;
+}
+
+input,
+select {
+    width: 100%;
+    box-sizing: border-box;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.clear-button {
+    background: #475569;
+    margin-left: 8px;
+}
+
+.result {
+    margin-top: 25px;
+    padding: 20px;
+    background: #0f172a;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+}
+
+.result table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.result th,
+.result td {
+    padding: 12px;
+    border-bottom: 1px solid #334155;
+    text-align: left;
+}
+
+.formula {
+    background: #020617;
+    padding: 18px;
+    border-radius: 6px;
+    margin-top: 15px;
+    font-family: monospace;
+    line-height: 1.8;
+    color: #7dd3fc;
+}
+
+.warning {
+    margin-top: 20px;
+    padding: 15px;
+    background: #451a03;
+    border-left: 4px solid #f59e0b;
+    border-radius: 6px;
+    color: #fde68a;
+}
+
+.error {
+    color: #fecaca;
+    background: #450a0a;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #ef4444;
+}
+
+.success {
+    color: #bbf7d0;
+    background: #052e16;
+    padding: 15px;
+    border-radius: 6px;
+    border-left: 4px solid #22c55e;
+}
+
+.back {
+    display: inline-block;
+    margin-top: 10px;
+    color: #38bdf8;
+    text-decoration: none;
+}
+
+@media (max-width: 650px) {
+    .input-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .clear-button {
+        margin-left: 0;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>Sling Tension & WLL Calculator</h1>
+    <p>Lifting & Rigging Study Tool</p>
+</header>
+
+<div class="container">
+
+    <div class="card">
+
+        <h2>Inputs</h2>
+
+        <p>
+            For a symmetrical multi-leg sling arrangement with equal
+            load sharing, enter the load, number of effective legs and
+            sling angle.
+        </p>
+
+        <div class="input-grid">
+
+            <div>
+                <label for="load">
+                    Load Weight (tonnes)
+                </label>
+
+                <input
+                    type="number"
+                    id="load"
+                    placeholder="Example: 10"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+            <div>
+                <label for="legs">
+                    Number of Effective Sling Legs
+                </label>
+
+                <select id="legs">
+                    <option value="2">2 legs</option>
+                    <option value="3">3 legs</option>
+                    <option value="4">4 legs</option>
+                </select>
+            </div>
+
+            <div>
+                <label for="angle">
+                    Sling Angle from Horizontal (degrees)
+                </label>
+
+                <input
+                    type="number"
+                    id="angle"
+                    placeholder="Example: 60"
+                    step="0.1"
+                    min="1"
+                    max="90"
+                >
+            </div>
+
+            <div>
+                <label for="ratedWLL">
+                    Sling Rated WLL per Leg (tonnes)
+                </label>
+
+                <input
+                    type="number"
+                    id="ratedWLL"
+                    placeholder="Optional"
+                    step="0.001"
+                    min="0"
+                >
+            </div>
+
+            <div>
+                <label for="designFactor">
+                    Study Design Factor
+                </label>
+
+                <input
+                    type="number"
+                    id="designFactor"
+                    placeholder="Example: 5"
+                    step="0.1"
+                    min="0"
+                >
+            </div>
+
+        </div>
+
+        <button onclick="calculate()">
+            Calculate
+        </button>
+
+        <button class="clear-button" onclick="clearAll()">
+            Clear
+        </button>
+
+        <div id="result"></div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Main Sling Tension Formula</h2>
+
+        <div class="formula">
+
+            T = W ÷ (N × sin θ)
+
+            <br><br>
+
+            Where:
+
+            <br>
+
+            T = tension in each effective sling leg
+
+            <br>
+
+            W = total load
+
+            <br>
+
+            N = number of effective legs
+
+            <br>
+
+            θ = sling angle measured from horizontal
+
+        </div>
+
+        <p>
+            As the sling angle becomes smaller, the tension in each
+            sling leg increases.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Angle Factor</h2>
+
+        <div class="formula">
+
+            Angle Factor = 1 ÷ sin θ
+
+            <br><br>
+
+            Leg Tension =
+            (Load ÷ Number of Effective Legs)
+            × Angle Factor
+
+        </div>
+
+        <p>
+            The angle must be measured from the horizontal for these
+            formulas.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Required Sling WLL</h2>
+
+        <div class="formula">
+
+            Required WLL per effective leg
+            ≥ calculated leg tension
+
+        </div>
+
+        <p>
+            The selected sling must have a manufacturer-rated WLL
+            suitable for the actual hitch, configuration, angle and
+            conditions of use.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Study Design Factor</h2>
+
+        <div class="formula">
+
+            Required Minimum Breaking Strength
+            =
+            Leg Tension × Design Factor
+
+        </div>
+
+        <p>
+            A design factor entered here is only a study calculation.
+            It does not determine the legally or technically applicable
+            sling WLL. The applicable standard, sling type, material,
+            hitch and manufacturer certification determine the actual
+            rating.
+        </p>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Important Sling Angle Reference</h2>
+
+        <table style="width:100%; border-collapse:collapse;">
+
+            <tr>
+                <th style="text-align:left; padding:10px;">
+                    Angle
+                </th>
+
+                <th style="text-align:left; padding:10px;">
+                    Angle Factor
+                </th>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">90°</td>
+                <td style="padding:10px;">1.000</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">60°</td>
+                <td style="padding:10px;">1.155</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">45°</td>
+                <td style="padding:10px;">1.414</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">30°</td>
+                <td style="padding:10px;">2.000</td>
+            </tr>
+
+            <tr>
+                <td style="padding:10px;">20°</td>
+                <td style="padding:10px;">2.924</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Worked Example</h2>
+
+        <p>
+            Load = 10 tonnes
+        </p>
+
+        <p>
+            Two effective sling legs
+        </p>
+
+        <p>
+            Sling angle = 60° from horizontal
+        </p>
+
+        <div class="formula">
+
+            Angle Factor = 1 ÷ sin(60°)
+
+            <br>
+
+            Angle Factor ≈ 1.155
+
+            <br><br>
+
+            T = 10 ÷ (2 × sin(60°))
+
+            <br>
+
+            T ≈ 5.774 tonnes per leg
+
+        </div>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>Safety & Application Notes</h2>
+
+        <p>
+            Actual sling capacity depends on sling type, material,
+            diameter or size, hitch configuration, angle, number of
+            effective legs, connection hardware, temperature, edge
+            conditions, wear, damage and manufacturer specifications.
+        </p>
+
+        <p>
+            Do not assume that all legs of a multi-leg sling share the
+            load equally in real lifting operations. Rigging geometry,
+            COG, stiffness and connection conditions can produce unequal
+            loading.
+        </p>
+
+        <div class="warning">
+
+            <strong>Safety Notice:</strong><br><br>
+
+            This calculator is for study and training purposes only.
+            It does not establish the certified SWL/WLL of a sling.
+            Always use the identification tag, certificate,
+            manufacturer tables and applicable requirements for the
+            actual lifting accessory.
+
+            <br><br>
+
+            Actual lifting operations require an approved lift plan
+            and competent-person verification.
+
+        </div>
+
+    </div>
+
+
+    <a class="back" href="../calculation.html">
+        ← Back to Calculations
+    </a>
+
+</div>
+
+
+<script>
+
+function calculate() {
+
+    const load = parseFloat(
+        document.getElementById("load").value
+    );
+
+    const legs = parseInt(
+        document.getElementById("legs").value
+    );
+
+    const angle = parseFloat(
+        document.getElementById("angle").value
+    );
+
+    const ratedWLL = parseFloat(
+        document.getElementById("ratedWLL").value
+    );
+
+    const designFactor = parseFloat(
+        document.getElementById("designFactor").value
+    );
+
+    const result = document.getElementById("result");
+
+    if (
+        isNaN(load) ||
+        load <= 0 ||
+        isNaN(angle)
+    ) {
+
+        result.innerHTML = `
+            <div class="error">
+                Please enter a valid load and sling angle.
+            </div>
+        `;
+
+        return;
+    }
+
+    if (angle <= 0 || angle > 90) {
+
+        result.innerHTML = `
+            <div class="error">
+                Sling angle must be greater than 0°
+                and not greater than 90°.
+            </div>
+        `;
+
+        return;
+    }
+
+    const radians = angle * Math.PI / 180;
+
+    const sinAngle = Math.sin(radians);
+
+    if (sinAngle <= 0) {
+
+        result.innerHTML = `
+            <div class="error">
+                Invalid sling angle.
+            </div>
+        `;
+
+        return;
+    }
+
+    const angleFactor = 1 / sinAngle;
+
+    const legTension =
+        load / (legs * sinAngle);
+
+    let output = `
+
+        <div class="result">
+
+            <h3>Calculation Results</h3>
+
+            <table>
+
+                <tr>
+                    <th>Parameter</th>
+                    <th>Result</th>
+                </tr>
+
+                <tr>
+                    <td>Total Load</td>
+                    <td>${load.toFixed(3)} tonnes</td>
+                </tr>
+
+                <tr>
+                    <td>Effective Legs</td>
+                    <td>${legs}</td>
+                </tr>
+
+                <tr>
+                    <td>Sling Angle</td>
+                    <td>${angle.toFixed(2)}°</td>
+                </tr>
+
+                <tr>
+                    <td>Angle Factor</td>
+                    <td>${angleFactor.toFixed(3)}</td>
+                </tr>
+
+                <tr>
+                    <td>Calculated Tension per Leg</td>
+                    <td>${legTension.toFixed(3)} tonnes</td>
+                </tr>
+
+                <tr>
+                    <td>Required Minimum WLL per Leg</td>
+                    <td>${legTension.toFixed(3)} tonnes</td>
+                </tr>
+
+    `;
+
+    if (
+        !isNaN(designFactor) &&
+        designFactor > 0
+    ) {
+
+        const requiredBreakingStrength =
+            legTension * designFactor;
+
+        output += `
+
+            <tr>
+                <td>Study Design Factor</td>
+                <td>${designFactor.toFixed(2)}</td>
+            </tr>
+
+            <tr>
+                <td>
+                    Study Minimum Breaking Strength
+                </td>
+
+                <td>
+                    ${requiredBreakingStrength.toFixed(3)} tonnes
+                </td>
+            </tr>
+
+        `;
+    }
+
+    output += `
+            </table>
+        </div>
+    `;
+
+    if (
+        !isNaN(ratedWLL) &&
+        ratedWLL > 0
+    ) {
+
+        const utilization =
+            (legTension / ratedWLL) * 100;
+
+        output += `
+
+            <div class="${
+                utilization <= 100
+                ? "success"
+                : "error"
+            }" style="margin-top:20px;">
+
+                <strong>Rated WLL Comparison</strong>
+
+                <br><br>
+
+                Manufacturer-rated WLL per leg:
+                ${ratedWLL.toFixed(3)} tonnes
+
+                <br>
+
+                Calculated leg tension:
+                ${legTension.toFixed(3)} tonnes
+
+                <br>
+
+                Calculated utilization:
+                ${utilization.toFixed(1)}%
+
+                <br><br>
+
+                ${
+                    utilization <= 100
+                    ? "The calculated tension is within the entered rated WLL for this simplified comparison."
+                    : "The calculated tension exceeds the entered rated WLL."
+                }
+
+            </div>
+
+        `;
+    }
+
+    result.innerHTML = output;
+}
+
+
+function clearAll() {
+
+    document.getElementById("load").value = "";
+
+    document.getElementById("legs").value = "2";
+
+    document.getElementById("angle").value = "";
+
+    document.getElementById("ratedWLL").value = "";
+
+    document.getElementById("designFactor").value = "";
+
+    document.getElementById("result").innerHTML = "";
+}
+
+</script>
+
+</body>
+</html>
