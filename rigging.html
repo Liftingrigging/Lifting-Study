@@ -1,159 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Lifting Accessories | Lifting & Rigging Study Hub</title>
+    <title>Lifting Accessories | Lifting & Rigging Study Hub</title>
 
-<style>
-* {
-    box-sizing: border-box;
-}
+    <style>
+        * {
+            box-sizing: border-box;
+        }
 
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #e5e7eb;
-    line-height: 1.6;
-}
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f1f5f9;
+            color: #0f172a;
+            line-height: 1.6;
+        }
 
-header {
-    background: #111827;
-    padding: 35px 20px;
-    text-align: center;
-    border-bottom: 2px solid #38bdf8;
-}
+        header {
+            background: #0f172a;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            border-bottom: 2px solid #38bdf8;
+        }
 
-header h1 {
-    margin: 0;
-    color: #38bdf8;
-    font-size: 36px;
-}
+        header h1 {
+            margin: 0 0 8px;
+        }
 
-header p {
-    color: #cbd5e1;
-    font-size: 18px;
-}
+        nav {
+            background: #1e293b;
+            padding: 14px;
+            text-align: center;
+        }
 
-nav {
-    background: #1e293b;
-    padding: 15px;
-    text-align: center;
-    position: sticky;
-    top: 0;
-    z-index: 10;
-}
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 9px;
+            font-weight: bold;
+        }
 
-nav a {
-    color: white;
-    text-decoration: none;
-    margin: 0 10px;
-    font-weight: bold;
-}
+        nav a:hover {
+            color: #38bdf8;
+        }
 
-nav a:hover {
-    color: #38bdf8;
-}
+        .container {
+            max-width: 1150px;
+            margin: auto;
+            padding: 30px 20px;
+        }
 
-.container {
-    max-width: 1100px;
-    margin: auto;
-    padding: 30px 20px;
-}
+        .intro,
+        .accessory,
+        .standards,
+        .inspection,
+        .notice {
+            background: white;
+            padding: 25px;
+            margin-bottom: 25px;
+            border-radius: 12px;
+            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
+        }
 
-.intro,
-.accessory {
-    background: #1e293b;
-    border: 1px solid #334155;
-    border-radius: 12px;
-    padding: 25px;
-    margin-bottom: 20px;
-}
+        h2 {
+            color: #0369a1;
+            margin-top: 0;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+        }
 
-.intro {
-    text-align: center;
-}
+        h3 {
+            color: #075985;
+        }
 
-.intro h2,
-.category {
-    color: #38bdf8;
-}
+        .tag {
+            display: inline-block;
+            background: #e0f2fe;
+            color: #075985;
+            padding: 5px 10px;
+            border-radius: 20px;
+            margin: 3px;
+            font-size: 14px;
+            font-weight: bold;
+        }
 
-.category {
-    font-size: 28px;
-    margin-top: 45px;
-    border-bottom: 1px solid #334155;
-    padding-bottom: 10px;
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
 
-.accessory h3 {
-    color: #38bdf8;
-    font-size: 22px;
-    margin-top: 0;
-}
+        th,
+        td {
+            border: 1px solid #cbd5e1;
+            padding: 10px;
+            text-align: left;
+            vertical-align: top;
+        }
 
-.accessory h4 {
-    color: #93c5fd;
-    margin-bottom: 5px;
-}
+        th {
+            background: #e2e8f0;
+        }
 
-.accessory p,
-.accessory li,
-.intro p {
-    color: #cbd5e1;
-}
+        ul {
+            padding-left: 22px;
+        }
 
-.accessory ul {
-    padding-left: 25px;
-}
+        .warning {
+            background: #fff7ed;
+            border-left: 5px solid #f97316;
+            padding: 18px;
+            border-radius: 8px;
+        }
 
-.info {
-    background: #172554;
-    border-left: 4px solid #38bdf8;
-    padding: 15px;
-    border-radius: 6px;
-    margin-top: 15px;
-}
+        .danger {
+            background: #fef2f2;
+            border-left: 5px solid #dc2626;
+            padding: 18px;
+            border-radius: 8px;
+        }
 
-footer {
-    background: #111827;
-    text-align: center;
-    padding: 30px;
-    margin-top: 40px;
-    color: #94a3b8;
-}
+        .green {
+            background: #f0fdf4;
+            border-left: 5px solid #16a34a;
+            padding: 18px;
+            border-radius: 8px;
+        }
 
-@media (max-width: 700px) {
+        .toc {
+            background: #e0f2fe;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 25px;
+        }
 
-    header h1 {
-        font-size: 28px;
-    }
+        .toc a {
+            color: #0369a1;
+            font-weight: bold;
+            text-decoration: none;
+        }
 
-    nav a {
-        display: inline-block;
-        margin: 5px;
-    }
+        .toc li {
+            margin: 7px 0;
+        }
 
-    .category {
-        font-size: 23px;
-    }
-}
-</style>
+        footer {
+            background: #0f172a;
+            color: white;
+            text-align: center;
+            padding: 25px;
+            margin-top: 40px;
+        }
+
+        @media (max-width: 700px) {
+
+            nav a {
+                display: block;
+                margin: 9px 0;
+            }
+
+            .container {
+                padding: 20px 15px;
+            }
+
+            table {
+                font-size: 14px;
+            }
+
+            th,
+            td {
+                padding: 8px;
+            }
+        }
+    </style>
 </head>
 
 <body>
 
 <header>
     <h1>Lifting Accessories</h1>
-    <p>Equipment • Types • Applications • Identification • Rated Capacity</p>
+    <p>Study Reference for Lifting & Rigging Operations</p>
 </header>
 
 <nav>
     <a href="index.html">Home</a>
     <a href="rigging.html">Lifting Accessories</a>
-    <a href="calculations.html">Calculations</a>
+    <a href="calculation.html">Calculations</a>
     <a href="cranes.html">Cranes</a>
     <a href="planning.html">Lift Planning</a>
     <a href="safety.html">Safety</a>
@@ -162,592 +198,939 @@ footer {
 
 <div class="container">
 
-<section class="intro">
+    <section class="intro">
 
-<h2>Lifting Accessories Study Reference</h2>
+        <h2>Lifting Accessories Reference</h2>
 
-<p>
-Lifting accessories are equipment and components used to connect,
-support, position or control loads during lifting operations.
-</p>
+        <p>
+            This section covers common lifting accessories used in
+            lifting and rigging operations, including identification,
+            types, applications, markings, inspection and rejection
+            considerations.
+        </p>
 
-<p>
-This page is for education and study. Actual lifting equipment must
-be selected and used according to manufacturer information, applicable
-requirements and an approved lifting plan.
-</p>
+        <p>
+            The information is intended for study and reference.
+            The manufacturer's instructions, certification, applicable
+            Saudi requirements, project specifications and approved
+            lifting procedure take precedence.
+        </p>
 
-</section>
+        <span class="tag">KSA</span>
+        <span class="tag">SASO</span>
+        <span class="tag">ASME B30</span>
+        <span class="tag">EN Standards</span>
+
+    </section>
 
 
-<h2 class="category">1. Wire Rope Slings</h2>
+    <section class="toc">
 
-<div class="accessory">
-<h3>Wire Rope Slings</h3>
+        <h2>Contents</h2>
 
-<p>
-Wire rope slings are flexible lifting assemblies made from wire rope
-with suitable end terminations.
-</p>
+        <ol>
+            <li><a href="#webbing">Webbing Slings</a></li>
+            <li><a href="#round">Round Slings</a></li>
+            <li><a href="#wire">Wire Rope Slings</a></li>
+            <li><a href="#chain">Chain Slings</a></li>
+            <li><a href="#shackles">Shackles</a></li>
+            <li><a href="#hooks">Lifting Hooks</a></li>
+            <li><a href="#master">Master Links</a></li>
+            <li><a href="#beams">Lifting & Spreader Beams</a></li>
+            <li><a href="#clamps">Lifting Clamps</a></li>
+            <li><a href="#eyebolts">Eyebolts & Lifting Points</a></li>
+            <li><a href="#turnbuckles">Turnbuckles</a></li>
+            <li><a href="#wireaccessories">Wire Rope Accessories</a></li>
+            <li><a href="#blocks">Snatch Blocks & Sheaves</a></li>
+            <li><a href="#magnets">Lifting Magnets</a></li>
+            <li><a href="#vacuum">Vacuum Lifters</a></li>
+            <li><a href="#inspection">Inspection & Rejection</a></li>
+            <li><a href="#standards">KSA & International Standards</a></li>
+        </ol>
 
-<h4>Common Types</h4>
-<ul>
-<li>Single-leg wire rope sling</li>
-<li>Two-leg sling</li>
-<li>Three-leg sling</li>
-<li>Four-leg sling</li>
-<li>Endless wire rope sling</li>
-<li>Grommet sling</li>
-</ul>
+    </section>
 
-<h4>Study Points</h4>
-<ul>
-<li>Wire rope construction</li>
-<li>Diameter</li>
-<li>End terminations</li>
-<li>Identification and capacity information</li>
-<li>Sling configuration</li>
-<li>Application limitations</li>
-</ul>
+
+    <!-- WEBBING SLINGS -->
+
+    <section class="accessory" id="webbing">
+
+        <h2>1. Webbing Slings</h2>
+
+        <p>
+            Synthetic webbing slings are flexible lifting slings commonly
+            used for lifting loads where surface protection is important.
+        </p>
+
+        <h3>Common Types</h3>
+
+        <ul>
+            <li>Flat webbing sling</li>
+            <li>Eye-and-eye sling</li>
+            <li>Endless sling</li>
+            <li>Single-layer and multi-layer webbing</li>
+            <li>Different eye configurations</li>
+        </ul>
+
+        <h3>Common Hitch Arrangements</h3>
+
+        <ul>
+            <li>Vertical / straight lift</li>
+            <li>Choker hitch</li>
+            <li>Basket hitch</li>
+            <li>Multiple-leg arrangements</li>
+        </ul>
+
+        <h3>Common Standard Reference</h3>
+
+        <p>
+            EN 1492-1 is commonly associated with flat woven webbing
+            slings made from man-made fibres. ASME B30.9 also addresses
+            synthetic webbing slings.
+        </p>
+
+        <h3>Identification</h3>
+
+        <ul>
+            <li>Manufacturer</li>
+            <li>Rated capacity / WLL</li>
+            <li>Material</li>
+            <li>Length</li>
+            <li>Identification number where applicable</li>
+            <li>Applicable hitch capacities</li>
+        </ul>
+
+        <h3>Colour Identification</h3>
+
+        <table>
+
+            <tr>
+                <th>Colour</th>
+                <th>Typical EN Capacity Identification</th>
+            </tr>
+
+            <tr>
+                <td>Violet</td>
+                <td>1 tonne</td>
+            </tr>
+
+            <tr>
+                <td>Green</td>
+                <td>2 tonnes</td>
+            </tr>
+
+            <tr>
+                <td>Yellow</td>
+                <td>3 tonnes</td>
+            </tr>
+
+            <tr>
+                <td>Grey</td>
+                <td>4 tonnes</td>
+            </tr>
+
+            <tr>
+                <td>Red</td>
+                <td>5 tonnes</td>
+            </tr>
+
+            <tr>
+                <td>Brown</td>
+                <td>6 tonnes</td>
+            </tr>
+
+            <tr>
+                <td>Blue</td>
+                <td>8 tonnes</td>
+            </tr>
+
+            <tr>
+                <td>Orange</td>
+                <td>10 tonnes and above</td>
+            </tr>
+
+        </table>
+
+        <div class="warning">
+
+            <strong>Important:</strong>
+
+            Colour must not be used as the only method of determining
+            sling capacity. Always read the manufacturer's identification
+            label and WLL.
+
+        </div>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check identification label is present and legible.</li>
+            <li>Check cuts, tears and holes.</li>
+            <li>Check abrasion and excessive wear.</li>
+            <li>Check heat or chemical damage.</li>
+            <li>Check stitching and eyes.</li>
+            <li>Check contamination that may damage the fibres.</li>
+            <li>Check protective sleeves and edge protection.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- ROUND SLINGS -->
+
+    <section class="accessory" id="round">
+
+        <h2>2. Round Slings</h2>
+
+        <p>
+            Round slings are synthetic fibre lifting slings with a continuous
+            load-bearing core protected by an outer cover.
+        </p>
+
+        <h3>Common Standard</h3>
+
+        <p>
+            EN 1492-2 covers roundslings made from man-made fibres.
+            ASME B30.9 also includes synthetic fibre rope and covered
+            polyester slings within its scope.
+        </p>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check outer cover for cuts and abrasion.</li>
+            <li>Check for exposed load-bearing core.</li>
+            <li>Check heat damage.</li>
+            <li>Check chemical damage.</li>
+            <li>Check stitching and identification.</li>
+            <li>Check WLL marking.</li>
+        </ul>
+
+        <div class="danger">
+
+            If the load-bearing core is damaged or exposed, remove the sling
+            from service and have it assessed according to the applicable
+            procedure.
+
+        </div>
+
+    </section>
+
+
+    <!-- WIRE ROPE -->
+
+    <section class="accessory" id="wire">
+
+        <h2>3. Wire Rope Slings</h2>
+
+        <p>
+            Wire rope slings are made from steel wire rope and are available
+            in different constructions and terminations.
+        </p>
+
+        <h3>Types</h3>
+
+        <ul>
+            <li>Single-leg sling</li>
+            <li>Two-leg sling</li>
+            <li>Three-leg sling</li>
+            <li>Four-leg sling</li>
+            <li>Endless sling</li>
+            <li>Grommet</li>
+        </ul>
+
+        <h3>Common References</h3>
+
+        <ul>
+            <li>EN 13414 - Wire rope slings</li>
+            <li>EN 12385 - Steel wire ropes</li>
+            <li>ASME B30.9 - Slings</li>
+        </ul>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Broken wires</li>
+            <li>Birdcaging</li>
+            <li>Kinks</li>
+            <li>Crushing</li>
+            <li>Flattening</li>
+            <li>Corrosion</li>
+            <li>Heat damage</li>
+            <li>Damaged ferrules</li>
+            <li>Damaged eyes</li>
+            <li>Damaged thimbles</li>
+        </ul>
+
+    </section>
+
+
+    <!-- CHAIN -->
+
+    <section class="accessory" id="chain">
+
+        <h2>4. Chain Slings</h2>
+
+        <p>
+            Alloy steel chain slings are used for demanding lifting
+            applications and can be configured as single-, two-, three-
+            or four-leg assemblies.
+        </p>
+
+        <h3>Common Components</h3>
+
+        <ul>
+            <li>Master link</li>
+            <li>Connecting link</li>
+            <li>Chain leg</li>
+            <li>Shortening hook</li>
+            <li>Grab hook where approved</li>
+            <li>Clevis hook</li>
+        </ul>
+
+        <h3>Grades</h3>
+
+        <p>
+            Common industrial alloy chain lifting grades include Grade 8,
+            Grade 10 and Grade 12. The actual WLL must always be taken
+            from the manufacturer's identification and applicable standard.
+        </p>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check chain links for deformation.</li>
+            <li>Check for cracks and gouges.</li>
+            <li>Check excessive wear.</li>
+            <li>Check corrosion.</li>
+            <li>Check stretched or elongated links.</li>
+            <li>Check hooks and latches.</li>
+            <li>Check identification and WLL.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- SHACKLES -->
+
+    <section class="accessory" id="shackles">
+
+        <h2>5. Shackles</h2>
+
+        <p>
+            Shackles connect lifting slings, hooks, lifting points and
+            other components.
+        </p>
+
+        <h3>Bow / Anchor Shackle</h3>
+
+        <p>
+            A bow shackle has a wider rounded body. It is useful where
+            multiple sling legs or wider connections must be accommodated.
+        </p>
+
+        <h3>D / Chain Shackle</h3>
+
+        <p>
+            A D shackle has a narrower body and is commonly used for
+            more direct in-line loading.
+        </p>
+
+        <table>
+
+            <tr>
+                <th>Feature</th>
+                <th>Bow Shackle</th>
+                <th>D Shackle</th>
+            </tr>
+
+            <tr>
+                <td>Body</td>
+                <td>Wide / rounded</td>
+                <td>Narrow / D-shaped</td>
+            </tr>
+
+            <tr>
+                <td>Typical use</td>
+                <td>Multiple or wider connections</td>
+                <td>More direct in-line connection</td>
+            </tr>
+
+            <tr>
+                <td>Common application</td>
+                <td>Multi-leg sling connections</td>
+                <td>Single-leg or direct connections</td>
+            </tr>
+
+        </table>
+
+        <h3>Types</h3>
+
+        <ul>
+            <li>Screw-pin shackle</li>
+            <li>Safety / bolt-type shackle</li>
+            <li>Bow shackle</li>
+            <li>D shackle</li>
+        </ul>
+
+        <h3>Common Standard Reference</h3>
+
+        <p>
+            ASME B30.26 covers rigging hardware, including detachable
+            rigging hardware such as shackles.
+        </p>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check WLL marking.</li>
+            <li>Check body deformation.</li>
+            <li>Check pin condition.</li>
+            <li>Check threads.</li>
+            <li>Check cracks and corrosion.</li>
+            <li>Check excessive wear.</li>
+            <li>Check correct pin and body combination.</li>
+        </ul>
+
+        <div class="danger">
+
+            Never substitute a bolt, ordinary steel bar or unapproved pin
+            for the manufacturer's shackle pin.
+
+        </div>
+
+    </section>
+
+
+    <!-- HOOKS -->
+
+    <section class="accessory" id="hooks">
+
+        <h2>6. Lifting Hooks</h2>
+
+        <h3>Types</h3>
+
+        <ul>
+            <li>Eye hook</li>
+            <li>Clevis hook</li>
+            <li>Swivel hook</li>
+            <li>Self-locking hook</li>
+            <li>Foundry / special-purpose hook</li>
+        </ul>
+
+        <h3>Common Standard</h3>
+
+        <p>
+            ASME B30.10 covers hooks used with lifting equipment.
+        </p>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check hook identification and WLL.</li>
+            <li>Check hook throat opening.</li>
+            <li>Check deformation.</li>
+            <li>Check cracks and gouges.</li>
+            <li>Check excessive wear.</li>
+            <li>Check latch operation where fitted.</li>
+            <li>Check swivel and bearing condition where applicable.</li>
+        </ul>
+
+        <div class="warning">
+
+            A hook with significant deformation, cracking or other
+            unacceptable damage must not remain in service.
+
+        </div>
+
+    </section>
+
+
+    <!-- MASTER LINKS -->
+
+    <section class="accessory" id="master">
+
+        <h2>7. Master Links & Link Assemblies</h2>
+
+        <h3>Types</h3>
+
+        <ul>
+            <li>Single master link</li>
+            <li>Master link assembly</li>
+            <li>Sub-link assembly</li>
+            <li>Multi-leg chain sling assembly</li>
+        </ul>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check identification.</li>
+            <li>Check WLL.</li>
+            <li>Check deformation.</li>
+            <li>Check cracks.</li>
+            <li>Check wear.</li>
+            <li>Check connecting components.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- BEAMS -->
+
+    <section class="accessory" id="beams">
+
+        <h2>8. Lifting Beams & Spreader Beams</h2>
+
+        <h3>Lifting Beam</h3>
+
+        <p>
+            A lifting beam generally carries load between lower lifting
+            points and the crane connection. Its structural design can
+            involve significant bending.
+        </p>
+
+        <h3>Spreader Beam</h3>
+
+        <p>
+            A spreader beam is generally used to distribute lifting forces
+            and maintain separation between lifting points. Depending on
+            design, compression and tension effects are important.
+        </p>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check identification and rated load.</li>
+            <li>Check structural members.</li>
+            <li>Check welds.</li>
+            <li>Check lifting lugs and padeyes.</li>
+            <li>Check pins and connections.</li>
+            <li>Check deformation and corrosion.</li>
+            <li>Check certification and inspection status.</li>
+        </ul>
+
+        <p>
+            ASME B30.20 addresses below-the-hook lifting devices. Structural
+            design requirements may also involve ASME BTH-1 or other
+            applicable design standards.
+        </p>
+
+    </section>
+
+
+    <!-- CLAMPS -->
+
+    <section class="accessory" id="clamps">
+
+        <h2>9. Lifting Clamps</h2>
+
+        <h3>Types</h3>
+
+        <ul>
+            <li>Vertical plate clamp</li>
+            <li>Horizontal plate clamp</li>
+            <li>Beam clamp</li>
+            <li>Pipe clamp</li>
+            <li>Special-purpose lifting clamp</li>
+        </ul>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check jaw condition.</li>
+            <li>Check locking mechanism.</li>
+            <li>Check body deformation.</li>
+            <li>Check teeth or gripping surfaces.</li>
+            <li>Check pins and pivots.</li>
+            <li>Check WLL and identification.</li>
+        </ul>
+
+        <p>
+            Clamps must only be used on the material, thickness, orientation
+            and configuration specified by the manufacturer.
+        </p>
+
+    </section>
+
+
+    <!-- EYEBOLTS -->
+
+    <section class="accessory" id="eyebolts">
+
+        <h2>10. Eyebolts & Lifting Points</h2>
+
+        <h3>Types</h3>
+
+        <ul>
+            <li>Plain eye bolt</li>
+            <li>Shoulder eye bolt</li>
+            <li>Swivel lifting point</li>
+            <li>Engineered lifting point</li>
+        </ul>
+
+        <h3>Important Difference</h3>
+
+        <p>
+            Plain and shoulder eye bolts have different loading limitations.
+            A lifting point designed for angular loading must not be replaced
+            by a standard eye bolt without verifying the manufacturer's
+            requirements.
+        </p>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check threads.</li>
+            <li>Check deformation.</li>
+            <li>Check cracks.</li>
+            <li>Check corrosion.</li>
+            <li>Check seating.</li>
+            <li>Check manufacturer's marking and WLL.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- TURNBUCKLES -->
+
+    <section class="accessory" id="turnbuckles">
+
+        <h2>11. Turnbuckles</h2>
+
+        <p>
+            Turnbuckles are used for tension adjustment and controlled
+            positioning where the specific device is rated and approved
+            for the application.
+        </p>
+
+        <h3>Types</h3>
+
+        <ul>
+            <li>Eye and eye</li>
+            <li>Jaw and jaw</li>
+            <li>Hook and eye</li>
+            <li>Jaw and eye</li>
+        </ul>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check threads.</li>
+            <li>Check body deformation.</li>
+            <li>Check pins and eyes.</li>
+            <li>Check corrosion.</li>
+            <li>Check WLL.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- WIRE ROPE ACCESSORIES -->
+
+    <section class="accessory" id="wireaccessories">
+
+        <h2>12. Wire Rope Accessories</h2>
+
+        <h3>Common Components</h3>
+
+        <ul>
+            <li>Thimbles</li>
+            <li>Wire rope clips</li>
+            <li>Wedge sockets</li>
+            <li>Swivels</li>
+            <li>Rope sockets</li>
+            <li>End terminations</li>
+        </ul>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check correct component size.</li>
+            <li>Check corrosion.</li>
+            <li>Check deformation.</li>
+            <li>Check termination security.</li>
+            <li>Check manufacturer's installation requirements.</li>
+            <li>Check wire rope condition.</li>
+        </ul>
+
+        <p>
+            Do not assume that a wire-rope accessory has a universal
+            capacity. The manufacturer's specification and approved
+            termination arrangement must be followed.
+        </p>
+
+    </section>
+
+
+    <!-- SNATCH BLOCK -->
+
+    <section class="accessory" id="blocks">
+
+        <h2>13. Snatch Blocks & Sheaves</h2>
+
+        <h3>Main Components</h3>
+
+        <ul>
+            <li>Sheave</li>
+            <li>Side plates</li>
+            <li>Axle / pin</li>
+            <li>Hook or attachment</li>
+            <li>Bearing or bushing</li>
+            <li>Guard where applicable</li>
+        </ul>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check sheave groove.</li>
+            <li>Check bearing condition.</li>
+            <li>Check side plates.</li>
+            <li>Check hook or attachment.</li>
+            <li>Check pin and retaining system.</li>
+            <li>Check WLL.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- MAGNETS -->
+
+    <section class="accessory" id="magnets">
+
+        <h2>14. Lifting Magnets</h2>
+
+        <h3>Types</h3>
+
+        <ul>
+            <li>Permanent lifting magnet</li>
+            <li>Electro-permanent magnet</li>
+            <li>Special-purpose magnetic lifting device</li>
+        </ul>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check rated capacity.</li>
+            <li>Check contact surface.</li>
+            <li>Check operating mechanism.</li>
+            <li>Check controls and indicators.</li>
+            <li>Check body condition.</li>
+            <li>Check certification and inspection status.</li>
+        </ul>
+
+        <p>
+            Actual magnetic capacity depends on material, thickness,
+            surface condition, air gap and manufacturer limitations.
+        </p>
+
+    </section>
+
+
+    <!-- VACUUM -->
+
+    <section class="accessory" id="vacuum">
+
+        <h2>15. Vacuum Lifters</h2>
+
+        <h3>Important Components</h3>
+
+        <ul>
+            <li>Vacuum pads</li>
+            <li>Vacuum pump/system</li>
+            <li>Vacuum gauge or indicator</li>
+            <li>Reservoir where fitted</li>
+            <li>Controls</li>
+            <li>Safety warning system</li>
+        </ul>
+
+        <h3>Inspection</h3>
+
+        <ul>
+            <li>Check pads.</li>
+            <li>Check vacuum system.</li>
+            <li>Check hoses and connections.</li>
+            <li>Check indicators.</li>
+            <li>Check battery where applicable.</li>
+            <li>Check rated capacity.</li>
+        </ul>
+
+    </section>
+
+
+    <!-- INSPECTION -->
+
+    <section class="inspection" id="inspection">
+
+        <h2>16. Inspection & Rejection</h2>
+
+        <p>
+            Inspection requirements depend on the equipment, applicable
+            standard, manufacturer instructions, site procedure and
+            statutory requirements.
+        </p>
+
+        <h3>Pre-Use Inspection</h3>
+
+        <ul>
+            <li>Confirm identification.</li>
+            <li>Confirm WLL/rated capacity is visible.</li>
+            <li>Check certification/inspection status where required.</li>
+            <li>Check for visible damage.</li>
+            <li>Check connections and pins.</li>
+            <li>Check correct configuration.</li>
+            <li>Check compatibility with the load.</li>
+        </ul>
+
+        <h3>Common Reasons for Removal from Service</h3>
+
+        <ul>
+            <li>Cracks</li>
+            <li>Severe deformation</li>
+            <li>Excessive wear</li>
+            <li>Heat damage</li>
+            <li>Severe corrosion</li>
+            <li>Unapproved modification</li>
+            <li>Missing or illegible identification</li>
+            <li>Damaged stitching or load-bearing fibres</li>
+            <li>Damaged chain or wire rope</li>
+            <li>Damaged hooks, pins or connecting components</li>
+        </ul>
+
+        <div class="danger">
+
+            <strong>Remove from service:</strong>
+
+            Equipment showing damage that could affect its safe use should
+            be removed from service and assessed according to the applicable
+            manufacturer, inspection and site procedure.
+
+        </div>
+
+    </section>
+
+
+    <!-- STANDARDS -->
+
+    <section class="standards" id="standards">
+
+        <h2>17. KSA & International Standards</h2>
+
+        <p>
+            The following are important references for lifting and rigging
+            study. The exact applicable requirement must always be confirmed
+            against the current Saudi regulation, project specification,
+            manufacturer documentation and equipment type.
+        </p>
+
+        <table>
+
+            <tr>
+                <th>Reference</th>
+                <th>Main Subject</th>
+            </tr>
+
+            <tr>
+                <td>SASO Machinery Safety – Lifting Equipment</td>
+                <td>
+                    Saudi technical requirements for covered lifting
+                    equipment, safety components and related equipment.
+                </td>
+            </tr>
+
+            <tr>
+                <td>ASME B30.9</td>
+                <td>Slings</td>
+            </tr>
+
+            <tr>
+                <td>ASME B30.10</td>
+                <td>Hooks</td>
+            </tr>
+
+            <tr>
+                <td>ASME B30.20</td>
+                <td>Below-the-hook lifting devices</td>
+            </tr>
+
+            <tr>
+                <td>ASME B30.26</td>
+                <td>Rigging hardware</td>
+            </tr>
+
+            <tr>
+                <td>EN 1492-1</td>
+                <td>Flat woven webbing slings</td>
+            </tr>
+
+            <tr>
+                <td>EN 1492-2</td>
+                <td>Roundslings</td>
+            </tr>
+
+            <tr>
+                <td>EN 13414</td>
+                <td>Wire rope slings</td>
+            </tr>
+
+            <tr>
+                <td>EN 12385</td>
+                <td>Steel wire ropes</td>
+            </tr>
+
+            <tr>
+                <td>ASME BTH-1</td>
+                <td>
+                    Design criteria for below-the-hook lifting devices;
+                    used with ASME B30.20 where applicable.
+                </td>
+            </tr>
+
+        </table>
+
+        <p>
+            Saudi conformity requirements should be checked through SASO
+            and the applicable current technical regulation before relying
+            on any equipment for a lifting operation.
+        </p>
+
+    </section>
+
+
+    <section class="notice">
+
+        <h2>Important Safety Notice</h2>
+
+        <p>
+            This page is a study and reference resource. It does not replace
+            the current edition of a standard, manufacturer's instructions,
+            inspection procedure, engineering assessment, approved lift
+            plan or competent-person determination.
+        </p>
+
+        <p>
+            Never determine an accessory's WLL solely from appearance,
+            colour, diameter or a generic table. Use the manufacturer's
+            identification, certification and applicable standard.
+        </p>
+
+        <p>
+            For actual lifting operations in Saudi Arabia, follow the
+            applicable Saudi regulations, project requirements, approved
+            procedures and competent-person controls.
+        </p>
+
+    </section>
+
 </div>
 
-
-<h2 class="category">2. Webbing Slings</h2>
-
-<div class="accessory">
-<h3>Synthetic Webbing Slings</h3>
-
-<p>
-Webbing slings are flexible synthetic lifting accessories commonly
-used where a soft contact surface is desirable.
-</p>
-
-<h4>Common Configurations</h4>
-<ul>
-<li>Vertical hitch</li>
-<li>Basket configuration</li>
-<li>Choker configuration</li>
-<li>Endless sling</li>
-</ul>
-
-<h4>Study Points</h4>
-<ul>
-<li>Material identification</li>
-<li>Width and length</li>
-<li>Rated capacity information</li>
-<li>Configuration effects</li>
-<li>Edge protection requirements</li>
-</ul>
-</div>
-
-
-<h2 class="category">3. Round Slings</h2>
-
-<div class="accessory">
-<h3>Round Slings</h3>
-
-<p>
-Round slings are flexible synthetic lifting accessories consisting
-of load-bearing fibers enclosed in a protective cover.
-</p>
-
-<ul>
-<li>Endless construction</li>
-<li>Flexible load connection</li>
-<li>Various rated capacities</li>
-<li>Different lengths available</li>
-<li>Configuration affects capacity</li>
-</ul>
-</div>
-
-
-<h2 class="category">4. Chain Slings</h2>
-
-<div class="accessory">
-<h3>Alloy Steel Chain Slings</h3>
-
-<p>
-Chain slings are assemblies using lifting-grade chain and compatible
-components.
-</p>
-
-<h4>Common Assemblies</h4>
-<ul>
-<li>Single-leg</li>
-<li>Two-leg</li>
-<li>Three-leg</li>
-<li>Four-leg</li>
-</ul>
-
-<h4>Components</h4>
-<ul>
-<li>Chain</li>
-<li>Master link</li>
-<li>Connecting links</li>
-<li>Hooks</li>
-<li>Shortening components</li>
-</ul>
-</div>
-
-
-<h2 class="category">5. Shackles</h2>
-
-<div class="accessory">
-<h3>Shackles</h3>
-
-<p>
-Shackles are connecting components used to connect lifting accessories
-to loads, lifting points and other equipment.
-</p>
-
-<h4>Common Types</h4>
-<ul>
-<li>Bow shackles</li>
-<li>Dee shackles</li>
-<li>Screw-pin shackles</li>
-<li>Safety-pin shackles</li>
-<li>Special-purpose shackles</li>
-</ul>
-
-<h4>Study Points</h4>
-<ul>
-<li>Shackle body</li>
-<li>Pin</li>
-<li>Identification markings</li>
-<li>Rated capacity</li>
-<li>Correct configuration</li>
-</ul>
-</div>
-
-
-<h2 class="category">6. Lifting Hooks</h2>
-
-<div class="accessory">
-<h3>Lifting Hooks</h3>
-
-<p>
-Hooks provide a connection between lifting equipment and the load
-or lifting accessory.
-</p>
-
-<ul>
-<li>Eye hooks</li>
-<li>Clevis hooks</li>
-<li>Swivel hooks</li>
-<li>Self-locking hooks</li>
-<li>Foundry hooks</li>
-<li>Grab hooks</li>
-</ul>
-
-<h4>Study Points</h4>
-<ul>
-<li>Hook identification</li>
-<li>Rated capacity</li>
-<li>Hook throat</li>
-<li>Safety latch</li>
-<li>Connection arrangement</li>
-</ul>
-</div>
-
-
-<h2 class="category">7. Master Links & Connecting Links</h2>
-
-<div class="accessory">
-<h3>Master Links</h3>
-
-<p>
-Master links provide the main connection point for multi-leg chain
-assemblies and other lifting arrangements.
-</p>
-
-<ul>
-<li>Master link</li>
-<li>Master link assembly</li>
-<li>Sub-assemblies</li>
-<li>Connecting links</li>
-</ul>
-</div>
-
-
-<h2 class="category">8. Lifting Points</h2>
-
-<div class="accessory">
-<h3>Swivel Hoist Rings & Lifting Points</h3>
-
-<p>
-Engineered lifting points provide designated connection locations
-for lifting loads.
-</p>
-
-<ul>
-<li>Fixed lifting eyes</li>
-<li>Swivel lifting points</li>
-<li>Hoist rings</li>
-<li>Weld-on lifting points</li>
-<li>Bolt-on lifting points</li>
-</ul>
-</div>
-
-
-<h2 class="category">9. Spreader Beams</h2>
-
-<div class="accessory">
-<h3>Spreader Beams</h3>
-
-<p>
-Spreader beams are lifting devices designed to distribute lifting
-connections and manage the geometry of a load.
-</p>
-
-<ul>
-<li>Beam body</li>
-<li>Top connection</li>
-<li>Bottom lifting points</li>
-<li>Rated capacity</li>
-<li>Design configuration</li>
-</ul>
-</div>
-
-
-<h2 class="category">10. Lifting Beams</h2>
-
-<div class="accessory">
-<h3>Lifting Beams</h3>
-
-<p>
-Lifting beams are below-the-hook devices designed for specific
-lifting arrangements and load configurations.
-</p>
-
-<ul>
-<li>Single-point lifting beams</li>
-<li>Multi-point lifting beams</li>
-<li>Adjustable lifting beams</li>
-<li>Special-purpose lifting beams</li>
-</ul>
-</div>
-
-
-<h2 class="category">11. Lifting Frames</h2>
-
-<div class="accessory">
-<h3>Lifting Frames</h3>
-
-<p>
-Lifting frames are engineered structures used to support and connect
-loads during lifting.
-</p>
-
-<ul>
-<li>Modular lifting frames</li>
-<li>Equipment lifting frames</li>
-<li>Pipe lifting frames</li>
-<li>Special-purpose frames</li>
-</ul>
-</div>
-
-
-<h2 class="category">12. Lifting Clamps</h2>
-
-<div class="accessory">
-<h3>Plate Lifting Clamps</h3>
-
-<p>
-Plate clamps are designed for lifting specific types of plate or
-steel products according to their manufacturer's requirements.
-</p>
-
-<ul>
-<li>Vertical plate clamps</li>
-<li>Horizontal plate clamps</li>
-<li>Universal plate clamps</li>
-<li>Beam clamps</li>
-<li>Rail clamps</li>
-</ul>
-</div>
-
-
-<h2 class="category">13. Lifting Magnets</h2>
-
-<div class="accessory">
-<h3>Magnetic Lifters</h3>
-
-<p>
-Magnetic lifting devices use magnetic force to handle suitable
-ferromagnetic materials.
-</p>
-
-<ul>
-<li>Permanent magnetic lifters</li>
-<li>Electromagnetic lifting devices</li>
-<li>Magnetic plate lifters</li>
-</ul>
-</div>
-
-
-<h2 class="category">14. Vacuum Lifters</h2>
-
-<div class="accessory">
-<h3>Vacuum Lifters</h3>
-
-<p>
-Vacuum lifting devices use suction or vacuum systems to handle
-suitable loads.
-</p>
-
-<ul>
-<li>Glass lifters</li>
-<li>Panel lifters</li>
-<li>Vacuum lifting frames</li>
-<li>Powered vacuum lifters</li>
-</ul>
-</div>
-
-
-<h2 class="category">15. Drum Lifters</h2>
-
-<div class="accessory">
-<h3>Drum Lifters</h3>
-
-<p>
-Drum lifting devices are designed for handling drums and similar
-containers.
-</p>
-
-<ul>
-<li>Vertical drum lifters</li>
-<li>Horizontal drum lifters</li>
-<li>Drum clamps</li>
-</ul>
-</div>
-
-
-<h2 class="category">16. Pipe Lifters</h2>
-
-<div class="accessory">
-<h3>Pipe Lifting Equipment</h3>
-
-<p>
-Pipe lifting devices are designed for handling pipes and cylindrical
-loads using equipment suitable for the specific application.
-</p>
-
-<ul>
-<li>Pipe hooks</li>
-<li>Pipe clamps</li>
-<li>Pipe lifting beams</li>
-<li>Special pipe lifting devices</li>
-</ul>
-</div>
-
-
-<h2 class="category">17. Pallet Lifters</h2>
-
-<div class="accessory">
-<h3>Pallet Lifters</h3>
-
-<p>
-Pallet lifting devices are used for handling compatible pallets and
-materials.
-</p>
-
-<ul>
-<li>Adjustable pallet forks</li>
-<li>Fixed pallet forks</li>
-<li>Construction pallet lifters</li>
-</ul>
-</div>
-
-
-<h2 class="category">18. Turnbuckles</h2>
-
-<div class="accessory">
-<h3>Turnbuckles</h3>
-
-<p>
-Turnbuckles are mechanical tensioning devices used in suitable
-rigging and structural applications.
-</p>
-
-<ul>
-<li>Eye-and-eye</li>
-<li>Jaw-and-jaw</li>
-<li>Eye-and-jaw</li>
-<li>Open-body types</li>
-</ul>
-</div>
-
-
-<h2 class="category">19. Chain Shorteners</h2>
-
-<div class="accessory">
-<h3>Chain Shortening Devices</h3>
-
-<p>
-Chain shortening devices are used in compatible chain sling
-assemblies to establish the required effective leg length.
-</p>
-
-<ul>
-<li>Shortening hooks</li>
-<li>Shortening clutches</li>
-<li>Chain shortening devices</li>
-</ul>
-</div>
-
-
-<h2 class="category">20. Wire Rope Accessories</h2>
-
-<div class="accessory">
-<h3>Wire Rope Thimbles</h3>
-
-<p>
-Thimbles provide a protective bearing surface at wire rope eyes and
-help maintain the intended eye shape.
-</p>
-</div>
-
-<div class="accessory">
-<h3>Wire Rope Clips</h3>
-
-<p>
-Wire rope clips are mechanical fittings used in certain wire rope
-terminations where permitted by the applicable requirements.
-</p>
-</div>
-
-<div class="accessory">
-<h3>Wire Rope Grips</h3>
-
-<p>
-Wire rope grips and related devices are used for specific wire rope
-handling and connection applications.
-</p>
-</div>
-
-
-<h2 class="category">21. Snatch Blocks & Sheaves</h2>
-
-<div class="accessory">
-<h3>Snatch Blocks</h3>
-
-<p>
-Snatch blocks contain a sheave and provide a means of changing or
-redirecting wire rope movement in compatible lifting arrangements.
-</p>
-
-<ul>
-<li>Single-sheave blocks</li>
-<li>Multiple-sheave blocks</li>
-<li>Side-opening snatch blocks</li>
-<li>Special-purpose blocks</li>
-</ul>
-</div>
-
-
-<h2 class="category">22. Concrete Lifting Accessories</h2>
-
-<div class="accessory">
-<h3>Concrete Lifting Anchors</h3>
-
-<p>
-Concrete lifting anchors are embedded or connected lifting systems
-designed for compatible precast concrete products.
-</p>
-</div>
-
-<div class="accessory">
-<h3>Lifting Clutches</h3>
-
-<p>
-Lifting clutches connect compatible lifting anchors to lifting
-equipment during handling of designed concrete products.
-</p>
-</div>
-
-
-<h2 class="category">23. Container Lifting Equipment</h2>
-
-<div class="accessory">
-<h3>Container Lifting Devices</h3>
-
-<p>
-Container lifting equipment is designed for compatible shipping
-containers and must match the container connection arrangement.
-</p>
-
-<ul>
-<li>Container lifting frames</li>
-<li>Container spreaders</li>
-<li>Corner fitting lifting devices</li>
-<li>Special container lifting systems</li>
-</ul>
-</div>
-
-
-<h2 class="category">24. Below-the-Hook Devices</h2>
-
-<div class="accessory">
-<h3>Below-the-Hook Lifting Devices</h3>
-
-<p>
-Below-the-hook devices are engineered devices positioned between the
-crane hook and the load.
-</p>
-
-<ul>
-<li>Lifting beams</li>
-<li>Spreader beams</li>
-<li>Lifting frames</li>
-<li>Magnets</li>
-<li>Vacuum lifters</li>
-<li>Clamps</li>
-<li>Special lifting devices</li>
-</ul>
-</div>
-
-
-<h2 class="category">25. Accessory Identification</h2>
-
-<div class="accessory">
-<h3>Identification & Capacity Information</h3>
-
-<p>
-Lifting accessories should have appropriate identification and
-capacity information as required by the applicable equipment,
-manufacturer and regulatory requirements.
-</p>
-
-<ul>
-<li>Manufacturer</li>
-<li>Identification number</li>
-<li>Rated capacity information</li>
-<li>Size or dimensions</li>
-<li>Material or grade where applicable</li>
-<li>Applicable configuration information</li>
-</ul>
-</div>
-
-
-<section class="info">
-
-<h3>Study Note</h3>
-
-<p>
-The correct lifting accessory depends on the load, connection points,
-load geometry, environment, equipment compatibility and approved
-lifting arrangement. Always use manufacturer information and the
-applicable requirements for the specific equipment.
-</p>
-
-</section>
-
-</div>
 
 <footer>
-Lifting & Rigging Study Hub
-<br>
-<small>Created by Jawad Wains</small>
+
+    Lifting & Rigging Study Hub
+    <br>
+
+    <small>Created by Jawad Wains</small>
+
 </footer>
 
 </body>
