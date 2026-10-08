@@ -11,6 +11,10 @@
 
 <style>
 
+/* =========================
+   GENERAL
+========================= */
+
 * {
     box-sizing: border-box;
 }
@@ -23,11 +27,13 @@ body {
     line-height: 1.6;
 }
 
+
 /* =========================
-   TOP HEADER
+   HERO HEADER
 ========================= */
 
 .hero {
+
     min-height: 380px;
 
     background:
@@ -38,75 +44,108 @@ body {
         url("gasplant.png");
 
     background-size: cover;
+
     background-position: center;
 
     display: flex;
+
     align-items: center;
 
     color: white;
 }
 
 .hero-content {
+
     width: 100%;
+
     max-width: 1200px;
+
     margin: auto;
+
     padding: 60px 25px;
 }
 
 .hero h1 {
+
     font-size: 44px;
+
     margin: 0 0 12px;
+
     letter-spacing: 0.5px;
 }
 
 .hero p {
+
     font-size: 18px;
+
     margin: 0;
+
     color: #e0f2fe;
 }
+
 
 /* =========================
    NAVIGATION
 ========================= */
 
 nav {
+
     background: #09233d;
+
     text-align: center;
+
     padding: 15px 10px;
+
     border-bottom: 3px solid #22aee8;
 }
 
 nav a {
+
     color: white;
+
     text-decoration: none;
+
     font-weight: bold;
+
     font-size: 14px;
+
     margin: 0 10px;
 }
 
 nav a:hover {
+
     color: #38bdf8;
 }
 
+
 /* =========================
-   MAIN
+   MAIN CONTAINER
 ========================= */
 
 .container {
+
     max-width: 1200px;
+
     margin: auto;
+
     padding: 35px 20px 60px;
 }
+
 
 /* =========================
    WELCOME
 ========================= */
 
 .welcome {
+
     background: white;
+
     border-left: 5px solid #0284c7;
+
     border-radius: 12px;
+
     padding: 30px;
+
     margin-bottom: 35px;
 
     box-shadow:
@@ -114,18 +153,24 @@ nav a:hover {
 }
 
 .welcome h2 {
+
     margin-top: 0;
+
     color: #075985;
+
     font-size: 27px;
 }
 
 .welcome p {
+
     color: #475569;
+
     font-size: 15px;
 }
 
+
 /* =========================
-   MIDDLE BACKGROUND PHOTO
+   MIDDLE PHOTO
 ========================= */
 
 .middle-photo {
@@ -140,8 +185,8 @@ nav a:hover {
 
     background:
         linear-gradient(
-            rgba(3, 25, 48, 0.40),
-            rgba(3, 25, 48, 0.68)
+            rgba(3,25,48,0.40),
+            rgba(3,25,48,0.68)
         ),
         url("images.jpg");
 
@@ -162,38 +207,52 @@ nav a:hover {
 }
 
 .middle-photo-content {
+
     color: white;
+
     padding: 30px;
 }
 
 .middle-photo h2 {
+
     font-size: 32px;
+
     margin: 0 0 10px;
 }
 
 .middle-photo p {
+
     font-size: 17px;
+
     margin: 0;
+
     color: #e0f2fe;
 }
+
 
 /* =========================
    SECTION TITLE
 ========================= */
 
 .section-title {
+
     text-align: center;
+
     margin: 45px 0 25px;
 }
 
 .section-title h2 {
+
     color: #075985;
+
     margin-bottom: 5px;
 }
 
 .section-title p {
+
     color: #64748b;
 }
+
 
 /* =========================
    CARDS
@@ -233,6 +292,7 @@ nav a:hover {
         0 10px 25px rgba(15,23,42,0.16);
 }
 
+
 /* =========================
    CARD PHOTOS
 ========================= */
@@ -248,7 +308,11 @@ nav a:hover {
     background-repeat: no-repeat;
 }
 
+
+/* Lifting Accessories */
+
 .photo-rigging {
+
     background-image:
         linear-gradient(
             rgba(3,25,48,0.12),
@@ -257,7 +321,11 @@ nav a:hover {
         url("lifting.png");
 }
 
+
+/* Calculations */
+
 .photo-calculations {
+
     background-image:
         linear-gradient(
             rgba(3,25,48,0.12),
@@ -266,7 +334,11 @@ nav a:hover {
         url("left.png");
 }
 
+
+/* Cranes */
+
 .photo-crane {
+
     background-image:
         linear-gradient(
             rgba(3,25,48,0.12),
@@ -275,7 +347,11 @@ nav a:hover {
         url("right.png");
 }
 
+
+/* Lift Planning */
+
 .photo-planning {
+
     background-image:
         linear-gradient(
             rgba(3,25,48,0.12),
@@ -284,7 +360,11 @@ nav a:hover {
         url("lifting.png");
 }
 
+
+/* Safety */
+
 .photo-safety {
+
     background-image:
         linear-gradient(
             rgba(3,25,48,0.12),
@@ -293,7 +373,11 @@ nav a:hover {
         url("right.png");
 }
 
+
+/* Study Notes */
+
 .photo-study {
+
     background-image:
         linear-gradient(
             rgba(3,25,48,0.12),
@@ -301,6 +385,7 @@ nav a:hover {
         ),
         url("images.jpg");
 }
+
 
 /* =========================
    CARD CONTENT
@@ -337,6 +422,7 @@ nav a:hover {
     flex-grow: 1;
 }
 
+
 /* =========================
    BUTTON
 ========================= */
@@ -363,43 +449,36 @@ nav a:hover {
 }
 
 .button:hover {
+
     background: #0369a1;
 }
 
+
 /* =========================
-   CREATOR
+   CREATOR SECTION
 ========================= */
 
 .creator {
 
     margin-top: 50px;
 
-    min-height: 260px;
-
     background:
         linear-gradient(
-            rgba(3,25,48,0.45),
-            rgba(3,25,48,0.78)
-        ),
-        url("jawad.jpeg");
-
-    background-size: cover;
-
-    background-position: center;
+            rgba(3,25,48,0.94),
+            rgba(3,25,48,0.94)
+        );
 
     border-radius: 12px;
 
-    padding: 45px 20px;
+    padding: 30px 45px;
 
     display: flex;
-
-    flex-direction: column;
 
     align-items: center;
 
     justify-content: center;
 
-    text-align: center;
+    gap: 35px;
 
     color: white;
 
@@ -407,26 +486,58 @@ nav a:hover {
         0 6px 20px rgba(15,23,42,0.16);
 }
 
-.creator h2 {
+
+/* Circular Photo */
+
+.creator-photo {
+
+    width: 150px;
+
+    height: 150px;
+
+    border-radius: 50%;
+
+    object-fit: cover;
+
+    object-position: center;
+
+    border: 5px solid #38bdf8;
+
+    box-shadow:
+        0 4px 18px rgba(0,0,0,0.35);
+
+    flex-shrink: 0;
+}
+
+
+/* Creator Text */
+
+.creator-info {
+
+    text-align: left;
+}
+
+.creator-info h2 {
 
     margin: 0 0 8px;
 
     font-size: 26px;
 }
 
-.creator p {
+.creator-info p {
 
     margin: 4px 0;
 
     color: #bae6fd;
 }
 
-.creator strong {
+.creator-info strong {
 
     color: white;
 
     font-size: 21px;
 }
+
 
 /* =========================
    SAFETY NOTICE
@@ -448,6 +559,7 @@ nav a:hover {
 
     font-size: 14px;
 }
+
 
 /* =========================
    FOOTER
@@ -473,6 +585,7 @@ footer small {
     color: #94a3b8;
 }
 
+
 /* =========================
    MOBILE
 ========================= */
@@ -480,36 +593,66 @@ footer small {
 @media (max-width: 700px) {
 
     .hero {
+
         min-height: 320px;
     }
 
     .hero h1 {
+
         font-size: 30px;
     }
 
     .hero p {
+
         font-size: 15px;
     }
 
     nav a {
+
         display: block;
+
         margin: 9px 0;
     }
 
     .middle-photo {
+
         min-height: 240px;
     }
 
     .middle-photo h2 {
+
         font-size: 25px;
     }
 
     .container {
+
         padding: 25px 15px 45px;
     }
 
+
+    /* Creator on mobile */
+
     .creator {
-        min-height: 230px;
+
+        flex-direction: column;
+
+        text-align: center;
+
+        padding: 30px 20px;
+
+        gap: 18px;
+    }
+
+    .creator-info {
+
+        text-align: center;
+    }
+
+    .creator-photo {
+
+        width: 130px;
+
+        height: 130px;
     }
 
 }
@@ -549,31 +692,47 @@ footer small {
 
 <nav>
 
-    <a href="index.html">Home</a>
+    <a href="index.html">
+        Home
+    </a>
 
-    <a href="rigging.html">Lifting Accessories</a>
+    <a href="rigging.html">
+        Lifting Accessories
+    </a>
 
-    <a href="calculation.html">Calculations</a>
+    <a href="calculation.html">
+        Calculations
+    </a>
 
-    <a href="cranes.html">Cranes</a>
+    <a href="cranes.html">
+        Cranes
+    </a>
 
-    <a href="planning.html">Lift Planning</a>
+    <a href="planning.html">
+        Lift Planning
+    </a>
 
-    <a href="safety.html">Safety</a>
+    <a href="safety.html">
+        Safety
+    </a>
 
-    <a href="study-notes.html">Study Notes</a>
+    <a href="study-notes.html">
+        Study Notes
+    </a>
 
 </nav>
 
 
 <!-- =========================
-     MAIN
+     MAIN CONTENT
 ========================= -->
 
 <main class="container">
 
 
-<!-- WELCOME -->
+<!-- =========================
+     WELCOME
+========================= -->
 
 <section class="welcome">
 
@@ -600,7 +759,7 @@ footer small {
 
 
 <!-- =========================
-     MIDDLE PHOTO
+     MIDDLE BACKGROUND PHOTO
 ========================= -->
 
 <section class="middle-photo">
@@ -644,7 +803,9 @@ footer small {
 <section class="cards">
 
 
-<!-- LIFTING ACCESSORIES -->
+<!-- =========================
+     LIFTING ACCESSORIES
+========================= -->
 
 <article class="card">
 
@@ -663,7 +824,10 @@ footer small {
             clamps, magnets and other lifting equipment.
         </p>
 
-        <a class="button" href="rigging.html">
+        <a
+            class="button"
+            href="rigging.html"
+        >
             Open Lifting Accessories
         </a>
 
@@ -672,7 +836,9 @@ footer small {
 </article>
 
 
-<!-- CALCULATIONS -->
+<!-- =========================
+     CALCULATIONS
+========================= -->
 
 <article class="card">
 
@@ -690,7 +856,10 @@ footer small {
             load moment, hook load and other lifting calculations.
         </p>
 
-        <a class="button" href="calculation.html">
+        <a
+            class="button"
+            href="calculation.html"
+        >
             Open Calculations
         </a>
 
@@ -699,7 +868,9 @@ footer small {
 </article>
 
 
-<!-- CRANES -->
+<!-- =========================
+     CRANES
+========================= -->
 
 <article class="card">
 
@@ -717,7 +888,10 @@ footer small {
             cranes, components, load charts and classification.
         </p>
 
-        <a class="button" href="cranes.html">
+        <a
+            class="button"
+            href="cranes.html"
+        >
             Open Crane Study
         </a>
 
@@ -726,7 +900,9 @@ footer small {
 </article>
 
 
-<!-- LIFT PLANNING -->
+<!-- =========================
+     LIFT PLANNING
+========================= -->
 
 <article class="card">
 
@@ -744,7 +920,10 @@ footer small {
             communication and lifting planning.
         </p>
 
-        <a class="button" href="planning.html">
+        <a
+            class="button"
+            href="planning.html"
+        >
             Open Lift Planning
         </a>
 
@@ -753,7 +932,9 @@ footer small {
 </article>
 
 
-<!-- SAFETY -->
+<!-- =========================
+     SAFETY
+========================= -->
 
 <article class="card">
 
@@ -771,7 +952,10 @@ footer small {
             and safe lifting practices.
         </p>
 
-        <a class="button" href="safety.html">
+        <a
+            class="button"
+            href="safety.html"
+        >
             Open Safety
         </a>
 
@@ -780,7 +964,9 @@ footer small {
 </article>
 
 
-<!-- STUDY NOTES -->
+<!-- =========================
+     STUDY NOTES
+========================= -->
 
 <article class="card">
 
@@ -798,7 +984,10 @@ footer small {
             references.
         </p>
 
-        <a class="button" href="study-notes.html">
+        <a
+            class="button"
+            href="study-notes.html"
+        >
             Open Study Notes
         </a>
 
@@ -816,21 +1005,40 @@ footer small {
 
 <section class="creator">
 
-    <h2>
-        Lifting & Rigging Study Hub
-    </h2>
 
-    <p>
-        Created by
-    </p>
+    <!-- JAWAD PHOTO -->
 
-    <p>
-        <strong>Jawad Wains</strong>
-    </p>
+    <img
+        src="jawad.jpeg"
+        alt="Jawad Wains"
+        class="creator-photo"
+    >
 
-    <p>
-        Lifting Engineer
-    </p>
+
+    <!-- CREATOR INFORMATION -->
+
+    <div class="creator-info">
+
+        <h2>
+            Lifting & Rigging Study Hub
+        </h2>
+
+        <p>
+            Created by
+        </p>
+
+        <p>
+            <strong>
+                Jawad Wains
+            </strong>
+        </p>
+
+        <p>
+            Lifting Engineer
+        </p>
+
+    </div>
+
 
 </section>
 
@@ -841,7 +1049,9 @@ footer small {
 
 <section class="notice">
 
-    <strong>Study Reference Notice:</strong>
+    <strong>
+        Study Reference Notice:
+    </strong>
 
     This website is intended for educational and study purposes.
     Calculations and information should not replace an approved
