@@ -4,78 +4,163 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Rigging Equipment Study</title>
+<title>Lifting Safety | Lifting & Rigging Study Hub</title>
 
 <style>
+* {
+    box-sizing: border-box;
+}
+
 body {
     margin: 0;
     font-family: Arial, sans-serif;
     background: #0f172a;
     color: #e5e7eb;
+    line-height: 1.6;
 }
 
 header {
     background: #111827;
-    padding: 30px;
+    padding: 35px 20px;
     text-align: center;
+    border-bottom: 2px solid #38bdf8;
 }
 
 header h1 {
     margin: 0;
     color: #38bdf8;
+    font-size: 36px;
 }
 
 header p {
     color: #cbd5e1;
+    font-size: 18px;
 }
 
 nav {
     background: #1e293b;
     padding: 15px;
     text-align: center;
+    position: sticky;
+    top: 0;
+    z-index: 10;
 }
 
 nav a {
     color: white;
     text-decoration: none;
-    margin: 10px;
+    margin: 0 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    color: #38bdf8;
 }
 
 .container {
-    max-width: 1000px;
+    max-width: 1100px;
     margin: auto;
     padding: 30px 20px;
 }
 
+.intro,
 .topic {
     background: #1e293b;
+    border: 1px solid #334155;
+    border-radius: 12px;
     padding: 25px;
     margin-bottom: 20px;
-    border-radius: 12px;
-    border: 1px solid #334155;
 }
 
-.topic h2 {
+.intro {
+    text-align: center;
+}
+
+.intro h2,
+.category {
     color: #38bdf8;
 }
 
-.topic p {
-    line-height: 1.7;
+.topic h3 {
+    color: #38bdf8;
+    font-size: 22px;
+    margin-top: 0;
+}
+
+.topic p,
+.topic li,
+.intro p {
     color: #cbd5e1;
+}
+
+.category {
+    font-size: 28px;
+    margin-top: 45px;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 10px;
+}
+
+.topic ul {
+    padding-left: 25px;
+}
+
+.danger {
+    background: #450a0a;
+    border-left: 5px solid #ef4444;
+    padding: 25px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.danger h3 {
+    color: #f87171;
 }
 
 .warning {
     background: #422006;
     border-left: 5px solid #f59e0b;
-    padding: 20px;
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 40px;
+}
+
+.warning h2 {
+    color: #fbbf24;
+}
+
+.checklist {
+    background: #064e3b;
+    border-left: 5px solid #10b981;
+    padding: 25px;
     border-radius: 8px;
 }
 
+.checklist h2 {
+    color: #34d399;
+}
+
 footer {
+    background: #111827;
     text-align: center;
     padding: 30px;
-    background: #111827;
+    margin-top: 40px;
     color: #94a3b8;
+}
+
+@media (max-width: 700px) {
+
+    header h1 {
+        font-size: 28px;
+    }
+
+    nav a {
+        display: inline-block;
+        margin: 5px;
+    }
+
+    .category {
+        font-size: 23px;
+    }
 }
 </style>
 </head>
@@ -83,105 +168,479 @@ footer {
 <body>
 
 <header>
-    <h1>Rigging Equipment Study</h1>
-    <p>Study notes for lifting and rigging operations</p>
+    <h1>Lifting Safety</h1>
+    <p>Hazards • Precautions • Planning • Inspection • Safe Work</p>
 </header>
 
 <nav>
     <a href="index.html">Home</a>
+    <a href="rigging.html">Lifting Accessories</a>
+    <a href="calculations.html">Calculations</a>
+    <a href="cranes.html">Cranes</a>
+    <a href="planning.html">Lift Planning</a>
+    <a href="safety.html">Safety</a>
+    <a href="study-notes.html">Study Notes</a>
 </nav>
 
 <div class="container">
 
-    <div class="topic">
-        <h2>1. Wire Rope Slings</h2>
-        <p>
-            Wire rope slings are commonly used for lifting loads.
-            Study their construction, identification, rated capacity,
-            inspection requirements and correct configurations.
-        </p>
-    </div>
+<section class="intro">
 
-    <div class="topic">
-        <h2>2. Web Slings</h2>
-        <p>
-            Web slings are made from synthetic materials and are used
-            for many lifting applications. Study sling types,
-            configurations, inspection and limitations.
-        </p>
-    </div>
+<h2>Lifting & Rigging Safety Reference</h2>
 
-    <div class="topic">
-        <h2>3. Shackles</h2>
-        <p>
-            Shackles connect lifting equipment and loads.
-            Common types include bow shackles and dee shackles.
-            Study markings, rated capacity, inspection and proper use.
-        </p>
-    </div>
+<p>
+Lifting operations involve significant hazards. Effective planning,
+competent personnel, suitable equipment, appropriate controls and
+clear communication are essential.
+</p>
 
-    <div class="topic">
-        <h2>4. Lifting Hooks</h2>
-        <p>
-            Study hook types, identification markings, safety latches,
-            inspection requirements and correct connection methods.
-        </p>
-    </div>
+<p>
+This page is a study and reference resource and does not replace
+site-specific risk assessments, approved lift plans, regulations,
+manufacturer instructions or competent-person requirements.
+</p>
 
-    <div class="topic">
-        <h2>5. Master Links</h2>
-        <p>
-            Master links are used as connecting components in many
-            sling assemblies. Study their identification,
-            rated capacity and inspection requirements.
-        </p>
-    </div>
+</section>
 
-    <div class="topic">
-        <h2>6. Spreader Beams</h2>
-        <p>
-            Spreader beams can help distribute lifting forces.
-            Their use must follow the manufacturer's information
-            and the approved engineering or lifting plan.
-        </p>
-    </div>
 
-    <div class="topic">
-        <h2>7. Lifting Clamps</h2>
-        <p>
-            Lifting clamps are designed for specific applications.
-            Study the manufacturer's instructions, rated capacity,
-            inspection requirements and limitations.
-        </p>
-    </div>
+<h2 class="category">1. Suspended Load Hazards</h2>
 
-    <div class="topic">
-        <h2>8. Inspection</h2>
-        <p>
-            Lifting equipment should be inspected according to
-            applicable regulations, standards, manufacturer instructions
-            and site procedures. Damaged or questionable equipment
-            should not be used until properly assessed.
-        </p>
-    </div>
+<div class="danger">
+<h3>Suspended Loads</h3>
+<p>
+Personnel should not position themselves beneath suspended loads.
+Loads must be controlled and the lifting area appropriately managed.
+</p>
+</div>
 
-    <div class="warning">
-        <strong>Important Safety Notice</strong>
-        <p>
-            These pages are for study and reference only.
-            Always follow the approved lift plan, manufacturer
-            instructions, applicable standards and site procedures.
-            Lifting operations must be planned and verified by
-            appropriately competent personnel.
-        </p>
-    </div>
+<div class="danger">
+<h3>Dropped Objects</h3>
+<p>
+Dropped loads, rigging components or unsecured objects can cause
+serious injury or property damage.
+</p>
+<ul>
+<li>Use suitable lifting equipment</li>
+<li>Inspect equipment</li>
+<li>Secure the load appropriately</li>
+<li>Establish an exclusion zone</li>
+<li>Keep unauthorized personnel away</li>
+</ul>
+</div>
+
+<div class="danger">
+<h3>Load Swing</h3>
+<p>
+Loads can swing because of wind, acceleration, deceleration,
+inadequate control or incorrect lifting arrangements.
+</p>
+</div>
+
+
+<h2 class="category">2. Rigging Hazards</h2>
+
+<div class="danger">
+<h3>Damaged Slings</h3>
+<p>
+Cuts, abrasion, broken wires, deformation, heat damage or chemical
+damage can compromise lifting equipment.
+</p>
+</div>
+
+<div class="danger">
+<h3>Damaged Shackles</h3>
+<p>
+Shackles should be checked for deformation, excessive wear, damage,
+incorrect components and identification.
+</p>
+</div>
+
+<div class="danger">
+<h3>Incorrect Sling Configuration</h3>
+<p>
+The lifting arrangement must be suitable for the load, equipment,
+connection points and planned configuration.
+</p>
+</div>
+
+<div class="danger">
+<h3>Sharp Edges</h3>
+<p>
+Sharp load edges can damage synthetic slings and wire rope.
+Appropriate protection should be selected where required.
+</p>
+</div>
+
+<div class="danger">
+<h3>Incorrect Sling Angles</h3>
+<p>
+Sling geometry affects leg forces and must be considered during
+lifting planning and calculations.
+</p>
+</div>
+
+
+<h2 class="category">3. Crane Hazards</h2>
+
+<div class="danger">
+<h3>Crane Overturning</h3>
+<p>
+Crane stability can be affected by load radius, configuration,
+ground conditions, wind and incorrect setup.
+</p>
+</div>
+
+<div class="danger">
+<h3>Ground Failure</h3>
+<p>
+Weak or unsuitable ground can cause settlement or loss of stability.
+Ground conditions should be assessed as part of lift planning.
+</p>
+</div>
+
+<div class="danger">
+<h3>Outrigger Failure</h3>
+<p>
+Outriggers and supporting arrangements must be correctly configured
+and supported according to the crane manufacturer's requirements.
+</p>
+</div>
+
+<div class="danger">
+<h3>Power Lines</h3>
+<p>
+Overhead electrical lines create a potentially fatal electrical
+hazard. Required clearances and controls must be established before
+lifting operations.
+</p>
+</div>
+
+<div class="danger">
+<h3>Crane Collision</h3>
+<p>
+Crane structures, loads and nearby equipment can collide if
+clearances and movement paths are not properly controlled.
+</p>
+</div>
+
+
+<h2 class="category">4. Load Hazards</h2>
+
+<div class="danger">
+<h3>Overloading</h3>
+<p>
+A crane or lifting accessory must not be loaded beyond its applicable
+rated capacity or manufacturer's specified limits.
+</p>
+</div>
+
+<div class="danger">
+<h3>Unknown Load Weight</h3>
+<p>
+Load weight should be established or reliably determined before
+planning the lift.
+</p>
+</div>
+
+<div class="danger">
+<h3>Unbalanced Load</h3>
+<p>
+Loads with an unknown or offset center of gravity can tilt or shift
+when lifted.
+</p>
+</div>
+
+<div class="danger">
+<h3>Uncontrolled Load Movement</h3>
+<p>
+Loads may move unexpectedly because of wind, snagging, incorrect
+rigging or inadequate control.
+</p>
+</div>
+
+
+<h2 class="category">5. Personnel Hazards</h2>
+
+<div class="danger">
+<h3>Crush and Pinch Points</h3>
+<p>
+Hands, feet and body parts can be trapped between the load, rigging
+equipment and surrounding structures.
+</p>
+</div>
+
+<div class="danger">
+<h3>Caught-Between Hazards</h3>
+<p>
+Personnel should remain outside areas where moving loads or equipment
+could trap or crush them.
+</p>
+</div>
+
+<div class="danger">
+<h3>Unauthorized Personnel</h3>
+<p>
+Only personnel required for the lifting operation should enter
+controlled lifting areas.
+</p>
+</div>
+
+
+<h2 class="category">6. Environmental Hazards</h2>
+
+<div class="danger">
+<h3>Wind</h3>
+<p>
+Wind can affect crane stability and cause large or suspended loads
+to behave unpredictably.
+</p>
+</div>
+
+<div class="danger">
+<h3>Rain and Poor Visibility</h3>
+<p>
+Poor weather and visibility can affect communication, footing,
+inspection and load control.
+</p>
+</div>
+
+<div class="danger">
+<h3>Lightning</h3>
+<p>
+Lightning and severe weather may require lifting operations to be
+suspended according to site procedures and manufacturer requirements.
+</p>
+</div>
+
+<div class="danger">
+<h3>Extreme Temperatures</h3>
+<p>
+Temperature can affect equipment, personnel and some materials.
+Manufacturer and site requirements should be followed.
+</p>
+</div>
+
+
+<h2 class="category">7. Site Hazards</h2>
+
+<div class="danger">
+<h3>Excavations</h3>
+<p>
+Crane setup near excavations requires careful consideration of
+ground stability and site engineering requirements.
+</p>
+</div>
+
+<div class="danger">
+<h3>Traffic</h3>
+<p>
+Vehicle and pedestrian traffic can create collision and exclusion-zone
+hazards around lifting operations.
+</p>
+</div>
+
+<div class="danger">
+<h3>Structures</h3>
+<p>
+Buildings, pipe racks, scaffolding and other structures can restrict
+crane and load movement.
+</p>
+</div>
+
+<div class="danger">
+<h3>Poor Lighting</h3>
+<p>
+Insufficient lighting can reduce visibility of the load, rigging,
+signals and surrounding hazards.
+</p>
+</div>
+
+
+<h2 class="category">8. Planning & Risk Controls</h2>
+
+<div class="topic">
+<h3>Lift Plan</h3>
+<p>
+A suitable lift plan should identify the load, crane, rigging,
+lifting arrangement, work area, hazards, controls, communication
+and required personnel.
+</p>
+</div>
+
+<div class="topic">
+<h3>Risk Assessment</h3>
+<p>
+Hazards should be identified and appropriate controls established
+before the lifting operation.
+</p>
+</div>
+
+<div class="topic">
+<h3>Method Statement</h3>
+<p>
+The method statement should describe the planned work sequence,
+responsibilities, controls and communication arrangements.
+</p>
+</div>
+
+<div class="topic">
+<h3>Pre-Lift Meeting</h3>
+<p>
+The lifting team should understand the plan, responsibilities,
+communication arrangements and stop-work requirements before the lift.
+</p>
+</div>
+
+
+<h2 class="category">9. Communication</h2>
+
+<div class="topic">
+<h3>Hand Signals</h3>
+<p>
+Approved crane hand signals should be used by designated personnel
+where applicable.
+</p>
+</div>
+
+<div class="topic">
+<h3>Radio Communication</h3>
+<p>
+Radio communication should be clear, agreed and tested before
+operations when radios are required.
+</p>
+</div>
+
+<div class="topic">
+<h3>One Designated Signaller</h3>
+<p>
+The lifting team should establish clear authority for signals to
+avoid conflicting instructions.
+</p>
+</div>
+
+
+<h2 class="category">10. Inspection & Equipment Control</h2>
+
+<div class="topic">
+<h3>Pre-Use Inspection</h3>
+
+<ul>
+<li>Check identification</li>
+<li>Check rated capacity information</li>
+<li>Check hooks and latches</li>
+<li>Check shackles and pins</li>
+<li>Check slings</li>
+<li>Check wire ropes</li>
+<li>Check lifting points</li>
+<li>Check crane safety devices</li>
+</ul>
+
+</div>
+
+<div class="topic">
+<h3>Damaged Equipment</h3>
+<p>
+Equipment that is damaged, unidentified or suspected to be unsuitable
+should be removed from service or controlled according to applicable
+procedures until properly assessed.
+</p>
+</div>
+
+
+<h2 class="category">11. Personal Protective Equipment</h2>
+
+<div class="topic">
+<h3>PPE</h3>
+
+<ul>
+<li>Safety helmet</li>
+<li>Safety footwear</li>
+<li>Suitable gloves</li>
+<li>Eye protection</li>
+<li>High-visibility clothing</li>
+<li>Hearing protection where required</li>
+<li>Additional PPE based on the task risk assessment</li>
+</ul>
+
+</div>
+
+
+<h2 class="category">12. Emergency Planning</h2>
+
+<div class="topic">
+<h3>Emergency Response</h3>
+<p>
+Lifting operations should have appropriate emergency arrangements
+covering foreseeable incidents such as dropped loads, equipment
+failure, injury, fire, severe weather or loss of communication.
+</p>
+</div>
+
+<div class="topic">
+<h3>Stop Work</h3>
+<p>
+Personnel should have a clear means to stop the operation when an
+unsafe condition develops or when the lift no longer matches the
+approved plan.
+</p>
+</div>
+
+
+<h2 class="category">13. Lifting Safety Checklist</h2>
+
+<div class="checklist">
+
+<h2>Pre-Lift Checklist</h2>
+
+<ul>
+<li>Lift plan reviewed</li>
+<li>Risk assessment completed</li>
+<li>Load weight established</li>
+<li>Center of gravity considered</li>
+<li>Correct crane selected</li>
+<li>Load chart verified</li>
+<li>Correct lifting accessories selected</li>
+<li>Accessories inspected</li>
+<li>Crane inspected</li>
+<li>Ground conditions assessed</li>
+<li>Outriggers/support arrangements verified</li>
+<li>Exclusion zone established</li>
+<li>Communication method agreed</li>
+<li>Weather conditions checked</li>
+<li>Personnel briefed</li>
+<li>Emergency arrangements understood</li>
+</ul>
+
+</div>
+
+
+<section class="warning">
+
+<h2>Important Safety Notice</h2>
+
+<p>
+This website is intended for education and study purposes only.
+It does not replace an approved lift plan, task-specific risk
+assessment, engineering assessment, manufacturer instructions,
+applicable laws, regulations, standards or competent-person
+verification.
+</p>
+
+<p>
+Actual lifting operations must be planned and controlled by
+appropriately competent personnel using equipment suitable for
+the specific task and conditions.
+</p>
+
+</section>
 
 </div>
 
 <footer>
-    Lifting & Rigging Study Hub
-    <br>
-    <small>Created by Jawad Wains</small>
+Lifting & Rigging Study Hub
+<br>
+<small>Created by Jawad Wains</small>
 </footer>
+
 </body>
 </html>
