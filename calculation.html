@@ -4,383 +4,193 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Lifting & Rigging Calculations</title>
+    <title>Lifting Calculations & Formulas</title>
 
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-        }
-
         body {
-            font-family: Arial, Helvetica, sans-serif;
-            background: #07111f;
-            color: #e5eef7;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
             line-height: 1.7;
         }
 
         header {
-            background:
-                linear-gradient(
-                    rgba(2, 6, 23, 0.70),
-                    rgba(2, 6, 23, 0.70)
-                ),
-                url("gasplant.png");
-
-            background-size: cover;
-            background-position: center;
-
-            padding: 45px 20px;
+            background: #020617;
+            padding: 35px 20px;
             text-align: center;
-
-            border-bottom: 3px solid #38bdf8;
+            border-bottom: 2px solid #38bdf8;
         }
 
         header h1 {
-            font-size: 38px;
-            color: white;
-            margin-bottom: 10px;
+            margin: 0;
+            color: #38bdf8;
+            font-size: 34px;
         }
 
         header p {
-            color: #bae6fd;
-            font-size: 18px;
+            color: #cbd5e1;
+            margin-bottom: 0;
         }
 
         nav {
-            background: #0b1b2d;
-            padding: 15px;
+            background: #1e293b;
+            padding: 14px;
             text-align: center;
         }
 
         nav a {
-            display: inline-block;
-            margin: 5px;
-            padding: 9px 15px;
-
-            background: #102a43;
-            color: white;
-
+            color: #e2e8f0;
             text-decoration: none;
-            border-radius: 7px;
-
+            margin: 0 10px;
             font-weight: bold;
         }
 
         nav a:hover {
-            background: #0284c7;
+            color: #38bdf8;
         }
 
         main {
-            max-width: 1200px;
+            max-width: 1150px;
             margin: auto;
-            padding: 30px 18px;
+            padding: 30px 20px;
         }
 
         .intro {
-            background: #0d2034;
-            border-left: 5px solid #38bdf8;
-
-            padding: 25px;
-            border-radius: 10px;
-
+            text-align: center;
+            background: #1e293b;
+            padding: 30px;
+            border-radius: 14px;
             margin-bottom: 30px;
+            border: 1px solid #334155;
         }
 
         .intro h2 {
             color: #7dd3fc;
-            margin-bottom: 10px;
-        }
-
-        .warning {
-            background: #33240b;
-            border: 1px solid #d97706;
-
-            color: #fde68a;
-
-            padding: 20px;
-            border-radius: 10px;
-
-            margin-bottom: 35px;
-        }
-
-        .warning h3 {
-            color: #fbbf24;
-            margin-bottom: 8px;
-        }
-
-        .section-title {
-            color: #7dd3fc;
-            font-size: 28px;
-
-            margin: 35px 0 20px;
-
-            border-bottom: 1px solid #1e4668;
-            padding-bottom: 10px;
         }
 
         .grid {
             display: grid;
-
-            grid-template-columns:
-                repeat(auto-fit, minmax(300px, 1fr));
-
-            gap: 20px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 22px;
         }
 
         .card {
-            background: #0d2034;
-
-            border: 1px solid #1e4668;
-
-            border-radius: 12px;
-
+            background: #1e293b;
             padding: 25px;
-
-            transition: 0.25s;
+            border-radius: 14px;
+            border: 1px solid #334155;
+            transition: transform 0.2s, border-color 0.2s;
         }
 
         .card:hover {
-            transform: translateY(-4px);
-
+            transform: translateY(-5px);
             border-color: #38bdf8;
-
-            box-shadow:
-                0 8px 25px rgba(0, 0, 0, 0.35);
         }
 
-        .card h3 {
+        .card h2 {
             color: #38bdf8;
-            margin-bottom: 12px;
-            font-size: 22px;
+            margin-top: 0;
         }
 
         .card p {
             color: #cbd5e1;
-            margin-bottom: 15px;
-        }
-
-        .card ul {
-            padding-left: 20px;
-            margin-bottom: 20px;
-            color: #cbd5e1;
-        }
-
-        .card li {
-            margin-bottom: 5px;
         }
 
         .button {
             display: inline-block;
-
+            margin-top: 12px;
+            padding: 11px 17px;
             background: #0284c7;
-
             color: white;
-
             text-decoration: none;
-
-            padding: 10px 17px;
-
-            border-radius: 7px;
-
+            border-radius: 8px;
             font-weight: bold;
         }
 
         .button:hover {
-            background: #0ea5e9;
+            background: #0369a1;
         }
 
-        .formula {
-            background: #020b16;
-
-            border: 1px solid #164e6d;
-
-            border-radius: 10px;
-
+        .warning {
+            background: #451a03;
+            border-left: 5px solid #f59e0b;
             padding: 20px;
-
-            margin-bottom: 18px;
+            margin: 30px 0;
+            border-radius: 8px;
         }
 
-        .formula h3 {
-            color: #38bdf8;
-            margin-bottom: 10px;
+        .topics {
+            background: #172554;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 30px;
         }
 
-        .equation {
-            display: block;
-
-            background: #061522;
-
-            color: #a5f3fc;
-
-            padding: 13px;
-
-            margin: 12px 0;
-
-            border-radius: 7px;
-
-            font-family: "Courier New", monospace;
-
-            font-size: 17px;
-
-            overflow-x: auto;
+        .topics h2 {
+            color: #7dd3fc;
         }
 
         footer {
-            margin-top: 45px;
-
-            background: #020817;
-
-            border-top: 2px solid #1e4668;
-
             text-align: center;
-
-            padding: 25px;
-
+            padding: 28px;
+            background: #020617;
             color: #94a3b8;
-        }
-
-        @media (max-width: 600px) {
-
-            header h1 {
-                font-size: 28px;
-            }
-
-            header p {
-                font-size: 15px;
-            }
-
-            .section-title {
-                font-size: 24px;
-            }
+            margin-top: 30px;
         }
     </style>
 </head>
 
 <body>
 
-
 <header>
-
-    <h1>Lifting & Rigging Calculations</h1>
-
-    <p>
-        Study Formulas • Crane Calculations • Rigging Calculations
-    </p>
-
+    <h1>🧮 Lifting Calculations & Formulas</h1>
+    <p>Professional Study Reference for Lifting & Rigging Operations</p>
 </header>
 
-
 <nav>
-
     <a href="index.html">Home</a>
-
-    <a href="rigging.html">
-        Lifting Accessories
-    </a>
-
-    <a href="calculations.html">
-        Calculations
-    </a>
-
-    <a href="cranes.html">
-        Cranes
-    </a>
-
-    <a href="planning.html">
-        Lift Planning
-    </a>
-
-    <a href="safety.html">
-        Safety
-    </a>
-
-    <a href="study-notes.html">
-        Study Notes
-    </a>
-
+    <a href="rigging.html">Lifting Accessories</a>
+    <a href="calculations.html">Calculations</a>
+    <a href="cranes.html">Cranes</a>
+    <a href="planning.html">Lift Planning</a>
+    <a href="safety.html">Safety</a>
+    <a href="study-notes.html">Study Notes</a>
 </nav>
-
 
 <main>
 
-
 <section class="intro">
 
-    <h2>
-        Lifting & Rigging Calculation Library
-    </h2>
+    <h2>Complete Lifting Calculation Study Hub</h2>
 
     <p>
-        Welcome to the calculation section of the
-        Lifting & Rigging Study Hub.
+        This section provides formulas, calculation methods and study
+        references covering lifting operations, rigging, cranes,
+        sling angles, load control, ground bearing and lift planning.
     </p>
 
     <p>
-        The study material is separated into two main
-        sections: TÜV / General Lifting & Rigging and
-        Saudi Aramco.
-    </p>
-
-</section>
-
-
-<section class="warning">
-
-    <h3>
-        ⚠️ Important Safety Notice
-    </h3>
-
-    <p>
-        These calculations are for educational and study
-        purposes. They do not replace an approved lift plan,
-        engineered calculation, manufacturer's load chart,
-        equipment certification, applicable standards,
-        project procedures or competent-person verification.
+        The material is organized into separate general/TÜV-style study
+        material and Saudi Aramco reference sections.
     </p>
 
 </section>
-
-
-<!-- TÜV SECTION -->
-
-<h2 class="section-title">
-    TÜV / General Lifting & Rigging
-</h2>
-
 
 <div class="grid">
 
-
     <div class="card">
 
-        <h3>
-            TÜV Lifting & Rigging Study
-        </h3>
+        <h2>📘 General / TÜV Study</h2>
 
         <p>
-            Complete study section covering the major
-            lifting and rigging calculation topics.
+            Comprehensive lifting and rigging calculations including
+            load weight, sling tension, angles, D/d ratio, crane
+            utilization, ground bearing, reeving and tandem lifting.
         </p>
 
-        <ul>
-            <li>Load calculations</li>
-            <li>Sling calculations</li>
-            <li>Wire rope</li>
-            <li>Shackles & hooks</li>
-            <li>Lifting beams</li>
-            <li>Crane calculations</li>
-            <li>Ground bearing</li>
-            <li>Tandem lifting</li>
-            <li>Inspection & testing</li>
-        </ul>
-
-        <a
-            class="button"
-            href="calculations/tuv/index.html">
-            Open TÜV Study
+        <a class="button" href="calculations/tuv/index.html">
+            Open TÜV / General Study
         </a>
 
     </div>
@@ -388,72 +198,15 @@
 
     <div class="card">
 
-        <h3>
-            TÜV Formula Reference
-        </h3>
+        <h2>🏗️ Saudi Aramco Study</h2>
 
         <p>
-            Fundamental formulas used for lifting and
-            rigging study.
+            Saudi Aramco lifting and rigging reference material covering
+            operator and rigger certification, crane lifts, rigging
+            hardware, inspection and power-line hazards.
         </p>
 
-        <ul>
-            <li>Weight</li>
-            <li>Center of gravity</li>
-            <li>Moments</li>
-            <li>Sling tension</li>
-            <li>Angles</li>
-            <li>Equilibrium</li>
-        </ul>
-
-        <a
-            class="button"
-            href="calculations/tuv/index.html">
-            View Formulas
-        </a>
-
-    </div>
-
-
-</div>
-
-
-<!-- ARAMCO SECTION -->
-
-<h2 class="section-title">
-    Saudi Aramco Lifting & Rigging
-</h2>
-
-
-<div class="grid">
-
-
-    <div class="card">
-
-        <h3>
-            Saudi Aramco Study
-        </h3>
-
-        <p>
-            Dedicated Saudi Aramco lifting and rigging
-            reference section.
-        </p>
-
-        <ul>
-            <li>GI 7.025</li>
-            <li>GI 7.028</li>
-            <li>GI 7.029</li>
-            <li>GI 7.030</li>
-            <li>GI 2.702</li>
-            <li>Crane lifts</li>
-            <li>Rigging hardware</li>
-            <li>Inspection</li>
-            <li>Power-line hazards</li>
-        </ul>
-
-        <a
-            class="button"
-            href="calculations/aramco/index.html">
+        <a class="button" href="calculations/aramco/index.html">
             Open Saudi Aramco Study
         </a>
 
@@ -462,149 +215,133 @@
 
     <div class="card">
 
-        <h3>
-            Aramco Formula Study
-        </h3>
+        <h2>⚖️ Load Calculations</h2>
 
         <p>
-            Calculation concepts relevant to lifting and
-            rigging study.
+            Study load weight, force, moments, center of gravity,
+            gross load and basic mechanical principles used in lifting.
         </p>
 
-        <ul>
-            <li>D/d ratio</li>
-            <li>SWL / WLL</li>
-            <li>Sling forces</li>
-            <li>Load moment</li>
-            <li>Ground pressure</li>
-            <li>Load distribution</li>
-        </ul>
-
-        <a
-            class="button"
-            href="calculations/aramco/index.html">
-            Open Aramco Formulas
+        <a class="button" href="calculations/tuv/index.html">
+            Study Load Formulas
         </a>
 
     </div>
 
 
+    <div class="card">
+
+        <h2>🔗 Sling Calculations</h2>
+
+        <p>
+            Learn sling tension, sling angles, angle factors,
+            multi-leg sling concepts and D/d ratio.
+        </p>
+
+        <a class="button" href="calculations/tuv/index.html">
+            Study Sling Formulas
+        </a>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>🏗️ Crane Calculations</h2>
+
+        <p>
+            Study crane capacity, utilization, radius, load chart
+            concepts, gross load and operating conditions.
+        </p>
+
+        <a class="button" href="calculations/tuv/index.html">
+            Study Crane Calculations
+        </a>
+
+    </div>
+
+
+    <div class="card">
+
+        <h2>🌍 Ground Bearing</h2>
+
+        <p>
+            Study ground pressure, allowable bearing pressure,
+            outrigger loads and required support area.
+        </p>
+
+        <a class="button" href="calculations/tuv/index.html">
+            Study Ground Calculations
+        </a>
+
+    </div>
+
 </div>
 
 
-<!-- QUICK FORMULAS -->
+<section class="topics">
 
-<h2 class="section-title">
-    Quick Formula Reference
-</h2>
+    <h2>📚 Topics Covered</h2>
+
+    <ul>
+        <li>Load weight calculations</li>
+        <li>Force and gravitational acceleration</li>
+        <li>Moments and overturning concepts</li>
+        <li>Center of gravity</li>
+        <li>Gross lifted load</li>
+        <li>Sling tension</li>
+        <li>Sling angle calculations</li>
+        <li>Angle factors</li>
+        <li>D/d ratio</li>
+        <li>Shackle loading concepts</li>
+        <li>Hook loading concepts</li>
+        <li>Lifting beam calculations</li>
+        <li>Spreader beam concepts</li>
+        <li>Crane utilization</li>
+        <li>Working radius</li>
+        <li>Load chart interpretation</li>
+        <li>Ground bearing pressure</li>
+        <li>Outrigger support area</li>
+        <li>Mechanical advantage</li>
+        <li>Reeving systems</li>
+        <li>Tandem lifting</li>
+        <li>Equilibrium equations</li>
+        <li>Lift planning</li>
+        <li>Rigging inspection</li>
+        <li>Load control</li>
+        <li>Communication</li>
+        <li>Safety and hazard control</li>
+    </ul>
+
+</section>
 
 
-<div class="formula">
+<div class="warning">
 
-    <h3>
-        Load Weight
-    </h3>
-
-    <span class="equation">
-        W = m × g
-    </span>
+    <strong>⚠️ Safety & Engineering Notice</strong>
 
     <p>
-        Weight is related to mass and gravitational acceleration.
+        These calculations are provided for study and reference purposes.
+        They are not a substitute for an engineered lift plan,
+        manufacturer load charts, equipment certificates, applicable
+        standards, Saudi Aramco requirements, site procedures or
+        competent-person verification.
+    </p>
+
+    <p>
+        Always verify actual lifting operations using the current
+        applicable requirements and approved documentation.
     </p>
 
 </div>
-
-
-<div class="formula">
-
-    <h3>
-        Load Moment
-    </h3>
-
-    <span class="equation">
-        M = W × R
-    </span>
-
-    <p>
-        Moment depends on load and horizontal radius.
-    </p>
-
-</div>
-
-
-<div class="formula">
-
-    <h3>
-        Two-Leg Sling Tension
-    </h3>
-
-    <span class="equation">
-        T = W ÷ (2 × sin θ)
-    </span>
-
-    <p>
-        Simplified symmetrical arrangement with the angle
-        measured from the horizontal.
-    </p>
-
-</div>
-
-
-<div class="formula">
-
-    <h3>
-        D/d Ratio
-    </h3>
-
-    <span class="equation">
-        D/d = D ÷ d
-    </span>
-
-    <p>
-        D is the curvature diameter and d is the applicable
-        sling or wire-rope diameter.
-    </p>
-
-</div>
-
-
-<div class="formula">
-
-    <h3>
-        Ground Bearing Pressure
-    </h3>
-
-    <span class="equation">
-        P = F ÷ A
-    </span>
-
-    <p>
-        Pressure equals applied force divided by bearing area.
-    </p>
-
-</div>
-
 
 </main>
 
-
 <footer>
-
-    <p>
-        Lifting & Rigging Study Hub
-    </p>
-
-    <p>
-        Created by Jawad Wains — Lifting Engineer
-    </p>
-
-    <p>
-        Educational & Study Reference
-    </p>
-
+    Lifting & Rigging Study Hub
+    <br>
+    <small>Created by Jawad Wains — Lifting Engineer</small>
 </footer>
-
 
 </body>
 </html>
