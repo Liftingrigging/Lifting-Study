@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Crane Selection Study Calculator</title>
+
+<style>
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #0f172a;
+    color: #e2e8f0;
+}
+
+header {
+    background: #0b1f3a;
+    padding: 30px 20px;
+    text-align: center;
+    border-bottom: 2px solid #38bdf8;
+}
+
+header h1 {
+    margin: 0;
+    color: white;
+}
+
+header p {
+    color: #94a3b8;
+    line-height: 1.5;
+}
+
+.container {
+    max-width: 950px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.card {
+    background: #1e293b;
+    padding: 25px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 1px solid #334155;
+}
+
+h2 {
+    color: #38bdf8;
+    margin-top: 0;
+}
+
+label {
+    display: block;
+    margin-top: 16px;
+    margin-bottom: 6px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 12px;
+    border-radius: 6px;
+    border: 1px solid #475569;
+    background: #0f172a;
+    color: white;
+    font-size: 16px;
+}
+
+button {
+    margin-top: 20px;
+    padding: 13px 22px;
+    border: none;
+    border-radius: 6px;
+    background: #0284c7;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0369a1;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background: #020617;
+    border-left: 4px solid #38bdf8;
+    border-radius: 6px;
+    line-height: 1.8;
+}
+
+.formula {
+    background: #020617;
+    padding: 15px;
+    border-radius: 6px;
+    font-family: monospace;
+    color: #cbd5e1;
+    margin-top: 15px;
+    line-height: 1.8;
+    overflow-x: auto;
+}
+
+.note {
+    background: #172554;
+    border-left: 4px solid #38bdf8;
+    padding: 18px;
+    border-radius: 6px;
+    line-height: 1.6;
+}
+
+.warning {
+    background: #3f2a16;
+    border-left: 4px solid #f59e0b;
+    padding: 18px;
+    border-radius: 6px;
+    color: #fde68a;
+    line-height: 1.6;
+}
+
+.good {
+    color: #22c55e;
+    font-weight: bold;
+}
+
+.danger {
+    color: #ef4444;
+    font-weight: bold;
+}
+
+footer {
+    margin-top: 40px;
+    padding: 30px;
+    text-align: center;
+    color: #64748b;
+    border-top: 1px solid #334155;
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<header>
+
+<h1>
+Crane Selection Study Calculator
+</h1>
+
+<p>
+Preliminary Crane Capacity and Utilization Study
+</p>
+
+</header>
+
+
+<div class="container">
+
+
+<div class="card">
+
+<h2>
+Lift Information
+</h2>
+
+
+<label for="load">
+Main Lifted Load (tonnes)
+</label>
+
+<input
+type="number"
+id="load"
+step="0.01"
+placeholder="Example: 20"
+>
+
+
+<label for="rigging">
+Rigging & Lifting Accessories (tonnes)
+</label>
+
+<input
+type="number"
+id="rigging"
+step="0.01"
+value="0"
+placeholder="Example: 0.8"
+>
+
+
+<label for="hook">
+Hook Block / Ball Weight (tonnes)
+</label>
+
+<input
+type="number"
+id="hook"
+step="0.01"
+value="0"
+placeholder="Example: 1.2"
+>
+
+
+<label for="other">
+Other Suspended Equipment (tonnes)
+</label>
+
+<input
+type="number"
+id="other"
+step="0.01"
+value="0"
+placeholder="Example: 0.5"
+>
+
+
+<label for="radius">
+Operating Radius (m)
+</label>
+
+<input
+type="number"
+id="radius"
+step="0.01"
+placeholder="Example: 15"
+>
+
+
+<label for="capacity">
+Crane Rated Capacity at Actual Configuration (tonnes)
+</label>
+
+<input
+type="number"
+id="capacity"
+step="0.01"
+placeholder="Example: 30"
+>
+
+
+<button onclick="calculate()">
+Calculate Crane Selection
+</button>
+
+
+<div id="result"></div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Calculation Method
+</h2>
+
+
+<div class="formula">
+
+Gross Load
+
+=
+
+Main Load
++
+Rigging
++
+Hook Block
++
+Other Suspended Equipment
+
+</div>
+
+
+<div class="formula">
+
+Crane Utilization
+
+=
+
+Gross Load
+÷
+Rated Crane Capacity
+× 100
+
+</div>
+
+
+<p>
+The crane capacity must correspond to the actual
+operating configuration and radius.
+</p>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Example Study
+</h2>
+
+
+<div class="formula">
+
+Main Load = 20 t
+
+Rigging = 0.8 t
+
+Hook Block = 1.2 t
+
+Other Equipment = 0.5 t
+
+<br><br>
+
+Gross Load:
+
+20 + 0.8 + 1.2 + 0.5
+
+= 22.5 t
+
+<br><br>
+
+Crane Rated Capacity = 30 t
+
+<br><br>
+
+Utilization:
+
+22.5 ÷ 30 × 100
+
+= 75%
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Study Result Guide
+</h2>
+
+<ul>
+
+<li>
+<strong>≤ 75%</strong> — Lower study utilization
+</li>
+
+<li>
+<strong>75–85%</strong> — Higher utilization; review carefully
+</li>
+
+<li>
+<strong>85–100%</strong> — Very high utilization; requires detailed verification
+</li>
+
+<li>
+<strong>> 100%</strong> — Gross load exceeds entered rated capacity
+</li>
+
+</ul>
+
+
+<div class="note">
+
+These percentage bands are only a study-screening aid.
+They are not a universal crane selection or acceptance
+criterion.
+
+</div>
+
+</div>
+
+
+<div class="card">
+
+<h2>
+Important Crane Selection Factors
+</h2>
+
+<ul>
+
+<li>
+Manufacturer load chart
+</li>
+
+<li>
+Actual operating radius
+</li>
+
+<li>
+Boom length and configuration
+</li>
+
+<li>
+Counterweight configuration
+</li>
+
+<li>
+Jib configuration
+</li>
+
+<li>
+Hook block and reeving
+</li>
+
+<li>
+Ground conditions
+</li>
+
+<li>
+Outrigger configuration
+</li>
+
+<li>
+Wind and environmental limits
+</li>
+
+<li>
+Required clearances
+</li>
+
+<li>
+Crane setup location
+</li>
+
+<li>
+Lift path and swing area
+</li>
+
+</ul>
+
+</div>
+
+
+<div class="warning">
+
+<strong>
+Important Safety Notice
+</strong>
+
+<br><br>
+
+This calculator is a preliminary study tool only.
+
+<br><br>
+
+It does NOT select or approve a crane for an actual lift.
+
+<br><br>
+
+Crane capacity must be verified from the specific
+manufacturer's load chart for the actual configuration,
+radius, boom length, counterweight, outrigger condition,
+reeving and other applicable factors.
+
+<br><br>
+
+The entered rated capacity must never be treated as a
+generic crane capacity.
+
+<br><br>
+
+Actual lifting operations require an approved lift plan,
+competent-person review and compliance with applicable
+manufacturer requirements, site procedures and regulations.
+
+</div>
+
+
+</div>
+
+
+<footer>
+
+Lifting & Rigging Study Hub
+
+<br>
+
+<small>
+Study Tool — Verify actual crane capacity before lifting
+</small>
+
+</footer>
+
+
+<script>
+
+function calculate() {
+
+    const load =
+        parseFloat(
+            document.getElementById("load").value
+        );
+
+    const rigging =
+        parseFloat(
+            document.getElementById("rigging").value
+        ) || 0;
+
+    const hook =
+        parseFloat(
+            document.getElementById("hook").value
+        ) || 0;
+
+    const other =
+        parseFloat(
+            document.getElementById("other").value
+        ) || 0;
+
+    const radius =
+        parseFloat(
+            document.getElementById("radius").value
+        );
+
+    const capacity =
+        parseFloat(
+            document.getElementById("capacity").value
+        );
+
+    const result =
+        document.getElementById("result");
+
+
+    if (
+        isNaN(load) ||
+        load <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid main load." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        rigging < 0 ||
+        hook < 0 ||
+        other < 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Accessory and equipment weights cannot be negative." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(radius) ||
+        radius <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid operating radius." +
+        "</span>";
+
+        return;
+    }
+
+
+    if (
+        isNaN(capacity) ||
+        capacity <= 0
+    ) {
+
+        result.innerHTML =
+        "<span class='danger'>" +
+        "Please enter a valid crane rated capacity." +
+        "</span>";
+
+        return;
+    }
+
+
+    const grossLoad =
+        load +
+        rigging +
+        hook +
+        other;
+
+
+    const utilization =
+        (grossLoad / capacity) * 100;
+
+
+    let status;
+    let statusClass;
+
+
+    if (utilization <= 75) {
+
+        status =
+        "Lower study utilization";
+
+        statusClass =
+        "good";
+
+    }
+
+    else if (utilization <= 85) {
+
+        status =
+        "Higher utilization — review carefully";
+
+        statusClass =
+        "good";
+
+    }
+
+    else if (utilization <= 100) {
+
+        status =
+        "Very high utilization — detailed verification required";
+
+        statusClass =
+        "danger";
+
+    }
+
+    else {
+
+        status =
+        "Gross load exceeds entered rated capacity";
+
+        statusClass =
+        "danger";
+
+    }
+
+
+    result.innerHTML =
+
+    "<strong>Gross Load:</strong><br>" +
+
+    grossLoad.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Operating Radius:</strong><br>" +
+
+    radius.toFixed(2) +
+
+    " m<br><br>" +
+
+    "<strong>Entered Crane Rated Capacity:</strong><br>" +
+
+    capacity.toFixed(3) +
+
+    " tonnes<br><br>" +
+
+    "<strong>Study Utilization:</strong><br>" +
+
+    utilization.toFixed(1) +
+
+    "%<br><br>" +
+
+    "<strong>Status:</strong><br>" +
+
+    "<span class='" +
+    statusClass +
+    "'>" +
+
+    status +
+
+    "</span>";
+
+}
+
+</script>
+
+
+</body>
+
+</html>
