@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
@@ -10,866 +11,429 @@
 
 * {
     box-sizing: border-box;
-    margin: 0;
-    padding: 0;
 }
 
 body {
+    margin: 0;
     font-family: Arial, Helvetica, sans-serif;
-    background: #07111f;
-    color: #e5eef7;
-    line-height: 1.7;
+    background: #f1f5f9;
+    color: #0f172a;
+    line-height: 1.6;
 }
 
+/* HEADER */
+
 header {
-    background:
-        linear-gradient(
-            rgba(2, 6, 23, 0.72),
-            rgba(2, 6, 23, 0.72)
-        ),
-        url("../../gasplant.png");
-
-    background-size: cover;
-    background-position: center;
-
+    background: #031930;
+    color: white;
     text-align: center;
-    padding: 50px 20px;
-
-    border-bottom: 3px solid #38bdf8;
+    padding: 35px 20px;
 }
 
 header h1 {
-    font-size: 38px;
-    color: white;
-    margin-bottom: 10px;
+    margin: 0 0 10px;
+    font-size: 34px;
 }
 
 header p {
+    margin: 0;
     color: #bae6fd;
-    font-size: 18px;
+    font-size: 17px;
 }
 
+/* NAVIGATION */
+
 nav {
-    background: #0b1b2d;
-    padding: 15px;
+    background: #082f49;
+    padding: 14px 10px;
     text-align: center;
 }
 
 nav a {
-    display: inline-block;
-    margin: 5px;
-    padding: 9px 15px;
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    margin: 0 12px;
+}
 
-    background: #102a43;
+nav a:hover {
+    color: #38bdf8;
+}
+
+/* MAIN */
+
+.container {
+    max-width: 1100px;
+    margin: 35px auto;
+    padding: 0 20px;
+}
+
+/* WELCOME */
+
+.welcome {
+    background:
+        linear-gradient(
+            rgba(3, 25, 48, 0.82),
+            rgba(3, 25, 48, 0.82)
+        ),
+        url("../../images.jpg");
+
+    background-size: cover;
+    background-position: center;
+
+    color: white;
+
+    padding: 55px 40px;
+
+    border-radius: 14px;
+
+    border-left: 6px solid #38bdf8;
+
+    margin-bottom: 35px;
+
+    box-shadow:
+        0 6px 22px rgba(15,23,42,0.18);
+}
+
+.welcome h2 {
+    margin-top: 0;
+    font-size: 30px;
+}
+
+.welcome p {
+    color: #e0f2fe;
+    max-width: 900px;
+}
+
+/* SECTION */
+
+.section-title {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    color: #082f49;
+    border-bottom: 3px solid #38bdf8;
+    padding-bottom: 8px;
+}
+
+/* CARDS */
+
+.grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(280px, 1fr));
+
+    gap: 22px;
+}
+
+.card {
+    background: white;
+
+    padding: 25px;
+
+    border-radius: 12px;
+
+    box-shadow:
+        0 5px 18px rgba(15,23,42,0.10);
+
+    border-top: 4px solid #0284c7;
+}
+
+.card h3 {
+    margin-top: 0;
+    color: #082f49;
+}
+
+.card p {
+    color: #475569;
+}
+
+.card ul {
+    padding-left: 20px;
+}
+
+.card li {
+    margin-bottom: 6px;
+}
+
+/* BUTTON */
+
+.button {
+    display: inline-block;
+
+    margin-top: 12px;
+
+    padding: 11px 18px;
+
+    background: #0284c7;
+
     color: white;
 
     text-decoration: none;
+
     border-radius: 7px;
 
     font-weight: bold;
 }
 
-nav a:hover {
-    background: #0284c7;
+.button:hover {
+    background: #0369a1;
 }
 
-main {
-    max-width: 1200px;
-    margin: auto;
-    padding: 30px 18px;
+/* MCQ SPECIAL CARD */
+
+.mcq-card {
+    background:
+        linear-gradient(
+            135deg,
+            #031930,
+            #075985
+        );
+
+    color: white;
+
+    border-top: none;
 }
 
-.intro {
-    background: #0d2034;
-
-    border-left: 5px solid #38bdf8;
-
-    padding: 25px;
-
-    border-radius: 10px;
-
-    margin-bottom: 30px;
+.mcq-card h3 {
+    color: white;
 }
 
-.intro h2 {
-    color: #7dd3fc;
-    margin-bottom: 10px;
+.mcq-card p {
+    color: #e0f2fe;
 }
 
-.warning {
-    background: #33240b;
-
-    border: 1px solid #d97706;
-
-    color: #fde68a;
-
-    padding: 20px;
-
-    border-radius: 10px;
-
-    margin-bottom: 35px;
+.mcq-card .button {
+    background: #38bdf8;
+    color: #031930;
 }
 
-.warning h3 {
-    color: #fbbf24;
-    margin-bottom: 10px;
+.mcq-card .button:hover {
+    background: white;
 }
 
-.section-title {
-    color: #7dd3fc;
+/* NOTICE */
 
-    font-size: 28px;
+.notice {
+    margin-top: 40px;
 
-    margin: 35px 0 20px;
+    background: #fff7ed;
 
-    border-bottom: 1px solid #1e4668;
-
-    padding-bottom: 10px;
-}
-
-.grid {
-    display: grid;
-
-    grid-template-columns:
-        repeat(auto-fit, minmax(280px, 1fr));
-
-    gap: 20px;
-}
-
-.card {
-    background: #0d2034;
-
-    border: 1px solid #1e4668;
-
-    border-radius: 12px;
-
-    padding: 25px;
-
-    transition: 0.25s;
-}
-
-.card:hover {
-    transform: translateY(-4px);
-
-    border-color: #38bdf8;
-
-    box-shadow:
-        0 8px 25px rgba(0, 0, 0, 0.35);
-}
-
-.card h3 {
-    color: #38bdf8;
-
-    margin-bottom: 10px;
-
-    font-size: 21px;
-}
-
-.card p {
-    color: #cbd5e1;
-
-    margin-bottom: 12px;
-}
-
-.card ul {
-    padding-left: 20px;
-
-    color: #cbd5e1;
-
-    margin-bottom: 18px;
-}
-
-.formula {
-    background: #020b16;
-
-    border: 1px solid #164e6d;
-
-    border-radius: 10px;
+    border-left: 6px solid #f97316;
 
     padding: 22px;
 
-    margin-bottom: 18px;
+    border-radius: 9px;
 }
 
-.formula h3 {
-    color: #38bdf8;
-
-    margin-bottom: 8px;
+.notice h3 {
+    margin-top: 0;
+    color: #9a3412;
 }
 
-.equation {
-    display: block;
+/* SOURCES */
 
-    background: #061522;
+.sources {
+    margin-top: 35px;
 
-    color: #a5f3fc;
+    background: white;
 
-    padding: 13px;
+    padding: 25px;
 
-    margin: 12px 0;
+    border-radius: 12px;
 
-    border-radius: 7px;
-
-    font-family: "Courier New", monospace;
-
-    font-size: 17px;
-
-    overflow-x: auto;
+    box-shadow:
+        0 4px 15px rgba(0,0,0,0.08);
 }
+
+.sources a {
+    color: #0369a1;
+    font-weight: bold;
+}
+
+/* FOOTER */
 
 footer {
-    margin-top: 45px;
+    margin-top: 50px;
 
-    background: #020817;
+    background: #031930;
 
-    border-top: 2px solid #1e4668;
+    color: white;
 
     text-align: center;
 
     padding: 25px;
+}
 
-    color: #94a3b8;
+footer p {
+    margin: 5px 0;
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    header h1 {
+        font-size: 27px;
+    }
+
+    nav a {
+        display: block;
+        margin: 8px 0;
+    }
+
+    .container {
+        padding: 0 14px;
+    }
+
+    .welcome {
+        padding: 35px 25px;
+    }
+
+    .welcome h2 {
+        font-size: 25px;
+    }
+
 }
 
 </style>
+
 </head>
 
 <body>
 
+
+<!-- HEADER -->
 
 <header>
 
 <h1>TÜV Lifting & Rigging Study</h1>
 
 <p>
-Lifting Operations • Rigging • Cranes • Calculations • Inspection
+Lifting • Rigging • Crane • Signalman • Safety
 </p>
 
 </header>
 
 
+<!-- NAVIGATION -->
+
 <nav>
 
 <a href="../../index.html">Home</a>
 
-<a href="../../rigging.html">
-Lifting Accessories
-</a>
+<a href="../index.html">Study Notes</a>
 
-<a href="../../calculations.html">
-Calculations
-</a>
-
-<a href="../../cranes.html">
-Cranes
-</a>
-
-<a href="../../planning.html">
-Lift Planning
-</a>
-
-<a href="../../safety.html">
-Safety
-</a>
-
-<a href="../../study-notes.html">
-Study Notes
-</a>
+<a href="mcq.html">MCQ Practice</a>
 
 </nav>
 
 
-<main>
+<div class="container">
 
 
-<section class="intro">
+<!-- WELCOME -->
+
+<section class="welcome">
 
 <h2>
-TÜV / General Lifting & Rigging Study
+TÜV Lifting & Rigging Study Hub
 </h2>
 
 <p>
-This section is designed as a structured study reference
-for lifting and rigging subjects commonly encountered in
-professional training, inspection and lifting operations.
+Study reference for lifting and rigging personnel covering
+cranes, lifting accessories, rigging techniques, inspections,
+load handling, communication, hazards and lift planning.
 </p>
 
 <p>
-Topics include rigging equipment, crane operations,
-calculations, load control, inspection, planning and safety.
+The topics are organized around published TÜV Rheinland
+lifting and rigging training and competency subjects.
 </p>
 
 </section>
 
 
-<section class="warning">
+<!-- MCQ -->
+
+<h2 class="section-title">
+TÜV Practice Examination
+</h2>
+
+<div class="grid">
+
+<div class="card mcq-card">
 
 <h3>
-⚠️ Important Safety Notice
+TÜV Lifting & Rigging MCQ
 </h3>
 
 <p>
-This material is for study and educational purposes. It is
-not a substitute for an approved lift plan, engineering
-calculation, manufacturer's instructions, load charts,
-applicable standards, site procedures or competent-person
-verification.
-</p>
-
-</section>
-
-
-<h2 class="section-title">
-1. Load Calculations
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Weight</h3>
-
-<p>
-Basic relationship between mass and weight.
-</p>
-
-<span class="equation">
-W = m × g
-</span>
-
-<ul>
-<li>W = weight</li>
-<li>m = mass</li>
-<li>g ≈ 9.81 m/s²</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Load Moment</h3>
-
-<p>
-Moment created by a load at a horizontal distance.
-</p>
-
-<span class="equation">
-M = W × R
-</span>
-
-<ul>
-<li>M = moment</li>
-<li>W = load</li>
-<li>R = radius</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Center of Gravity</h3>
-
-<p>
-For simplified discrete loads:
-</p>
-
-<span class="equation">
-x = Σ(W × x) ÷ ΣW
-</span>
-
-<p>
-The actual centre of gravity should be verified where
-uncertainty exists.
-</p>
-
-</div>
-
-</div>
-
-
-<h2 class="section-title">
-2. Sling Calculations
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Two-Leg Sling</h3>
-
-<p>
-Simplified symmetrical two-leg arrangement.
-Angle measured from horizontal.
-</p>
-
-<span class="equation">
-T = W ÷ (2 × sin θ)
-</span>
-
-</div>
-
-
-<div class="card">
-
-<h3>Sling Angle</h3>
-
-<p>
-As sling angle decreases from horizontal, leg tension
-increases.
-</p>
-
-<span class="equation">
-Angle Factor = 1 ÷ (2 × sin θ)
-</span>
-
-</div>
-
-
-<div class="card">
-
-<h3>Vertical Angle</h3>
-
-<p>
-If the angle is measured from vertical:
-</p>
-
-<span class="equation">
-T = W ÷ (2 × cos θ)
-</span>
-
-</div>
-
-</div>
-
-
-<h2 class="section-title">
-3. Sling Types
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Wire Rope Slings</h3>
-
-<ul>
-<li>Construction</li>
-<li>Diameter</li>
-<li>End terminations</li>
-<li>Identification</li>
-<li>Inspection</li>
-<li>WLL</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Webbing Slings</h3>
-
-<ul>
-<li>Material</li>
-<li>Width</li>
-<li>Length</li>
-<li>Eye configuration</li>
-<li>Protection from sharp edges</li>
-<li>Inspection</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Round Slings</h3>
-
-<ul>
-<li>Core construction</li>
-<li>Protective cover</li>
-<li>WLL</li>
-<li>Choking</li>
-<li>Inspection</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Chain Slings</h3>
-
-<ul>
-<li>Chain grade</li>
-<li>Master link</li>
-<li>Hooks</li>
-<li>Shortening devices</li>
-<li>WLL</li>
-<li>Inspection</li>
-</ul>
-
-</div>
-
-</div>
-
-
-<h2 class="section-title">
-4. D/d Ratio
-</h2>
-
-<div class="formula">
-
-<h3>
-D/d Ratio
-</h3>
-
-<span class="equation">
-D/d = D ÷ d
-</span>
-
-<p>
-D represents the diameter of curvature around which the
-sling or wire rope is bent, while d represents the relevant
-sling or wire-rope diameter.
-</p>
-
-<p>
-Capacity effects must be determined from the applicable
-manufacturer data or governing standard. Do not assume a
-capacity factor without the applicable source.
-</p>
-
-</div>
-
-
-<h2 class="section-title">
-5. Shackles & Hooks
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Shackles</h3>
-
-<ul>
-<li>Bow shackles</li>
-<li>D shackles</li>
-<li>Pin types</li>
-<li>WLL marking</li>
-<li>Inspection</li>
-<li>Side loading considerations</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Hooks</h3>
-
-<ul>
-<li>Eye hooks</li>
-<li>Clevis hooks</li>
-<li>Self-locking hooks</li>
-<li>Hook latch</li>
-<li>Hook deformation</li>
-<li>Inspection</li>
-</ul>
-
-</div>
-
-</div>
-
-
-<h2 class="section-title">
-6. Lifting Beams & Spreader Beams
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Lifting Beams</h3>
-
-<ul>
-<li>Load application</li>
-<li>Beam reactions</li>
-<li>Centre of gravity</li>
-<li>Rated capacity</li>
-<li>Inspection</li>
-<li>Identification</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Spreader Beams</h3>
-
-<ul>
-<li>Compression forces</li>
-<li>Sling geometry</li>
-<li>End loads</li>
-<li>Bridles</li>
-<li>Rated capacity</li>
-</ul>
-
-</div>
-
-</div>
-
-
-<h2 class="section-title">
-7. Crane Calculations
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Crane Capacity</h3>
-
-<p>
-Always use the applicable manufacturer's load chart.
+Practice multiple-choice questions covering important
+lifting and rigging subjects.
 </p>
 
 <ul>
-<li>Crane configuration</li>
-<li>Boom length</li>
-<li>Boom angle</li>
-<li>Radius</li>
-<li>Counterweight</li>
-<li>Outriggers</li>
-</ul>
 
-</div>
+<li>Crane inspection</li>
 
+<li>Rigging and lifting accessories</li>
 
-<div class="card">
+<li>SWL</li>
 
-<h3>Crane Utilization</h3>
+<li>Sling angles and tension</li>
 
-<span class="equation">
-Utilization = Actual Load ÷ Applicable Capacity × 100
-</span>
+<li>Load weight and COG</li>
 
-<p>
-The applicable capacity must come from the correct
-configuration and load chart.
-</p>
+<li>Hand signals</li>
 
-</div>
+<li>Hazards and safety</li>
 
-
-<div class="card">
-
-<h3>Gross Load</h3>
-
-<span class="equation">
-Gross Load =
-Payload + Rigging + Lifting Device + Other Suspended Items
-</span>
-
-</div>
-
-</div>
-
-
-<h2 class="section-title">
-8. Ground Bearing
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Ground Pressure</h3>
-
-<span class="equation">
-P = F ÷ A
-</span>
-
-<ul>
-<li>P = pressure</li>
-<li>F = force</li>
-<li>A = bearing area</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Required Area</h3>
-
-<span class="equation">
-A = F ÷ Pallow
-</span>
-
-<p>
-The allowable bearing pressure must be established from
-appropriate site engineering information.
-</p>
-
-</div>
-
-</div>
-
-
-<h2 class="section-title">
-9. Reeving & Mechanical Advantage
-</h2>
-
-<div class="formula">
-
-<h3>
-Ideal Mechanical Advantage
-</h3>
-
-<span class="equation">
-MA ≈ Number of Supporting Rope Parts
-</span>
-
-<p>
-This is an idealized relationship. Real systems are affected
-by sheave and rope efficiency, reeving arrangement and
-equipment limitations.
-</p>
-
-</div>
-
-
-<h2 class="section-title">
-10. Tandem Lifting
-</h2>
-
-<div class="formula">
-
-<h3>
-Equilibrium
-</h3>
-
-<span class="equation">
-ΣFx = 0
-</span>
-
-<span class="equation">
-ΣFy = 0
-</span>
-
-<span class="equation">
-ΣM = 0
-</span>
-
-<p>
-Tandem lifts require detailed planning, load sharing,
-communication, crane configuration and engineering review.
-</p>
-
-</div>
-
-
-<h2 class="section-title">
-11. Inspection & Testing
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Pre-Use Inspection</h3>
-
-<ul>
-<li>Identification</li>
-<li>WLL marking</li>
-<li>Damage</li>
-<li>Deformation</li>
-<li>Wear</li>
-<li>Corrosion</li>
-<li>Connections</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Periodic Inspection</h3>
-
-<ul>
-<li>Competent inspection</li>
-<li>Records</li>
-<li>Certificates</li>
-<li>Defect control</li>
-<li>Equipment history</li>
-</ul>
-
-</div>
-
-</div>
-
-
-<h2 class="section-title">
-12. Lift Planning
-</h2>
-
-<div class="grid">
-
-<div class="card">
-
-<h3>Planning Topics</h3>
-
-<ul>
-<li>Load identification</li>
-<li>Load weight</li>
-<li>Centre of gravity</li>
-<li>Crane selection</li>
-<li>Rigging selection</li>
-<li>Radius</li>
 <li>Ground conditions</li>
-<li>Weather</li>
+
+<li>Lift planning</li>
+
+<li>Critical lifts</li>
+
 </ul>
 
-</div>
-
-
-<div class="card">
-
-<h3>Critical Lift</h3>
-
-<ul>
-<li>Detailed planning</li>
-<li>Risk assessment</li>
-<li>Communication</li>
-<li>Equipment verification</li>
-<li>Exclusion zone</li>
-<li>Pre-lift meeting</li>
-</ul>
+<a class="button" href="mcq.html">
+Start MCQ
+</a>
 
 </div>
 
 </div>
 
+
+<!-- BASIC RIGGER TOPICS -->
 
 <h2 class="section-title">
-13. Communication
+Rigger Fundamentals
 </h2>
 
 <div class="grid">
 
+
 <div class="card">
 
-<h3>Signaller / Banksman</h3>
+<h3>
+1. Rigger Responsibilities
+</h3>
 
 <ul>
-<li>Standard hand signals</li>
-<li>Clear communication</li>
-<li>Visibility</li>
-<li>One designated signal source</li>
+
+<li>Understand assigned duties and limitations</li>
+
+<li>Follow approved lifting procedures</li>
+
+<li>Check lifting accessories before use</li>
+
+<li>Communicate hazards</li>
+
+<li>Coordinate with the crane operator</li>
+
+<li>Control the load during lifting</li>
+
 </ul>
 
 </div>
@@ -877,139 +441,833 @@ communication, crane configuration and engineering review.
 
 <div class="card">
 
-<h3>Radio Communication</h3>
+<h3>
+2. SWL & Load Capacity
+</h3>
 
 <ul>
-<li>Correct channel</li>
-<li>Clear commands</li>
-<li>Confirmation</li>
-<li>Emergency stop communication</li>
+
+<li>Understand Safe Working Load</li>
+
+<li>Check equipment identification</li>
+
+<li>Check manufacturer information</li>
+
+<li>Do not exceed rated capacity</li>
+
+<li>Consider the lifting configuration</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+3. Load Weight
+</h3>
+
+<ul>
+
+<li>Verify load weight</li>
+
+<li>Consider attached equipment</li>
+
+<li>Identify the center of gravity</li>
+
+<li>Confirm suitable lifting points</li>
+
+<li>Use reliable load information</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+4. Center of Gravity</h3>
+
+<ul>
+
+<li>Identify the approximate COG</li>
+
+<li>Consider load balance</li>
+
+<li>Position lifting points correctly</li>
+
+<li>Expect possible load movement</li>
+
+<li>Control the load during lifting</li>
+
 </ul>
 
 </div>
 
 </div>
 
+
+<!-- LIFTING ACCESSORIES -->
 
 <h2 class="section-title">
-14. Safety Hazards
+Lifting Accessories
 </h2>
 
 <div class="grid">
 
+
 <div class="card">
 
-<h3>Suspended Loads</h3>
+<h3>
+Slings
+</h3>
 
 <ul>
-<li>Never stand under suspended loads</li>
+
+<li>Webbing slings</li>
+
+<li>Round slings</li>
+
+<li>Wire rope slings</li>
+
+<li>Chain slings</li>
+
+<li>Check identification and WLL/SWL</li>
+
+<li>Inspect for damage before use</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Shackles
+</h3>
+
+<ul>
+
+<li>Bow/anchor shackles</li>
+
+<li>D/chain shackles</li>
+
+<li>Check WLL marking</li>
+
+<li>Check pin condition</li>
+
+<li>Check for deformation and damage</li>
+
+<li>Follow manufacturer requirements</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Hooks
+</h3>
+
+<ul>
+
+<li>Check hook condition</li>
+
+<li>Check safety latch where fitted</li>
+
+<li>Check markings</li>
+
+<li>Check deformation</li>
+
+<li>Do not use damaged hooks</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Other Lifting Equipment
+</h3>
+
+<ul>
+
+<li>Master links</li>
+
+<li>Lifting beams</li>
+
+<li>Spreader beams</li>
+
+<li>Lifting clamps</li>
+
+<li>Eyebolts and lifting points</li>
+
+<li>Snatch blocks</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- SLINGING -->
+
+<h2 class="section-title">
+Rigging & Slinging
+</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>
+Sling Angles
+</h3>
+
+<ul>
+
+<li>Understand angle from horizontal</li>
+
+<li>Understand angle from vertical</li>
+
+<li>Understand angle factors</li>
+
+<li>Recognize increased sling tension</li>
+
+<li>Use manufacturer information</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Rigging Hitches
+</h3>
+
+<ul>
+
+<li>Vertical hitch</li>
+
+<li>Choker hitch</li>
+
+<li>Basket hitch</li>
+
+<li>Understand correct application</li>
+
+<li>Understand limitations</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Load Attachment
+</h3>
+
+<ul>
+
+<li>Identify lifting points</li>
+
+<li>Select suitable accessories</li>
+
+<li>Secure the load</li>
+
+<li>Check balance</li>
+
+<li>Check travel path</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Rigging Connections
+</h3>
+
+<ul>
+
+<li>Shackles</li>
+
+<li>Master links</li>
+
+<li>Hooks</li>
+
+<li>Slings</li>
+
+<li>Compatible connections</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- CRANE -->
+
+<h2 class="section-title">
+Crane & Lifting Equipment
+</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>
+Crane Inspection
+</h3>
+
+<ul>
+
+<li>Pre-use inspection</li>
+
+<li>Visual condition</li>
+
+<li>Safety devices</li>
+
+<li>Hooks and wire ropes</li>
+
+<li>Required inspection status</li>
+
+<li>Report defects</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Crane Components
+</h3>
+
+<ul>
+
+<li>Boom</li>
+
+<li>Hook block</li>
+
+<li>Wire rope</li>
+
+<li>Winch</li>
+
+<li>Counterweight</li>
+
+<li>Outriggers</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Crane Capacity
+</h3>
+
+<ul>
+
+<li>Load chart</li>
+
+<li>Operating radius</li>
+
+<li>Boom configuration</li>
+
+<li>Counterweight configuration</li>
+
+<li>Parts of line</li>
+
+<li>Manufacturer requirements</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Outriggers & Ground
+</h3>
+
+<ul>
+
+<li>Check ground condition</li>
+
+<li>Check support requirements</li>
+
+<li>Use appropriate mats where required</li>
+
+<li>Consider ground bearing</li>
+
+<li>Follow approved setup requirements</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- COMMUNICATION -->
+
+<h2 class="section-title">
+Communication & Signalman
+</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>
+Hand Signals
+</h3>
+
+<ul>
+
+<li>Standard crane signals</li>
+
+<li>Hoist</li>
+
+<li>Lower</li>
+
+<li>Slew</li>
+
+<li>Stop</li>
+
+<li>Emergency stop</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Radio Communication
+</h3>
+
+<ul>
+
+<li>Use agreed communication method</li>
+
+<li>Use clear instructions</li>
+
+<li>Confirm critical instructions</li>
+
+<li>Maintain communication</li>
+
+<li>Stop when communication is lost</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Signal Person
+</h3>
+
+<ul>
+
+<li>Position where visible</li>
+
+<li>Maintain awareness of hazards</li>
+
+<li>Give clear signals</li>
+
+<li>Coordinate with operator</li>
+
+<li>Communicate unsafe conditions</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- SAFETY -->
+
+<h2 class="section-title">
+Lifting Safety
+</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>
+Hazard Identification
+</h3>
+
+<ul>
+
+<li>Identify hazards before lifting</li>
+
+<li>Check load path</li>
+
+<li>Check personnel position</li>
+
+<li>Check nearby equipment</li>
+
+<li>Control access to hazardous areas</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Environmental Hazards
+</h3>
+
+<ul>
+
+<li>Wind</li>
+
+<li>Rain</li>
+
+<li>Fog</li>
+
+<li>Poor visibility</li>
+
+<li>Heat</li>
+
+<li>Other site conditions</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Exclusion Zones
+</h3>
+
+<ul>
+
+<li>Establish controlled areas</li>
+
+<li>Install barriers where required</li>
+
+<li>Keep unauthorized personnel away</li>
+
+<li>Control access during lifting</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Load Control
+</h3>
+
+<ul>
+
 <li>Control load movement</li>
-<li>Maintain exclusion zones</li>
-</ul>
 
-</div>
+<li>Minimize uncontrolled swing</li>
 
+<li>Use suitable tag lines where appropriate</li>
 
-<div class="card">
+<li>Maintain safe personnel positions</li>
 
-<h3>Crane Overturning</h3>
-
-<ul>
-<li>Ground failure</li>
-<li>Incorrect setup</li>
-<li>Overloading</li>
-<li>Incorrect configuration</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Power Lines</h3>
-
-<ul>
-<li>Identify electrical hazards</li>
-<li>Maintain required controls</li>
-<li>Follow site procedures</li>
-</ul>
-
-</div>
-
-
-<div class="card">
-
-<h3>Pinch Points</h3>
-
-<ul>
-<li>Hands clear of load</li>
-<li>Use appropriate tag lines where planned</li>
-<li>Control movement</li>
 </ul>
 
 </div>
 
 </div>
 
+
+<!-- LIFT PLANNING -->
 
 <h2 class="section-title">
-15. Study Checklist
+Lift Planning
 </h2>
 
-<div class="formula">
+<div class="grid">
+
+
+<div class="card">
+
+<h3>
+Lift Preparation
+</h3>
 
 <ul>
 
-<li>✓ Understand load weight</li>
+<li>Identify the load</li>
 
-<li>✓ Understand centre of gravity</li>
+<li>Verify weight</li>
 
-<li>✓ Understand sling angles</li>
+<li>Identify COG</li>
 
-<li>✓ Understand sling tension</li>
+<li>Select lifting equipment</li>
 
-<li>✓ Understand D/d ratio</li>
+<li>Check crane configuration</li>
 
-<li>✓ Understand WLL / SWL</li>
-
-<li>✓ Understand shackles and hooks</li>
-
-<li>✓ Understand crane load charts</li>
-
-<li>✓ Understand radius</li>
-
-<li>✓ Understand ground bearing</li>
-
-<li>✓ Understand lift planning</li>
-
-<li>✓ Understand critical lifts</li>
-
-<li>✓ Understand inspection</li>
-
-<li>✓ Understand communication</li>
-
-<li>✓ Understand lifting hazards</li>
+<li>Plan load movement</li>
 
 </ul>
 
 </div>
 
 
-</main>
+<div class="card">
 
+<h3>
+Load Travel Path
+</h3>
+
+<ul>
+
+<li>Identify the route</li>
+
+<li>Check obstructions</li>
+
+<li>Check personnel</li>
+
+<li>Check overhead hazards</li>
+
+<li>Control the landing area</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Critical Lift
+</h3>
+
+<ul>
+
+<li>Follow approved critical-lift procedure</li>
+
+<li>Review lifting plan</li>
+
+<li>Verify crane configuration</li>
+
+<li>Verify rigging arrangement</li>
+
+<li>Confirm communication</li>
+
+<li>Confirm exclusion zone</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Before the Lift</h3>
+
+<ul>
+
+<li>Inspect equipment</li>
+
+<li>Check certifications where required</li>
+
+<li>Check weather conditions</li>
+
+<li>Check ground conditions</li>
+
+<li>Confirm personnel responsibilities</li>
+
+<li>Conduct required briefing</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- INSPECTION -->
+
+<h2 class="section-title">
+Inspection & Defects
+</h2>
+
+<div class="grid">
+
+
+<div class="card">
+
+<h3>
+Pre-use Inspection
+</h3>
+
+<ul>
+
+<li>Inspect before use</li>
+
+<li>Check obvious defects</li>
+
+<li>Check identification</li>
+
+<li>Check markings</li>
+
+<li>Check certification where required</li>
+
+</ul>
+
+</div>
+
+
+<div class="card">
+
+<h3>
+Defective Equipment
+</h3>
+
+<ul>
+
+<li>Do not use defective equipment</li>
+
+<li>Remove from service as required</li>
+
+<li>Report the defect</li>
+
+<li>Follow site procedure</li>
+
+<li>Use only after proper disposition</li>
+
+</ul>
+
+</div>
+
+</div>
+
+
+<!-- MCQ BUTTON AGAIN -->
+
+<div class="notice">
+
+<h3>
+Ready to Test Your Knowledge?
+</h3>
+
+<p>
+Use the TÜV Lifting & Rigging MCQ section to practice questions
+covering the topics on this page.
+</p>
+
+<a class="button" href="mcq.html">
+Open TÜV MCQ
+</a>
+
+</div>
+
+
+<!-- SOURCES -->
+
+<div class="sources">
+
+<h2>
+Study Reference
+</h2>
+
+<p>
+The study topics are based on publicly available TÜV Rheinland
+lifting and rigging training and competency information.
+</p>
+
+<p>
+<a href="https://www.tuv.com/saudi-arabia/ar/lp/tuv-rheinland-academy/rigger-ii.html"
+target="_blank">
+
+TÜV Rheinland Saudi Arabia – Rigger II
+
+</a>
+</p>
+
+<p>
+<a href="https://www.tuv.com/content-media-files/used_-object-classes/pdf/services-for-lifting-and-machinery-equipment/tuev-rheinland-ms-0047713-rev0-certification-scheme-for-signalman-rigger-i-ii.pdf"
+target="_blank">
+
+TÜV Rheinland – Certification Scheme for Signalman and Rigger I & II
+
+</a>
+</p>
+
+</div>
+
+
+<!-- SAFETY NOTICE -->
+
+<div class="notice">
+
+<h3>
+Important Safety Notice
+</h3>
+
+<p>
+This website is a study and revision resource only.
+It is not a substitute for approved training, certification,
+manufacturer instructions, applicable regulations, site procedures,
+risk assessments, lift plans or competent-person verification.
+</p>
+
+<p>
+Always use the applicable current requirements for the specific
+equipment, project and lifting operation.
+</p>
+
+</div>
+
+
+</div>
+
+
+<!-- FOOTER -->
 
 <footer>
 
 <p>
-Lifting & Rigging Study Hub
+<strong>Lifting & Rigging Study Hub</strong>
 </p>
 
 <p>
-TÜV / General Lifting & Rigging Study
-</p>
-
-<p>
-Created by Jawad Wains — Lifting Engineer
+TÜV Lifting & Rigging Study
 </p>
 
 </footer>
