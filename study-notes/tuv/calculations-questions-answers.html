@@ -4,260 +4,342 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>100 Rigging Calculation Questions</title>
-
+<title>100 TÜV Lifting Calculation Questions and Answers</title>
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f2f5f8;color:#263746;line-height:1.65}
-header{background:#082b49;color:white;text-align:center;padding:30px 15px}
-nav{background:#061f35;text-align:center;padding:10px}
-nav a{color:white;text-decoration:none;padding:7px 10px;display:inline-block}
-main{width:94%;max-width:950px;margin:24px auto}
-.card{background:white;border:1px solid #dce4ec;border-radius:10px;padding:20px;margin-bottom:18px}
-h2{color:#082b49;margin-top:0}
-li{padding:9px 3px;border-bottom:1px solid #edf0f3}
-.controls{display:flex;flex-wrap:wrap;gap:10px;margin:15px 0}
-input,select,button{padding:11px;font-size:16px;border-radius:7px;border:1px solid #b9c7d4}
-input{flex:1;min-width:180px}
-button{background:#0b5c87;color:white;border:0;cursor:pointer;font-weight:bold}
-.notice{background:#fff7df;border-left:4px solid #d6a42a;padding:12px;border-radius:5px}
-footer{background:#082b49;color:white;text-align:center;padding:18px;margin-top:30px}
-@media(max-width:500px){.card{padding:15px}}
-@media print{nav,.controls{display:none}}
+:root {
+  --navy: #103653;
+  --blue: #1769aa;
+  --light: #edf5fb;
+  --border: #d7e1e9;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #24313b;
+  background: #f4f7fa;
+}
+header {
+  background: var(--navy);
+  color: white;
+  text-align: center;
+  padding: 28px 15px;
+}
+header h1 { margin: 0 0 8px; }
+nav {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 15px;
+  margin-top: 16px;
+}
+nav a { color: white; }
+main {
+  max-width: 1000px;
+  margin: 22px auto;
+  padding: 0 14px 30px;
+}
+.notice {
+  padding: 14px;
+  background: #fff4dc;
+  border: 1px solid #e7cb8b;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+.controls {
+  display: grid;
+  grid-template-columns: 2fr 1fr auto;
+  gap: 10px;
+  padding: 12px;
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+}
+input, select, button {
+  width: 100%;
+  min-width: 0;
+  padding: 11px;
+  border: 1px solid #b9c8d6;
+  border-radius: 6px;
+  font: inherit;
+}
+button {
+  background: var(--blue);
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+#count { color: #526170; }
+.topic { margin-top: 24px; }
+.topic h2 {
+  color: var(--navy);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 6px;
+}
+.item {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  margin: 10px 0;
+  overflow: hidden;
+}
+.question { padding: 13px; font-weight: bold; }
+.number { color: var(--blue); margin-right: 7px; }
+.answer {
+  padding: 13px;
+  background: var(--light);
+  border-top: 1px solid var(--border);
+}
+.answer strong { color: var(--navy); }
+footer {
+  text-align: center;
+  padding: 20px;
+  color: #526170;
+}
+@media(max-width:650px) {
+  .controls { grid-template-columns: 1fr; }
+}
+@media print {
+  body { background: white; }
+  header { background: white; color: black; }
+  .controls, nav, footer { display: none; }
+  .item { break-inside: avoid; }
+  .answer { background: white; }
+}
 </style>
 </head>
-
 <body>
+
 <header>
-<h1>100 Rigging Calculation Questions</h1>
-<p>TÜV Rigging Study Practice</p>
+  <h1>100 TÜV Lifting &amp; Rigging Calculation Questions</h1>
+  <p>Practice questions with answers and calculation steps</p>
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="index.html">TÜV Study Notes</a>
+    <a href="mcqs.html">MCQ Quiz</a>
+    <a href="questions-answers.html">Questions &amp; Answers</a>
+  </nav>
 </header>
 
-<nav>
-<a href="../../index.html">Home</a>
-<a href="index.html">TÜV Study</a>
-<a href="mcqs.html">MCQ Quiz</a>
-<a href="questions-answers.html">Questions &amp; Answers</a>
-</nav>
-
 <main>
-<section class="card">
-<h2>Calculation Questions Only</h2>
-<p>Use these original practice questions to prepare for lifting and rigging calculations.</p>
-<p class="notice">
-These are educational practice questions, not official TÜV exam questions or an approved lift plan. Real lifts require verified load data, manufacturer load charts, correct crane configuration and competent-person approval.
-</p>
+  <div class="notice">
+    <strong>Safety notice:</strong>
+    These are original study questions, not official TÜV examination
+    questions or an approved lift plan. Always use verified load weights,
+    the manufacturer's crane load chart, rated lifting accessories and an
+    approved lift plan. Tailing lifts, tandem lifts and ground-pressure
+    assessments require competent engineering and site approval.
+  </div>
 
-<div class="controls">
-<input type="search" id="search" placeholder="Search questions..." aria-label="Search questions">
-<select id="filter" aria-label="Filter by topic">
-<option value="">All topics</option>
-</select>
-<button type="button" id="print">Print</button>
-</div>
-<p id="count" aria-live="polite">100 questions</p>
-</section>
+  <div class="controls">
+    <input id="search" type="search"
+      placeholder="Search questions or answers...">
+    <select id="topic">
+      <option value="">All topics</option>
+    </select>
+    <button id="print" type="button">Print / Save PDF</button>
+  </div>
 
-<div id="questions"></div>
+  <p id="count" aria-live="polite"></p>
+  <div id="questions"></div>
 </main>
 
-<footer>Lifting &amp; Rigging Study Hub</footer>
+<footer>Lifting &amp; Rigging Study Resource</footer>
 
 <script>
 const data = [
-["Material Weight","A steel plate is 6 m long, 2 m wide and 20 mm thick. Using steel density 7,850 kg/m³, calculate its mass."],
-["Material Weight","A steel plate is 4.5 m × 1.8 m × 25 mm. Using density 7,850 kg/m³, calculate its mass."],
-["Material Weight","A steel beam is 12 m long and weighs 42 kg per metre. Calculate its total mass."],
-["Material Weight","A concrete block measures 2 m × 1.5 m × 1.2 m. Using density 2,400 kg/m³, calculate its mass."],
-["Material Weight","A load weighs 7,250 kg. Convert it to tonnes."],
-["Material Weight","A machine weighs 4.8 tonnes and its frame weighs 350 kg. Calculate combined mass in tonnes."],
-["Material Weight","A load weighs 8,400 kg and rigging adds 275 kg. Calculate total suspended mass in tonnes."],
-["Material Weight","A steel plate has a volume of 1.35 m³. Using density 7,850 kg/m³, calculate its mass in tonnes."],
-["Material Weight","A steel sheet has area 48 m² and thickness 10 mm. Using density 7,850 kg/m³, calculate its mass."],
-["Material Weight","A load weighs 3.25 tonnes. Convert its mass to kilograms."],
+/* 1-10: LOAD WEIGHT */
+["Load Weight","A steel plate is 2 m long, 1.5 m wide and 0.02 m thick. Find its volume.","Volume = L × W × T = 2 × 1.5 × 0.02 = 0.06 m³."],
+["Load Weight","The plate in Q1 is steel with density 7,850 kg/m³. Find its mass.","Mass = volume × density = 0.06 × 7,850 = 471 kg."],
+["Load Weight","A steel item has volume 0.18 m³. Find its mass using density 7,850 kg/m³.","Mass = 0.18 × 7,850 = 1,413 kg = 1.413 t."],
+["Load Weight","Convert 2,750 kg into tonnes.","2,750 ÷ 1,000 = 2.75 t."],
+["Load Weight","Convert 4.6 tonnes into kilograms.","4.6 × 1,000 = 4,600 kg."],
+["Load Weight","A concrete block measures 1.2 m × 0.8 m × 0.5 m. Find its volume.","Volume = 1.2 × 0.8 × 0.5 = 0.48 m³."],
+["Load Weight","Find the mass of the block in Q6 using concrete density 2,400 kg/m³.","Mass = 0.48 × 2,400 = 1,152 kg = 1.152 t."],
+["Load Weight","A tank contains 3.5 m³ of water. Find water mass using density 1,000 kg/m³.","Mass = 3.5 × 1,000 = 3,500 kg = 3.5 t. Tank mass is excluded."],
+["Load Weight","A load is 1,860 kg and rigging weighs 140 kg. Find gross lifted mass.","1,860 + 140 = 2,000 kg = 2 t."],
+["Load Weight","An 8,400 kg load has what weight force using g = 9.81 m/s²?","Force = mass × g = 8,400 × 9.81 = 82,404 N ≈ 82.4 kN."],
 
-["Crane Radius","The horizontal distance from the crane rotation axis to the load line is 21.8 m. State the working radius for this simplified example."],
-["Crane Radius","The load line is 24 m from the rotation axis. The load centre is another 1.5 m outboard. Calculate the distance to the load centre."],
-["Crane Radius","Planned radius is 16 m and actual radius is 17.2 m. Calculate the increase in metres and percentage."],
-["Crane Radius","A radius of 14.5 m increases by 2.3 m. Calculate the new radius."],
-["Crane Radius","Maximum planned radius is 19 m and measured radius is 18.25 m. Calculate the remaining margin."],
-["Crane Radius","Chart capacity is 12 t and planned load is 10.2 t. Calculate percentage capacity used."],
-["Crane Radius","A load is lifted at 8 m radius, then moved to 11 m radius. Calculate the increase in radius percentage."],
-["Crane Radius","A crane's planned radius is 22 m. The actual radius is 23.1 m. Calculate the percentage increase."],
-["Crane Radius","A load line is 15.8 m horizontally from the rotation axis. It moves 1.7 m closer. Calculate the new radius."],
-["Crane Radius","A lift has a radius margin of 0.8 m from a maximum planned radius of 18 m. Calculate the planned radius."],
+/* 11-20: WORKING RADIUS */
+["Working Radius","The horizontal distance from crane slew centre to load line is 8.5 m. Find the radius.","Working radius = 8.5 m."],
+["Working Radius","The load line is 5 m east and 12 m north of the slew centre. Find the radius.","Radius = √(5² + 12²) = √169 = 13 m."],
+["Working Radius","The load line is 4 m east and 3 m north of the slew centre. Find the radius.","Radius = √(4² + 3²) = √25 = 5 m."],
+["Working Radius","Radius changes from 6 m to 9 m. Find the increase.","9 − 6 = 3 m."],
+["Working Radius","A crane radius is 7.5 m, but the measured radius is 8.2 m. What should happen?","Stop and check the actual radius against the manufacturer's load chart and approved lift plan before proceeding."],
+["Working Radius","A load line is 9 m horizontally from the slew centre. What is the radius?","Radius = 9 m. Vertical hook height is not added to horizontal radius."],
+["Working Radius","The crane slew centre is 2.4 m from a reference point and the load line is 6.1 m from it in the same direction. Find their separation.","Separation = 6.1 − 2.4 = 3.7 m, assuming both distances share the same line and reference."],
+["Working Radius","A chart states 7.2 t at the exact planned radius and configuration. What is the stated capacity?","The stated capacity is 7.2 t, provided every chart condition matches the actual crane setup."],
+["Working Radius","Why can increasing radius affect crane capacity?","A larger radius usually reduces allowable capacity. Check the manufacturer's chart for the actual configuration."],
+["Working Radius","Can a rigger use the capacity from a smaller radius if the actual radius is larger?","No. Verify capacity at the actual radius using the correct manufacturer load chart."],
 
-["Boom Length","A 30 m boom is at 60° above horizontal. Calculate horizontal projection R = L cos θ."],
-["Boom Length","A 32 m boom is at 65° above horizontal. Calculate vertical projection H = L sin θ."],
-["Boom Length","A 28 m boom is at 50° above horizontal. Calculate its horizontal projection."],
-["Boom Length","A 35 m boom is at 70° above horizontal. Calculate its vertical projection."],
-["Boom Angle","A boom is 30 m long and has horizontal projection 15 m. Calculate angle above horizontal."],
-["Boom Angle","A boom is 25 m long with vertical projection 20 m. Calculate its angle above horizontal."],
-["Boom Length","A right triangle has horizontal projection 18 m and vertical projection 24 m. Calculate boom length."],
-["Boom Angle","Horizontal projection is 21 m and vertical projection is 28 m. Calculate the angle above horizontal."],
-["Boom Length","A 40 m boom is at 55° above horizontal. Calculate horizontal and vertical projections."],
-["Boom Length","A simplified boom has a horizontal projection of 20 m and vertical projection of 15 m. Calculate its length."],
+/* 21-30: BOOM GEOMETRY */
+["Boom Geometry","A boom forms a right triangle with horizontal reach 12 m and vertical rise 16 m. Find boom length.","Length = √(12² + 16²) = √400 = 20 m."],
+["Boom Geometry","A 20 m boom is at 30° above horizontal. Find its ideal horizontal projection.","Horizontal projection = 20 cos 30° ≈ 17.32 m."],
+["Boom Geometry","A 20 m boom is at 30° above horizontal. Find its ideal vertical rise.","Vertical rise = 20 sin 30° = 10 m."],
+["Boom Geometry","Horizontal projection is 15 m and vertical rise is 20 m. Find the angle above horizontal.","Angle = arctan(20 ÷ 15) ≈ 53.1°."],
+["Boom Geometry","A 25 m boom is at 60° above horizontal. Find horizontal projection.","25 cos 60° = 12.5 m."],
+["Boom Geometry","A 25 m boom is at 60° above horizontal. Find vertical rise.","25 sin 60° ≈ 21.65 m."],
+["Boom Geometry","Horizontal projection is 18 m and boom length is 30 m. Find angle above horizontal.","Angle = arccos(18 ÷ 30) ≈ 53.1°."],
+["Boom Geometry","A boom pivot is 3 m above ground and its ideal vertical rise is 14 m. Estimate tip height.","3 + 14 = 17 m, ignoring deflection and boom-head geometry."],
+["Boom Geometry","A 24 m boom is at 45°. Find ideal horizontal projection and vertical rise.","Both = 24 cos 45° = 24 sin 45° ≈ 16.97 m."],
+["Boom Geometry","Does boom length alone determine crane capacity?","No. Capacity also depends on radius, configuration, counterweight, reeving and the manufacturer's load chart."],
 
-["Hook Height","Boom pivot is 2 m above ground. Boom length is 30 m at 60°. Ignoring sheaves and deflection, calculate geometric tip height."],
-["Hook Height","Geometric tip height is 26 m. Allow 3.5 m below the tip for hook block and rigging. Calculate idealised hook elevation."],
-["Hook Height","A platform is 18 m above ground. Load height is 2.2 m and required clearance is 1 m. Calculate required load-bottom elevation."],
-["Hook Height","Load bottom elevation is 15.5 m and load height is 2.4 m. Calculate top elevation."],
-["Hook Height","The load top must reach 22 m elevation. Load height is 3.2 m. Calculate required bottom elevation, excluding extra clearance."],
-["Hook Height","A hook is at 24 m and needs to lower 7.5 m. Calculate its final elevation."],
-["Hook Height","A load is 3.8 m high and its bottom is 12 m above ground. Calculate top elevation."],
-["Hook Height","A load must clear a platform by 1.2 m. Platform height is 16 m and load height is 2.5 m. Calculate the load-bottom elevation required."],
-["Hook Height","A hook elevation is 28 m. The required hook elevation is 21.5 m. Calculate the required lowering distance."],
-["Hook Height","A load bottom is 14.2 m high and load height is 2.8 m. Calculate its top elevation."],
+/* 31-40: HOOK HEIGHT AND CLEARANCE */
+["Hook Height","A load bottom must reach elevation 8 m. The load is 2.2 m high. Find top elevation.","8 + 2.2 = 10.2 m."],
+["Hook Height","An obstacle is 5.6 m high and required clearance is 0.8 m. Find required load-bottom elevation.","5.6 + 0.8 = 6.4 m."],
+["Hook Height","A load is 3.4 m high and its bottom is at elevation 7 m. Find its top elevation.","7 + 3.4 = 10.4 m."],
+["Hook Height","A 4 m opening must accommodate a 3.2 m tall load. Find nominal clearance.","4 − 3.2 = 0.8 m, before allowing for tilt, rigging and movement."],
+["Hook Height","A load must rise vertically 2.5 m, then another 1 m. Find total rise.","2.5 + 1 = 3.5 m."],
+["Hook Height","Why must rigging height be included in headroom checks?","Slings, shackles, lifting beams and the hook block all consume headroom."],
+["Hook Height","The hook is 2 m above a lifting point. What is the vertical separation?","2 m."],
+["Hook Height","A hook block is 1.8 m tall. Can its height alone determine the hook elevation?","No. The boom-head elevation, reeving and actual crane geometry are also required."],
+["Hook Height","A load must clear a 1.2 m barrier with 0.4 m clearance. What minimum bottom elevation is needed relative to the barrier base?","1.2 + 0.4 = 1.6 m."],
+["Hook Height","What should be checked before moving a load through a restricted opening?","Verify load dimensions, rigging envelope, hook height, clearance, load orientation and the approved travel path."],
 
-["Centre of Gravity","A uniform 8 m beam has its COG at the midpoint. Calculate distance from either end."],
-["Centre of Gravity","Masses 2,000 kg and 3,000 kg are at positions 1 m and 5 m. Calculate combined COG from the datum."],
-["Centre of Gravity","Masses 500 kg, 800 kg and 700 kg are located at 0 m, 2 m and 5 m. Calculate combined COG."],
-["Centre of Gravity","A 300 kg beam has COG at 3 m. A 200 kg motor is at 5 m. Calculate combined COG from the left end."],
-["Centre of Gravity","A 10 m beam has COG 4.2 m from the left end. How far is it from the right end?"],
-["Centre of Gravity","A load's geometric centre is 6 m from a datum. Its COG is 1.5 m to the left. Calculate COG coordinate."],
-["Centre of Gravity","Masses 1,500 kg at 0 m and 2,500 kg at 4 m. Calculate total mass and combined COG."],
-["Centre of Gravity","A 900 kg beam has COG at 4.5 m. A 400 kg component is at 2 m. Calculate combined COG."],
-["Centre of Gravity","A 5,000 kg load has COG at 2.4 m from the left. Supports are at 0.5 m and 4.5 m. Calculate idealised support reactions."],
-["Centre of Gravity","A 6,000 kg load has supports at 1 m and 5 m from datum and COG at 3.5 m. Calculate idealised reactions."],
+/* 41-50: CENTRE OF GRAVITY */
+["Centre of Gravity","Two 1 t masses are at x = 0 m and x = 4 m. Find combined COG.","x̄ = (1×0 + 1×4) ÷ 2 = 2 m."],
+["Centre of Gravity","A 3 t mass is at x = 0 m and a 1 t mass at x = 6 m. Find COG.","x̄ = (3×0 + 1×6) ÷ 4 = 1.5 m."],
+["Centre of Gravity","Two equal 500 kg components are at x = 2 m and x = 6 m. Find combined COG.","x̄ = (500×2 + 500×6) ÷ 1,000 = 4 m."],
+["Centre of Gravity","A 2 t component is at x = 1 m and a 4 t component at x = 5 m. Find combined COG.","x̄ = (2×1 + 4×5) ÷ 6 ≈ 3.67 m from the datum."],
+["Centre of Gravity","A uniform 6 m beam has its COG at what distance from either end?","6 ÷ 2 = 3 m."],
+["Centre of Gravity","A 4 t assembly has COG 2.5 m from the left end. Length is 7 m. Find distance from right end.","7 − 2.5 = 4.5 m."],
+["Centre of Gravity","A 2 t load is supported at two points 4 m apart. Its COG is 1 m from the left support. Find ideal support reactions.","Left = 2×3/4 = 1.5 t; right = 2×1/4 = 0.5 t. Simplified static beam model."],
+["Centre of Gravity","Why is an offset COG important when rigging a load?","It can cause tilting and unequal load sharing. Lifting points and rigging must suit the actual COG."],
+["Centre of Gravity","What should be done if the load tilts unexpectedly during initial tensioning?","Stop, keep people clear, lower safely if possible, and reassess the lift plan and rigging."],
+["Centre of Gravity","Can the geometric centre always be assumed to be the COG?","No. Internal components and material distribution may shift the COG."],
 
-["Sling Forces","A 12 kN load is supported by two symmetrical sling legs at 60° from horizontal. Calculate idealised tension per leg."],
-["Sling Forces","A 20 kN load is supported by two symmetrical legs at 45° from horizontal. Calculate idealised tension per leg."],
-["Sling Forces","A 15 kN load is supported by two symmetrical legs at 30° from horizontal. Calculate idealised tension per leg."],
-["Sling Forces","A 10 kN load is supported by two symmetrical legs at 75° from horizontal. Calculate idealised tension per leg."],
-["Sling Forces","For an 18 kN load, calculate idealised tension per leg at 60° and 45° and compare."],
-["Sling Forces","Two identical legs each have tension 8 kN at 60° from horizontal. Calculate vertical load component supported by the pair."],
-["Sling Forces","Two identical legs each have tension 10 kN at 30° from horizontal. Calculate vertical load component supported by the pair."],
-["Sling Forces","A 16 kN load uses two symmetrical legs, each limited to 12 kN. Calculate the minimum theoretical angle from horizontal."],
-["Sling Forces","A 25 kN load is ideally shared equally by four vertical legs. Calculate theoretical force per leg."],
-["Sling Forces","A 3,000 kg load is ideally shared by two vertical legs. Using g = 9.81 m/s², calculate total weight force and force per leg."],
+/* 51-60: SLING FORCES */
+["Sling Forces","A 2 t load is carried by two equal legs at 60° from horizontal. Find ideal tension per leg.","T = W/(2 sin θ) = 2/(2 sin 60°) ≈ 1.155 t per leg."],
+["Sling Forces","A 2 t load is carried by two equal legs at 30° from horizontal. Find ideal tension per leg.","T = 2/(2 sin 30°) = 2 t per leg."],
+["Sling Forces","A 3 t load is carried by two equal legs at 45° from horizontal. Find ideal tension per leg.","T = 3/(2 sin 45°) ≈ 2.12 t per leg."],
+["Sling Forces","A 1.8 t load is carried by two equal legs at 60° from horizontal. Find ideal tension per leg.","T = 1.8/(2 sin 60°) ≈ 1.04 t per leg."],
+["Sling Forces","A 5 t load is carried by two equal legs at 30° from horizontal. Find ideal tension per leg.","T = 5/(2 sin 30°) = 5 t per leg."],
+["Sling Forces","A 2.4 t load is carried by two vertical legs with equal sharing. Find tension per leg.","2.4 ÷ 2 = 1.2 t per leg, under the stated ideal assumptions."],
+["Sling Forces","What happens to sling tension when the sling angle from horizontal decreases?","Tension increases because sin θ decreases."],
+["Sling Forces","Four vertical legs ideally share a 4 t load equally. What is the average load per leg?","4 ÷ 4 = 1 t per leg. Actual multi-leg sharing may not be equal."],
+["Sling Forces","Why must the sling angle reference be stated?","An angle from horizontal differs from an angle from vertical; use the correct formula and rating table."],
+["Sling Forces","Does a calculated sling force alone prove the sling is safe?","No. Check WLL, hitch, angle factors, condition, connectors, edge protection and the approved rigging arrangement."],
 
-["Tailing Lifts","A 12,000 kg vessel has main reaction 7,200 kg-equivalent and tailing reaction 4,800 kg-equivalent. Calculate each percentage share."],
-["Tailing Lifts","A 20,000 kg load has a tailing reaction of 35% at a planned stage. Calculate tailing reaction in kg and tonnes."],
-["Tailing Lifts","A 16 t load has tailing reaction 5.6 t. Calculate main reaction and percentage shares."],
-["Tailing Lifts","Total supported vertical force is 180 kN and tailing reaction is 62 kN. Calculate main reaction and percentage shares."],
-["Tailing Lifts","Tailing reaction increases from 40 kN to 52 kN. Calculate increase and percentage increase."],
-["Tailing Lifts","A 14 t load has a tailing reaction of 30%. Calculate main and tailing reactions in tonnes."],
-["Tailing Lifts","Tailing crane chart capacity is 8 t and calculated reaction is 6.4 t. Calculate percentage capacity used."],
-["Tailing Lifts","Main crane reaction is 11.5 t and applicable chart capacity is 14 t. Calculate percentage capacity used."],
-["Tailing Lifts","Crane reactions are 5,400 kg-equivalent and 3,600 kg-equivalent. Calculate main-to-tailing reaction ratio."],
-["Tailing Lifts","Total vertical load is 200 kN and one crane reaction is 72 kN. Calculate the other reaction and both percentage shares."],
+/* 61-70: TAILING AND TANDEM LIFTS */
+["Tailing & Tandem Lifts","A 10 t load is shared 60% and 40% between two cranes. Find nominal shares.","Crane A = 10×0.60 = 6 t; crane B = 10×0.40 = 4 t."],
+["Tailing & Tandem Lifts","A 12 t load has a 7 t reaction at one support. Find the other reaction in a two-support static model.","12 − 7 = 5 t, assuming only two vertical supports and no omitted masses."],
+["Tailing & Tandem Lifts","A 9 t load has a 3 t tailing reaction at one instant. Find the other reaction in the simplified model.","9 − 3 = 6 t. Real reactions vary through the rotation."],
+["Tailing & Tandem Lifts","Total load plus rigging is 8.5 t. Crane A is assigned 55%. Find its planned share.","8.5×0.55 = 4.675 t."],
+["Tailing & Tandem Lifts","Using Q64, find the other crane's 45% share.","8.5×0.45 = 3.825 t."],
+["Tailing & Tandem Lifts","Two planned crane reactions are 4.2 t and 3.8 t. Find total supported load.","4.2 + 3.8 = 8.0 t, assuming the values use the same load basis."],
+["Tailing & Tandem Lifts","Can a tailing crane's reaction be assumed constant during rotation?","No. The reaction changes with geometry, COG and lift stage."],
+["Tailing & Tandem Lifts","A 6 t load has 0.3 t of rigging omitted. Find corrected gross mass.","6 + 0.3 = 6.3 t."],
+["Tailing & Tandem Lifts","Why must each crane's chart capacity be checked separately during a tandem lift?","Each crane has its own radius, configuration and changing reaction; both must remain within chart limits at every stage."],
+["Tailing & Tandem Lifts","What should happen if tandem-lift geometry changes on site?","Stop and have the competent lifting authority revalidate the engineered lift plan before proceeding."],
 
-["Tandem Cranes","Two cranes share 24 t with reactions of 14 t and 10 t. Calculate each percentage share."],
-["Tandem Cranes","A 30 t load is shared 55% by Crane A and 45% by Crane B. Calculate reactions in tonnes."],
-["Tandem Cranes","Crane A reaction is 120 kN and Crane B is 80 kN. Calculate total and percentage shares."],
-["Tandem Cranes","A 25 t load plus 1.2 t rigging is shared 60:40. Calculate total mass and each share."],
-["Tandem Cranes","Crane A reaction is 9.5 t and Crane B is 8 t. Calculate total and ratio A:B."],
-["Tandem Cranes","Total planned vertical load is 300 kN and Crane A supports 58%. Calculate both reactions."],
-["Tandem Cranes","Crane A reaction is 7.2 t and applicable chart capacity is 9 t. Calculate utilisation percentage."],
-["Tandem Cranes","Crane B reaction is 8.4 t and applicable chart capacity is 10.5 t. Calculate utilisation percentage."],
-["Tandem Cranes","Reactions are 95 kN and 110 kN. Apply a hypothetical 10% study allowance to each and calculate adjusted values."],
-["Tandem Cranes","Crane A's share rises from 45% to 52% of a 200 kN total. Calculate old and new reactions and increase."],
+/* 71-80: CRANE CAPACITY */
+["Crane Capacity","Chart capacity is 10 t and gross load is 7 t. Find capacity utilisation.","(7 ÷ 10)×100 = 70%."],
+["Crane Capacity","Gross load is 6.4 t and chart capacity is 8 t. Find utilisation.","(6.4 ÷ 8)×100 = 80%."],
+["Crane Capacity","Chart capacity is 12 t and gross load is 9 t. Find utilisation and nominal difference.","Utilisation = 9/12×100 = 75%; difference = 12 − 9 = 3 t."],
+["Crane Capacity","Load is 4.5 t and rigging is 0.5 t. Chart capacity is 6 t. Find utilisation.","Gross load = 5 t; utilisation = 5/6×100 ≈ 83.3%."],
+["Crane Capacity","What load is 85% of a stated 20 t chart capacity arithmetically?","0.85×20 = 17 t. This arithmetic does not establish permission to lift."],
+["Crane Capacity","Chart capacity is 7.5 t and load is 6 t. Find unused capacity as a percentage.","(7.5 − 6)/7.5×100 = 20%."],
+["Crane Capacity","Gross load is 5.6 t and chart capacity is 7 t. Find utilisation.","5.6/7×100 = 80%."],
+["Crane Capacity","Chart capacity is 5 t but gross load is 5.2 t. What is the correct action?","Do not lift. Re-plan or select suitable equipment and obtain the required approval."],
+["Crane Capacity","Can a capacity value from a smaller radius be used at a larger radius?","No. Use the manufacturer's chart at the actual radius and configuration."],
+["Crane Capacity","Why is crane capacity not a single fixed number?","It depends on radius, boom configuration, counterweight, reeving, operating sector and other chart conditions."],
 
-["Capacity Percentage","Chart capacity is 18 t and planned total load is 13.5 t. Calculate capacity used percentage."],
-["Capacity Percentage","A 7.2 t load is 80% of chart capacity. Calculate implied capacity."],
-["Capacity Percentage","An accessory WLL is 10 t and planned load is 6.5 t. Calculate percentage of WLL used."],
-["Capacity Percentage","Chart capacity is 12.5 t, load is 9 t and rigging is 0.5 t. Calculate total mass and capacity percentage."],
-["Capacity Percentage","A crane is at 72% of a 20 t applicable capacity. Calculate load in tonnes."],
-["Capacity Percentage","A 16 t load is compared with 20 t capacity. Calculate unused capacity in tonnes and percentage."],
-["Capacity Percentage","Load is 11.2 t and applicable chart capacity is 14 t. Calculate utilisation percentage."],
-["Capacity Percentage","Chart capacity changes from 16 t to 13 t. Calculate reduction in tonnes and percentage."],
-["Capacity Percentage","A load is 85% of a 9 t capacity. Calculate load and remaining capacity."],
-["Capacity Percentage","Planned load is 6.8 t and applicable chart capacity is 8 t. Calculate utilisation percentage."],
+/* 81-90: LOAD MOMENT AND GEAR MASS */
+["Load Moment & Gear Mass","A 4 t load acts at 6 m radius. Calculate simple load moment.","Moment = 4×6 = 24 t·m."],
+["Load Moment & Gear Mass","A 3.5 t load is at 8 m radius. Calculate simple load moment.","3.5×8 = 28 t·m."],
+["Load Moment & Gear Mass","Simple moment is 30 t·m and load is 5 t. Find radius arithmetically.","30 ÷ 5 = 6 m. This does not determine crane capacity."],
+["Load Moment & Gear Mass","A 2.8 t load has 0.22 t rigging. Find total mass.","2.8 + 0.22 = 3.02 t."],
+["Load Moment & Gear Mass","A hook block weighs 350 kg and slings/shackles weigh 150 kg. Find total mass in tonnes.","350 + 150 = 500 kg = 0.5 t."],
+["Load Moment & Gear Mass","Load is 7,200 kg and lifting gear is 480 kg. Find gross mass.","7,200 + 480 = 7,680 kg = 7.68 t."],
+["Load Moment & Gear Mass","A 5 t load moves from 4 m radius to 5 m radius. Find new simple load moment.","5×5 = 25 t·m; at 4 m it was 20 t·m."],
+["Load Moment & Gear Mass","A lifting beam weighs 0.6 t and the load is 4.4 t. Find combined mass.","0.6 + 4.4 = 5.0 t, before any other omitted gear."],
+["Load Moment & Gear Mass","Three 20 kg shackles and two 35 kg slings are used. Find their combined mass.","3×20 + 2×35 = 130 kg = 0.13 t."],
+["Load Moment & Gear Mass","Why can't simple load moment replace a manufacturer's load chart?","Crane ratings include design limits and configuration conditions not captured by simple load×radius arithmetic."],
 
-["Unit Conversion","Convert 450 kN to approximate tonnes-force using 9.81 kN per tonne-force."],
-["Unit Conversion","Convert 7.5 tonnes mass to approximate weight force in kN using g = 9.81 m/s²."],
-["Unit Conversion","Convert 98.1 kN to approximate tonnes-force."],
-["Unit Conversion","Convert 2.75 m to millimetres and centimetres."],
-["Unit Conversion","Convert a 28 ft boom length to metres using 1 ft = 0.3048 m."],
-["Unit Conversion","Convert 15 m to feet using 1 m ≈ 3.28084 ft."],
-
-["Load Moment","A 6 t load acts at a 12 m horizontal radius. Calculate simplified load moment in tonne-metres."],
-["Load Moment","A simplified load moment is 90 tonne-metres and load is 7.5 t. Calculate corresponding radius."],
-["Load Moment","A 4.5 t load radius increases from 8 m to 10 m. Calculate initial and final moments and percentage increase."],
-["Load Moment","Compare a 9 t load at 7 m radius with a 6 t load at 10 m. Calculate both simplified moments."],
-
-["Ground Pressure","Outrigger reaction is 320 kN and mat contact area is 2 m². Calculate average pressure in kN/m²."],
-["Ground Pressure","Average pressure is 150 kN/m² over area 2.4 m². Calculate corresponding force."],
-["Ground Pressure","A 450 kN force must be spread to average pressure no greater than 180 kN/m². Calculate minimum theoretical contact area."],
-
-["Rigging Mass","Four shackles each weigh 12 kg and two slings each weigh 18 kg. Calculate combined rigging mass."],
-["Rigging Mass","Load is 5,600 kg, accessories 145 kg and lifting beam 380 kg. Calculate combined suspended mass in kg and tonnes."],
-["Rigging Mass","A 2.4 t machine, 160 kg lifting beam and 90 kg accessories form the suspended load. Calculate total mass."],
-
-["Other Calculations","Estimated load is 8.0 t but verified mass is 8.6 t. Calculate difference and percentage increase."],
-["Other Calculations","A load is 4.2 m high and must pass through an opening 5.5 m high. Calculate theoretical vertical clearance."],
-["Other Calculations","A load travels 18 m at idealised hoisting speed 0.3 m/s. Calculate travel time in seconds and minutes."],
-["Combined Load and Capacity","Load mass is 9.2 t, lifting beam 0.65 t and rigging 0.15 t. Chart capacity is 12 t. Calculate total suspended mass and capacity percentage."]
+/* 91-100: GROUND PRESSURE AND LIFTING PRACTICE */
+["Ground Pressure & Practical Maths","An outrigger reaction is 120 kN over a 2 m² mat. Find average pressure.","Pressure = force/area = 120/2 = 60 kPa."],
+["Ground Pressure & Practical Maths","A 90 kN reaction is spread over 1.5 m². Find average pressure.","90/1.5 = 60 kPa."],
+["Ground Pressure & Practical Maths","Reaction is 100 kN and theoretical allowable pressure is 50 kPa. Find theoretical area.","Area = force/pressure = 100/50 = 2 m². Engineering verification is still required."],
+["Ground Pressure & Practical Maths","Why is total crane weight divided by total mat area not enough for mat design?","Outrigger reactions are unequal and change with boom direction; ground and mat design need competent assessment."],
+["Ground Pressure & Practical Maths","Two lifting points are 0.5 m from each end of a 2.5 m load. Find spacing between points.","2.5 − 0.5 − 0.5 = 1.5 m."],
+["Ground Pressure & Practical Maths","A load moves 2.4 m in 30 seconds at constant average speed. Find speed.","Speed = 2.4/30 = 0.08 m/s."],
+["Ground Pressure & Practical Maths","A load rises 1.8 m in 12 seconds. Find average vertical speed.","1.8/12 = 0.15 m/s."],
+["Ground Pressure & Practical Maths","A 3.2 t load has 0.18 t rigging. Chart capacity is 4 t. Find utilisation.","Gross load = 3.38 t; utilisation = 3.38/4×100 = 84.5%."],
+["Ground Pressure & Practical Maths","A steel item has volume 0.12 m³ and density 7,850 kg/m³. Find approximate mass.","0.12×7,850 = 942 kg, assuming solid steel."],
+["Ground Pressure & Practical Maths","A shackle has WLL 4.75 t and calculated force is 4 t. Is the assembly automatically safe?","No. Verify configuration, side loading, sling angles, condition, certificates and all component ratings in the approved lift plan."]
 ];
 
-const container = document.getElementById("questions");
-const filter = document.getElementById("filter");
+const topicSelect = document.getElementById("topic");
+const root = document.getElementById("questions");
 const search = document.getElementById("search");
 const count = document.getElementById("count");
 
-const topics = [...new Set(data.map(item => item[0]))];
-
-topics.forEach(topic => {
-    const option = document.createElement("option");
-    option.value = topic;
-    option.textContent = topic;
-    filter.appendChild(option);
+[...new Set(data.map(item => item[0]))].forEach(topic => {
+  const option = document.createElement("option");
+  option.value = topic;
+  option.textContent = topic;
+  topicSelect.appendChild(option);
 });
 
-const sections = {};
-topics.forEach(topic => {
-    const section = document.createElement("section");
-    section.className = "card topic";
-    section.dataset.topic = topic;
+function renderQuestions() {
+  const term = search.value.trim().toLowerCase();
+  const selectedTopic = topicSelect.value;
+  root.innerHTML = "";
+  let shown = 0;
+  const groups = new Map();
 
+  data.forEach((item, index) => {
+    const [topic, question, answer] = item;
+    if (selectedTopic && topic !== selectedTopic) return;
+    if (term && !(topic + " " + question + " " + answer).toLowerCase().includes(term)) return;
+    if (!groups.has(topic)) groups.set(topic, []);
+    groups.get(topic).push({number: index + 1, question, answer});
+    shown++;
+  });
+
+  groups.forEach((items, topic) => {
+    const section = document.createElement("section");
+    section.className = "topic";
     const heading = document.createElement("h2");
     heading.textContent = topic;
+    section.appendChild(heading);
 
-    const list = document.createElement("ol");
-    section.append(heading, list);
-    container.appendChild(section);
-    sections[topic] = { section, list };
-});
+    items.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "item";
+      const question = document.createElement("div");
+      question.className = "question";
 
-data.forEach((item, index) => {
-    const li = document.createElement("li");
-    li.value = index + 1;
-    li.textContent = item[1];
-    sections[item[0]].list.appendChild(li);
-});
+      const number = document.createElement("span");
+      number.className = "number";
+      number.textContent = "Q" + item.number + ". ";
+      question.appendChild(number);
+      question.appendChild(document.createTextNode(item.question));
 
-function applyFilter() {
-    const term = search.value.trim().toLowerCase();
-    const chosenTopic = filter.value;
-    let visible = 0;
+      const answer = document.createElement("div");
+      answer.className = "answer";
+      const label = document.createElement("strong");
+      label.textContent = "Answer: ";
+      answer.appendChild(label);
+      answer.appendChild(document.createTextNode(item.answer));
 
-    Object.values(sections).forEach(group => {
-        let groupVisible = 0;
-
-        [...group.list.children].forEach(li => {
-            const matchesText = li.textContent.toLowerCase().includes(term);
-            const matchesTopic = !chosenTopic ||
-                group.section.dataset.topic === chosenTopic;
-            const show = matchesText && matchesTopic;
-
-            li.hidden = !show;
-            if (show) {
-                visible++;
-                groupVisible++;
-            }
-        });
-
-        group.section.hidden = groupVisible === 0;
+      card.appendChild(question);
+      card.appendChild(answer);
+      section.appendChild(card);
     });
 
-    count.textContent = "Showing " + visible + " question(s)";
+    root.appendChild(section);
+  });
+
+  count.textContent = "Showing " + shown + " of " + data.length + " questions.";
 }
 
-search.addEventListener("input", applyFilter);
-filter.addEventListener("change", applyFilter);
+search.addEventListener("input", renderQuestions);
+topicSelect.addEventListener("change", renderQuestions);
 document.getElementById("print").addEventListener("click", () => window.print());
 
-applyFilter();
+renderQuestions();
 </script>
 </body>
 </html>
