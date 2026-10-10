@@ -1,26 +1,149 @@
-<section class="card">
-  <h2>Aramco Study Notes</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aramco Study Notes | Lifting &amp; Rigging</title>
+  <style>
+    * { box-sizing: border-box; }
 
-  <div class="page-links">
-    <a href="aramco-mcqs.html">
-      MCQs
-      <span class="description">
-        Multiple-choice practice questions
-      </span>
-    </a>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #f4f6f9;
+      color: #253247;
+      line-height: 1.6;
+    }
 
-    <a href="aramco-qa.html">
-      Questions &amp; Answers
-      <span class="description">
-        Study questions with answers
-      </span>
-    </a>
+    header {
+      background: #173b67;
+      color: white;
+      text-align: center;
+      padding: 28px 16px;
+    }
 
-    <a href="aramco-calculations-qa.html">
-      Calculations Questions &amp; Answers
-      <span class="description">
-        Lifting calculations and worked solutions
-      </span>
-    </a>
-  </div>
-</section>
+    header h1 { margin: 0 0 8px; }
+    header p { margin: 0; }
+
+    nav {
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      flex-wrap: wrap;
+      padding: 16px;
+      background: white;
+      border-bottom: 1px solid #ddd;
+    }
+
+    nav a {
+      color: #253247;
+      text-decoration: none;
+      font-weight: bold;
+    }
+
+    main {
+      max-width: 1050px;
+      width: 92%;
+      margin: 28px auto;
+    }
+
+    .welcome, .study-card {
+      background: white;
+      border: 1px solid #e0e5eb;
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 24px;
+    }
+
+    .study-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 22px;
+    }
+
+    .study-card h2 { margin-top: 0; }
+
+    .button-list {
+      display: grid;
+      gap: 10px;
+      margin-top: 20px;
+    }
+
+    .button-list a {
+      display: block;
+      text-align: center;
+      padding: 13px 12px;
+      border-radius: 8px;
+      background: #edf0f4;
+      color: #253247;
+      text-decoration: none;
+      font-weight: bold;
+      border: 1px solid #e0e5eb;
+    }
+
+    .button-list a.primary {
+      background: #10294e;
+      color: white;
+    }
+
+    .button-list a:hover { opacity: 0.85; }
+
+    footer {
+      text-align: center;
+      padding: 22px;
+      color: #5d6878;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Aramco Study Notes</h1>
+    <p>Study resources for lifting operations, rigging and crane safety</p>
+  </header>
+
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="../../calculation.html">Calculations</a>
+    <a href="../index.html">Study Notes</a>
+  </nav>
+
+  <main>
+    <section class="welcome">
+      <h2>Welcome to Aramco Study Notes</h2>
+      <p>
+        Choose a study section below to practise lifting and rigging
+        knowledge, review questions and prepare for assessments.
+      </p>
+    </section>
+
+    <section class="study-grid">
+      <div class="study-card">
+        <h2>Aramco Study Notes</h2>
+        <p>
+          Open the Aramco study section for lifting and rigging
+          practice questions and related study material.
+        </p>
+
+        <div class="button-list">
+          <a class="primary" href="aramco-mcqs.html">
+            Open Aramco MCQs
+          </a>
+
+          <a href="aramco-qa.html">
+            Open Aramco Questions &amp; Answers
+          </a>
+
+          <a href="aramco-calculations-qa.html">
+            Open Aramco Calculation Q&amp;A
+          </a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    Lifting &amp; Rigging Study
+  </footer>
+</body>
+</html>
