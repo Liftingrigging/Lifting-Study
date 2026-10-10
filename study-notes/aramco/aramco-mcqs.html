@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0b1220">
+  <title>Aramco Lifting &amp; Rigging MCQs</title>
+
+  <style>
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #0b1220;
+      color: #f1f5f9;
+      line-height: 1.6;
+    }
+
+    header {
+      text-align: center;
+      background: #142238;
+      padding: 28px 16px;
+      border-bottom: 4px solid #e58b2a;
+    }
+
+    main {
+      width: min(850px, 92%);
+      margin: 25px auto;
+    }
+
+    .panel {
+      background: #142238;
+      border: 1px solid #334155;
+      border-radius: 12px;
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    h1 { margin: 0 0 8px; font-size: 26px; }
+    h2 { color: #f5a742; }
+
+    .question {
+      border-top: 1px solid #334155;
+      padding: 16px 0;
+    }
+
+    .option {
+      display: block;
+      padding: 8px 10px;
+      margin: 6px 0;
+      border-radius: 7px;
+      background: #22334c;
+      cursor: pointer;
+    }
+
+    .option input { margin-right: 8px; }
+
+    button, .back-link {
+      display: inline-block;
+      border: 0;
+      border-radius: 8px;
+      background: #e58b2a;
+      color: #111827;
+      padding: 12px 18px;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      text-decoration: none;
+      margin: 8px 6px 8px 0;
+    }
+
+    .result {
+      margin-top: 12px;
+      font-weight: bold;
+    }
+
+    .explanation {
+      color: #cbd5e1;
+      margin-top: 8px;
+    }
+
+    footer {
+      text-align: center;
+      padding: 24px 12px;
+      color: #cbd5e1;
+      border-top: 1px solid #334155;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <h1>Aramco Lifting &amp; Rigging MCQs</h1>
+    <p>Practice questions for study and revision</p>
+  </header>
+
+  <main>
+    <section class="panel">
+      <h2>Practice Quiz</h2>
+      <p>Select one answer for each question, then press <b>Check Answers</b>.</p>
+
+      <form id="quiz">
+        <div class="question">
+          <p><b>1. What should be checked before starting a lifting operation?</b></p>
+          <label class="option"><input type="radio" name="q1" value="a"> A. Only the crane colour</label>
+          <label class="option"><input type="radio" name="q1" value="b"> B. Lift plan, equipment condition and site hazards</label>
+          <label class="option"><input type="radio" name="q1" value="c"> C. Only the operator's uniform</label>
+          <p class="explanation" id="e1" hidden></p>
+        </div>
+
+        <div class="question">
+          <p><b>2. What does WLL mean?</b></p>
+          <label class="option"><input type="radio" name="q2" value="a"> A. Working Load Limit</label>
+          <label class="option"><input type="radio" name="q2" value="b"> B. Wire Length Level</label>
+          <label class="option"><input type="radio" name="q2" value="c"> C. Working Lift Location</label>
+          <p class="explanation" id="e2" hidden></p>
+        </div>
+
+        <div class="question">
+          <p><b>3. What should you do if lifting gear is damaged or its identification is unreadable?</b></p>
+          <label class="option"><input type="radio" name="q3" value="a"> A. Use it for a light load</label>
+          <label class="option"><input type="radio" name="q3" value="b"> B. Repair it temporarily and continue</label>
+          <label class="option"><input type="radio" name="q3" value="c"> C. Remove it from service and report it</label>
+          <p class="explanation" id="e3" hidden></p>
+        </div>
+
+        <div class="question">
+          <p><b>4. Who should give lifting signals to the crane operator?</b></p>
+          <label class="option"><input type="radio" name="q4" value="a"> A. Any nearby worker</label>
+          <label class="option"><input type="radio" name="q4" value="b"> B. The designated signal person, using agreed signals</label>
+          <label class="option"><input type="radio" name="q4" value="c"> C. Anyone who can shout loudly</label>
+          <p class="explanation" id="e4" hidden></p>
+        </div>
+
+        <div class="question">
+          <p><b>5. What is the safe action if a load becomes unstable during a lift?</b></p>
+          <label class="option"><input type="radio" name="q5" value="a"> A. Stop the lift and follow the agreed safe procedure</label>
+          <label class="option"><input type="radio" name="q5" value="b"> B. Move quickly to finish the lift</label>
+          <label class="option"><input type="radio" name="q5" value="c"> C. Allow people to steady it by hand from underneath</label>
+          <p class="explanation" id="e5" hidden></p>
+        </div>
+
+        <button type="button" id="checkBtn">Check Answers</button>
+        <button type="reset" id="resetBtn">Try Again</button>
+        <p class="result" id="result" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <section class="panel">
+      <a class="back-link" href="index.html">← Back to Aramco Home</a>
+      <a class="back-link" href="aramco-qa.html">Questions &amp; Answers →</a>
+    </section>
+  </main>
+
+  <footer>
+    <p>Lifting &amp; Rigging Study</p>
+    <p>Practice material only. Follow current site procedures and applicable requirements.</p>
+  </footer>
+
+  <script>
+    const answers = {
+      q1: {
+        value: "b",
+        text: "Check the lift plan, equipment condition and site hazards before work starts."
+      },
+      q2: {
+        value: "a",
+        text: "WLL means Working Load Limit. Always follow the marked rating and applicable requirements."
+      },
+      q3: {
+        value: "c",
+        text: "Remove damaged or unidentified gear from service and report it for assessment."
+      },
+      q4: {
+        value: "b",
+        text: "Use the designated signal person and agreed communication method."
+      },
+      q5: {
+        value: "a",
+        text: "Stop and follow the lift plan and safe procedure. Never stand under a suspended load."
+      }
+    };
+
+    document.getElementById("checkBtn").addEventListener("click", () => {
+      let score = 0;
+      let unanswered = 0;
+
+      Object.keys(answers).forEach((name, index) => {
+        const selected = document.querySelector(
+          'input[name="' + name + '"]:checked'
+        );
+        const explanation = document.getElementById("e" + (index + 1));
+
+        explanation.hidden = false;
+
+        if (!selected) {
+          unanswered++;
+          explanation.textContent =
+            "Not answered. Correct answer: " +
+            answers[name].value.toUpperCase() + ". " +
+            answers[name].text;
+        } else if (selected.value === answers[name].value) {
+          score++;
+          explanation.textContent = "Correct. " + answers[name].text;
+        } else {
+          explanation.textContent =
+            "Incorrect. Correct answer: " +
+            answers[name].value.toUpperCase() + ". " +
+            answers[name].text;
+        }
+      });
+
+      document.getElementById("result").textContent =
+        "Your score: " + score + " / " +
+        Object.keys(answers).length +
+        (unanswered ? " · Unanswered: " + unanswered : "");
+    });
+
+    document.getElementById("resetBtn").addEventListener("click", () => {
+      document.querySelectorAll(".explanation").forEach((item) => {
+        item.hidden = true;
+        item.textContent = "";
+      });
+      document.getElementById("result").textContent = "";
+    });
+  </script>
+</body>
+</html>
