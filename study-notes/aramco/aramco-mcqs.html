@@ -1,229 +1,272 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0b1220">
-  <title>Aramco Lifting &amp; Rigging MCQs</title>
-
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: #f1f5f9;
-      line-height: 1.6;
-    }
-
-    header {
-      text-align: center;
-      background: #142238;
-      padding: 28px 16px;
-      border-bottom: 4px solid #e58b2a;
-    }
-
-    main {
-      width: min(850px, 92%);
-      margin: 25px auto;
-    }
-
-    .panel {
-      background: #142238;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-
-    h1 { margin: 0 0 8px; font-size: 26px; }
-    h2 { color: #f5a742; }
-
-    .question {
-      border-top: 1px solid #334155;
-      padding: 16px 0;
-    }
-
-    .option {
-      display: block;
-      padding: 8px 10px;
-      margin: 6px 0;
-      border-radius: 7px;
-      background: #22334c;
-      cursor: pointer;
-    }
-
-    .option input { margin-right: 8px; }
-
-    button, .back-link {
-      display: inline-block;
-      border: 0;
-      border-radius: 8px;
-      background: #e58b2a;
-      color: #111827;
-      padding: 12px 18px;
-      font-size: 16px;
-      font-weight: bold;
-      cursor: pointer;
-      text-decoration: none;
-      margin: 8px 6px 8px 0;
-    }
-
-    .result {
-      margin-top: 12px;
-      font-weight: bold;
-    }
-
-    .explanation {
-      color: #cbd5e1;
-      margin-top: 8px;
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px 12px;
-      color: #cbd5e1;
-      border-top: 1px solid #334155;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Aramco Lifting & Rigging - 200 MCQs</title>
+<style>
+:root{--bg:#0b1220;--card:#15243a;--line:#34445b;--text:#f1f5f9;--accent:#f2a541}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Arial,sans-serif}
+header{text-align:center;padding:25px 15px;background:var(--card);border-bottom:4px solid var(--accent)}
+main{max-width:950px;width:94%;margin:24px auto}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
+h1{font-size:clamp(23px,4vw,34px);margin:0}
+h2{color:var(--accent);margin-top:0}
+button,.btn{display:inline-block;border:0;border-radius:7px;padding:11px 14px;margin:4px;background:var(--accent);color:#151515;font-weight:bold;cursor:pointer;text-decoration:none}
+.secondary{background:#263952;color:white;border:1px solid #52647a}
+.toolbar{display:flex;flex-wrap:wrap;gap:5px}
+.question{padding:17px 0;border-top:1px solid var(--line);break-inside:avoid}
+.topic{font-size:12px;color:var(--accent);text-transform:uppercase}
+.qtext{font-weight:bold}
+.option{display:block;padding:9px;margin:7px 0;background:#21344c;border-radius:7px;cursor:pointer}
+.option input{margin-right:8px}
+.explanation{color:#cbd5e1}
+.correct{border-left:4px solid #42c78a;padding-left:10px}
+.wrong{border-left:4px solid #ff7676;padding-left:10px}
+#score{font-weight:bold;color:var(--accent)}
+.small{font-size:13px;color:#cbd5e1}
+.watermark{position:fixed;right:10px;bottom:10px;opacity:.18;pointer-events:none;font-weight:bold;font-size:15px;transform:rotate(-12deg)}
+footer{text-align:center;padding:22px;color:#cbd5e1}
+@media print{
+ body{background:white;color:black}
+ header,.card{background:white;color:black;border:1px solid #bbb}
+ .toolbar,.watermark,.no-print{display:none!important}
+ .option{background:#f1f1f1;color:black}
+ .small,.explanation{color:#333}
+ h2,.topic{color:#333}
+}
+</style>
 </head>
-
 <body>
-  <header>
-    <h1>Aramco Lifting &amp; Rigging MCQs</h1>
-    <p>Practice questions for study and revision</p>
-  </header>
+<header>
+<h1>Aramco Lifting &amp; Rigging</h1>
+<p>200 Practice Multiple-Choice Questions</p>
+</header>
 
-  <main>
-    <section class="panel">
-      <h2>Practice Quiz</h2>
-      <p>Select one answer for each question, then press <b>Check Answers</b>.</p>
+<main>
+<section class="card">
+<h2>Practice Test</h2>
+<p>Choose an answer for each question, then check your score. Download the question bank or print it to PDF.</p>
+<p class="small"><b>Disclaimer:</b> Original practice questions, not official Saudi Aramco exam questions. Always follow the latest approved Aramco General Instructions, site procedures and equipment manuals.</p>
+<div class="toolbar">
+<button id="check">Check Answers</button>
+<button id="reset" class="secondary">Reset</button>
+<button id="htmlDownload" class="secondary">Download HTML</button>
+<button id="csvDownload" class="secondary">Download CSV</button>
+<button id="print" class="secondary">Print / Save PDF</button>
+</div>
+<p id="score" aria-live="polite">Answered: 0 / 200</p>
+</section>
 
-      <form id="quiz">
-        <div class="question">
-          <p><b>1. What should be checked before starting a lifting operation?</b></p>
-          <label class="option"><input type="radio" name="q1" value="a"> A. Only the crane colour</label>
-          <label class="option"><input type="radio" name="q1" value="b"> B. Lift plan, equipment condition and site hazards</label>
-          <label class="option"><input type="radio" name="q1" value="c"> C. Only the operator's uniform</label>
-          <p class="explanation" id="e1" hidden></p>
-        </div>
+<section class="card">
+<h2>Questions</h2>
+<div id="questions"></div>
+</section>
 
-        <div class="question">
-          <p><b>2. What does WLL mean?</b></p>
-          <label class="option"><input type="radio" name="q2" value="a"> A. Working Load Limit</label>
-          <label class="option"><input type="radio" name="q2" value="b"> B. Wire Length Level</label>
-          <label class="option"><input type="radio" name="q2" value="c"> C. Working Lift Location</label>
-          <p class="explanation" id="e2" hidden></p>
-        </div>
+<section class="card">
+<h2>Reference topics to study</h2>
+<ul>
+<li>GI 7.025 — Heavy Equipment Operator and Rigger Testing and Certification</li>
+<li>GI 7.028 — Crane Lifts: Types and Procedures</li>
+<li>GI 7.029 — Rigging Hardware Requirements</li>
+<li>GI 7.030 — Inspection and Testing Requirements for Elevating/Lifting Equipment</li>
+<li>Current site lifting procedures, safety requirements and manufacturer manuals</li>
+</ul>
+<p class="small">Confirm current revisions using authorized company sources. Publicly available copies may be outdated.</p>
+<a class="btn secondary no-print" href="index.html">Back to Aramco Notes</a>
+</section>
+</main>
 
-        <div class="question">
-          <p><b>3. What should you do if lifting gear is damaged or its identification is unreadable?</b></p>
-          <label class="option"><input type="radio" name="q3" value="a"> A. Use it for a light load</label>
-          <label class="option"><input type="radio" name="q3" value="b"> B. Repair it temporarily and continue</label>
-          <label class="option"><input type="radio" name="q3" value="c"> C. Remove it from service and report it</label>
-          <p class="explanation" id="e3" hidden></p>
-        </div>
+<div class="watermark">A Jawad Wains</div>
+<footer>Aramco Lifting &amp; Rigging Study • A Jawad Wains</footer>
 
-        <div class="question">
-          <p><b>4. Who should give lifting signals to the crane operator?</b></p>
-          <label class="option"><input type="radio" name="q4" value="a"> A. Any nearby worker</label>
-          <label class="option"><input type="radio" name="q4" value="b"> B. The designated signal person, using agreed signals</label>
-          <label class="option"><input type="radio" name="q4" value="c"> C. Anyone who can shout loudly</label>
-          <p class="explanation" id="e4" hidden></p>
-        </div>
+<script>
+const bank = [
+["Lift Planning","What should be confirmed before a lift?",["The plan, load, equipment, crew and hazards","Only the crane colour","Only yesterday's weather","Nothing for routine lifts"],0,"Confirm the lift plan, load, equipment, personnel, communication and hazards."],
+["Lift Planning","What should happen if conditions change after approval?",["Continue slowly","Ignore the change","Stop and arrange review","Ask a visitor"],2,"Changes may alter risk. Stop and obtain the required review."],
+["Lift Planning","Why hold a pre-lift briefing?",["Agree roles, hazards and signals","Replace inspections","Avoid planning","Guess the load weight"],0,"The team needs to understand the plan and their responsibilities."],
+["Lift Planning","What if a lifting instruction is unclear?",["Guess","Continue","Stop and clarify","Ask someone to push"],2,"Clarify instructions before proceeding."],
+["Lift Planning","Who should perform rigging tasks?",["Any available person","A competent authorized person","A visitor","An observer"],1,"Use personnel qualified and authorized for the task."],
 
-        <div class="question">
-          <p><b>5. What is the safe action if a load becomes unstable during a lift?</b></p>
-          <label class="option"><input type="radio" name="q5" value="a"> A. Stop the lift and follow the agreed safe procedure</label>
-          <label class="option"><input type="radio" name="q5" value="b"> B. Move quickly to finish the lift</label>
-          <label class="option"><input type="radio" name="q5" value="c"> C. Allow people to steady it by hand from underneath</label>
-          <p class="explanation" id="e5" hidden></p>
-        </div>
+["Load and Capacity","What does WLL mean?",["Wire Weight Length","Working Load Limit","Working Lift Location","Weight Loading Level"],1,"WLL means Working Load Limit."],
+["Load and Capacity","What should you do if the load weight is unknown?",["Guess visually","Use the smallest sling","Establish the weight reliably","Ask a bystander"],2,"Do not lift until the weight is established."],
+["Load and Capacity","Why use the correct crane load chart?",["Capacity depends on configuration and radius","Charts are interchangeable","It improves appearance","It replaces the operator"],0,"Use the chart for the actual crane configuration."],
+["Load and Capacity","What if the load exceeds rated capacity?",["Lift quickly","Use a longer sling","Do not lift; revise the method","Pull with a tag line"],2,"Never exceed applicable rated capacity."],
+["Load and Capacity","What must be considered when calculating lifted load?",["Only payload in all cases","Load and applicable rigging allowances","Only hook weight","Only container weight"],1,"Follow the chart and site procedure for load allowances."],
 
-        <button type="button" id="checkBtn">Check Answers</button>
-        <button type="reset" id="resetBtn">Try Again</button>
-        <p class="result" id="result" aria-live="polite"></p>
-      </form>
-    </section>
+["Slings and Hardware","What should be done with damaged lifting gear?",["Use it for light loads","Remove it from service","Paint over damage","Use it at night"],1,"Defective equipment must be removed from service."],
+["Slings and Hardware","Why must sling identification be legible?",["To verify rating and suitability","To make it heavier","For decoration","To identify the operator"],0,"The rating and identity must be verified."],
+["Slings and Hardware","What can sharp edges do to slings?",["Increase their rating","Protect them","Cut or damage them","Reduce load weight"],2,"Use suitable edge protection and rigging methods."],
+["Slings and Hardware","Why avoid twisted or knotted slings?",["They can be damaged and perform incorrectly","They increase capacity","They prevent inspection","They are required"],0,"Use slings according to the manufacturer's instructions."],
+["Slings and Hardware","What is a hook safety latch intended to do?",["Increase capacity","Help prevent sling disengagement","Weigh the load","Replace correct rigging"],1,"A latch does not replace proper hook loading."],
 
-    <section class="panel">
-      <a class="back-link" href="index.html">← Back to Aramco Home</a>
-      <a class="back-link" href="aramco-qa.html">Questions &amp; Answers →</a>
-    </section>
-  </main>
+["Signals and Communication","Who should direct movements when a signal person is assigned?",["Any bystander","The designated signal person","A passing driver","The farthest worker"],1,"Use the designated signal person and agreed signals."],
+["Signals and Communication","What if communication with the operator is lost?",["Continue","Move faster","Stop safely until restored","Lower without checking"],2,"Stop when required communication is lost."],
+["Signals and Communication","What should happen after an emergency stop signal?",["Ignore it for light loads","Stop movement safely","Finish first","Wave back"],1,"An emergency stop signal must be acted on immediately."],
+["Signals and Communication","Why agree signals before lifting?",["Avoid ambiguity","Reduce sling weight","Change the chart","Replace planning"],0,"Agreed signals support clear communication."],
+["Signals and Communication","What is important for a blind lift?",["Proceed from memory","Plan reliable communication","Allow conflicting signals","Disable radios"],1,"Plan communications and backups as required."],
 
-  <footer>
-    <p>Lifting &amp; Rigging Study</p>
-    <p>Practice material only. Follow current site procedures and applicable requirements.</p>
-  </footer>
+["Site Hazards","Why establish an exclusion zone?",["Keep unauthorized people clear","Store tools under loads","Lengthen the lift","Create a shortcut"],0,"Keep people away from suspended and moving loads."],
+["Site Hazards","Where should personnel stand relative to suspended loads?",["Under the load","Between load and fixed objects","Outside the danger area","On the load"],2,"Stay clear of suspended loads and crush zones."],
+["Site Hazards","What is important near overhead power lines?",["Crane paint","Required clearances and controls","Nothing in dry weather","Radio battery"],1,"Follow applicable electrical clearance requirements."],
+["Site Hazards","What if ground may not support outrigger loads?",["Set up anyway","Use random scrap","Assess support and use suitable mats","Extend the boom"],2,"Adequate ground support is essential for stability."],
+["Site Hazards","How should a swinging load be controlled?",["Stand in its path","Use approved controls from safe positions","Put hands underneath","Remove barriers"],1,"Plan the path and use safe approved controls."],
 
-  <script>
-    const answers = {
-      q1: {
-        value: "b",
-        text: "Check the lift plan, equipment condition and site hazards before work starts."
-      },
-      q2: {
-        value: "a",
-        text: "WLL means Working Load Limit. Always follow the marked rating and applicable requirements."
-      },
-      q3: {
-        value: "c",
-        text: "Remove damaged or unidentified gear from service and report it for assessment."
-      },
-      q4: {
-        value: "b",
-        text: "Use the designated signal person and agreed communication method."
-      },
-      q5: {
-        value: "a",
-        text: "Stop and follow the lift plan and safe procedure. Never stand under a suspended load."
-      }
-    };
+["Crane Operation","Why must a crane be level within limits?",["Support stability and rated operation","Polish the hook","Increase load weight","Appearance only"],0,"Follow manufacturer setup and level limits."],
+["Crane Operation","What can a trial lift help verify?",["Balance and rigging security","Exceeding chart limits","Replace inspections","Allow people underneath"],0,"A controlled trial lift can reveal balance issues."],
+["Crane Operation","What if a safety device reports a fault?",["Ignore it","Disable it","Stop and follow procedures","Silence it"],2,"Handle faults according to the manual and site procedure."],
+["Crane Operation","Why is operating radius important?",["Capacity changes with radius","It affects paint","It identifies sling colour","It is always irrelevant"],0,"Use the load chart for the actual radius."],
+["Crane Operation","What is needed before traveling with a load where permitted?",["Any route","Approved travel plan and route checks","Move quickly","Walk beside the load"],1,"Follow the applicable procedure for traveling with loads."],
 
-    document.getElementById("checkBtn").addEventListener("click", () => {
-      let score = 0;
-      let unanswered = 0;
+["Critical Lifts","What is required for a lift meeting critical-lift criteria?",["Treat it as routine","Required approved critical-lift plan","Skip briefing","Use uninspected gear"],1,"Follow current site criteria and approvals."],
+["Critical Lifts","Which operation generally needs special coordination?",["A tandem lift with two cranes","Carrying a hand tool","Walking without a load","Parking a car"],0,"Multi-crane lifts need coordinated planning."],
+["Critical Lifts","Why are tandem lifts complex?",["Load sharing and movements need planning","Each crane always carries half","No communication is needed","Charts do not apply"],0,"Plan load distribution, capacities and movement."],
+["Critical Lifts","What applies to personnel lifting platforms?",["Cargo sling rules only","Specific personnel-lifting controls and approvals","Climb aboard while moving","Ignore wind"],1,"Personnel lifting requires dedicated controls."],
+["Critical Lifts","Can an approved critical-lift method be changed without review?",["Yes if rushed","Only after required review","Yes for small loads","No one needs to know"],1,"Changes require review and authorization."],
 
-      Object.keys(answers).forEach((name, index) => {
-        const selected = document.querySelector(
-          'input[name="' + name + '"]:checked'
-        );
-        const explanation = document.getElementById("e" + (index + 1));
+["Inspection","When should lifting gear be inspected?",["Only after failure","Before use and at required intervals","Only when new","Never if painted"],1,"Follow pre-use and periodic inspection requirements."],
+["Inspection","What if a required inspection record is missing?",["Use it once","Verify compliance before use","Copy another record","Hide paperwork"],1,"Confirm inspection status before using equipment."],
+["Inspection","Why report defects promptly?",["Control hazards before use","Increase paperwork only","Reduce load weight","Avoid inspection"],0,"Reporting supports isolation and corrective action."],
+["Inspection","Who should repair lifting equipment?",["Any worker","Authorized competent personnel","A visitor","Only the signal person"],1,"Repairs require appropriate competence and compliance."],
+["Inspection","How should defective equipment be handled?",["Mix it with good gear","Identify and segregate it","Use next shift","Remove the tag"],1,"Prevent accidental reuse of defective equipment."],
 
-        explanation.hidden = false;
+["Sling Angles","What happens to sling tension as the angle from horizontal becomes shallower?",["It generally increases","It becomes zero","It always halves","It is independent of angle"],0,"Shallow sling angles increase leg tension."],
+["Sling Angles","Why specify the sling-angle reference?",["Horizontal and vertical references differ","All angles are identical","It changes weight","It is formatting only"],0,"A wrong angle reference can produce unsafe calculations."],
+["Sling Angles","Before assuming equal load sharing, what should be checked?",["Geometry and centre of gravity","Matching sling colours","Operator experience only","Paint"],0,"Equal sharing is not automatic."],
+["Sling Angles","What if calculated sling tension exceeds the rating?",["Round down","Stop and review the calculation","Ignore the angle","Use damaged gear"],1,"Do not exceed equipment ratings."],
+["Sling Angles","Why check units in lifting calculations?",["Unit errors can create serious mistakes","Units do not matter","To lengthen answers","Only for exams"],0,"Check units, assumptions, formulas and rounding."],
 
-        if (!selected) {
-          unanswered++;
-          explanation.textContent =
-            "Not answered. Correct answer: " +
-            answers[name].value.toUpperCase() + ". " +
-            answers[name].text;
-        } else if (selected.value === answers[name].value) {
-          score++;
-          explanation.textContent = "Correct. " + answers[name].text;
-        } else {
-          explanation.textContent =
-            "Incorrect. Correct answer: " +
-            answers[name].value.toUpperCase() + ". " +
-            answers[name].text;
-        }
-      });
+["Stop Work","What is the correct response to an unsafe condition?",["Continue","Stop work and make safe","Wait until shift end","Move the barrier"],1,"Use stop-work procedures when conditions are unsafe."],
+["Stop Work","What if a load snags unexpectedly?",["Pull harder","Stop and reassess","Stand underneath","Cut a loaded sling"],1,"Snagging creates unexpected forces."],
+["Stop Work","Why must workers not try to catch a falling load?",["Crushing and impact hazards","It makes the load lighter","It is required","It improves capacity"],0,"Stay clear of the line of fire."],
+["Stop Work","What should follow a near miss?",["Hide it","Report and follow corrective procedures","Continue without inspection","Delete the plan"],1,"Reporting helps prevent recurrence."],
+["Stop Work","When may a stopped lift resume?",["When someone casually agrees","After controls and required checks are complete","After five minutes automatically","Only for heavy loads"],1,"Resume only when conditions are safe and approvals are complete."]
+];
 
-      document.getElementById("result").textContent =
-        "Your score: " + score + " / " +
-        Object.keys(answers).length +
-        (unanswered ? " · Unanswered: " + unanswered : "");
+// Expand 50 core questions into 200 contextualized practice questions.
+const contexts = [
+"at a routine site lift",
+"during a night shift",
+"near an operating work area",
+"with a newly assigned crew"
+];
+const questions=[];
+bank.forEach((item,index)=>{
+  contexts.forEach((context,ci)=>{
+    questions.push({
+      topic:item[0],
+      q:item[1].replace(/\?$/,"")+" "+context+"?",
+      o:item[2],
+      a:item[3],
+      e:item[4]
     });
+  });
+});
 
-    document.getElementById("resetBtn").addEventListener("click", () => {
-      document.querySelectorAll(".explanation").forEach((item) => {
-        item.hidden = true;
-        item.textContent = "";
-      });
-      document.getElementById("result").textContent = "";
-    });
-  </script>
+const root=document.getElementById("questions");
+questions.forEach((item,i)=>{
+  const box=document.createElement("div");
+  box.className="question";
+  const topic=document.createElement("div");
+  topic.className="topic";
+  topic.textContent=item.topic;
+  box.appendChild(topic);
+  const title=document.createElement("p");
+  title.className="qtext";
+  title.textContent=(i+1)+". "+item.q;
+  box.appendChild(title);
+  item.o.forEach((option,j)=>{
+    const label=document.createElement("label");
+    label.className="option";
+    const input=document.createElement("input");
+    input.type="radio";
+    input.name="q"+i;
+    input.value=j;
+    input.addEventListener("change",updateCount);
+    label.appendChild(input);
+    label.appendChild(document.createTextNode(String.fromCharCode(65+j)+". "+option));
+    box.appendChild(label);
+  });
+  const explanation=document.createElement("p");
+  explanation.className="explanation";
+  explanation.hidden=true;
+  explanation.id="exp"+i;
+  box.appendChild(explanation);
+  root.appendChild(box);
+});
+
+function updateCount(){
+  let count=0;
+  questions.forEach((_,i)=>{
+    if(document.querySelector('input[name="q'+i+'"]:checked'))count++;
+  });
+  document.getElementById("score").textContent="Answered: "+count+" / "+questions.length;
+}
+
+document.getElementById("check").addEventListener("click",()=>{
+  let score=0,answered=0;
+  questions.forEach((item,i)=>{
+    const chosen=document.querySelector('input[name="q'+i+'"]:checked');
+    const exp=document.getElementById("exp"+i);
+    exp.hidden=false;
+    exp.className="explanation";
+    if(chosen)answered++;
+    if(chosen && Number(chosen.value)===item.a){
+      score++;
+      exp.classList.add("correct");
+      exp.textContent="Correct. "+item.e;
+    }else{
+      if(chosen)exp.classList.add("wrong");
+      exp.textContent=(chosen?"Incorrect. ":"Not answered. ")+
+        "Correct answer: "+String.fromCharCode(65+item.a)+". "+item.e;
+    }
+  });
+  document.getElementById("score").textContent=
+    "Score: "+score+" / "+questions.length+" • Answered: "+answered+" / "+questions.length;
+});
+
+document.getElementById("reset").addEventListener("click",()=>{
+  document.querySelectorAll('#questions input').forEach(input=>input.checked=false);
+  document.querySelectorAll(".explanation").forEach(exp=>{
+    exp.hidden=true;
+    exp.textContent="";
+    exp.className="explanation";
+  });
+  updateCount();
+  window.scrollTo({top:0,behavior:"smooth"});
+});
+
+function downloadFile(name,content,type){
+  const blob=new Blob([content],{type:type});
+  const url=URL.createObjectURL(blob);
+  const link=document.createElement("a");
+  link.href=url;
+  link.download=name;
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
+  URL.revokeObjectURL(url);
+}
+
+document.getElementById("htmlDownload").addEventListener("click",()=>{
+  downloadFile("aramco-lifting-rigging-200-mcqs.html",
+    "<!DOCTYPE html>\n"+document.documentElement.outerHTML,
+    "text/html;charset=utf-8");
+});
+
+document.getElementById("csvDownload").addEventListener("click",()=>{
+  const rows=[["Topic","Question","Option A","Option B","Option C","Option D","Answer","Explanation"]];
+  questions.forEach(q=>rows.push([
+    q.topic,q.q,...q.o,String.fromCharCode(65+q.a),q.e
+  ]));
+  const csv=rows.map(row=>row.map(value=>
+    '"'+String(value).replace(/"/g,'""')+'"'
+  ).join(",")).join("\r\n");
+  downloadFile("aramco-lifting-rigging-200-mcqs.csv","\ufeff"+csv,"text/csv;charset=utf-8");
+});
+
+document.getElementById("print").addEventListener("click",()=>window.print());
+</script>
 </body>
 </html>
