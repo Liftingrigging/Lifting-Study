@@ -1,48 +1,44 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>100 Lifting & Rigging Calculation Questions</title>
+<title>100 Lifting & Rigging Calculations</title>
 <style>
-:root{--navy:#073763;--blue:#0875d1;--pale:#edf6ff;--green:#007c67;--line:#c9deef}
+:root{--navy:#073763;--blue:#0875d1;--green:#007c67;--line:#c9deef}
 *{box-sizing:border-box}
 body{margin:0;background:#f3f7fb;color:#183047;font-family:Arial,sans-serif;line-height:1.5}
 header{background:linear-gradient(120deg,#06345e,#0875c9);color:white;padding:30px 18px;text-align:center}
-header h1{margin:0 0 8px;font-size:clamp(25px,4vw,38px)}
-header p{margin:0}
+header h1{margin:0;font-size:clamp(25px,4vw,38px)}
 main{max-width:1200px;margin:auto;padding:18px}
-.controls{display:grid;grid-template-columns:2fr 1fr auto auto;gap:10px;margin-bottom:16px}
+.controls{display:grid;grid-template-columns:2fr 1fr auto auto;gap:10px}
 input,select,button{font:inherit;padding:11px;border:1px solid var(--line);border-radius:8px;background:white;min-width:0}
 button{cursor:pointer;background:var(--blue);color:white;border-color:var(--blue);font-weight:bold}
-button.secondary{background:var(--green);border-color:var(--green)}
-.categories{display:flex;flex-wrap:wrap;gap:7px;margin:14px 0 20px}
+.secondary{background:var(--green)}
+.categories{display:flex;flex-wrap:wrap;gap:7px;margin:16px 0}
 .categories button{background:#e1edf8;color:#17476e;border-color:#d2e3f3}
 .categories button.active{background:var(--blue);color:white}
-#count{margin:10px 0;color:#46627c;font-weight:bold}
+#count{font-weight:bold;color:#46627c}
 .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
 .card{background:white;border:1px solid var(--line);border-radius:11px;padding:14px;break-inside:avoid;box-shadow:0 2px 7px #1232}
-.card h2{font-size:16px;margin:0 0 8px;color:var(--navy)}
-.number{display:inline-flex;background:var(--blue);color:white;border-radius:6px;padding:2px 8px;margin-right:6px}
-.topic{font-size:12px;color:#52718b;text-transform:uppercase;letter-spacing:.04em;font-weight:bold}
+.card h2{font-size:16px;margin:5px 0 8px;color:var(--navy)}
+.number{display:inline-block;background:var(--blue);color:white;border-radius:6px;padding:2px 8px;margin-right:6px}
+.topic{font-size:12px;color:#52718b;text-transform:uppercase;font-weight:bold}
 .diagram{margin:10px 0;padding:6px;background:#f6fbff;border-radius:8px}
-.diagram svg{display:block;width:100%;height:auto;max-height:155px}
-.calc{background:#edf6ff;border-radius:8px;padding:10px;margin-top:8px;white-space:pre-line;font-family:Arial,sans-serif;font-size:14px}
+.diagram svg{display:block;width:100%;height:auto;max-height:180px}
+.calc{background:#edf6ff;border-radius:8px;padding:10px;margin-top:8px;white-space:pre-line;font-size:14px}
 .answer{background:#e1f6ef;border-left:4px solid #009779;border-radius:6px;padding:10px;margin-top:8px;color:#006b59;font-weight:bold}
-.note{font-size:13px;color:#50677a}
-footer{background:var(--navy);color:white;padding:20px;text-align:center;margin-top:24px}
+.note{font-size:13px;color:#50677c}
+footer{background:var(--navy);color:white;padding:18px;text-align:center;margin-top:24px}
 @media(max-width:760px){.controls{grid-template-columns:1fr 1fr}.controls input{grid-column:1/-1}.grid{grid-template-columns:1fr}}
 @media print{
  body{background:white;color:#111;font-size:10pt}
- header{padding:12px;background:#fff!important;color:#111;border-bottom:2px solid #333}
+ header{background:white!important;color:#111;border-bottom:2px solid #333}
  main{max-width:none;padding:0}
  .controls,.categories,.no-print,footer{display:none!important}
  .grid{grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
  .card{box-shadow:none;border:1px solid #aaa;padding:8px}
- .diagram{background:white}
  .calc,.answer{print-color-adjust:exact;-webkit-print-color-adjust:exact}
- .card h2{font-size:11pt}
 }
 </style>
 </head>
@@ -50,29 +46,31 @@ footer{background:var(--navy);color:white;padding:20px;text-align:center;margin-
 <header>
 <h1>TÜV Lifting &amp; Rigging</h1>
 <p>100 Calculation Questions &amp; Answers</p>
-<p>Technical diagrams · Lifting interview practice · Study guide</p>
+<p>Technical diagrams · Interview practice</p>
 </header>
+
 <main>
 <div class="controls no-print">
-<input id="search" type="search" placeholder="Search questions, formulas or answers…" aria-label="Search questions">
-<select id="topic" aria-label="Filter by topic"><option value="">All topics</option></select>
+<input id="search" type="search" placeholder="Search questions, formulas or answers">
+<select id="topic"><option value="">All topics</option></select>
 <button onclick="window.print()">Print</button>
 <button class="secondary" onclick="window.print()">Save as PDF</button>
 </div>
 <div class="categories no-print" id="categories"></div>
 <p id="count" aria-live="polite"></p>
 <div class="grid" id="questions"></div>
-<p class="note">Educational practice only. These examples do not replace a crane manufacturer's load chart, an approved lift plan, certified rigging data, or a competent person's engineering assessment. Actual crane capacity depends on configuration, radius, reeving, counterweight, ground conditions and other factors. Sling-force examples assume idealized load sharing unless stated otherwise.</p>
+<p class="note">Educational practice only. Diagrams are schematic and not to scale. Never use these examples to approve an actual lift. Follow the current crane load chart, approved lift plan, site procedures and competent-person instructions.</p>
 </main>
-<footer>TÜV Lifting &amp; Rigging Study · Plan carefully · Calculate correctly · Lift safely</footer>
+<footer>Lifting &amp; Rigging Study · Calculate carefully · Lift safely</footer>
+
 <script>
 const groups = [
 ["Boom & Crane Geometry",[
 ["A 20 m radius is required at a boom angle of 45°. Find ideal boom length.","L = R / cos θ = 20 / cos 45° = 28.28 m.","28.28 m"],
 ["A 30 m boom is at 60°. Find vertical reach above the pivot.","H = L sin θ = 30 × 0.866 = 25.98 m.","25.98 m"],
-["A 25 m boom is at 50°. Find horizontal radius.","R = L cos θ = 25 × 0.6428 = 16.07 m.","16.07 m"],
+["A 25 m boom is at 50°. Find horizontal radius.","R = L cos θ = 25 × cos 50° = 16.07 m.","16.07 m"],
 ["Pivot height is 2.5 m. A 24 m boom is at 60°. Find tip height.","H = 2.5 + 24 sin 60° = 23.28 m.","23.28 m"],
-["Required vertical reach is 18 m at 45°. Find ideal boom length.","L = H / sin θ = 18 / 0.7071 = 25.46 m.","25.46 m"],
+["Required vertical reach is 18 m at 45°. Find ideal boom length.","L = H / sin θ = 18 / sin 45° = 25.46 m.","25.46 m"],
 ["A 32 m boom has 20 m radius. Find angle above horizontal.","θ = cos⁻¹(20/32) ≈ 51.32°.","51.32°"],
 ["A 28 m boom is at 40° with pivot 3 m above ground. Find tip height.","H = 3 + 28 sin 40° ≈ 21.00 m.","21.00 m"],
 ["A 26 m boom reaches 20 m above its pivot. Find boom angle.","θ = sin⁻¹(20/26) ≈ 50.28°.","50.28°"],
@@ -81,10 +79,10 @@ const groups = [
 ]],
 ["Hook Height & Clearance",[
 ["Pivot is 2 m above ground. A 25 m boom is at 60° and hook block hangs 3 m below tip. Find hook height.","H = 2 + 25 sin60° − 3 = 20.65 m.","20.65 m"],
-["A hook is 18 m high. A 4.5 m load needs 1.5 m clearance. What is remaining vertical space after the load and clearance allowance?","18 − 4.5 − 1.5 = 12 m.","12 m, excluding other rigging geometry"],
+["A hook is 18 m high. A 4.5 m load needs 1.5 m clearance. Find remaining vertical space.","18 − 4.5 − 1.5 = 12 m.","12 m, excluding other rigging geometry"],
 ["Hook height is 17 m and load top is at 12 m. Find separation.","17 − 12 = 5 m.","5 m"],
 ["Hook must rise 2.4 m at 0.3 m/s. Find ideal hoisting time.","t = d/v = 2.4/0.3 = 8 s.","8 seconds"],
-["A load is 3.8 m high and needs 1.2 m clearance. Find required height above its support level, excluding rigging.","3.8 + 1.2 = 5.0 m.","5.0 m plus rigging depth"],
+["A load is 3.8 m high and needs 1.2 m clearance. Find required height above support, excluding rigging.","3.8 + 1.2 = 5.0 m.","5.0 m plus rigging depth"],
 ["Hook elevation is 22 m and rigging vertical depth is 2.8 m. Find load-top elevation.","22 − 2.8 = 19.2 m.","19.2 m"],
 ["A hook rises 9 m in 45 seconds. Find average speed.","9/45 = 0.20 m/s.","0.20 m/s"],
 ["A load lowers 6 m at 0.25 m/s. Find time.","6/0.25 = 24 s.","24 seconds"],
@@ -184,75 +182,158 @@ const groups = [
 ]]
 ];
 
-const svg = `
-<svg viewBox="0 0 300 118" role="img" aria-label="Simplified technical lifting diagram">
- <defs><marker id="arrow" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto"><path d="M0,0 L6,3 L0,6 Z" fill="#0875d1"/></marker></defs>
- <path d="M18 94 H282" stroke="#6d879b" stroke-width="1.5" stroke-dasharray="4 3"/>
- <path d="M28 90 L75 90 L57 80 Z" fill="#9cb6c8" stroke="#345a78"/>
- <path d="M49 82 L130 22" stroke="#0875d1" stroke-width="7" stroke-linecap="round"/>
- <path d="M130 22 L130 61" stroke="#263e53" stroke-width="2"/>
- <path d="M123 61 Q130 71 137 61" fill="none" stroke="#263e53" stroke-width="2"/>
- <path d="M130 22 L130 94" stroke="#0875d1" stroke-dasharray="3 3"/>
- <path d="M49 104 H130" stroke="#0875d1" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
- <text x="83" y="115" font-size="10" fill="#17476e" text-anchor="middle">Radius</text>
- <text x="141" y="45" font-size="10" fill="#17476e">Hook</text>
- <path d="M130 22 L137 29" stroke="#263e53" stroke-width="2"/>
- <path d="M49 82 A24 24 0 0 1 69 78" fill="none" stroke="#ef8c24" stroke-width="2"/>
- <text x="73" y="72" font-size="10" fill="#a95c00">Angle</text>
- <rect x="178" y="43" width="99" height="44" rx="5" fill="#e7f2fc" stroke="#b7d4ec"/>
- <text x="187" y="59" font-size="10" fill="#17476e">Calculation</text>
- <text x="187" y="73" font-size="9" fill="#17476e">Use formula</text>
- </svg>`;
+const escapeHTML = text => String(text).replace(/[&<>"']/g, c => ({
+ "&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"
+}[c]));
 
-let all = [];
-groups.forEach(([topic, qs]) => qs.forEach(([q, calc, ans]) =>
- all.push({topic, q, calc, ans})
-));
+function makeSVG(topic, n) {
+ const B="#0875d1", D="#24465f", O="#ef8c24", G="#009779";
+ let shapes="", label="";
+ if(topic==="Boom & Crane Geometry" || topic==="Working Radius & Load Moment"){
+   const angles=[35,45,50,60,40,52,48,58,42,30];
+   const a=angles[(n-1)%angles.length];
+   const x=72+Math.round(1.55*a), y=103-Math.round(1.2*a);
+   shapes=`<path d="M18 118H300" stroke="#8298a9" stroke-width="2"/>
+   <rect x="22" y="102" width="54" height="13" rx="3" fill="#f3b64a" stroke="${D}"/>
+   <circle cx="34" cy="117" r="6" fill="${D}"/><circle cx="62" cy="117" r="6" fill="${D}"/>
+   <path d="M55 102L${x} ${y}" stroke="${B}" stroke-width="7" stroke-linecap="round"/>
+   <path d="M55 102H${x}M${x} ${y}V102" stroke="${D}" stroke-dasharray="4 3" fill="none"/>
+   <path d="M78 102A23 23 0 0 0 ${Math.round(78+20*Math.cos(a*Math.PI/180))} ${Math.round(102-20*Math.sin(a*Math.PI/180))}" fill="none" stroke="${O}" stroke-width="2"/>
+   <text x="82" y="91" font-size="11" fill="#a65a00">${a}°</text>
+   <text x="112" y="135" font-size="11" fill="${D}">Horizontal radius</text>
+   <path d="M55 126H${x}" stroke="${B}"/><text x="180" y="20" font-size="12" fill="${D}">Boom geometry</text>`;
+   label="Crane boom geometry and working radius";
+ } else if(topic==="Hook Height & Clearance"){
+   const h=48+(n%4)*9;
+   shapes=`<path d="M20 122H300" stroke="${D}" stroke-width="2"/>
+   <path d="M45 116L130 22" stroke="${B}" stroke-width="7" stroke-linecap="round"/>
+   <circle cx="130" cy="22" r="5" fill="${O}"/><path d="M130 22V63q0 9 8 9q8 0 8-9" fill="none" stroke="${D}" stroke-width="2"/>
+   <path d="M146 72V${h}" stroke="${D}" stroke-width="2"/><rect x="123" y="${h}" width="50" height="${122-h}" fill="#b6ccdc" stroke="${D}"/>
+   <path d="M194 22V122" stroke="${B}" stroke-dasharray="3 3"/><text x="202" y="65" font-size="11" fill="${D}">Hook height</text>
+   <text x="160" y="139" text-anchor="middle" font-size="11" fill="${D}">Load and clearance</text>`;
+   label="Hook height and suspended load clearance";
+ } else if(topic==="Sling Angles & Rigging"){
+   const a=[60,30,90,45,60,60,45,30,90,60][(n-1)%10];
+   shapes=`<rect x="74" y="104" width="172" height="24" fill="#aabfce" stroke="${D}" stroke-width="1.5"/>
+   <path d="M160 24L88 104M160 24L232 104" stroke="${B}" stroke-width="4" fill="none"/>
+   <circle cx="160" cy="24" r="7" fill="${O}" stroke="${D}"/>
+   <path d="M101 104A23 23 0 0 1 97 84" fill="none" stroke="${O}" stroke-width="2"/>
+   <text x="93" y="80" font-size="11" fill="#a65a00">${a}°</text>
+   <text x="160" y="119" text-anchor="middle" font-size="11" fill="${D}">Load</text>
+   <path d="M160 34V69" stroke="${G}" stroke-width="2"/><path d="M155 63L160 70L165 63" fill="none" stroke="${G}" stroke-width="2"/>
+   <text x="172" y="56" font-size="11" fill="${D}">Tension</text>`;
+   label="Sling legs, angle, tension and load";
+ } else if(topic==="Material Weight & Units"){
+   const dims=[["4 m","2 m","20 mm"],["6 m","Beam","45 kg/m"],["10 m","Pipe","kg/m"]][(n-1)%3];
+   shapes=`<path d="M45 38H265V104H45Z" fill="#c4d8e6" stroke="${D}" stroke-width="2"/>
+   <path d="M45 25V112M265 25V112M35 31H275" stroke="${B}" stroke-dasharray="4 3"/>
+   <text x="155" y="62" text-anchor="middle" font-size="13" fill="${D}">${dims[0]} × ${dims[1]}</text>
+   <text x="155" y="81" text-anchor="middle" font-size="12" fill="${D}">${dims[2]}</text>
+   <text x="155" y="132" text-anchor="middle" font-size="11" fill="${B}">Volume × density = mass</text>`;
+   label="Material dimensions and weight calculation";
+ } else if(topic==="Centre of Gravity"){
+   const x=[160,125,195,145,205,115,180,100,220,155][(n-1)%10];
+   shapes=`<rect x="35" y="54" width="250" height="35" fill="#b6ccdc" stroke="${D}" stroke-width="1.5"/>
+   <path d="M45 43V100M275 43V100M45 105H275" stroke="${B}" fill="none"/>
+   <circle cx="${x}" cy="71" r="9" fill="${G}" stroke="white" stroke-width="2"/>
+   <path d="M${x} 35V52" stroke="${G}" stroke-width="2"/>
+   <text x="${x}" y="25" text-anchor="middle" font-size="11" fill="${D}">CG</text>
+   <text x="160" y="119" text-anchor="middle" font-size="11" fill="${D}">Load length and support distances</text>`;
+   label="Centre of gravity and lifting point positions";
+ } else if(topic==="Tandem & Tailing"){
+   const split=[70,50,55,80,60,65,60,80,25,50][(n-1)%10];
+   shapes=`<path d="M25 119H295" stroke="${D}" stroke-width="2"/>
+   <rect x="98" y="92" width="124" height="22" fill="#b6ccdc" stroke="${D}"/>
+   <path d="M55 42L80 92M265 42L240 92" stroke="${B}" stroke-width="5"/>
+   <path d="M40 42H72M248 42H280" stroke="${D}" stroke-width="3"/>
+   <circle cx="55" cy="36" r="6" fill="${O}"/><circle cx="265" cy="36" r="6" fill="${O}"/>
+   <text x="25" y="23" font-size="11" fill="${D}">Crane A</text><text x="232" y="23" font-size="11" fill="${D}">Crane B</text>
+   <text x="160" y="106" text-anchor="middle" font-size="11" fill="${D}">Load</text>
+   <text x="160" y="137" text-anchor="middle" font-size="11" fill="${B}">Illustrative share: ${split}% / ${100-split}%</text>`;
+   label="Two-crane tandem or tailing lift and load share";
+ } else if(topic==="Capacity Percentage"){
+   const p=[67,80,75,60,75,80,64,85,70,86][(n-1)%10];
+   shapes=`<rect x="35" y="42" width="250" height="28" rx="5" fill="#d9e6ef" stroke="${D}"/>
+   <rect x="35" y="42" width="${2.5*p}" height="28" rx="5" fill="${p>=85?O:B}"/>
+   <text x="160" y="28" text-anchor="middle" font-size="12" fill="${D}">Rated capacity = 100%</text>
+   <text x="160" y="60" text-anchor="middle" font-size="12" fill="white" font-weight="bold">${p}% used (example)</text>
+   <text x="160" y="99" text-anchor="middle" font-size="12" fill="${D}">Load ÷ chart capacity × 100</text>
+   <text x="160" y="120" text-anchor="middle" font-size="10" fill="#a65a00">Use actual load chart</text>`;
+   label="Crane capacity utilization diagram";
+ } else if(topic==="Ground Pressure"){
+   shapes=`<path d="M28 34H292" stroke="${D}" stroke-width="2"/>
+   <rect x="72" y="37" width="176" height="38" fill="#a9bdcc" stroke="${D}" stroke-width="1.5"/>
+   <path d="M95 76V107M135 76V107M175 76V107M215 76V107" stroke="${B}" stroke-width="3"/>
+   <path d="M90 100L95 108L100 100M130 100L135 108L140 100M170 100L175 108L180 100M210 100L215 108L220 100" stroke="${B}" fill="none"/>
+   <rect x="49" y="111" width="222" height="12" fill="#d5bd91" stroke="#90784c"/>
+   <text x="160" y="58" text-anchor="middle" font-size="12" fill="${D}">Outrigger reaction</text>
+   <text x="160" y="139" text-anchor="middle" font-size="11" fill="${D}">Pressure = force ÷ area</text>`;
+   label="Outrigger reaction, mat and ground pressure";
+ } else {
+   const mode=(n-1)%4;
+   if(mode===0){
+    shapes=`<rect x="72" y="56" width="176" height="42" fill="#c4d8e6" stroke="${D}" stroke-width="2"/>
+    <path d="M90 35V53M230 35V53" stroke="${B}" stroke-width="2"/>
+    <text x="160" y="80" text-anchor="middle" font-size="12" fill="${D}">Load + rigging mass</text>
+    <text x="160" y="124" text-anchor="middle" font-size="12" fill="${B}">Total = all suspended items</text>`;
+    label="Load and rigging mass addition diagram";
+   }else if(mode===1){
+    shapes=`<path d="M35 75H285" stroke="${D}" stroke-width="3"/><path d="M45 48H275" stroke="${B}" stroke-width="2"/>
+    <path d="M45 42V55M275 42V55" stroke="${B}" stroke-width="2"/>
+    <path d="M65 65V85M95 65V85M125 65V85M155 65V85M185 65V85M215 65V85M245 65V85" stroke="${O}" stroke-width="3"/>
+    <text x="160" y="31" text-anchor="middle" font-size="12" fill="${D}">Distance / time</text>
+    <text x="160" y="112" text-anchor="middle" font-size="12" fill="${B}">Speed = distance ÷ time</text>`;
+    label="Movement distance and speed calculation";
+   }else if(mode===2){
+    shapes=`<rect x="70" y="55" width="180" height="44" fill="#c4d8e6" stroke="${D}" stroke-width="2"/>
+    <path d="M160 20V51" stroke="${B}" stroke-width="3"/>
+    <path d="M152 42L160 52L168 42" stroke="${B}" fill="none" stroke-width="2"/>
+    <text x="160" y="80" text-anchor="middle" font-size="12" fill="${D}">Load mass</text>
+    <text x="160" y="119" text-anchor="middle" font-size="12" fill="${B}">Energy = mass × g × height</text>`;
+    label="Load height and potential energy";
+   }else{
+    shapes=`<path d="M50 45H270M50 45V104M270 45V104" stroke="${B}" stroke-width="2" fill="none"/>
+    <rect x="75" y="60" width="170" height="32" fill="#c4d8e6" stroke="${D}" stroke-width="2"/>
+    <text x="160" y="80" text-anchor="middle" font-size="12" fill="${D}">Length / unit conversion</text>
+    <text x="160" y="124" text-anchor="middle" font-size="12" fill="${B}">Check units before calculating</text>`;
+    label="Length and unit conversion illustration";
+   }
+ }
+ return `<svg viewBox="0 0 320 145" role="img" aria-label="${escapeHTML(label)}" xmlns="http://www.w3.org/2000/svg"><rect x="1" y="1" width="318" height="143" rx="7" fill="#f6fbff" stroke="#d7e8f6"/>${shapes}</svg>`;
+}
 
-const topicSelect = document.getElementById("topic");
-const categoryBar = document.getElementById("categories");
-groups.forEach(([topic]) => {
- const opt = document.createElement("option");
- opt.value = topic; opt.textContent = topic; topicSelect.appendChild(opt);
- const btn = document.createElement("button");
- btn.textContent = topic; btn.onclick = () => {
-  topicSelect.value = topic;
-  document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
-  btn.classList.add("active"); render();
- };
+const all=[];
+groups.forEach(([topic,qs])=>qs.forEach(([q,calc,ans])=>all.push({topic,q,calc,ans})));
+const topicSelect=document.getElementById("topic");
+const categoryBar=document.getElementById("categories");
+groups.forEach(([topic])=>{
+ const opt=document.createElement("option");opt.value=topic;opt.textContent=topic;topicSelect.appendChild(opt);
+ const btn=document.createElement("button");btn.textContent=topic;
+ btn.onclick=()=>{topicSelect.value=topic;document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));btn.classList.add("active");render();};
  categoryBar.appendChild(btn);
 });
-const allBtn = document.createElement("button");
-allBtn.textContent = "All categories"; allBtn.className = "active";
-allBtn.onclick = () => {
- topicSelect.value = "";
- document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));
- allBtn.classList.add("active"); render();
-};
+const allBtn=document.createElement("button");allBtn.textContent="All categories";allBtn.className="active";
+allBtn.onclick=()=>{topicSelect.value="";document.querySelectorAll(".categories button").forEach(b=>b.classList.remove("active"));allBtn.classList.add("active");render();};
 categoryBar.prepend(allBtn);
 
 function render(){
- const term = document.getElementById("search").value.toLowerCase().trim();
- const topic = topicSelect.value;
- const found = all.filter(item =>
-  (!topic || item.topic === topic) &&
-  (!term || (item.topic+" "+item.q+" "+item.calc+" "+item.ans).toLowerCase().includes(term))
- );
- document.getElementById("count").textContent =
-  `Showing ${found.length} of ${all.length} questions`;
- document.getElementById("questions").innerHTML = found.map(item => {
-  const n = all.indexOf(item)+1;
+ const term=document.getElementById("search").value.toLowerCase().trim();
+ const topic=topicSelect.value;
+ const found=all.filter(item=>(!topic||item.topic===topic)&&(!term||(item.topic+" "+item.q+" "+item.calc+" "+item.ans).toLowerCase().includes(term)));
+ document.getElementById("count").textContent=`Showing ${found.length} of ${all.length} questions`;
+ document.getElementById("questions").innerHTML=found.map(item=>{
+  const n=all.indexOf(item)+1;
   return `<article class="card">
-   <div class="topic">${item.topic}</div>
-   <h2><span class="number">${n}</span>${item.q}</h2>
-   <div class="diagram">${svg}</div>
-   <div class="calc"><strong>Calculation / method</strong>\n${item.calc}</div>
-   <div class="answer">Answer: ${item.ans}</div>
+   <div class="topic">${escapeHTML(item.topic)}</div>
+   <h2><span class="number">${n}</span>${escapeHTML(item.q)}</h2>
+   <div class="diagram">${makeSVG(item.topic,n)}</div>
+   <div class="calc"><strong>Calculation / method</strong>\n${escapeHTML(item.calc)}</div>
+   <div class="answer">Answer: ${escapeHTML(item.ans)}</div>
   </article>`;
  }).join("");
 }
-document.getElementById("search").addEventListener("input", render);
-topicSelect.addEventListener("change", render);
+document.getElementById("search").addEventListener("input",render);
+topicSelect.addEventListener("change",render);
 render();
 </script>
 </body>
