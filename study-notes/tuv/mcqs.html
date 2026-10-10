@@ -1,770 +1,402 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>TÜV Lifting & Rigging MCQ Practice</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TÜV Rigging MCQ Practice | Lifting &amp; Rigging Study Hub</title>
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #eef3f7;
-    color: #102a43;
-}
-
-header {
-    background: #062b4c;
-    color: white;
-    padding: 30px 20px;
-    text-align: center;
-}
-
-header h1 {
-    margin: 0 0 8px;
-}
-
-header p {
-    margin: 0;
-    color: #cfe8f7;
-}
-
-.container {
-    max-width: 900px;
-    margin: 30px auto;
-    padding: 20px;
-}
-
-.progress {
-    background: white;
-    padding: 15px;
-    border-radius: 10px;
-    margin-bottom: 20px;
-    font-weight: bold;
-}
-
-.question-box {
-    background: white;
-    padding: 25px;
-    border-radius: 12px;
-    box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-}
-
-.question-number {
-    color: #1677b7;
-    font-weight: bold;
-    margin-bottom: 10px;
-}
-
-.question {
-    font-size: 21px;
-    font-weight: bold;
-    line-height: 1.5;
-    margin-bottom: 20px;
-}
-
-.option {
-    display: block;
-    width: 100%;
-    text-align: left;
-    padding: 14px;
-    margin: 10px 0;
-    border: 2px solid #d7e1e8;
-    background: #f8fafc;
-    border-radius: 8px;
-    cursor: pointer;
-    font-size: 16px;
-}
-
-.option:hover {
-    background: #eaf5fb;
-}
-
-.option.correct {
-    background: #d9f7df;
-    border-color: #2e8b57;
-}
-
-.option.wrong {
-    background: #ffe0e0;
-    border-color: #c62828;
-}
-
-.explanation {
-    margin-top: 20px;
-    padding: 15px;
-    background: #eef7fc;
-    border-left: 5px solid #1677b7;
-    display: none;
-    line-height: 1.6;
-}
-
-.buttons {
-    display: flex;
-    gap: 10px;
-    margin-top: 25px;
-    flex-wrap: wrap;
-}
-
-button {
-    border: none;
-    border-radius: 8px;
-    padding: 13px 20px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.next-btn {
-    background: #1677b7;
-    color: white;
-}
-
-.next-btn:disabled {
-    background: #aab7c4;
-    cursor: not-allowed;
-}
-
-.restart-btn {
-    background: #062b4c;
-    color: white;
-}
-
-.result {
-    display: none;
-    background: white;
-    padding: 30px;
-    border-radius: 12px;
-    text-align: center;
-}
-
-.result h2 {
-    color: #062b4c;
-}
-
-.score {
-    font-size: 38px;
-    font-weight: bold;
-    color: #1677b7;
-    margin: 20px;
-}
-
-.warning {
-    margin-top: 25px;
-    padding: 15px;
-    background: #fff4d6;
-    border-left: 5px solid #d89b00;
-    line-height: 1.6;
-}
-
-@media(max-width:600px) {
-    .container {
-        padding: 12px;
-    }
-
-    .question {
-        font-size: 18px;
-    }
-
-    .option {
-        font-size: 15px;
-    }
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f3f6f9;color:#243447;line-height:1.6}
+header{background:#082b49;color:#fff;text-align:center;padding:26px 16px}
+header h1{margin:0 0 6px;font-size:clamp(25px,4vw,36px)}
+header p{margin:0}
+nav{background:#061f35;padding:10px;text-align:center}
+nav a{color:#fff;text-decoration:none;font-weight:bold;padding:8px 12px;display:inline-block}
+main{width:min(950px,94%);margin:24px auto}
+.intro,.quiz-card,.results{background:#fff;border:1px solid #dbe3eb;border-radius:12px;padding:22px;margin-bottom:18px;box-shadow:0 3px 10px rgba(20,40,60,.05)}
+h2{color:#082b49;margin-top:0}
+.note{background:#fff7df;border-left:4px solid #d6a42a;padding:12px 14px;border-radius:5px}
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;justify-content:space-between;margin:16px 0}
+select,button{font:inherit;border-radius:7px;padding:10px 13px}
+select{border:1px solid #b9c7d4;background:#fff;max-width:100%}
+button{border:0;background:#0b5c87;color:#fff;font-weight:bold;cursor:pointer}
+button:hover{background:#083e5c}
+button:disabled{opacity:.45;cursor:not-allowed}
+button.secondary{background:#e5edf3;color:#082b49}
+.progress-wrap{height:9px;background:#e3eaf0;border-radius:99px;overflow:hidden;margin:12px 0}
+.progress{height:100%;width:0;background:#0b7a53;transition:width .2s}
+.meta{display:flex;flex-wrap:wrap;gap:8px;color:#5b6c7c;font-size:14px}
+.question{font-size:19px;font-weight:bold;margin:14px 0}
+.option{display:flex;align-items:flex-start;gap:10px;padding:12px;border:1px solid #d6e0e8;border-radius:8px;margin:9px 0;cursor:pointer}
+.option:hover{background:#f5f9fc}
+.option input{margin-top:6px;flex-shrink:0}
+.option.correct{border-color:#20845a;background:#eaf7f0}
+.option.wrong{border-color:#c43d3d;background:#fff0f0}
+.feedback{padding:12px;border-radius:8px;margin-top:12px}
+.feedback.good{background:#eaf7f0;color:#155b3b}
+.feedback.bad{background:#fff0f0;color:#8a2525}
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+.results{display:none}
+.score-big{font-size:34px;font-weight:bold;color:#0b5c87}
+footer{text-align:center;background:#082b49;color:white;padding:16px;margin-top:30px}
+@media(max-width:600px){.intro,.quiz-card,.results{padding:16px}.question{font-size:17px}}
 </style>
 </head>
-
 <body>
-
 <header>
-    <h1>TÜV Lifting & Rigging MCQ Practice</h1>
-    <p>Rigging • Cranes • Safety • Calculations</p>
+<h1>TÜV Rigging MCQ Practice</h1>
+<p>100 practice questions for lifting and rigging study</p>
 </header>
-
-<div class="container">
-
-    <div class="progress" id="progress"></div>
-
-    <div class="question-box" id="quizBox">
-
-        <div class="question-number" id="questionNumber"></div>
-
-        <div class="question" id="question"></div>
-
-        <div id="options"></div>
-
-        <div class="explanation" id="explanation"></div>
-
-        <div class="buttons">
-            <button class="next-btn" id="nextBtn" disabled>
-                Next Question
-            </button>
-
-            <button class="restart-btn" id="restartBtn">
-                Restart
-            </button>
-        </div>
-
-    </div>
-
-    <div class="result" id="result">
-
-        <h2>Test Complete</h2>
-
-        <div class="score" id="score"></div>
-
-        <p id="resultMessage"></p>
-
-        <button class="restart-btn" onclick="restartQuiz()">
-            Try Again
-        </button>
-
-    </div>
-
-    <div class="warning">
-        <strong>Study Notice:</strong><br>
-        These questions are for study and knowledge practice only.
-        They do not replace an approved lift plan, manufacturer's
-        load chart, accessory certification, applicable standards,
-        site procedures, or competent-person verification.
-    </div>
-
+<nav>
+<a href="../../index.html">Home</a>
+<a href="../index.html">TÜV Study Notes</a>
+<a href="../../calculation.html">Calculations</a>
+</nav>
+<main>
+<section class="intro">
+<h2>100-question practice quiz</h2>
+<p>Practice inspection, lifting accessories, sling angles, load control, crane charts, communication, lift planning and safety.</p>
+<div class="note">
+<strong>Study notice:</strong> These are original practice questions aligned with publicly described rigging competency topics. They are not official or guaranteed TÜV examination questions. Always follow current manufacturer instructions, applicable standards, your approved lift plan and site procedures. Simplified calculation questions are for learning only.
 </div>
-
+<div class="toolbar">
+<label for="mode">Quiz mode:
+<select id="mode">
+<option value="all">All 100 questions</option>
+<option value="topic">Selected topic</option>
+<option value="random">Random 25 questions</option>
+</select>
+</label>
+<label for="topicFilter">Topic:
+<select id="topicFilter">
+<option value="all">All topics</option>
+</select>
+</label>
+<button id="startBtn">Start / Restart</button>
+</div>
+<div class="meta">
+<span>100 original practice questions</span><span>•</span>
+<span>Instant feedback and explanations</span><span>•</span>
+<span>Score tracking</span>
+</div>
+</section>
+<section class="quiz-card" id="quizCard">
+<div class="meta">
+<span id="counter">Press Start to begin</span>
+<span id="topicLabel"></span>
+</div>
+<div class="progress-wrap"><div class="progress" id="progress"></div></div>
+<div id="questionArea">
+<p>Select a quiz mode and press <strong>Start / Restart</strong>.</p>
+</div>
+<div class="controls">
+<button id="checkBtn">Check answer</button>
+<button id="nextBtn" class="secondary">Next question</button>
+</div>
+</section>
+<section class="results" id="results">
+<h2>Quiz results</h2>
+<div class="score-big" id="scoreBig"></div>
+<p id="scoreText"></p>
+<div id="topicScores"></div>
+<button id="reviewBtn">Review missed questions</button>
+<button id="restartFromResults" class="secondary">Try again</button>
+</section>
+</main>
+<footer>Learning resource for safer lifting and rigging operations.</footer>
 <script>
+    const QUESTIONS = [
+{topic:"Inspection",q:"Before using a lifting sling, what should the rigger do first?",options:["Use it if it looks clean","Carry out a pre-use inspection and verify identification/WLL","Test it by shock loading","Ask another worker to guess its capacity"],answer:1,explanation:"Inspect for damage, confirm identification and capacity, and follow the site's inspection procedure."},
+{topic:"Inspection",q:"A webbing sling has a cut through its load-bearing webbing. What is the safest action?",options:["Tie a knot around the cut","Use it for a lighter load","Remove it from service and report it","Cover the cut with tape"],answer:2,explanation:"A cut in load-bearing webbing can compromise strength. Do not use it."},
+{topic:"Inspection",q:"The identification tag on a sling is missing and its WLL cannot be verified. What should you do?",options:["Estimate capacity from its width","Use two slings to be safe","Remove it from service until properly identified","Use it only for a short lift"],answer:2,explanation:"Capacity must be known and verified; never guess a sling's WLL."},
+{topic:"Inspection",q:"What is the correct response to a shackle with a visibly bent pin?",options:["Straighten the pin with a hammer","Remove it from service","Use it with the nut extra tight","Use it only in a basket hitch"],answer:1,explanation:"Bent or damaged components must not be used."},
+{topic:"Inspection",q:"Why must lifting accessories have traceable identification?",options:["For appearance only","To identify capacity, manufacturer and applicable records","To make the sling heavier","To replace pre-use inspection"],answer:1,explanation:"Identification supports safe selection, capacity verification and traceability."},
+{topic:"Inspection",q:"A wire-rope sling has broken wires beyond the applicable rejection limit. What is required?",options:["Lubricate and use it","Remove it from service and have it assessed per procedure","Use it at half capacity without approval","Cut off the damaged section on site"],answer:1,explanation:"Apply the manufacturer's and applicable standard's rejection criteria."},
+{topic:"Inspection",q:"What should happen if a hook safety latch is damaged or missing where required?",options:["Ignore it if the hook is large","Secure the latch with wire","Stop use and report the defect","Use only with a tag line"],answer:2,explanation:"Defective safety devices require action under site procedures."},
+{topic:"Inspection",q:"What is the purpose of periodic thorough examination of lifting accessories?",options:["To eliminate all pre-use checks","To identify deterioration and verify continued suitability","To increase the WLL","To make accessories interchangeable"],answer:1,explanation:"Thorough examination complements, but does not replace, pre-use inspection."},
+{topic:"Inspection",q:"A chain sling has a stretched link. What should the rigger do?",options:["Use it only vertically","Heat it and reshape it","Remove it from service","Shorten it with a knot"],answer:2,explanation:"Stretching may indicate overload or damage."},
+{topic:"Inspection",q:"Who should decide whether a damaged lifting accessory can return to service?",options:["Any nearby worker","A competent person following the approved procedure and manufacturer guidance","The crane operator alone in every case","The person who owns it"],answer:1,explanation:"Return-to-service decisions must follow competent-person and site requirements."},
 
-const questions = [
+{topic:"WLL & Selection",q:"What does WLL mean?",options:["The weight of the sling itself","Working Load Limit stated for a defined use/configuration","The breaking load in every situation","The crane's total weight"],answer:1,explanation:"WLL is the manufacturer's rated limit for specified conditions and configuration."},
+{topic:"WLL & Selection",q:"When selecting a sling, which factor is essential?",options:["Colour alone","Load weight, hitch, angle, edge/contact conditions and sling rating","The sling's age only","The shortest available sling in every case"],answer:1,explanation:"Select equipment based on the full lift conditions and manufacturer data."},
+{topic:"WLL & Selection",q:"Can a sling's colour alone prove its WLL?",options:["Yes, colour always proves exact capacity","No; read the identification and verify manufacturer rating","Yes, if it is new","Only for wire-rope slings"],answer:1,explanation:"Colour coding is only an aid where used; verify the label and rating."},
+{topic:"WLL & Selection",q:"What does a sling's breaking strength represent?",options:["Its routine working limit","The load at which failure occurs under defined test conditions","The weight of the sling","The crane's rated capacity"],answer:1,explanation:"Breaking strength is not the same as WLL."},
+{topic:"WLL & Selection",q:"Why must sling material be suitable for the load and environment?",options:["Material never affects safety","Heat, chemicals, abrasion and edges can damage some sling types","Only colour matters","All sling materials behave identically"],answer:1,explanation:"Consider compatibility, temperature limits and environmental exposure."},
+{topic:"WLL & Selection",q:"What should you do if the load weight is uncertain?",options:["Estimate and proceed quickly","Obtain reliable weight information before lifting","Use any available sling","Lift a little higher to test it"],answer:1,explanation:"Reliable load weight is necessary to plan and select equipment safely."},
+{topic:"WLL & Selection",q:"Why is compatibility between a hook and sling important?",options:["To make the hook look tidy","To avoid side loading, poor seating and incompatible connections","It is not important","Only for small loads"],answer:1,explanation:"Connections must seat correctly and be rated for the intended loading."},
+{topic:"WLL & Selection",q:"Can damaged lifting equipment be used if the load is below its WLL?",options:["Yes, always","No; damage must be assessed and equipment removed from service when required","Yes, if the lift is short","Only if a tag line is attached"],answer:1,explanation:"A rated capacity does not make damaged equipment safe."},
+{topic:"WLL & Selection",q:"What is the safest way to confirm the capacity of a lifting accessory?",options:["Guess from its size","Check its identification and manufacturer documentation","Ask someone to estimate","Compare it with a different accessory"],answer:1,explanation:"Use traceable ratings and manufacturer information."},
+{topic:"WLL & Selection",q:"If the planned arrangement exceeds any component's rated limit, what should happen?",options:["Proceed slowly","Change the approved arrangement or equipment before lifting","Use a tag line","Ask workers to pull harder"],answer:1,explanation:"Every component must remain within its applicable rated limits."},
 
-{
-q: "What should a rigger normally perform before using lifting accessories?",
-options: [
-"Pre-use inspection",
-"Paint the accessories",
-"Increase the crane capacity",
-"Remove identification tags"
-],
-answer: 0,
-explanation: "Lifting accessories should be inspected before use for defects, damage, identification and suitability."
-},
+{topic:"Slings & Hitches",q:"Which hitch generally forms a sling loop around a load?",options:["Vertical hitch","Choker hitch","Straight pull with no connection","Free suspension"],answer:1,explanation:"A choker hitch passes the sling around the load and through itself or its designed fitting."},
+{topic:"Slings & Hitches",q:"What should be checked when using a basket hitch?",options:["That the load is stable and the sling arrangement is rated for the configuration","Only the sling colour","That the load is allowed to roll","Nothing if two legs are used"],answer:0,explanation:"Check stability, sling angle, contact points and the manufacturer's rating for the hitch."},
+{topic:"Slings & Hitches",q:"Why should sharp edges be protected when using a sling?",options:["To improve appearance","To prevent cutting or damaging the sling","To increase the load weight","To make the sling longer"],answer:1,explanation:"Use suitable edge protection and follow the sling manufacturer's requirements."},
+{topic:"Slings & Hitches",q:"What is a key concern when using a choker hitch?",options:["It always doubles capacity","The hitch can reduce capacity and may tighten or slip depending on the load","It eliminates the need for inspection","It is suitable for every shape"],answer:1,explanation:"Use the applicable choker rating and ensure the load cannot slip or be damaged."},
+{topic:"Slings & Hitches",q:"Why must sling legs not be twisted or knotted?",options:["They look untidy","Twists and knots can change loading and damage the sling","They increase rated capacity","They are required for long lifts"],answer:1,explanation:"Use slings in the intended configuration without knots or harmful twists."},
+{topic:"Slings & Hitches",q:"What is important when connecting a sling to a hook?",options:["Load the hook tip","Seat the connection correctly in the intended load-bearing area","Keep the latch permanently open","Use any available connection"],answer:1,explanation:"Correct seating helps prevent slipping and improper loading."},
+{topic:"Slings & Hitches",q:"Why should a sling not be dragged from under a load unless the procedure allows it?",options:["It may cause damage or sudden movement","It improves the sling rating","It is always required","It reduces inspection needs"],answer:0,explanation:"Dragging can damage the sling and cause unexpected movement."},
+{topic:"Slings & Hitches",q:"What should be done if a sling may be exposed to a temperature beyond its rating?",options:["Continue with a shorter lift","Verify suitability with manufacturer instructions and replace it with suitable equipment if needed","Wet the sling and proceed","Assume all slings tolerate high heat"],answer:1,explanation:"Observe material-specific temperature limits and manufacturer guidance."},
+{topic:"Slings & Hitches",q:"What is the purpose of a tag line during a lift when specified by the plan?",options:["To increase crane capacity","To help control load rotation or movement from a safe position","To support the entire load","To replace the signal person"],answer:1,explanation:"Tag lines can help control movement but must be used without creating entanglement or other hazards."},
+{topic:"Slings & Hitches",q:"When lifting a bundle of loose items, what is important?",options:["Lift without securing it","Secure and contain the items so they cannot fall or shift","Use only one short sling","Ask workers to hold items by hand"],answer:1,explanation:"The load must be secured against shifting or falling during the lift."},
 
-{
-q: "What does SWL mean?",
-options: [
-"Safe Working Load",
-"Standard Wire Length",
-"Sling Weight Limit",
-"Safe Wire Length"
-],
-answer: 0,
-explanation: "SWL means Safe Working Load. The applicable rated capacity must be confirmed from the manufacturer or applicable documentation."
-},
+{topic:"Sling Angles & Calculations",q:"In a symmetrical two-leg sling, what happens to leg tension as the angle from horizontal decreases?",options:["Tension decreases","Tension increases","Tension becomes zero","Tension is always half the load"],answer:1,explanation:"Shallower sling angles generally create higher leg tension."},
+{topic:"Sling Angles & Calculations",q:"For a simple symmetrical two-leg lift, which information is essential for estimating leg tension?",options:["Load weight and sling angle","Paint colour and sling age","Crane colour only","The rigger's height"],answer:0,explanation:"A learning calculation needs the supported load and the angle; real lifts also require the approved plan and ratings."},
+{topic:"Sling Angles & Calculations",q:"A load weighs 1,000 kg and is supported symmetrically by two vertical legs. In an idealised calculation, what load does each leg support?",options:["250 kg","500 kg","1,000 kg","2,000 kg"],answer:1,explanation:"Under the idealised assumptions, each vertical leg supports half the load. Actual arrangements may differ."},
+{topic:"Sling Angles & Calculations",q:"Why is it unsafe to assume each leg of a multi-leg sling shares the load equally?",options:["All legs always share equally","Geometry, stiffness and centre of gravity can cause unequal loading","Leg count never matters","The load weight changes by itself"],answer:1,explanation:"Do not assume equal sharing unless the approved design and conditions justify it."},
+{topic:"Sling Angles & Calculations",q:"What happens to the horizontal component of force as sling legs become shallower?",options:["It generally increases","It always becomes zero","It turns into load weight","It cannot affect lifting points"],answer:0,explanation:"Shallow angles can create significant horizontal forces on lifting points and the load."},
+{topic:"Sling Angles & Calculations",q:"Which angle description should be checked carefully in a sling calculation?",options:["Whether the angle is measured from horizontal or vertical","Only the angle's colour","The angle of the crane cabin","The angle of the worker's feet"],answer:0,explanation:"Confusing angle references can produce a serious calculation error."},
+{topic:"Sling Angles & Calculations",q:"If a calculation suggests a sling leg tension greater than its permitted rating, what should you do?",options:["Round the result down","Stop and have the arrangement redesigned or suitable equipment selected","Proceed if the lift is brief","Use the sling anyway if new"],answer:1,explanation:"The arrangement must be corrected and verified before the lift."},
+{topic:"Sling Angles & Calculations",q:"Why should the rigger not rely on a quick estimate for a critical lift?",options:["Estimates are always more accurate","Critical lifts require the specified engineering, planning and verification process","Critical lifts do not need calculations","A tag line solves all issues"],answer:1,explanation:"Use approved calculations and the required competent-person review for critical lifts."},
+{topic:"Sling Angles & Calculations",q:"What is the main purpose of a spreader beam in an appropriate lift design?",options:["To change load distribution and help maintain selected sling geometry","To eliminate the need for rated equipment","To make the load lighter","To replace the crane load chart"],answer:0,explanation:"A beam can change force directions and geometry but must be designed and rated for the application."},
+{topic:"Sling Angles & Calculations",q:"What must be done if sling angle or geometry changes from the approved plan?",options:["Ignore it if the load is moving","Stop and reassess the load forces and equipment suitability","Continue at maximum speed","Ask a worker to hold the sling"],answer:1,explanation:"Changes in geometry can alter tension and load stability."},
 
-{
-q: "What is WLL?",
-options: [
-"Working Load Limit",
-"Wire Loading Length",
-"Working Line Length",
-"Weight Loading Level"
-],
-answer: 0,
-explanation: "WLL means Working Load Limit and identifies the rated load capacity of an applicable lifting accessory."
-},
+{topic:"Load & Centre of Gravity",q:"What is the centre of gravity (COG)?",options:["The point where the load's weight can be considered to act","The top of the load in every case","The crane hook","The heaviest sling"],answer:0,explanation:"The centre of gravity is the point through which the resultant weight acts."},
+{topic:"Load & Centre of Gravity",q:"Why is the centre of gravity important when choosing lifting points?",options:["It helps determine balance and load distribution","It only affects paint","It determines sling colour","It is irrelevant to stability"],answer:0,explanation:"Lifting points and rigging geometry must suit the load's COG and structural capacity."},
+{topic:"Load & Centre of Gravity",q:"What may happen if a load is lifted from a point not suited to its COG?",options:["It always stays level","It may tilt, rotate or shift unexpectedly","Its mass decreases","The crane automatically corrects everything"],answer:1,explanation:"An unsuitable lift point can cause rotation, instability or overload."},
+{topic:"Load & Centre of Gravity",q:"Before lifting an unfamiliar load, what should be established?",options:["Its approximate colour","Its weight, COG, lifting points and stability","Only its length","Only the name of its owner"],answer:1,explanation:"These details are key inputs to a safe lift plan."},
+{topic:"Load & Centre of Gravity",q:"Why must loose components be secured before lifting?",options:["They may shift or fall during movement","They make the crane faster","They reduce the load's weight","They replace a lifting plan"],answer:0,explanation:"The load must remain secure throughout the operation."},
+{topic:"Load & Centre of Gravity",q:"What should you do if a load starts to tilt unexpectedly during the initial test lift?",options:["Continue to full height","Stop and lower safely if possible, then reassess the rigging and COG","Ask someone to push it level by hand","Increase speed"],answer:1,explanation:"Unexpected tilt can indicate incorrect balance or rigging. Stop and reassess safely."},
+{topic:"Load & Centre of Gravity",q:"Why should personnel avoid standing beneath a suspended load?",options:["It improves visibility","A dropped or shifting load can cause fatal injury","It is only a concern in rain","It is safe if the load is small"],answer:1,explanation:"Keep people clear of suspended loads and the potential drop zone."},
+{topic:"Load & Centre of Gravity",q:"What is a load's potential energy when raised?",options:["Energy associated with its elevated position","The sling's WLL","The crane's fuel level","The signal person's authority"],answer:0,explanation:"An elevated load can release energy if it falls."},
+{topic:"Load & Centre of Gravity",q:"Why should the load's travel path be checked before lifting?",options:["To identify obstructions, people and clearance hazards","To increase the load weight","To avoid checking the landing area","To eliminate communication"],answer:0,explanation:"Plan the movement route and keep it clear of hazards."},
+{topic:"Load & Centre of Gravity",q:"When should the load be landed on its supports?",options:["When the designated landing area is prepared and the load can be placed safely","Anywhere convenient","Only when someone holds it by hand","Before checking the supports"],answer:0,explanation:"Confirm the landing surface and supports are suitable before lowering."},
 
-{
-q: "What happens to sling tension when the sling angle becomes smaller from the horizontal?",
-options: [
-"It increases",
-"It becomes zero",
-"It always decreases",
-"It cannot change"
-],
-answer: 0,
-explanation: "As the sling angle from the horizontal decreases, sling-leg tension increases for the same load."
-},
+{topic:"Crane & Load Charts",q:"What is the purpose of a crane load chart?",options:["To show rated lifting capacities under specified configurations and conditions","To list workers' names","To replace crane inspection","To estimate the load's colour"],answer:0,explanation:"Use the correct chart for the actual crane configuration and operating conditions."},
+{topic:"Crane & Load Charts",q:"Which factor can affect crane rated capacity?",options:["Operating radius and boom/configuration","The operator's favourite colour","The sling label font","The weather forecast format"],answer:0,explanation:"Capacity depends on the crane configuration, radius, setup and other chart conditions."},
+{topic:"Crane & Load Charts",q:"What should be included when determining the load handled by a crane?",options:["The load and applicable rigging/attachments according to the load-chart instructions","Only the cargo weight in all cases","Only the hook block colour","Only the number of riggers"],answer:0,explanation:"Follow the crane manufacturer's instructions on deductions and total suspended load."},
+{topic:"Crane & Load Charts",q:"Can a crane operator ignore a load chart because a previous similar lift was successful?",options:["Yes","No; verify the current lift against the correct chart and conditions","Only if the lift is outdoors","Only if a supervisor is watching"],answer:1,explanation:"Every lift must be checked against the applicable configuration and capacity limits."},
+{topic:"Crane & Load Charts",q:"Why is operating radius important?",options:["It affects the crane's rated capacity","It only changes the colour of the boom","It is always irrelevant","It measures the load's temperature"],answer:0,explanation:"A larger working radius often reduces the crane's rated capacity."},
+{topic:"Crane & Load Charts",q:"What should be done if the crane's actual setup differs from the planned setup?",options:["Proceed if the load looks small","Stop and verify the chart, setup and lift plan before continuing","Use faster hoisting","Ask the load to be held manually"],answer:1,explanation:"The actual configuration must be suitable and verified."},
+{topic:"Crane & Load Charts",q:"What is the safest response to an unexpected crane warning or alarm relevant to lifting?",options:["Disable it immediately","Follow the manufacturer's and site procedure; stop if safety is uncertain","Ignore all alarms","Increase the load"],answer:1,explanation:"Warnings must be handled according to equipment instructions and site procedures."},
+{topic:"Crane & Load Charts",q:"Why must crane capacity not be judged by boom size alone?",options:["Capacity depends on multiple factors and the manufacturer's chart","Boom size gives exact capacity in all cases","Capacity is set by paint colour","Only the hook matters"],answer:0,explanation:"Use the chart and required configuration details, not visual estimates."},
+{topic:"Crane & Load Charts",q:"Before a lift, who should confirm the crane is suitable for the planned task?",options:["The designated competent team following the lift plan and site procedure","Any passer-by","Only the truck driver","Nobody if the crane is new"],answer:0,explanation:"The crane and operation must be checked by the responsible competent personnel."},
+{topic:"Crane & Load Charts",q:"If wind exceeds the crane or lift-plan limits, what should happen?",options:["Continue if workers pull on tag lines","Stop or suspend the lift in accordance with the specified limits and procedure","Raise the load higher","Ignore the wind if the load is heavy"],answer:1,explanation:"Observe the crane manufacturer's and approved plan's wind limits."},
 
-{
-q: "A 10 tonne load is lifted by two equally loaded sling legs at 90° included angle. What is the approximate tension in each leg?",
-options: [
-"5.00 t",
-"7.07 t",
-"10.00 t",
-"14.14 t"
-],
-answer: 1,
-explanation: "For two equal legs with a 90° included angle, each leg is approximately 45° from horizontal. T ≈ W/(2 sin45°) = 7.07 t."
-},
+{topic:"Outriggers & Ground",q:"Why must ground conditions be checked before setting up a crane?",options:["Ground failure can cause settlement or overturning","Ground conditions only affect paint","It increases the load's WLL","It is unnecessary on paved areas"],answer:0,explanation:"Assess bearing capacity, underground services, voids and other ground risks."},
+{topic:"Outriggers & Ground",q:"What is the purpose of suitable outrigger mats or pads?",options:["To distribute outrigger loads over an appropriate area","To increase boom length","To replace the load chart","To prevent all possible accidents"],answer:0,explanation:"Mats and pads must be suitable for the ground and imposed loads."},
+{topic:"Outriggers & Ground",q:"Can a crane be set up near an excavation without assessment?",options:["Yes, always","No; ground stability and required separation must be assessed","Yes, if the excavation looks shallow","Only at night"],answer:1,explanation:"Excavations can affect ground stability. Follow the lift plan and site requirements."},
+{topic:"Outriggers & Ground",q:"What should be done if an outrigger begins to settle during lifting?",options:["Continue quickly","Stop the operation and follow the emergency/site procedure","Place a hand under the outrigger","Increase the load"],answer:1,explanation:"Settlement may signal loss of stability; stop and get competent assessment."},
+{topic:"Outriggers & Ground",q:"Why should underground services be identified before crane setup?",options:["They may be damaged by outrigger or ground pressure","They improve crane capacity","They do not affect setup","They only matter indoors"],answer:0,explanation:"Underground utilities and structures may be damaged or compromise ground support."},
 
-{
-q: "What is the first consideration when determining a load's lifting arrangement?",
-options: [
-"Load weight and characteristics",
-"Paint colour",
-"Crane brand only",
-"Operator's clothing"
-],
-answer: 0,
-explanation: "Load weight, dimensions, COG, lifting points and characteristics are fundamental to planning the lift."
-},
+{topic:"Signals & Communication",q:"What should the crane operator do if the signal is unclear?",options:["Guess the intended movement","Stop and obtain clear communication","Move faster","Follow a random signal"],answer:1,explanation:"Stop when signals are unclear and re-establish communication."},
+{topic:"Signals & Communication",q:"What is a key responsibility of a designated signal person?",options:["Give clear agreed signals and maintain communication with the operator","Calculate every crane load chart alone","Stand under the load","Change equipment ratings"],answer:0,explanation:"The signal person communicates clearly under the agreed site system."},
+{topic:"Signals & Communication",q:"If an emergency stop signal is given, what should the operator do?",options:["Ignore it unless given by the supervisor","Stop the movement safely","Continue to the next position","Raise the load automatically"],answer:1,explanation:"Emergency stop signals must be obeyed promptly."},
+{topic:"Signals & Communication",q:"Why should the lifting team agree on communication methods before the lift?",options:["To avoid confusion and coordinate movements safely","To reduce the load's mass","To remove the need for a plan","To make hand signals optional in every case"],answer:0,explanation:"Agree on signals, radio channels and what to do if communication fails."},
+{topic:"Signals & Communication",q:"What should happen if radio communication is lost during a lift?",options:["Continue based on assumptions","Stop safely until communication is restored under the procedure","Ask everyone to shout at once","Move the load out of sight"],answer:1,explanation:"Loss of communication requires a safe pause unless the approved procedure specifies otherwise."},
+{topic:"Signals & Communication",q:"Why must hand signals be standardised and understood by the team?",options:["So movements are interpreted consistently","To make the operator guess","To avoid training","To allow conflicting signals"],answer:0,explanation:"Use the recognised signal system and confirm it before lifting."},
+{topic:"Signals & Communication",q:"Who should normally direct crane movements during a lift?",options:["Any number of people giving conflicting instructions","The designated signal person, subject to the operator's duty to stop for safety","A person hidden from the operator","Anyone standing under the load"],answer:1,explanation:"Use the designated signal person; emergency stop signals must still be obeyed."},
+{topic:"Signals & Communication",q:"What should a signal person do if they cannot see the load or operator adequately?",options:["Continue giving guessed signals","Arrange a safe communication method or additional designated signal support","Move under the load","Use different signals without agreement"],answer:1,explanation:"Maintain reliable communication and visibility for the operation."},
 
-{
-q: "What does COG mean?",
-options: [
-"Center of Gravity",
-"Crane Operating Grade",
-"Center of Ground",
-"Control of Gear"
-],
-answer: 0,
-explanation: "COG means Center of Gravity."
-},
+{topic:"Hazards & Safe Work",q:"What is the safest position for workers during a suspended-load movement?",options:["Under the load","Clear of the suspended load and its potential path or drop zone","Between the load and a fixed object","On top of the load"],answer:1,explanation:"Keep people away from suspended loads and crush zones."},
+{topic:"Hazards & Safe Work",q:"What is a pinch point?",options:["A place where a body part can be trapped between objects","A sling identification tag","A crane load chart","A type of hook"],answer:0,explanation:"Identify and avoid locations where movement can trap or crush people."},
+{topic:"Hazards & Safe Work",q:"Why should hands and feet be kept clear when landing a load?",options:["To prevent crush injuries","To make the load heavier","To improve the sling rating","To remove the need for signals"],answer:0,explanation:"Use suitable tools and safe positioning rather than placing body parts under or beside unstable loads."},
+{topic:"Hazards & Safe Work",q:"What should happen if an unauthorised person enters the lifting exclusion zone?",options:["Continue the lift","Pause or stop as necessary and clear the area safely","Move the load over the person","Ignore the person"],answer:1,explanation:"Maintain the exclusion zone and do not move loads over people."},
+{topic:"Hazards & Safe Work",q:"What is the purpose of a pre-lift toolbox talk?",options:["To confirm hazards, controls, roles, communication and the plan","To replace training and inspection","To increase equipment capacity","To avoid discussing hazards"],answer:0,explanation:"Brief the team on the planned method and relevant risks before starting."},
+{topic:"Hazards & Safe Work",q:"What should a worker do if they believe a lift is unsafe?",options:["Stay silent","Use the stop-work process and raise the concern","Continue to avoid delays","Change the lift plan secretly"],answer:1,explanation:"Stop work and communicate safety concerns through the site's procedure."},
+{topic:"Hazards & Safe Work",q:"Why must overhead power lines be considered in lift planning?",options:["Crane or load contact can cause fatal electric shock","They only affect radio reception","They increase the crane's capacity","They are harmless if the load is metal"],answer:0,explanation:"Follow applicable electrical clearances, isolation and site controls."},
+{topic:"Hazards & Safe Work",q:"What should you do if a load snags during lifting?",options:["Increase hoist force until it frees","Stop, secure the situation and reassess before proceeding","Ask workers to pull it free while suspended","Swing the crane sharply"],answer:1,explanation:"A snag can create unexpected forces. Never force the lift without assessment."},
+{topic:"Hazards & Safe Work",q:"Why is shock loading dangerous?",options:["It can impose dynamic forces beyond those expected in a steady lift","It always lowers sling tension","It makes the load lighter","It is required to test new slings"],answer:0,explanation:"Avoid sudden jerks, snatching and uncontrolled loading."},
+{topic:"Hazards & Safe Work",q:"What should be done if visibility or weather conditions become unsafe?",options:["Continue if the lift is nearly finished","Stop or suspend according to the approved procedure and equipment limits","Ask workers to stand closer","Ignore the change"],answer:1,explanation:"Maintain conditions within the limits set by the plan, manufacturer and site rules."},
 
-{
-q: "Why is the center of gravity important during lifting?",
-options: [
-"It helps determine how the load will balance",
-"It determines the crane colour",
-"It eliminates the need for inspection",
-"It increases sling WLL"
-],
-answer: 0,
-explanation: "Knowing the COG helps establish lifting-point arrangement, balance and load distribution."
-},
+{topic:"Lift Planning & Roles",q:"What is the main purpose of a lifting plan?",options:["To identify the method, equipment, roles and controls needed for the lift","To replace all inspections","To guarantee that no hazard can occur","To record only the load colour"],answer:0,explanation:"A plan documents the intended safe method and controls for the operation."},
+{topic:"Lift Planning & Roles",q:"What should be confirmed before a lift begins?",options:["Load details, equipment suitability, work area and communication arrangements","Only the crane's colour","Only the names of the workers","Nothing if the lift is short"],answer:0,explanation:"Verify key planning inputs and site conditions before proceeding."},
+{topic:"Lift Planning & Roles",q:"What is a critical lift?",options:["A lift defined as critical by the applicable site/project criteria","Every lift using a new sling only","Any lift after lunch","A lift that needs no plan"],answer:0,explanation:"Critical-lift definitions and additional approvals depend on site and project requirements."},
+{topic:"Lift Planning & Roles",q:"Why should lifting equipment be checked for compatibility?",options:["Mismatched components can cause improper loading or connection failure","All components fit all hooks","Only appearance matters","Compatibility affects only storage"],answer:0,explanation:"All components in the load path must be compatible and appropriately rated."},
+{topic:"Lift Planning & Roles",q:"What should happen if the load or site conditions change from the approved plan?",options:["Continue because the plan is signed","Stop and reassess/revise the plan through the approved process","Change the rigging without telling anyone","Ask the nearest worker to decide"],answer:1,explanation:"Changes can affect risk and capacity; reassess and obtain required approval."},
+{topic:"Lift Planning & Roles",q:"Which is the best way to confirm that all equipment is suitable for the planned lift?",options:["Check ratings, condition, compatibility and documentation against the lift plan","Use whatever is available","Choose the newest-looking item","Check only the crane"],answer:0,explanation:"All components in the load path must be suitable and compatible."},
+{topic:"Lift Planning & Roles",q:"What should a rigger do if asked to perform a task outside their training or authorisation?",options:["Proceed to avoid delay","Explain the limitation and request competent, authorised support","Copy another person's actions","Use a larger sling"],answer:1,explanation:"Work within competence and authorisation; escalate when necessary."},
+{topic:"Lift Planning & Roles",q:"Why should a landing area be prepared before lifting?",options:["To ensure the load can be placed safely and remains stable","To reduce the load's mass","To avoid communication","To increase crane capacity"],answer:0,explanation:"Check the landing surface, supports, access and pinch-point controls before the lift."},
+{topic:"Lift Planning & Roles",q:"What is the correct response to a near miss during a lifting operation?",options:["Ignore it if nobody was hurt","Report it and follow the site's investigation and corrective-action process","Delete the lift plan","Continue without review"],answer:1,explanation:"Near misses reveal hazards and should be reported so controls can be improved."},
+{topic:"Lift Planning & Roles",q:"Why must personnel know the stop-work procedure?",options:["So unsafe conditions can be addressed promptly","So any person can change the load chart","To remove the need for a supervisor","To speed up every lift"],answer:0,explanation:"Everyone should understand how to stop the lift safely when a hazard appears."},
 
-{
-q: "Who normally gives standardized crane hand signals to the operator?",
-options: [
-"Designated signal person",
-"Any person nearby",
-"Security guard",
-"Driver"
-],
-answer: 0,
-explanation: "A designated signal person communicates with the crane operator according to the applicable site procedure."
-},
-
-{
-q: "What should happen if the crane operator loses the required communication with the signal person?",
-options: [
-"Stop the movement safely",
-"Continue at full speed",
-"Increase the load",
-"Ignore the signal"
-],
-answer: 0,
-explanation: "When required communication is lost or unclear, crane movement should be stopped safely until communication is restored."
-},
-
-{
-q: "What is an exclusion zone used for?",
-options: [
-"To keep unauthorized people away from the lifting hazard area",
-"To store fuel",
-"To increase crane capacity",
-"To measure wind speed"
-],
-answer: 0,
-explanation: "Barriers and exclusion zones help prevent people from entering hazardous lifting areas."
-},
-
-{
-q: "Why should personnel avoid standing under a suspended load?",
-options: [
-"Because of dropped-load and uncontrolled-movement hazards",
-"Because the crane may become faster",
-"Because it reduces WLL",
-"Because it changes the load colour"
-],
-answer: 0,
-explanation: "Suspended loads can fall or move unexpectedly. Personnel should remain outside the defined danger area."
-},
-
-{
-q: "Which condition can significantly affect lifting operations?",
-options: [
-"High wind",
-"Paint colour",
-"Operator's shoe size",
-"Crane logo"
-],
-answer: 0,
-explanation: "Wind and other environmental conditions can affect load control, crane stability and allowable operation."
-},
-
-{
-q: "What should be checked when using a mobile crane on outriggers?",
-options: [
-"Ground condition and outrigger support",
-"Only the crane paint",
-"Only the horn",
-"Only the cabin lights"
-],
-answer: 0,
-explanation: "Ground conditions and adequate outrigger support are critical to crane stability."
-},
-
-{
-q: "What document normally provides crane capacity for a particular configuration?",
-options: [
-"Manufacturer's load chart",
-"Operator's personal notebook",
-"Paint certificate",
-"Fuel receipt"
-],
-answer: 0,
-explanation: "The manufacturer's load chart provides rated capacities for specified configurations and conditions."
-},
-
-{
-q: "What is crane radius?",
-options: [
-"Horizontal distance from the crane's relevant center of rotation to the load line/load location",
-"Boom colour",
-"Hook diameter",
-"Rope length only"
-],
-answer: 0,
-explanation: "Radius is a critical parameter used with the manufacturer's load chart to determine crane capacity."
-},
-
-{
-q: "What happens to crane capacity generally as operating radius increases?",
-options: [
-"It generally decreases",
-"It always doubles",
-"It becomes unlimited",
-"It never changes"
-],
-answer: 0,
-explanation: "For many crane configurations, rated capacity decreases as radius increases. The exact value must come from the load chart."
-},
-
-{
-q: "What is load moment commonly represented by?",
-options: [
-"Load × Radius",
-"Load ÷ Colour",
-"Radius ÷ Wind",
-"Boom × Paint"
-],
-answer: 0,
-explanation: "A basic load-moment relationship is Moment = Load × Radius."
-},
-
-{
-q: "A 20 tonne load is at a 10 m radius. What is the basic load moment?",
-options: [
-"20 tonne-m",
-"100 tonne-m",
-"200 tonne-m",
-"2 tonne-m"
-],
-answer: 2,
-explanation: "Moment = Load × Radius = 20 × 10 = 200 tonne-m."
-},
-
-{
-q: "A load weighs 12 tonnes and the rigging/accessories add 1 tonne. What is the gross suspended load?",
-options: [
-"11 tonnes",
-"12 tonnes",
-"13 tonnes",
-"14 tonnes"
-],
-answer: 2,
-explanation: "Gross load includes the lifted load plus applicable rigging/accessory weight: 12 + 1 = 13 tonnes."
-},
-
-{
-q: "What should determine the rated capacity of a lifting accessory?",
-options: [
-"Applicable manufacturer marking/documentation and approved requirements",
-"The accessory colour alone",
-"The rigger's estimate",
-"The accessory's age alone"
-],
-answer: 0,
-explanation: "Capacity must be established from valid identification, manufacturer information and applicable requirements."
-},
-
-{
-q: "What should be done with a lifting accessory showing a serious defect?",
-options: [
-"Remove it from service according to the applicable procedure",
-"Use it for light loads without checking",
-"Paint over the defect",
-"Increase its WLL"
-],
-answer: 0,
-explanation: "Defective lifting accessories should be removed from service and handled according to the applicable inspection procedure."
-},
-
-{
-q: "What is a blind lift?",
-options: [
-"A lift where the operator cannot directly see the load or movement area",
-"A lift performed at night only",
-"A lift using a black crane",
-"A lift without rigging"
-],
-answer: 0,
-explanation: "A blind lift involves limited or no direct visibility between the operator and the load/movement area."
-},
-
-{
-q: "What is particularly important during a blind lift?",
-options: [
-"Reliable communication and an agreed signaling system",
-"Removing all barriers",
-"Increasing speed",
-"Ignoring the signal person"
-],
-answer: 0,
-explanation: "Reliable communication and clearly established signals are essential for controlled blind lifting."
-},
-
-{
-q: "What is a critical lift?",
-options: [
-"A lift requiring additional planning and controls because of increased risk or specified criteria",
-"Any lift under 1 tonne",
-"Only a night lift",
-"Only a tower-crane lift"
-],
-answer: 0,
-explanation: "Critical-lift criteria depend on the project/site requirements and applicable procedures."
-},
-
-{
-q: "Which item is important when selecting a sling?",
-options: [
-"Load weight, hitch, angle, length, condition and rated capacity",
-"Colour only",
-"Price only",
-"Age only"
-],
-answer: 0,
-explanation: "Sling selection must consider the load, configuration, angle, hitch, length, condition and rated capacity."
-},
-
-{
-q: "What is the purpose of a shackle identification marking?",
-options: [
-"To identify its rated capacity and applicable information",
-"To make it decorative",
-"To increase its strength automatically",
-"To indicate paint colour only"
-],
-answer: 0,
-explanation: "Identification markings provide important information such as size, rated capacity and manufacturer information."
-},
-
-{
-q: "What is the main purpose of a lifting plan?",
-options: [
-"To define how the lift will be safely planned and controlled",
-"To increase crane speed",
-"To replace the load chart",
-"To eliminate inspection"
-],
-answer: 0,
-explanation: "A lifting plan identifies the equipment, load, configuration, hazards, controls and required arrangements."
-},
-
-{
-q: "What should be considered when planning the load travel path?",
-options: [
-"Obstructions, personnel, clearances and hazards",
-"Only the shortest distance",
-"Only the crane colour",
-"Only fuel consumption"
-],
-answer: 0,
-explanation: "The travel path should be assessed for obstructions, people, structures, power lines, clearances and other hazards."
-},
-
-{
-q: "A 4 tonne load is supported equally by four theoretical vertical sling legs. What is the idealized load per leg?",
-options: [
-"0.5 tonne",
-"1 tonne",
-"2 tonnes",
-"4 tonnes"
-],
-answer: 1,
-explanation: "Under the stated idealized equal vertical distribution assumption: 4 ÷ 4 = 1 tonne per leg. Actual multi-leg sling loading can differ."
-},
-
-{
-q: "What is the safest response if a lifting operation develops an unexpected hazard?",
-options: [
-"Stop or make the operation safe and reassess",
-"Continue quickly",
-"Ignore it",
-"Increase crane speed"
-],
-answer: 0,
-explanation: "Unexpected hazards should be addressed before continuing. Follow the approved lift plan and site procedures."
-}
-
+{topic:"Rigging Hardware",q:"What is the main purpose of a master link in a multi-leg sling assembly?",options:["To provide a designed connection point for the sling legs and hook arrangement","To increase the crane's rated capacity automatically","To replace all sling tags","To measure wind"],answer:0,explanation:"The master link must be compatible with the hook and leg arrangement and rated accordingly."},
+{topic:"Rigging Hardware",q:"What is important when using an eyebolt for lifting?",options:["Use any bolt with a ring","Confirm the correct type, installation, orientation and rated capacity for the load direction","Tighten it with any extension pipe","Assume all eye bolts are rated for side loading"],answer:1,explanation:"Eyebolts have specific installation and loading limitations; follow manufacturer instructions."},
+{topic:"Rigging Hardware",q:"Why must a lifting beam or spreader beam have a known rated capacity and inspection status?",options:["It transfers load forces and can fail if overloaded or damaged","It is only a spacer","It makes slings unnecessary","It is never part of the load path"],answer:0,explanation:"Below-the-hook devices are load-bearing equipment and require appropriate ratings and inspection."},
+{topic:"Rigging Hardware",q:"Can a general-purpose turnbuckle be assumed suitable for lifting?",options:["Yes, all turnbuckles are lifting rated","No; use only devices specifically rated and approved for the intended lifting duty","Yes, if it is stainless steel","Only if painted"],answer:1,explanation:"Do not use hardware for lifting unless it is designed, rated and approved for that use."}
 ];
 
-let current = 0;
-let score = 0;
-let answered = false;
+const letters = ["A","B","C","D"];
+const topicFilter = document.getElementById("topicFilter");
+const topics = [...new Set(QUESTIONS.map(q => q.topic))];
 
-const questionNumber = document.getElementById("questionNumber");
-const question = document.getElementById("question");
-const options = document.getElementById("options");
-const explanation = document.getElementById("explanation");
-const nextBtn = document.getElementById("nextBtn");
-const progress = document.getElementById("progress");
-const quizBox = document.getElementById("quizBox");
-const result = document.getElementById("result");
-const scoreDisplay = document.getElementById("score");
-const resultMessage = document.getElementById("resultMessage");
-
-function loadQuestion() {
-
-    answered = false;
-    nextBtn.disabled = true;
-
-    const item = questions[current];
-
-    questionNumber.textContent =
-        "Question " + (current + 1) + " of " + questions.length;
-
-    progress.textContent =
-        "Progress: " + (current + 1) + " / " + questions.length;
-
-    question.textContent = item.q;
-
-    options.innerHTML = "";
-    explanation.style.display = "none";
-    explanation.innerHTML = "";
-
-    item.options.forEach((option, index) => {
-
-        const button = document.createElement("button");
-
-        button.className = "option";
-        button.textContent =
-            String.fromCharCode(65 + index) + ". " + option;
-
-        button.addEventListener("click", () => selectAnswer(index, button));
-
-        options.appendChild(button);
-
-    });
-}
-
-function selectAnswer(index, selectedButton) {
-
-    if (answered) return;
-
-    answered = true;
-
-    const item = questions[current];
-
-    const allOptions =
-        document.querySelectorAll(".option");
-
-    allOptions.forEach((button, i) => {
-
-        button.disabled = true;
-
-        if (i === item.answer) {
-            button.classList.add("correct");
-        }
-
-    });
-
-    if (index === item.answer) {
-
-        score++;
-
-    } else {
-
-        selectedButton.classList.add("wrong");
-
-    }
-
-    explanation.innerHTML =
-        "<strong>Explanation:</strong> " +
-        item.explanation;
-
-    explanation.style.display = "block";
-
-    nextBtn.disabled = false;
-}
-
-nextBtn.addEventListener("click", () => {
-
-    current++;
-
-    if (current >= questions.length) {
-
-        showResult();
-
-    } else {
-
-        loadQuestion();
-
-    }
-
+topics.forEach(topic => {
+  const opt = document.createElement("option");
+  opt.value = topic;
+  opt.textContent = topic;
+  topicFilter.appendChild(opt);
 });
 
-function showResult() {
+let quiz = [];
+let index = 0;
+let answers = {};
+let checked = {};
+let finished = false;
+let missed = [];
 
-    quizBox.style.display = "none";
-    progress.style.display = "none";
-    result.style.display = "block";
+const questionArea = document.getElementById("questionArea");
+const counter = document.getElementById("counter");
+const topicLabel = document.getElementById("topicLabel");
+const progress = document.getElementById("progress");
+const results = document.getElementById("results");
 
-    const percentage =
-        Math.round((score / questions.length) * 100);
+function shuffle(arr) {
+  const a = [...arr];
+  for (let i = a.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [a[i], a[j]] = [a[j], a[i]];
+  }
+  return a;
+}
 
-    scoreDisplay.textContent =
-        score + " / " + questions.length +
-        " (" + percentage + "%)";
+function startQuiz(useMissed = false) {
+  const mode = document.getElementById("mode").value;
+  const selected = topicFilter.value;
 
-    if (percentage >= 80) {
+  if (useMissed) {
+    quiz = missed.map(i => QUESTIONS[i]);
+  } else {
+    let base = QUESTIONS.map((q, i) => ({...q, originalIndex:i}));
+    if (mode === "topic") {
+      if (selected !== "all") base = base.filter(q => q.topic === selected);
+    }
+    if (mode === "random") base = shuffle(base).slice(0, 25);
+    quiz = base;
+  }
 
-        resultMessage.textContent =
-            "Good result. Continue reviewing the topics and calculations.";
+  if (!quiz.length) {
+    questionArea.innerHTML = "<p>No missed questions to review. Complete a quiz first.</p>";
+    return;
+  }
 
-    } else if (percentage >= 60) {
+  index = 0;
+  answers = {};
+  checked = {};
+  finished = false;
+  results.style.display = "none";
+  document.getElementById("quizCard").style.display = "block";
+  renderQuestion();
+}
 
-        resultMessage.textContent =
-            "Fair result. Review the missed topics and try again.";
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({
+    "&":"&amp;", "<":"&lt;", ">":"&gt;", '"':"&quot;", "'":"&#39;"
+  }[c]));
+}
 
-    } else {
+function renderQuestion() {
+  const q = quiz[index];
+  counter.textContent = `Question ${index + 1} of ${quiz.length}`;
+  topicLabel.textContent = q.topic;
+  progress.style.width = `${(index / quiz.length) * 100}%`;
+  questionArea.innerHTML = "";
 
-        resultMessage.textContent =
-            "More study is recommended before attempting the test again.";
+  const title = document.createElement("div");
+  title.className = "question";
+  title.textContent = q.q;
+  questionArea.appendChild(title);
 
+  q.options.forEach((opt, i) => {
+    const label = document.createElement("label");
+    label.className = "option";
+
+    const radio = document.createElement("input");
+    radio.type = "radio";
+    radio.name = "answer";
+    radio.value = i;
+    radio.checked = answers[index] === i;
+    radio.disabled = !!checked[index] || finished;
+    radio.addEventListener("change", () => { answers[index] = i; });
+
+    const span = document.createElement("span");
+    span.textContent = `${letters[i]}. ${opt}`;
+
+    label.appendChild(radio);
+    label.appendChild(span);
+
+    if (checked[index]) {
+      if (i === q.answer) label.classList.add("correct");
+      else if (i === answers[index]) label.classList.add("wrong");
     }
 
+    questionArea.appendChild(label);
+  });
+
+  if (checked[index]) {
+    const good = answers[index] === q.answer;
+    const fb = document.createElement("div");
+    fb.className = "feedback " + (good ? "good" : "bad");
+    fb.innerHTML = `<strong>${good ? "Correct." : "Not quite."}</strong> ${escapeHtml(q.explanation)}`;
+    questionArea.appendChild(fb);
+  }
+
+  document.getElementById("checkBtn").disabled = !!checked[index] || finished;
+  document.getElementById("nextBtn").textContent =
+    index === quiz.length - 1 ? "Finish quiz" : "Next question";
+  document.getElementById("nextBtn").disabled = !checked[index] || finished;
 }
 
-function restartQuiz() {
-
-    current = 0;
-    score = 0;
-
-    quizBox.style.display = "block";
-    progress.style.display = "block";
-    result.style.display = "none";
-
-    loadQuestion();
+function checkAnswer() {
+  if (finished || checked[index]) return;
+  if (answers[index] === undefined) {
+    alert("Please select an answer first.");
+    return;
+  }
+  checked[index] = true;
+  renderQuestion();
 }
 
-loadQuestion();
+function nextQuestion() {
+  if (!checked[index]) return;
+  if (index < quiz.length - 1) {
+    index++;
+    renderQuestion();
+  } else {
+    finishQuiz();
+  }
+}
 
+function finishQuiz() {
+  finished = true;
+  progress.style.width = "100%";
+  let correct = 0;
+  missed = [];
+
+  quiz.forEach((q, i) => {
+    if (answers[i] === q.answer) correct++;
+    else missed.push(q.originalIndex);
+  });
+
+  document.getElementById("scoreBig").textContent = `${correct} / ${quiz.length}`;
+  const pct = Math.round(correct / quiz.length * 100);
+  document.getElementById("scoreText").textContent =
+    `Score: ${pct}%. Review missed questions to focus your revision. This practice score is not a certification result.`;
+
+  const byTopic = {};
+  quiz.forEach((q, i) => {
+    if (!byTopic[q.topic]) byTopic[q.topic] = {right:0, total:0};
+    byTopic[q.topic].total++;
+    if (answers[i] === q.answer) byTopic[q.topic].right++;
+  });
+
+  document.getElementById("topicScores").innerHTML =
+    "<h3>Topic breakdown</h3>" +
+    Object.entries(byTopic).map(([t,v]) =>
+      `<p><strong>${escapeHtml(t)}:</strong> ${v.right}/${v.total}</p>`
+    ).join("");
+
+  results.style.display = "block";
+  document.getElementById("checkBtn").disabled = true;
+  document.getElementById("nextBtn").disabled = true;
+  counter.textContent = "Quiz complete";
+  topicLabel.textContent = "";
+}
+
+document.getElementById("startBtn").addEventListener("click", () => startQuiz(false));
+document.getElementById("checkBtn").addEventListener("click", checkAnswer);
+document.getElementById("nextBtn").addEventListener("click", nextQuestion);
+document.getElementById("reviewBtn").addEventListener("click", () => startQuiz(true));
+document.getElementById("restartFromResults").addEventListener("click", () => startQuiz(false));
 </script>
-
 </body>
 </html>
