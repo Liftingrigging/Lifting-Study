@@ -1,192 +1,209 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lifting & Rigging Study Notes</title>
 
-    <title>Study Notes | Lifting & Rigging Study Hub</title>
+<style>
+:root {
+    --navy: #082b49;
+    --blue: #145a86;
+    --light: #f2f6fa;
+    --border: #d7e1e9;
+}
 
-    <style>
-        * {
-            box-sizing: border-box;
-        }
+* {
+    box-sizing: border-box;
+}
 
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: #e5e7eb;
-            line-height: 1.6;
-        }
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: var(--light);
+    color: #243746;
+    line-height: 1.6;
+}
 
-        header {
-            background: #020617;
-            padding: 35px 20px;
-            text-align: center;
-            border-bottom: 2px solid #38bdf8;
-        }
+header {
+    background: linear-gradient(135deg, #082b49, #145a86);
+    color: white;
+    text-align: center;
+    padding: 42px 18px;
+}
 
-        header h1 {
-            margin: 0;
-            color: #38bdf8;
-        }
+header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(28px, 5vw, 40px);
+}
 
-        header p {
-            color: #cbd5e1;
-        }
+header p {
+    margin: 0;
+}
 
-        nav {
-            background: #1e293b;
-            padding: 15px;
-            text-align: center;
-        }
+nav {
+    background: white;
+    border-bottom: 1px solid var(--border);
+    padding: 12px 16px;
+    text-align: center;
+}
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-        }
+nav a {
+    display: inline-block;
+    margin: 4px 12px;
+    color: var(--navy);
+    font-weight: bold;
+    text-decoration: none;
+}
 
-        nav a:hover {
-            color: #38bdf8;
-        }
+nav a:hover {
+    text-decoration: underline;
+}
 
-        .container {
-            max-width: 1100px;
-            margin: auto;
-            padding: 30px 20px;
-        }
+.container {
+    width: min(100% - 28px, 900px);
+    margin: 28px auto;
+}
 
-        .intro,
-        .card {
-            background: #1e293b;
-            border: 1px solid #334155;
-            border-radius: 12px;
-            padding: 25px;
-            margin-bottom: 20px;
-        }
+.intro {
+    background: white;
+    padding: 22px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    margin-bottom: 22px;
+}
 
-        .intro {
-            text-align: center;
-        }
+.cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: 20px;
+}
 
-        h2 {
-            color: #38bdf8;
-        }
+.card {
+    background: white;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 3px 12px rgba(8, 43, 73, 0.05);
+}
 
-        .card h3 {
-            color: #38bdf8;
-            margin-top: 0;
-        }
+.card h2 {
+    color: var(--navy);
+    margin-top: 0;
+}
 
-        .card p {
-            color: #cbd5e1;
-        }
+.card p {
+    min-height: 52px;
+}
 
-        .button {
-            display: inline-block;
-            padding: 10px 18px;
-            background: #0284c7;
-            color: white;
-            text-decoration: none;
-            border-radius: 6px;
-            font-weight: bold;
-        }
+.button {
+    display: inline-block;
+    width: 100%;
+    text-align: center;
+    background: var(--navy);
+    color: white;
+    text-decoration: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    font-weight: bold;
+    margin-top: 8px;
+}
 
-        .button:hover {
-            background: #0369a1;
-        }
+.button:hover {
+    background: var(--blue);
+}
 
-        footer {
-            background: #020617;
-            text-align: center;
-            padding: 25px;
-            margin-top: 40px;
-            color: #94a3b8;
-        }
+.button.secondary {
+    background: #e8eff5;
+    color: var(--navy);
+    border: 1px solid var(--border);
+}
 
-        @media (max-width: 700px) {
-            nav a {
-                display: inline-block;
-                margin: 5px;
-            }
-        }
-    </style>
+.button.secondary:hover {
+    background: #dbe7f0;
+}
+
+footer {
+    text-align: center;
+    padding: 24px 16px;
+    color: #526777;
+    font-size: 14px;
+}
+</style>
 </head>
 
 <body>
 
 <header>
-    <h1>Study Notes</h1>
-    <p>Lifting • Rigging • Cranes • Safety • TÜV • Saudi Aramco</p>
+    <h1>Lifting &amp; Rigging Study Notes</h1>
+    <p>Study resources for lifting operations, rigging and crane safety</p>
 </header>
 
 <nav>
     <a href="index.html">Home</a>
-    <a href="rigging.html">Lifting Accessories</a>
     <a href="calculation.html">Calculations</a>
-    <a href="cranes.html">Cranes</a>
-    <a href="planning.html">Lift Planning</a>
-    <a href="safety.html">Safety</a>
     <a href="study-notes.html">Study Notes</a>
 </nav>
 
 <main class="container">
 
     <section class="intro">
-        <h2>Lifting & Rigging Study Notes</h2>
-
+        <h2>Welcome to Study Notes</h2>
         <p>
-            Study references and technical notes covering lifting,
-            rigging, cranes, safety and industry requirements.
+            Choose a study section below to practise lifting and rigging
+            knowledge, review questions and prepare for industrial-site
+            assessments and interviews.
         </p>
     </section>
 
+    <section class="cards">
 
-    <div class="card">
-        <h3>TÜV Lifting & Rigging Study</h3>
+        <article class="card">
+            <h2>Aramco Study Notes</h2>
+            <p>
+                Open the Aramco study section for lifting and rigging
+                practice questions and related study material.
+            </p>
+            <a class="button"
+               href="study-notes/aramco/index.html">
+                Open Aramco Notes
+            </a>
+            <a class="button secondary"
+               href="study-notes/aramco/aramco-mcqs.html">
+                Open Aramco MCQs
+            </a>
+        </article>
 
-        <p>
-            General lifting and rigging study notes, formulas,
-            equipment, inspection, planning and safety references.
-        </p>
+        <article class="card">
+            <h2>TÜV Study Notes</h2>
+            <p>
+                Review rigging questions, multiple-choice practice and
+                lifting calculation exercises.
+            </p>
+            <a class="button"
+               href="study-notes/tuv/index.html">
+                Open TÜV Notes
+            </a>
+            <a class="button secondary"
+               href="study-notes/tuv/mcqs.html">
+                Open TÜV MCQ Quiz
+            </a>
+            <a class="button secondary"
+               href="study-notes/tuv/questions-answers.html">
+                Open TÜV Questions &amp; Answers
+            </a>
+            <a class="button secondary"
+               href="study-notes/tuv/calculations-questions-answer.html">
+                Open TÜV Calculation Q&amp;A
+            </a>
+        </article>
 
-        <a class="button" href="study-notes/tuv/index.html">
-            Open TÜV Notes
-        </a>
-    </div>
-
-
-    <div class="card">
-        <h3>Saudi Aramco Lifting & Rigging Study</h3>
-
-        <p>
-            Saudi Aramco-related lifting and rigging study references,
-            including relevant GI documents and lifting requirements.
-        </p>
-
-        <a class="button" href="study-notes/aramco/index.html">
-            Open Aramco Notes
-        </a>
-    </div>
-
-
-    <div class="card">
-        <h3>Downloadable Study Material</h3>
-
-        <p>
-            Additional study material and reference documents can
-            be added here as the study hub grows.
-        </p>
-    </div>
+    </section>
 
 </main>
 
 <footer>
-    Lifting & Rigging Study Hub
-    <br>
-    <small>Created by Jawad Wains</small>
+    Lifting &amp; Rigging Study Resources
 </footer>
 
 </body>
