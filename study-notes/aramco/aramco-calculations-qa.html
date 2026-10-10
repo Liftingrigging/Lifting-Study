@@ -1,13 +1,259 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Aramco Calculations Questions &amp; Answers</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Aramco Lifting Calculations — 100 Q&A</title>
+<style>
+:root{--bg:#0b1220;--panel:#142137;--line:#344761;--text:#edf3fc;--muted:#b5c2d4;--accent:#45d6b5}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Arial,sans-serif}
+header{padding:22px;background:#111c2e;border-bottom:1px solid var(--line)}
+main{max-width:1000px;margin:auto;padding:18px}
+h1{font-size:clamp(25px,4vw,36px);margin:8px 0}
+h2{color:var(--accent);font-size:22px;margin-top:30px}
+a{color:var(--accent)}
+p{color:var(--muted)}
+.controls{display:flex;gap:8px;flex-wrap:wrap;margin:16px 0}
+button{padding:10px 14px;border-radius:8px;border:1px solid var(--line);cursor:pointer;font-weight:bold}
+.primary{background:var(--accent);color:#06221c}
+.secondary{background:#263650;color:white}
+.qa{border:1px solid var(--line);background:var(--panel);border-radius:11px;padding:15px;margin:12px 0;break-inside:avoid}
+.qa h3{font-size:17px;margin:0 0 8px}
+.answer{border-left:3px solid var(--accent);padding-left:12px;margin:10px 0}
+.formula{font-family:monospace;background:#091321;padding:9px;border-radius:6px;overflow-wrap:anywhere}
+.diagram{background:#fff;border-radius:8px;padding:8px;margin:12px 0}
+.diagram svg{width:100%;height:auto;max-height:230px}
+.topic{color:var(--accent);font-size:12px;text-transform:uppercase;font-weight:bold}
+.watermark{position:fixed;bottom:9px;right:12px;opacity:.18;pointer-events:none;font-weight:bold}
+@media print{
+ body{background:white;color:#111;font-size:10.5pt}
+ header{background:white;border-bottom:1px solid #aaa}
+ h1,h2,.qa h3,.topic{color:#111}
+ p{color:#222}
+ .controls,.watermark{display:none!important}
+ .qa{background:white;border:1px solid #aaa}
+ .formula{background:#f2f2f2;color:#111}
+ .answer{border-color:#555}
+ a{color:#111}
+}
+</style>
 </head>
 <body>
-  <h1>Aramco Calculations Questions &amp; Answers</h1>
-  <p>Calculations study materials will be added here.</p>
-  <p><a href="index.html">Back to Aramco Study Notes</a></p>
+<header>
+<main>
+<p><a href="index.html">← Aramco Study Notes</a></p>
+<div class="topic">Lifting & Rigging Study Guide</div>
+<h1>100 Lifting Calculation Questions & Answers</h1>
+<p>Worked examples, formulas and diagrams. Includes load weight, sling forces, angles, load distribution, crane capacity, rigging selection and ground pressure.</p>
+</main>
+</header>
+<main>
+<p><strong>Safety notice:</strong> These are educational examples, not official Saudi Aramco examination questions or authorization to perform a lift. Verify the assumptions, units, dynamic effects, sling ratings, hitch factors, crane configuration, load chart and required safety factors against the current approved procedure and manufacturer data. Never use an illustrative answer as a substitute for an approved lift plan.</p>
+<div class="controls">
+<button class="primary" onclick="window.print()">Print / Save PDF</button>
+<button class="secondary" onclick="toggleAnswers()">Show / Hide Worked Answers</button>
+</div>
+<div id="questions"></div>
+<div class="controls">
+<button class="primary" onclick="window.print()">Print / Save PDF</button>
+<button class="secondary" onclick="toggleAnswers()">Show / Hide Worked Answers</button>
+</div>
+</main>
+<div class="watermark">A Jawad Wains</div>
+<script>
+const topics = [
+["1. Load Weight and Unit Conversion",[
+["A load has a mass of 2,000 kg. What is its approximate weight in kN?","Weight = mass × g = 2,000 × 9.81 = 19,620 N = 19.62 kN.","W = m × g"],
+["A load weighs 5,000 kg. What is its approximate weight in metric tonnes?","5,000 kg ÷ 1,000 = 5 metric tonnes.","tonnes = kg ÷ 1,000"],
+["A package weighs 3.5 tonnes. What is its mass in kilograms?","3.5 × 1,000 = 3,500 kg.","kg = tonnes × 1,000"],
+["A component weighs 12 kN. What is its approximate mass?","Mass = 12,000 ÷ 9.81 ≈ 1,223 kg, assuming standard gravity.","m = W ÷ g"],
+["A load comprises 800 kg of equipment and 200 kg of packaging. What is the total mass?","800 + 200 = 1,000 kg, provided both masses are complete and no other items are omitted.","Total mass = sum of masses"],
+["A 2-tonne item has 150 kg of lifting accessories included separately. What is the combined mass?","2,000 + 150 = 2,150 kg. Confirm that the accessories have not already been included in the stated load mass.","Combined mass = load + accessories"],
+["A load weighs 7,500 kg. Express the mass in tonnes.","7,500 ÷ 1,000 = 7.5 tonnes.","tonnes = kg ÷ 1,000"],
+["A load's mass is 4,000 kg. Calculate its approximate weight in kN.","4,000 × 9.81 ÷ 1,000 = 39.24 kN.","W(kN) = m × 9.81 ÷ 1,000"],
+["A crate weighs 1.8 tonnes and its contents weigh 650 kg. What is their combined mass?","1,800 + 650 = 2,450 kg, assuming the crate mass excludes the contents.","Total mass = crate + contents"],
+["Why must rigging mass be included in a lift assessment?","The crane carries the load and the applicable below-hook equipment; omitting rigging mass can understate the suspended load.","Suspended mass includes all applicable components"]
+]],
+["2. Sling Angles and Sling Tension",[
+["A 10 kN load is supported equally by two vertical sling legs. What is the ideal tension in each leg?","10 ÷ 2 = 5 kN per leg, assuming equal sharing and vertical legs.","T = W ÷ 2"],
+["A 10 kN load is supported by two equal sling legs at 60° above horizontal. Find ideal tension per leg.","T = W ÷ (2 sin 60°) = 10 ÷ 1.732 ≈ 5.77 kN per leg.","T = W ÷ (2 sin θ)"],
+["A 10 kN load is supported by two equal sling legs at 30° above horizontal. Find ideal tension per leg.","T = 10 ÷ (2 sin 30°) = 10 kN per leg. This is greater than at 60°.","T = W ÷ (2 sin θ)"],
+["Why does sling tension increase as the sling angle gets flatter?","The vertical component of each sling-leg force becomes smaller, so greater tension is required to support the same load.","Vertical component = T sin θ"],
+["A 12 kN load is supported equally by two legs at 45° above horizontal. Find ideal tension per leg.","T = 12 ÷ (2 sin 45°) ≈ 8.49 kN per leg.","T = W ÷ (2 sin θ)"],
+["A 20 kN load is supported by two equal legs at 60° above horizontal. Find ideal tension per leg.","T = 20 ÷ (2 × 0.866) ≈ 11.55 kN per leg.","T = W ÷ (2 sin θ)"],
+["A 16 kN load is supported by two equal legs at 30° above horizontal. Find ideal tension per leg.","T = 16 ÷ (2 × 0.5) = 16 kN per leg.","T = W ÷ (2 sin θ)"],
+["A 9 kN load is supported by two equal legs at 60° above horizontal. Find ideal tension per leg.","T = 9 ÷ 1.732 ≈ 5.20 kN per leg.","T = W ÷ (2 sin θ)"],
+["A 14 kN load is supported by two equal legs at 45° above horizontal. Find ideal tension per leg.","T = 14 ÷ 1.414 ≈ 9.90 kN per leg.","T = W ÷ (2 sin θ)"],
+["A 6 kN load is supported by two equal legs at 30° above horizontal. Find ideal tension per leg.","T = 6 ÷ 1 = 6 kN per leg.","T = W ÷ (2 sin θ)"]
+]],
+["3. Sling Angle Diagram and Geometry",[
+["What does θ mean in the sling tension formula?","Here θ is measured between each sling leg and the horizontal. Using an angle measured from vertical requires a different trigonometric expression.","T = W ÷ (2 sin θ), θ from horizontal"],
+["A sling leg is at 60° above horizontal. What is its vertical force component if tension is 8 kN?","Vertical component = 8 sin 60° ≈ 6.93 kN.","V = T sin θ"],
+["A sling leg is at 30° above horizontal. What is its vertical component if tension is 10 kN?","10 sin 30° = 5 kN.","V = T sin θ"],
+["Two equal sling legs each have 8 kN tension at 60° above horizontal. What total vertical support do they provide?","2 × 8 × sin 60° ≈ 13.86 kN.","W = 2T sin θ"],
+["Two equal sling legs each have 10 kN tension at 30° above horizontal. What total vertical support do they provide?","2 × 10 × sin 30° = 10 kN.","W = 2T sin θ"],
+["Why must the sling angle reference be stated?","An angle measured from horizontal is complementary to the angle measured from vertical, changing the trigonometric function used.","sin θ from horizontal; cos θ from vertical"],
+["What happens to ideal tension as the angle above horizontal approaches zero?","The vertical component approaches zero, so calculated tension grows sharply; a near-horizontal arrangement may be unsafe or prohibited.","T = W ÷ (2 sin θ)"],
+["A 10 kN load is supported by two equal legs at 45° above horizontal. What is the total vertical support if each leg carries 7.07 kN?","2 × 7.07 × sin 45° ≈ 10 kN, subject to rounding.","W = 2T sin θ"],
+["Why is an extremely flat sling arrangement hazardous?","It can create high sling tension and high horizontal forces at lifting points, potentially exceeding component or structure ratings.","Resolve sling forces into vertical and horizontal components"],
+["What should be done if the actual sling angle differs from the lift plan?","Stop and have the changed geometry and resulting forces assessed and approved before proceeding.","Reassess the actual configuration"]
+]],
+["4. Load Sharing and Number of Legs",[
+["A 12 kN load is shared equally by four vertical supports. What is the ideal force per support?","12 ÷ 4 = 3 kN per support, assuming genuinely equal load sharing.","F = W ÷ n"],
+["A 20 kN load is shared equally by four vertical supports. Find ideal force per support.","20 ÷ 4 = 5 kN per support, subject to the equal-sharing assumption.","F = W ÷ n"],
+["A 15 kN load is supported equally by three vertical legs. What is ideal force per leg?","15 ÷ 3 = 5 kN per leg, assuming all three carry equal load.","F = W ÷ n"],
+["Why should four sling legs not automatically be assumed to share equally?","Geometry, tolerances, load stiffness and center of gravity may cause some legs to carry more load than others.","Use the approved design/load-sharing method"],
+["A 24 kN load is shared equally by two vertical supports. What is the force per support?","24 ÷ 2 = 12 kN per support.","F = W ÷ n"],
+["A 9 kN load is shared equally by three vertical supports. Find ideal force per support.","9 ÷ 3 = 3 kN per support.","F = W ÷ n"],
+["What is the main limitation of simple equal-load-sharing calculations?","They do not account for unequal geometry, stiffness, sling angles, dynamics or the actual load distribution.","Ideal calculation only"],
+["A load is supported by two equal vertical legs carrying 4 kN each. What is the total supported load?","4 + 4 = 8 kN, if the stated forces are vertical and no other support contributes.","W = sum of vertical forces"],
+["A load of 18 kN is carried by two vertical legs, one taking 10 kN. What force is carried by the other leg in static equilibrium?","18 − 10 = 8 kN, assuming the two legs are the only vertical supports.","F₂ = W − F₁"],
+["Why must the actual sling arrangement be verified before lifting?","The actual number of effective load-bearing legs and their geometry determine forces and whether each component remains within its rating.","Verify the rigging arrangement"]
+]],
+["5. Center of Gravity and Balance",[
+["What is the center of gravity?","It is the point through which the resultant gravitational force on a body acts.","CG = balance point for gravitational load"],
+["Why should the hook be positioned over the center of gravity before lifting?","This reduces unwanted rotation and helps the load rise in a controlled manner.","Align hook and load CG as planned"],
+["A uniform beam is supported symmetrically. Where is its center of gravity likely to be?","At its geometric midpoint if its mass distribution is uniform.","CG at midpoint for a uniform beam"],
+["A beam weighs 12 kN and is supported at two ends with its center of gravity at the midpoint. What is the ideal reaction at each end?","Each end carries 6 kN under symmetric static conditions.","R₁ = R₂ = W ÷ 2"],
+["A 10 kN uniform beam is supported at both ends. What is the ideal end reaction at each support?","5 kN at each support, assuming symmetric supports and a uniform beam.","R = W ÷ 2"],
+["A 12 kN beam has its center of gravity closer to the left support. What happens to the support reactions?","The left support generally carries more load than the right; the actual reactions depend on distances and support conditions.","Use moment equilibrium"],
+["Why can hidden contents change a load's center of gravity?","Contents may be unevenly distributed, causing the load to tilt or rotate when lifted.","Confirm contents and mass distribution"],
+["What is an off-center load?","A load whose center of gravity does not align with the assumed lifting geometry or centerline.","Verify CG and lifting-point arrangement"],
+["Why should a load not be lifted if its balance is unknown?","It may tilt, slide, rotate or overload individual rigging components unexpectedly.","Establish CG and safe attachment points"],
+["What should happen if the load tilts unexpectedly during a trial lift?","Lower it safely, reassess the center of gravity and rigging arrangement, and correct the setup before trying again.","Do not continue an unstable lift"]
+]],
+["6. Crane Capacity and Load Chart",[
+["A crane's permitted capacity for a specific setup is 8 tonnes and the planned load is 6 tonnes. What is the unused capacity difference?","8 − 6 = 2 tonnes. This arithmetic alone does not authorize the lift; all load-chart deductions and site requirements must be satisfied.","Difference = permitted capacity − assessed load"],
+["A load is 4 tonnes and applicable rigging adds 0.5 tonnes. What total suspended mass should be assessed?","4 + 0.5 = 4.5 tonnes, assuming no other components need to be included.","Total = load + applicable rigging"],
+["Why must the correct crane load chart be used?","Capacity depends on the exact crane model, configuration, radius, boom, counterweight, reeving and operating conditions.","Use the chart matching the actual setup"],
+["What is load radius in crane operations?","It is the horizontal distance from the crane's specified axis of rotation to the load line or load position as defined by the applicable chart.","Use the manufacturer's definition"],
+["What can happen when the working radius increases?","The crane's permitted capacity commonly decreases; the actual allowable capacity must be read from the correct load chart.","Check capacity at actual radius"],
+["Why must the crane configuration match the load chart?","A different boom, counterweight, outrigger or reeving setup can change the permitted capacity.","Match actual configuration to chart"],
+["What does gross versus net capacity mean in a crane chart?","The chart and manufacturer instructions define how deductions for hook block, rigging or other equipment are handled; use the specified convention to avoid double-counting or omission.","Follow chart notes and deductions"],
+["A load is 7 tonnes and rigging is 0.3 tonnes. What combined mass is being assessed before other required deductions?","7 + 0.3 = 7.3 tonnes. Apply the crane chart's stated method and all relevant deductions.","Combined mass = 7.3 t"],
+["Why is a crane's rated capacity not a universal number?","It varies with the configuration and operating conditions shown in the load chart.","Capacity is configuration-specific"],
+["What should be done if the required load-chart information is unavailable?","Do not proceed until the correct chart and required technical information have been obtained and verified.","Stop pending verification"]
+]],
+["7. Ground Pressure and Support",[
+["A 40 kN load is distributed uniformly over a 2 m² area. What is average pressure?","Pressure = 40 ÷ 2 = 20 kN/m², assuming uniform distribution.","P = F ÷ A"],
+["A 60 kN force acts over 3 m². Calculate average pressure.","60 ÷ 3 = 20 kN/m².","P = F ÷ A"],
+["A 50 kN force acts over 0.5 m². Calculate average pressure.","50 ÷ 0.5 = 100 kN/m².","P = F ÷ A"],
+["A support carries 30 kN over 1.5 m². What is average pressure?","30 ÷ 1.5 = 20 kN/m².","P = F ÷ A"],
+["Why can outrigger ground pressure be critical?","High local loads can cause ground failure or settlement, affecting crane stability.","Assess support loads and ground capacity"],
+["What is the purpose of suitable outrigger mats?","They distribute loads over a larger area when designed and used correctly for the site conditions.","Verify mat capacity and ground conditions"],
+["Does increasing the mat area always make a crane setup safe?","No. Ground strength, mat stiffness, load distribution, underground services and the manufacturer's requirements must also be considered.","Area alone does not establish safety"],
+["What should be checked beneath crane setup areas?","Ground bearing capacity, voids, trenches, buried utilities, edges, slopes and other conditions that may affect support.","Site ground assessment"],
+["A force of 80 kN acts over 4 m². What is the average pressure?","80 ÷ 4 = 20 kN/m².","P = F ÷ A"],
+["Why is average pressure not always enough for a crane foundation assessment?","Actual pressure distribution and local ground behavior may be nonuniform; the approved engineering assessment must consider the applicable conditions.","Use the required ground assessment"]
+]],
+["8. Rigging Ratings and Safety Factors",[
+["What is working load limit (WLL)?","The maximum load assigned to equipment under the conditions and configuration specified by its manufacturer or applicable standard.","Use the marked rating and conditions"],
+["Is breaking strength the same as WLL?","No. Breaking strength is associated with failure testing; WLL is the permitted working limit established through the applicable design and rating system.","Never use breaking strength as working capacity"],
+["Why must a sling's hitch configuration be checked?","The allowable capacity can vary with the hitch type, angle, contact geometry and manufacturer limitations.","Use the correct rated configuration"],
+["Can a sling's WLL be assumed unchanged in every arrangement?","No. The applicable rating may depend on angle, hitch, edge protection and other conditions.","Check manufacturer rating tables"],
+["What does a safety factor represent in equipment design?","It is a design relationship between specified strength and the allowable working rating; the required factor depends on the equipment and applicable standard.","Follow the relevant standard"],
+["Why must damaged rigging be removed from service even if its WLL appears sufficient?","Damage can reduce strength or reliability, so the marked rating cannot establish that damaged equipment remains safe.","Inspect condition as well as rating"],
+["Can two components with different ratings automatically form a system with the higher rating?","No. The complete assembly is limited by its weakest or otherwise governing component and the approved arrangement.","Check every component and connection"],
+["Why is traceability important for lifting accessories?","It supports verification of identity, rating, inspection and conformity with the required equipment-control process.","Maintain required records"],
+["What should be done when the load exceeds an accessory's marked WLL?","Do not use that accessory; select a suitable approved arrangement and obtain required review.","Do not exceed WLL"],
+["Why is a rigging system assessed as a complete assembly?","The load path includes every sling, connector, lifting point and other component, each of which must be suitable.","Verify the entire load path"]
+]],
+["9. Rigging Geometry and Hardware",[
+["A 10 kN horizontal load is shared equally between two ideal supports. What is the force per support?","10 ÷ 2 = 5 kN per support, assuming equal distribution and that both support forces act in the required direction.","F = W ÷ 2"],
+["Why must a shackle be loaded in its approved direction?","Side loading or incompatible connections can create stresses not covered by its rating.","Follow manufacturer loading instructions"],
+["Why is sling contact with a sharp flange hazardous?","The edge may damage the sling and cause failure under load.","Use approved edge protection"],
+["What is the purpose of a spreader beam?","It can help maintain a planned sling geometry and reduce inward forces at lifting points when correctly designed and rated.","Use an engineered, rated beam"],
+["What must be checked before using a lifting beam?","Its identification, rated capacity, inspection status, lifting-point arrangement, compatibility and approved configuration.","Verify the beam and its documentation"],
+["Why can a lifting point fail even when the sling is adequately rated?","The lifting point or supporting structure may be weaker, damaged or loaded in an unintended direction.","Check the full load path"],
+["Why should connectors be properly seated before lifting?","Incorrect seating can create eccentric loading, disengagement or failure.","Check the complete connection"],
+["Can a shackle be tightened or modified in an improvised way to make it fit?","No. Use compatible equipment and the manufacturer's approved arrangement.","Do not improvise rigging connections"],
+["Why is a sling angle important to lifting-point design?","The angle changes both vertical and horizontal force components applied to the attachment points.","Resolve forces in the approved design"],
+["Why must a rigging arrangement be checked after the load is attached?","It confirms the connections, seating, sling path and intended load distribution before the lift continues.","Inspect the assembled arrangement"]
+]],
+["10. Lift Dynamics, Planning and Review",[
+["What is dynamic loading?","It is the additional or changing force associated with movement, acceleration, impact, shock or other dynamic effects.","Use the applicable engineering method"],
+["Why should shock loading be avoided?","Sudden force changes can exceed the expected load and damage or fail lifting equipment.","Operate smoothly and avoid snatching"],
+["Why can a swinging load be dangerous?","It may strike people or structures and create changing forces and loss of control.","Control the load path and swing"],
+["What is the purpose of a trial lift in a calculation-based lift plan?","It helps verify balance, rigging behavior, clearances and attachment security before the load is moved further.","Confirm the real setup safely"],
+["Why must the total suspended load be established?","The crane assessment must account for the load and applicable below-hook equipment as required by the chart and procedure.","Include all required components"],
+["Why should a lifting calculation state its assumptions?","The answer is valid only for the stated geometry, load distribution, units and idealized conditions.","Document assumptions and limitations"],
+["Why is unit consistency important in lifting calculations?","Mixing kilograms, tonnes, newtons, kilonewtons, metres or millimetres can cause serious errors.","Convert units before calculating"],
+["Why should a calculation be independently checked for a critical lift?","An independent review can identify incorrect assumptions, unit mistakes or overlooked load-path requirements.","Follow the required review process"],
+["What should happen if field measurements differ from the calculation inputs?","Pause and reassess using verified measurements before proceeding.","Do not rely on outdated inputs"],
+["Why does a calculation not by itself authorize a lift?","The lift also depends on equipment condition, ratings, procedures, ground conditions, personnel competence, permits and site-specific hazards.","Calculation is one part of lift assurance"]
+]]
+];
+
+const host = document.getElementById("questions");
+let n = 0;
+
+const diagram = `
+<div class="diagram">
+<svg viewBox="0 0 420 175" role="img" aria-label="Illustration of a two-leg sling and angle measured from horizontal">
+<line x1="210" y1="30" x2="95" y2="135" stroke="#2878a5" stroke-width="4"/>
+<line x1="210" y1="30" x2="325" y2="135" stroke="#2878a5" stroke-width="4"/>
+<circle cx="210" cy="30" r="7" fill="#e18b36"/>
+<rect x="165" y="135" width="90" height="24" rx="3" fill="#6c879d"/>
+<line x1="95" y1="135" x2="325" y2="135" stroke="#555" stroke-dasharray="5 4"/>
+<text x="210" y="18" text-anchor="middle" font-size="12" fill="#222">Hook</text>
+<text x="120" y="75" font-size="12" fill="#222">T</text>
+<text x="294" y="75" font-size="12" fill="#222">T</text>
+<text x="108" y="127" font-size="11" fill="#222">θ</text>
+<text x="312" y="127" font-size="11" fill="#222">θ</text>
+<text x="210" y="152" text-anchor="middle" font-size="11" fill="#fff">Load W</text>
+</svg>
+</div>`;
+
+const diagramGround = `
+<div class="diagram">
+<svg viewBox="0 0 420 130" role="img" aria-label="Illustration of force distributed over a support area">
+<rect x="105" y="68" width="210" height="30" rx="3" fill="#8194a7"/>
+<rect x="120" y="98" width="180" height="10" fill="#9d7b55"/>
+<line x1="210" y1="8" x2="210" y2="58" stroke="#c94b42" stroke-width="4"/>
+<polygon points="202,48 218,48 210,62" fill="#c94b42"/>
+<text x="225" y="28" fill="#222" font-size="13">Force F</text>
+<text x="210" y="88" fill="#fff" font-size="12" text-anchor="middle">Area A</text>
+<text x="210" y="123" fill="#222" font-size="11" text-anchor="middle">Pressure = Force ÷ Area</text>
+</svg>
+</div>`;
+
+topics.forEach((section, idx) => {
+  const h = document.createElement("h2");
+  h.textContent = section[0];
+  host.appendChild(h);
+
+  section[1].forEach(item => {
+    n++;
+    const card = document.createElement("article");
+    card.className = "qa";
+
+    const title = document.createElement("h3");
+    title.textContent = "Q" + n + ". " + item[0];
+    card.appendChild(title);
+
+    if (n === 11) card.insertAdjacentHTML("beforeend", diagram);
+    if (n === 71) card.insertAdjacentHTML("beforeend", diagramGround);
+
+    const answer = document.createElement("div");
+    answer.className = "answer";
+    answer.innerHTML = "<strong>Worked answer:</strong> " + item[1];
+
+    const formula = document.createElement("div");
+    formula.className = "formula";
+    formula.textContent = "Formula / principle: " + item[2];
+
+    answer.appendChild(formula);
+    card.appendChild(answer);
+    host.appendChild(card);
+  });
+});
+
+function toggleAnswers() {
+  document.querySelectorAll("#questions .answer").forEach(el => {
+    el.hidden = !el.hidden;
+  });
+}
+</script>
 </body>
 </html>
