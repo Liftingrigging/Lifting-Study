@@ -1,80 +1,501 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="manifest" href="/Lifting-Study/manifest.json">
+    <meta name="theme-color" content="#0b1220">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Lifting and rigging study notes, calculations, crane knowledge, lifting safety and lift planning resources.">
+    <title>Lifting &amp; Rigging Study Hub</title>
 
-<!-- DOWNLOAD STUDY NOTES -->
-<section class="download-section" id="downloads">
-    <h2>⬇ Download Study Notes</h2>
-    <p>Choose a topic to download or save its study page as a PDF.</p>
+    <style>
+        * { box-sizing: border-box; }
 
-    <div class="download-grid">
-        <a class="download-btn" href="rigging.html" download>
-            📥 Lifting Accessories
-        </a>
+        body {
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+            background: #f3f6f9;
+            color: #243447;
+            line-height: 1.6;
+        }
 
-        <a class="download-btn" href="cranes.html" download>
-            📥 Cranes
-        </a>
+        header {
+            background:
+                linear-gradient(rgba(8, 43, 73, .65), rgba(8, 43, 73, .65)),
+                url("gasplant.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            padding: 45px 16px;
+            text-align: center;
+        }
 
-        <a class="download-btn" href="safety.html" download>
-            📥 Lifting Safety
-        </a>
+        header h1 {
+            margin: 0 0 8px;
+            font-size: clamp(28px, 4vw, 42px);
+        }
 
-        <a class="download-btn" href="planning.html" download>
-            📥 Lifting Planning
-        </a>
+        header p { margin: 0; font-size: 17px; }
 
-        <a class="download-btn" href="calculation.html" download>
-            📥 Lifting Calculations
-        </a>
+        nav {
+            background: #082b49;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 4px;
+            padding: 10px;
+        }
 
-        <a class="download-btn" href="study-notes.html" download>
-            📥 All Study Notes
-        </a>
-    </div>
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 10px 13px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 14px;
+        }
 
-    <p class="download-help">
-        To save a page as a PDF, open the topic and select
-        <strong>Print → Save as PDF</strong> in your browser.
-    </p>
-</section>
+        nav a:hover { background: #174d73; }
 
-<style>
-.download-section {
-    margin: 28px 0;
-    padding: 25px;
-    text-align: center;
-    background: #ffffff;
-    border: 1px solid #dbe3eb;
-    border-radius: 12px;
-}
+        main {
+            width: min(1100px, 92%);
+            margin: 25px auto;
+        }
 
-.download-section h2 {
-    color: #082b49;
-    margin-top: 0;
-}
+        .welcome {
+            background:
+                linear-gradient(rgba(8, 43, 73, .55), rgba(8, 43, 73, .55)),
+                url("lifting.png");
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            color: white;
+            text-align: center;
+            padding: 65px 22px;
+            border-radius: 12px;
+            margin-bottom: 28px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, .12);
+        }
 
-.download-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
-    gap: 12px;
-    margin-top: 20px;
-}
+        .welcome h2 {
+            font-size: clamp(26px, 4vw, 38px);
+            margin: 0 0 12px;
+        }
 
-.download-btn {
-    display: block;
-    padding: 14px 10px;
-    border-radius: 8px;
-    background: #187443;
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
+        .welcome p {
+            max-width: 750px;
+            margin: 0 auto 20px;
+            font-size: 17px;
+        }
 
-.download-btn:hover {
-    background: #105b32;
-}
+        .section-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 20px;
+        }
 
-.download-help {
-    margin: 18px 0 0;
-    font-size: 14px;
-    color: #425466;
-}
-</style>
+        .section-card {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            border: 1px solid #dbe3eb;
+            box-shadow: 0 3px 10px rgba(20, 40, 60, .06);
+        }
+
+        .section-card h2 {
+            color: #082b49;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .section-card p { margin-top: 0; }
+
+        .button {
+            display: inline-block;
+            background: #0b5c87;
+            color: white;
+            text-decoration: none;
+            text-align: center;
+            padding: 11px 16px;
+            border-radius: 6px;
+            font-weight: bold;
+            margin: 8px 6px 0 0;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .button:hover { background: #083e5c; }
+
+        .download-button { background: #187443; }
+        .download-button:hover { background: #105b32; }
+
+        .download-section {
+            background: white;
+            padding: 25px;
+            margin-top: 28px;
+            border: 1px solid #dbe3eb;
+            border-radius: 10px;
+            text-align: center;
+        }
+
+        .download-section h2 {
+            margin-top: 0;
+            color: #082b49;
+        }
+
+        .download-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 12px;
+            margin-top: 18px;
+        }
+
+        .download-item {
+            border: 1px solid #dbe3eb;
+            padding: 14px;
+            border-radius: 8px;
+            text-align: left;
+        }
+
+        .download-item strong {
+            display: block;
+            color: #082b49;
+            margin-bottom: 5px;
+        }
+
+        .download-item p {
+            font-size: 14px;
+            margin: 0 0 8px;
+        }
+
+        .download-status {
+            font-size: 14px;
+            margin-top: 14px;
+        }
+
+        .creator {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 24px;
+            background: white;
+            padding: 25px;
+            margin-top: 28px;
+            border: 1px solid #dbe3eb;
+            border-radius: 10px;
+        }
+
+        .creator-photo {
+            width: 140px;
+            height: 140px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid #0b5c87;
+            flex-shrink: 0;
+        }
+
+        .creator h2 {
+            margin: 0 0 8px;
+            color: #082b49;
+        }
+
+        footer {
+            background: #082b49;
+            color: white;
+            text-align: center;
+            padding: 18px;
+            margin-top: 35px;
+        }
+
+        #installAppBtn {
+            background: #e58b2a;
+            color: white;
+            border: 0;
+            border-radius: 8px;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        @media (max-width: 650px) {
+            .section-grid,
+            .download-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .creator {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .welcome { padding: 45px 18px; }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <h1>Lifting &amp; Rigging Study Hub</h1>
+        <p>Knowledge, Calculations, Safety and Lift Planning</p>
+    </header>
+
+    <nav>
+        <a href="index.html">Home</a>
+        <a href="rigging.html">Lifting Accessories</a>
+        <a href="calculation.html">Calculations</a>
+        <a href="cranes.html">Cranes</a>
+        <a href="planning.html">Lift Planning</a>
+        <a href="safety.html">Safety</a>
+        <a href="study-notes.html">Study Notes</a>
+    </nav>
+
+    <main>
+        <section class="welcome">
+            <h2>Welcome to Lifting &amp; Rigging Study Hub</h2>
+            <p>
+                Your learning resource for lifting operations, rigging equipment,
+                crane knowledge, lifting calculations, safety practices and lift planning.
+            </p>
+            <a class="button" href="study-notes.html">Explore Study Notes</a>
+            <a class="button download-button" href="#downloads">⬇ Download Notes</a>
+        </section>
+
+        <section class="section-grid">
+            <article class="section-card">
+                <h2>Lifting Accessories</h2>
+                <p>
+                    Learn about slings, shackles, hooks, master links, lifting beams,
+                    clamps, inspection requirements and working load limits.
+                </p>
+                <a class="button" href="rigging.html">Explore Accessories</a>
+                <a class="button download-button"
+                   href="/Lifting-Study/downloads/lifting-accessories.pdf"
+                   download>⬇ Download PDF</a>
+            </article>
+
+            <article class="section-card">
+                <h2>Lifting Calculations</h2>
+                <p>
+                    Study load weight, sling angles, sling tension, centre of gravity
+                    and other essential lifting calculations.
+                </p>
+                <a class="button" href="calculation.html">Open Calculations</a>
+                <a class="button download-button"
+                   href="/Lifting-Study/downloads/lifting-calculations.pdf"
+                   download>⬇ Download PDF</a>
+            </article>
+
+            <article class="section-card">
+                <h2>Cranes</h2>
+                <p>
+                    Learn crane types, components, load charts, working radius,
+                    configurations and basic crane safety.
+                </p>
+                <a class="button" href="cranes.html">Explore Cranes</a>
+                <a class="button download-button"
+                   href="/Lifting-Study/downloads/cranes.pdf"
+                   download>⬇ Download PDF</a>
+            </article>
+
+            <article class="section-card">
+                <h2>Lift Planning</h2>
+                <p>
+                    Review lifting plans, risk assessments, ground conditions,
+                    communication, exclusion zones and critical lift considerations.
+                </p>
+                <a class="button" href="planning.html">Explore Lift Planning</a>
+                <a class="button download-button"
+                   href="/Lifting-Study/downloads/lifting-planning.pdf"
+                   download>⬇ Download PDF</a>
+            </article>
+
+            <article class="section-card">
+                <h2>Lifting Safety</h2>
+                <p>
+                    Learn about hazards, pre-use inspections, safe lifting practices,
+                    roles and responsibilities, and accident prevention.
+                </p>
+                <a class="button" href="safety.html">Explore Safety</a>
+                <a class="button download-button"
+                   href="/Lifting-Study/downloads/lifting-safety.pdf"
+                   download>⬇ Download PDF</a>
+            </article>
+
+            <article class="section-card">
+                <h2>Study Notes</h2>
+                <p>
+                    Review lifting and rigging study materials, practice questions
+                    and preparation resources for competency assessments.
+                </p>
+                <a class="button" href="study-notes.html">Open Study Notes</a>
+                <a class="button download-button"
+                   href="/Lifting-Study/downloads/study-notes.pdf"
+                   download>⬇ Download PDF</a>
+            </article>
+        </section>
+
+        <section class="download-section" id="downloads">
+            <h2>⬇ Download Study Materials</h2>
+            <p>Download the PDF for the topic you want to study.</p>
+
+            <div class="download-grid">
+                <div class="download-item">
+                    <strong>Lifting Accessories</strong>
+                    <p>Slings, shackles, hooks and lifting equipment.</p>
+                    <a class="button download-button"
+                       href="/Lifting-Study/downloads/lifting-accessories.pdf"
+                       download>Download PDF</a>
+                </div>
+
+                <div class="download-item">
+                    <strong>Lifting Calculations</strong>
+                    <p>Load weight, sling tension and lifting calculations.</p>
+                    <a class="button download-button"
+                       href="/Lifting-Study/downloads/lifting-calculations.pdf"
+                       download>Download PDF</a>
+                </div>
+
+                <div class="download-item">
+                    <strong>Cranes</strong>
+                    <p>Crane types, load charts and safe operation.</p>
+                    <a class="button download-button"
+                       href="/Lifting-Study/downloads/cranes.pdf"
+                       download>Download PDF</a>
+                </div>
+
+                <div class="download-item">
+                    <strong>Lift Planning</strong>
+                    <p>Lift plans, risk assessments and planning requirements.</p>
+                    <a class="button download-button"
+                       href="/Lifting-Study/downloads/lifting-planning.pdf"
+                       download>Download PDF</a>
+                </div>
+
+                <div class="download-item">
+                    <strong>Lifting Safety</strong>
+                    <p>Hazards, inspections and safe lifting practices.</p>
+                    <a class="button download-button"
+                       href="/Lifting-Study/downloads/lifting-safety.pdf"
+                       download>Download PDF</a>
+                </div>
+
+                <div class="download-item">
+                    <strong>All Study Notes</strong>
+                    <p>Combined study material, if you have prepared this PDF.</p>
+                    <a class="button download-button"
+                       href="/Lifting-Study/downloads/study-notes.pdf"
+                       download>Download PDF</a>
+                </div>
+            </div>
+
+            <p class="download-status" id="downloadStatus" role="status" aria-live="polite"></p>
+        </section>
+
+        <section class="creator">
+            <img src="jawad.jpeg" alt="Website creator" class="creator-photo">
+            <div>
+                <h2>About the Creator</h2>
+                <p><strong>Jawad Wains</strong></p>
+                <p>Lifting Engineer</p>
+                <p>
+                    Sharing knowledge and learning resources to support safer,
+                    more informed lifting and rigging operations.
+                </p>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Lifting &amp; Rigging Study Hub. Learning for safer lifting operations.</p>
+        <div style="text-align:center; margin:20px 0;">
+            <button id="installAppBtn" type="button">📱 Install App</button>
+            <p id="installAppMessage" role="status" aria-live="polite"
+               style="font-size:14px; margin-top:8px;"></p>
+        </div>
+    </footer>
+
+    <script>
+        if ("serviceWorker" in navigator) {
+            window.addEventListener("load", () => {
+                navigator.serviceWorker.register("/Lifting-Study/service-worker.js")
+                    .catch(error => {
+                        console.error("Service worker registration failed:", error);
+                    });
+            });
+        }
+
+        let deferredInstallPrompt = null;
+
+        const installBtn = document.getElementById("installAppBtn");
+        const installMsg = document.getElementById("installAppMessage");
+
+        window.addEventListener("beforeinstallprompt", event => {
+            event.preventDefault();
+            deferredInstallPrompt = event;
+        });
+
+        window.addEventListener("appinstalled", () => {
+            if (installMsg) {
+                installMsg.textContent = "App installed successfully!";
+            }
+            deferredInstallPrompt = null;
+        });
+
+        if (installBtn && installMsg) {
+            installBtn.addEventListener("click", async () => {
+                if (window.matchMedia("(display-mode: standalone)").matches) {
+                    installMsg.textContent = "The app is already installed.";
+                    return;
+                }
+
+                if (!deferredInstallPrompt) {
+                    installMsg.textContent =
+                        "If installation is available, open your browser menu and choose Install app or Add to Home Screen.";
+                    return;
+                }
+
+                deferredInstallPrompt.prompt();
+                const result = await deferredInstallPrompt.userChoice;
+
+                installMsg.textContent = result.outcome === "accepted"
+                    ? "Installation accepted. Follow the browser prompts."
+                    : "Installation was cancelled.";
+
+                deferredInstallPrompt = null;
+            });
+        }
+
+        // Warn users when a linked PDF does not exist.
+        // This checks the response but does not generate missing PDFs.
+        document.querySelectorAll(".download-button[download]").forEach(link => {
+            link.addEventListener("click", async event => {
+                const status = document.getElementById("downloadStatus");
+                if (!status) return;
+
+                status.textContent = "Checking PDF file…";
+
+                try {
+                    const response = await fetch(link.href, {
+                        method: "HEAD",
+                        cache: "no-store"
+                    });
+
+                    if (!response.ok) {
+                        event.preventDefault();
+                        status.textContent =
+                            "This PDF is not available yet. Please upload the matching PDF file to the downloads folder in GitHub.";
+                    } else {
+                        status.textContent = "PDF found. Starting download…";
+                    }
+                } catch (error) {
+                    // If the check is blocked, leave the normal link behavior alone.
+                    status.textContent = "";
+                }
+            });
+        });
+    </script>
+</body>
+</html>
