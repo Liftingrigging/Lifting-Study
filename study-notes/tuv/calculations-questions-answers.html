@@ -1,729 +1,263 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TÜV Rigging Calculations Questions &amp; Answers</title>
+<title>100 Rigging Calculation Questions</title>
 
 <style>
-* {
-    box-sizing: border-box;
-}
-
-body {
-    margin: 0;
-    font-family: Arial, Helvetica, sans-serif;
-    background: #f3f6f9;
-    color: #243447;
-    line-height: 1.65;
-}
-
-header {
-    background: #082b49;
-    color: white;
-    text-align: center;
-    padding: 32px 16px;
-}
-
-header h1 {
-    margin: 0 0 8px;
-    font-size: clamp(25px, 5vw, 36px);
-}
-
-header p {
-    margin: 0;
-}
-
-nav {
-    background: #061f35;
-    text-align: center;
-    padding: 10px;
-}
-
-nav a {
-    color: white;
-    text-decoration: none;
-    display: inline-block;
-    padding: 8px 10px;
-    font-weight: bold;
-}
-
-nav a:hover {
-    text-decoration: underline;
-}
-
-main {
-    max-width: 950px;
-    width: 94%;
-    margin: 25px auto;
-}
-
-.card {
-    background: white;
-    border: 1px solid #dbe3eb;
-    border-radius: 10px;
-    padding: 22px;
-    margin-bottom: 18px;
-    box-shadow: 0 3px 10px rgba(20, 40, 60, 0.05);
-}
-
-h2, h3 {
-    color: #082b49;
-}
-
-.formula {
-    background: #eaf2f8;
-    border-left: 4px solid #0b5c87;
-    border-radius: 6px;
-    padding: 14px;
-    font-weight: bold;
-    overflow-wrap: anywhere;
-    margin: 12px 0;
-}
-
-.answer {
-    background: #eaf7f0;
-    border-radius: 7px;
-    padding: 13px;
-    margin-top: 10px;
-}
-
-.warning {
-    background: #fff7df;
-    border-left: 4px solid #d6a42a;
-    padding: 14px;
-    border-radius: 6px;
-}
-
-details {
-    background: white;
-    border: 1px solid #dbe3eb;
-    border-radius: 8px;
-    padding: 14px;
-    margin: 12px 0;
-}
-
-summary {
-    color: #082b49;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-input, select {
-    width: 100%;
-    padding: 12px;
-    margin: 6px 0 14px;
-    border: 1px solid #b9c7d4;
-    border-radius: 7px;
-    font-size: 16px;
-    background: white;
-}
-
-button {
-    background: #0b5c87;
-    color: white;
-    border: 0;
-    border-radius: 7px;
-    padding: 11px 15px;
-    margin: 4px 4px 4px 0;
-    font-size: 15px;
-    font-weight: bold;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #083e5c;
-}
-
-button.secondary {
-    background: #e5edf3;
-    color: #082b49;
-}
-
-.result {
-    margin-top: 14px;
-    padding: 12px;
-    border-radius: 7px;
-    background: #eaf2f8;
-    overflow-wrap: anywhere;
-}
-
-.search-box {
-    margin-bottom: 16px;
-}
-
-footer {
-    background: #082b49;
-    color: white;
-    text-align: center;
-    padding: 20px;
-    margin-top: 30px;
-}
-
-@media (max-width: 600px) {
-    .card {
-        padding: 16px;
-    }
-
-    nav a {
-        padding: 7px;
-    }
-}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f2f5f8;color:#263746;line-height:1.65}
+header{background:#082b49;color:white;text-align:center;padding:30px 15px}
+nav{background:#061f35;text-align:center;padding:10px}
+nav a{color:white;text-decoration:none;padding:7px 10px;display:inline-block}
+main{width:94%;max-width:950px;margin:24px auto}
+.card{background:white;border:1px solid #dce4ec;border-radius:10px;padding:20px;margin-bottom:18px}
+h2{color:#082b49;margin-top:0}
+li{padding:9px 3px;border-bottom:1px solid #edf0f3}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin:15px 0}
+input,select,button{padding:11px;font-size:16px;border-radius:7px;border:1px solid #b9c7d4}
+input{flex:1;min-width:180px}
+button{background:#0b5c87;color:white;border:0;cursor:pointer;font-weight:bold}
+.notice{background:#fff7df;border-left:4px solid #d6a42a;padding:12px;border-radius:5px}
+footer{background:#082b49;color:white;text-align:center;padding:18px;margin-top:30px}
+@media(max-width:500px){.card{padding:15px}}
+@media print{nav,.controls{display:none}}
 </style>
 </head>
 
 <body>
-
 <header>
-    <h1>TÜV Rigging Calculations</h1>
-    <p>Calculation Questions &amp; Answers — Step-by-Step Practice</p>
+<h1>100 Rigging Calculation Questions</h1>
+<p>TÜV Rigging Study Practice</p>
 </header>
 
 <nav>
-    <a href="../../index.html">Home</a>
-    <a href="../index.html">Study Notes</a>
-    <a href="index.html">TÜV Notes</a>
-    <a href="mcqs.html">MCQ Quiz</a>
-    <a href="questions-answers.html">General Q&amp;A</a>
-    <a href="calculations-questions-answers.html">
-    TÜV Calculations Questions &amp; Answers
-</a>
+<a href="../../index.html">Home</a>
+<a href="index.html">TÜV Study</a>
+<a href="mcqs.html">MCQ Quiz</a>
+<a href="questions-answers.html">Questions &amp; Answers</a>
 </nav>
 
 <main>
-
 <section class="card">
-    <h2>Welcome to Rigging Calculations</h2>
-    <p>
-        Use this page to practise basic lifting calculations, understand
-        formulas, and revise important rigging concepts.
-    </p>
+<h2>Calculation Questions Only</h2>
+<p>Use these original practice questions to prepare for lifting and rigging calculations.</p>
+<p class="notice">
+These are educational practice questions, not official TÜV exam questions or an approved lift plan. Real lifts require verified load data, manufacturer load charts, correct crane configuration and competent-person approval.
+</p>
 
-    <div class="warning">
-        <strong>Important safety notice:</strong>
-        These are original educational practice examples, not official TÜV
-        examination questions or an approved lifting plan. Actual lifting
-        operations require verified load data, manufacturer ratings,
-        applicable standards, the approved lift plan and competent-person
-        verification.
-    </div>
+<div class="controls">
+<input type="search" id="search" placeholder="Search questions..." aria-label="Search questions">
+<select id="filter" aria-label="Filter by topic">
+<option value="">All topics</option>
+</select>
+<button type="button" id="print">Print</button>
+</div>
+<p id="count" aria-live="polite">100 questions</p>
 </section>
 
-<section class="card">
-    <h2>Find a question</h2>
-    <input
-        type="search"
-        id="search"
-        class="search-box"
-        placeholder="Search calculations and questions..."
-        aria-label="Search calculations and questions"
-    >
-
-    <p id="questionCount" aria-live="polite"></p>
-
-    <button type="button" id="showAll">Show all answers</button>
-    <button type="button" class="secondary" id="hideAll">Hide all answers</button>
-</section>
-
-<section class="card">
-    <h2>1. Kilograms and tonnes</h2>
-
-    <div class="formula">
-        Tonnes = Kilograms ÷ 1,000
-    </div>
-
-    <h3>Worked example</h3>
-    <p>A load weighs 2,500 kg. Convert it to tonnes.</p>
-    <p>Step 1: Divide 2,500 by 1,000.</p>
-    <div class="answer">
-        <strong>Answer: 2.5 tonnes.</strong>
-    </div>
-
-    <div id="questions1">
-
-        <details>
-            <summary>Q1. Convert 4,800 kg to tonnes.</summary>
-            <div class="answer">
-                4,800 ÷ 1,000 = <strong>4.8 tonnes.</strong>
-            </div>
-        </details>
-
-        <details>
-            <summary>Q2. Convert 1.75 tonnes to kilograms.</summary>
-            <div class="answer">
-                1.75 × 1,000 = <strong>1,750 kg.</strong>
-            </div>
-        </details>
-
-        <details>
-            <summary>Q3. A load weighs 6,250 kg. What is its weight in tonnes?</summary>
-            <div class="answer">
-                6,250 ÷ 1,000 = <strong>6.25 tonnes.</strong>
-            </div>
-        </details>
-    </div>
-</section>
-
-<section class="card">
-    <h2>2. Equal load sharing</h2>
-
-    <div class="formula">
-        Load per leg = Total load ÷ Number of equally loaded legs
-    </div>
-
-    <p>
-        This is a simplified calculation for idealised equal load sharing.
-        It must not be assumed that every sling leg in a real arrangement
-        shares the load equally.
-    </p>
-
-    <h3>Worked example</h3>
-    <p>
-        A 1,000 kg load is supported equally by two vertical sling legs.
-    </p>
-    <p>1,000 ÷ 2 = 500 kg per leg.</p>
-
-    <div class="answer">
-        <strong>Answer: 500 kg per leg under the stated assumptions.</strong>
-    </div>
-
-    <div id="questions2">
-        <details>
-            <summary>Q4. A 1,600 kg load is equally supported by two vertical legs. What is the load per leg?</summary>
-            <div class="answer">
-                1,600 ÷ 2 = <strong>800 kg per leg.</strong>
-            </div>
-        </details>
-
-        <details>
-            <summary>Q5. A 900 kg load is ideally shared equally by three vertical legs. What is the share per leg?</summary>
-            <div class="answer">
-                900 ÷ 3 = <strong>300 kg per leg.</strong>
-                This is only a mathematical example; actual load distribution
-                must be established for the real arrangement.
-            </div>
-        </details>
-
-        <details>
-            <summary>Q6. Can you always divide the load by the number of sling legs?</summary>
-            <div class="answer">
-                <strong>No.</strong> Sling geometry, leg stiffness, centre of
-                gravity and arrangement can produce unequal loading. Use the
-                approved calculation and lift plan.
-            </div>
-        </details>
-    </div>
-</section>
-
-<section class="card">
-    <h2>3. Sling tension and sling angle</h2>
-
-    <p>
-        For a simplified, symmetrical two-leg sling arrangement, with the
-        angle measured from the horizontal:
-    </p>
-
-    <div class="formula">
-        Tension per leg = W ÷ (2 × sin θ)
-    </div>
-
-    <p><strong>W</strong> = supported load force in kN.</p>
-    <p><strong>θ</strong> = sling angle measured from horizontal.</p>
-
-    <h3>Worked example</h3>
-    <p>
-        The supported load force is 10 kN and both sling legs are at
-        60° from horizontal.
-    </p>
-    <p>sin 60° ≈ 0.866</p>
-    <p>Tension = 10 ÷ (2 × 0.866)</p>
-    <p>Tension ≈ 5.77 kN per leg.</p>
-
-    <div class="answer">
-        <strong>Answer: approximately 5.77 kN per leg</strong>,
-        under the stated idealised assumptions.
-    </div>
-
-    <div id="questions3">
-        <details>
-            <summary>Q7. What happens to sling tension when the angle from horizontal decreases?</summary>
-            <div class="answer">
-                Sling-leg tension generally increases as the angle becomes
-                shallower. Horizontal forces on the load and lifting points
-                can also increase.
-            </div>
-        </details>
-
-        <details>
-            <summary>Q8. Why must you confirm the angle reference before calculating sling tension?</summary>
-            <div class="answer">
-                The formula depends on whether the angle is measured from
-                horizontal or vertical. Using the wrong reference can produce
-                an incorrect result.
-            </div>
-        </details>
-
-        <details>
-            <summary>Q9. Is the formula above sufficient to approve a real lift?</summary>
-            <div class="answer">
-                <strong>No.</strong> It is a simplified educational model.
-                The actual arrangement, load distribution, equipment ratings,
-                lifting points, manufacturer instructions and approved plan
-                must all be checked.
-            </div>
-        </details>
-    </div>
-</section>
-
-<section class="card">
-    <h2>4. Percentage of rated capacity</h2>
-
-    <div class="formula">
-        Percentage used = (Applied load ÷ Rated capacity) × 100
-    </div>
-
-    <h3>Worked example</h3>
-    <p>
-        An illustrative load is 3 tonnes and the applicable rated capacity
-        is 5 tonnes.
-    </p>
-    <p>(3 ÷ 5) × 100 = 60%</p>
-
-    <div class="answer">
-        <strong>Answer: 60% of the stated rated capacity.</strong>
-        This percentage alone does not prove that a lift is safe.
-    </div>
-
-    <div id="questions4">
-        <details>
-            <summary>Q10. A 2-tonne load is compared with a 4-tonne rated capacity. What percentage is used?</summary>
-            <div class="answer">
-                (2 ÷ 4) × 100 = <strong>50%.</strong>
-            </div>
-        </details>
-
-        <details>
-            <summary>Q11. A load is rated at 4 tonnes, but the equipment capacity for the actual configuration is only 3 tonnes. Can the lift proceed?</summary>
-            <div class="answer">
-                <strong>No.</strong> The planned load exceeds the stated
-                applicable capacity. Stop and have the lift arrangement
-                reviewed and corrected before proceeding.
-            </div>
-        </details>
-    </div>
-</section>
-
-<section class="card">
-    <h2>5. Load weight and additional equipment</h2>
-
-    <p>
-        The crane's applicable capacity calculation must account for the
-        load and the relevant rigging, attachments and deductions according
-        to the crane manufacturer's load-chart instructions.
-    </p>
-
-    <div id="questions5">
-        <details>
-            <summary>Q12. Why is it important to know the actual load weight?</summary>
-            <div class="answer">
-                Load weight is essential for selecting suitable equipment
-                and checking the planned lift against applicable ratings.
-                Do not rely on a guess when reliable weight information is required.
-            </div>
-        </details>
-
-        <details>
-            <summary>Q13. Should rigging weight be ignored when checking a crane load chart?</summary>
-            <div class="answer">
-                <strong>No.</strong> Follow the manufacturer's instructions
-                for the total suspended load and any required deductions.
-            </div>
-        </details>
-    </div>
-</section>
-
-<section class="card">
-    <h2>6. Crane working radius and load charts</h2>
-
-    <p>
-        Working radius is generally the horizontal distance from the crane's
-        relevant axis of rotation to the load line, as defined by the
-        manufacturer.
-    </p>
-
-    <div class="warning">
-        <strong>Remember:</strong> Crane capacity cannot be determined from
-        radius alone. Use the correct manufacturer's load chart for the
-        actual crane configuration, setup and operating conditions.
-    </div>
-
-    <div id="questions6">
-        <details>
-            <summary>Q14. Can crane capacity be determined from working radius alone?</summary>
-            <div class="answer">
-                <strong>No.</strong> The correct load chart and the crane's
-                actual configuration and conditions must be verified.
-            </div>
-        </details>
-
-        <details>
-            <summary>Q15. Why can increasing the crane's working radius reduce its rated capacity?</summary>
-            <div class="answer">
-                Increasing radius generally increases the overturning moment.
-                The permitted capacity depends on the specific crane and its
-                manufacturer's load chart.
-            </div>
-        </details>
-    </div>
-</section>
-
-<section class="card">
-    <h2>7. Centre of gravity and load balance</h2>
-
-    <div id="questions7">
-        <details>
-            <summary>Q16. What is the centre of gravity (COG)?</summary>
-            <div class="answer">
-                It is the point through which the resultant weight of an
-                object can be considered to act.
-            </div>
-        </details>
-
-        <details>
-            <summary>Q17. What may happen if a load is lifted from unsuitable lifting points?</summary>
-            <div class="answer">
-                The load may tilt, rotate, become unstable or overload
-                equipment or lifting points.
-            </div>
-        </details>
-
-        <details>
-            <summary>Q18. What should you do if a load tilts unexpectedly during the initial test lift?</summary>
-            <div class="answer">
-                Stop the lift and lower the load safely if possible.
-                Reassess the centre of gravity, lifting points and rigging
-                arrangement before proceeding.
-            </div>
-        </details>
-    </div>
-</section>
-
-<section class="card">
-    <h2>8. Interactive calculation tools</h2>
-    <p>
-        These tools perform basic arithmetic for study purposes. They do not
-        verify a real lifting arrangement.
-    </p>
-
-    <label for="weightKg"><strong>Load weight in kilograms</strong></label>
-    <input
-        type="number"
-        id="weightKg"
-        min="0.001"
-        step="any"
-        placeholder="Example: 2500"
-    >
-
-    <button type="button" id="toTonnes">Convert to tonnes</button>
-    <button type="button" id="twoLegs">Idealised equal share: two vertical legs</button>
-
-    <div id="basicResult" class="result" aria-live="polite">
-        Enter a positive load weight to begin.
-    </div>
-
-    <hr>
-
-    <h3>Idealised two-leg sling tension calculator</h3>
-
-    <label for="loadKN"><strong>Supported load force (kN)</strong></label>
-    <input
-        type="number"
-        id="loadKN"
-        min="0.001"
-        step="any"
-        placeholder="Example: 10"
-    >
-
-    <label for="angle"><strong>Sling angle from horizontal (degrees)</strong></label>
-    <select id="angle">
-        <option value="30">30°</option>
-        <option value="45">45°</option>
-        <option value="60" selected>60°</option>
-        <option value="75">75°</option>
-        <option value="90">90°</option>
-    </select>
-
-    <button type="button" id="tensionBtn">Calculate idealised tension</button>
-
-    <div id="tensionResult" class="result" aria-live="polite">
-        Enter the supported load force and choose an angle.
-    </div>
-
-    <p class="warning">
-        The tension calculator assumes two identical legs, symmetrical
-        geometry and equal load sharing. It does not account for all real
-        lifting conditions, sling ratings, dynamic effects, lifting-point
-        limitations or design requirements. Do not use its result alone
-        to plan or approve a lift.
-    </p>
-</section>
-
-<section class="card">
-    <h2>9. Final revision questions</h2>
-
-    <div id="questions9">
-        <details>
-            <summary>Q19. What should happen if actual lifting conditions differ from the approved lift plan?</summary>
-            <div class="answer">
-                Stop and reassess the risks. Make any required changes through
-                the approved process and obtain the necessary authorisation
-                before continuing.
-            </div>
-        </details>
-
-        <details>
-            <summary>Q20. What should you do if a lifting accessory is damaged or its capacity cannot be verified?</summary>
-            <div class="answer">
-                Remove it from service, prevent further use and report it
-                according to the site's procedure. Never guess its capacity
-                or use damaged equipment.
-            </div>
-        </details>
-    </div>
-</section>
-
+<div id="questions"></div>
 </main>
 
-<footer>
-    Lifting &amp; Rigging Study Hub | TÜV Calculation Practice
-</footer>
+<footer>Lifting &amp; Rigging Study Hub</footer>
 
 <script>
-const weightInput = document.getElementById("weightKg");
-const basicResult = document.getElementById("basicResult");
+const data = [
+["Material Weight","A steel plate is 6 m long, 2 m wide and 20 mm thick. Using steel density 7,850 kg/m³, calculate its mass."],
+["Material Weight","A steel plate is 4.5 m × 1.8 m × 25 mm. Using density 7,850 kg/m³, calculate its mass."],
+["Material Weight","A steel beam is 12 m long and weighs 42 kg per metre. Calculate its total mass."],
+["Material Weight","A concrete block measures 2 m × 1.5 m × 1.2 m. Using density 2,400 kg/m³, calculate its mass."],
+["Material Weight","A load weighs 7,250 kg. Convert it to tonnes."],
+["Material Weight","A machine weighs 4.8 tonnes and its frame weighs 350 kg. Calculate combined mass in tonnes."],
+["Material Weight","A load weighs 8,400 kg and rigging adds 275 kg. Calculate total suspended mass in tonnes."],
+["Material Weight","A steel plate has a volume of 1.35 m³. Using density 7,850 kg/m³, calculate its mass in tonnes."],
+["Material Weight","A steel sheet has area 48 m² and thickness 10 mm. Using density 7,850 kg/m³, calculate its mass."],
+["Material Weight","A load weighs 3.25 tonnes. Convert its mass to kilograms."],
 
-function getPositiveNumber(input) {
-    const value = Number(input.value);
+["Crane Radius","The horizontal distance from the crane rotation axis to the load line is 21.8 m. State the working radius for this simplified example."],
+["Crane Radius","The load line is 24 m from the rotation axis. The load centre is another 1.5 m outboard. Calculate the distance to the load centre."],
+["Crane Radius","Planned radius is 16 m and actual radius is 17.2 m. Calculate the increase in metres and percentage."],
+["Crane Radius","A radius of 14.5 m increases by 2.3 m. Calculate the new radius."],
+["Crane Radius","Maximum planned radius is 19 m and measured radius is 18.25 m. Calculate the remaining margin."],
+["Crane Radius","Chart capacity is 12 t and planned load is 10.2 t. Calculate percentage capacity used."],
+["Crane Radius","A load is lifted at 8 m radius, then moved to 11 m radius. Calculate the increase in radius percentage."],
+["Crane Radius","A crane's planned radius is 22 m. The actual radius is 23.1 m. Calculate the percentage increase."],
+["Crane Radius","A load line is 15.8 m horizontally from the rotation axis. It moves 1.7 m closer. Calculate the new radius."],
+["Crane Radius","A lift has a radius margin of 0.8 m from a maximum planned radius of 18 m. Calculate the planned radius."],
 
-    if (
-        input.value.trim() === "" ||
-        !Number.isFinite(value) ||
-        value <= 0
-    ) {
-        return null;
-    }
+["Boom Length","A 30 m boom is at 60° above horizontal. Calculate horizontal projection R = L cos θ."],
+["Boom Length","A 32 m boom is at 65° above horizontal. Calculate vertical projection H = L sin θ."],
+["Boom Length","A 28 m boom is at 50° above horizontal. Calculate its horizontal projection."],
+["Boom Length","A 35 m boom is at 70° above horizontal. Calculate its vertical projection."],
+["Boom Angle","A boom is 30 m long and has horizontal projection 15 m. Calculate angle above horizontal."],
+["Boom Angle","A boom is 25 m long with vertical projection 20 m. Calculate its angle above horizontal."],
+["Boom Length","A right triangle has horizontal projection 18 m and vertical projection 24 m. Calculate boom length."],
+["Boom Angle","Horizontal projection is 21 m and vertical projection is 28 m. Calculate the angle above horizontal."],
+["Boom Length","A 40 m boom is at 55° above horizontal. Calculate horizontal and vertical projections."],
+["Boom Length","A simplified boom has a horizontal projection of 20 m and vertical projection of 15 m. Calculate its length."],
 
-    return value;
-}
+["Hook Height","Boom pivot is 2 m above ground. Boom length is 30 m at 60°. Ignoring sheaves and deflection, calculate geometric tip height."],
+["Hook Height","Geometric tip height is 26 m. Allow 3.5 m below the tip for hook block and rigging. Calculate idealised hook elevation."],
+["Hook Height","A platform is 18 m above ground. Load height is 2.2 m and required clearance is 1 m. Calculate required load-bottom elevation."],
+["Hook Height","Load bottom elevation is 15.5 m and load height is 2.4 m. Calculate top elevation."],
+["Hook Height","The load top must reach 22 m elevation. Load height is 3.2 m. Calculate required bottom elevation, excluding extra clearance."],
+["Hook Height","A hook is at 24 m and needs to lower 7.5 m. Calculate its final elevation."],
+["Hook Height","A load is 3.8 m high and its bottom is 12 m above ground. Calculate top elevation."],
+["Hook Height","A load must clear a platform by 1.2 m. Platform height is 16 m and load height is 2.5 m. Calculate the load-bottom elevation required."],
+["Hook Height","A hook elevation is 28 m. The required hook elevation is 21.5 m. Calculate the required lowering distance."],
+["Hook Height","A load bottom is 14.2 m high and load height is 2.8 m. Calculate its top elevation."],
 
-document.getElementById("toTonnes").addEventListener("click", function () {
-    const kg = getPositiveNumber(weightInput);
+["Centre of Gravity","A uniform 8 m beam has its COG at the midpoint. Calculate distance from either end."],
+["Centre of Gravity","Masses 2,000 kg and 3,000 kg are at positions 1 m and 5 m. Calculate combined COG from the datum."],
+["Centre of Gravity","Masses 500 kg, 800 kg and 700 kg are located at 0 m, 2 m and 5 m. Calculate combined COG."],
+["Centre of Gravity","A 300 kg beam has COG at 3 m. A 200 kg motor is at 5 m. Calculate combined COG from the left end."],
+["Centre of Gravity","A 10 m beam has COG 4.2 m from the left end. How far is it from the right end?"],
+["Centre of Gravity","A load's geometric centre is 6 m from a datum. Its COG is 1.5 m to the left. Calculate COG coordinate."],
+["Centre of Gravity","Masses 1,500 kg at 0 m and 2,500 kg at 4 m. Calculate total mass and combined COG."],
+["Centre of Gravity","A 900 kg beam has COG at 4.5 m. A 400 kg component is at 2 m. Calculate combined COG."],
+["Centre of Gravity","A 5,000 kg load has COG at 2.4 m from the left. Supports are at 0.5 m and 4.5 m. Calculate idealised support reactions."],
+["Centre of Gravity","A 6,000 kg load has supports at 1 m and 5 m from datum and COG at 3.5 m. Calculate idealised reactions."],
 
-    if (kg === null) {
-        basicResult.textContent = "Please enter a valid weight greater than zero.";
-        return;
-    }
+["Sling Forces","A 12 kN load is supported by two symmetrical sling legs at 60° from horizontal. Calculate idealised tension per leg."],
+["Sling Forces","A 20 kN load is supported by two symmetrical legs at 45° from horizontal. Calculate idealised tension per leg."],
+["Sling Forces","A 15 kN load is supported by two symmetrical legs at 30° from horizontal. Calculate idealised tension per leg."],
+["Sling Forces","A 10 kN load is supported by two symmetrical legs at 75° from horizontal. Calculate idealised tension per leg."],
+["Sling Forces","For an 18 kN load, calculate idealised tension per leg at 60° and 45° and compare."],
+["Sling Forces","Two identical legs each have tension 8 kN at 60° from horizontal. Calculate vertical load component supported by the pair."],
+["Sling Forces","Two identical legs each have tension 10 kN at 30° from horizontal. Calculate vertical load component supported by the pair."],
+["Sling Forces","A 16 kN load uses two symmetrical legs, each limited to 12 kN. Calculate the minimum theoretical angle from horizontal."],
+["Sling Forces","A 25 kN load is ideally shared equally by four vertical legs. Calculate theoretical force per leg."],
+["Sling Forces","A 3,000 kg load is ideally shared by two vertical legs. Using g = 9.81 m/s², calculate total weight force and force per leg."],
 
-    basicResult.textContent =
-        kg.toLocaleString() + " kg = " +
-        (kg / 1000).toLocaleString(undefined, {
-            maximumFractionDigits: 4
-        }) + " tonnes.";
-});
+["Tailing Lifts","A 12,000 kg vessel has main reaction 7,200 kg-equivalent and tailing reaction 4,800 kg-equivalent. Calculate each percentage share."],
+["Tailing Lifts","A 20,000 kg load has a tailing reaction of 35% at a planned stage. Calculate tailing reaction in kg and tonnes."],
+["Tailing Lifts","A 16 t load has tailing reaction 5.6 t. Calculate main reaction and percentage shares."],
+["Tailing Lifts","Total supported vertical force is 180 kN and tailing reaction is 62 kN. Calculate main reaction and percentage shares."],
+["Tailing Lifts","Tailing reaction increases from 40 kN to 52 kN. Calculate increase and percentage increase."],
+["Tailing Lifts","A 14 t load has a tailing reaction of 30%. Calculate main and tailing reactions in tonnes."],
+["Tailing Lifts","Tailing crane chart capacity is 8 t and calculated reaction is 6.4 t. Calculate percentage capacity used."],
+["Tailing Lifts","Main crane reaction is 11.5 t and applicable chart capacity is 14 t. Calculate percentage capacity used."],
+["Tailing Lifts","Crane reactions are 5,400 kg-equivalent and 3,600 kg-equivalent. Calculate main-to-tailing reaction ratio."],
+["Tailing Lifts","Total vertical load is 200 kN and one crane reaction is 72 kN. Calculate the other reaction and both percentage shares."],
 
-document.getElementById("twoLegs").addEventListener("click", function () {
-    const kg = getPositiveNumber(weightInput);
+["Tandem Cranes","Two cranes share 24 t with reactions of 14 t and 10 t. Calculate each percentage share."],
+["Tandem Cranes","A 30 t load is shared 55% by Crane A and 45% by Crane B. Calculate reactions in tonnes."],
+["Tandem Cranes","Crane A reaction is 120 kN and Crane B is 80 kN. Calculate total and percentage shares."],
+["Tandem Cranes","A 25 t load plus 1.2 t rigging is shared 60:40. Calculate total mass and each share."],
+["Tandem Cranes","Crane A reaction is 9.5 t and Crane B is 8 t. Calculate total and ratio A:B."],
+["Tandem Cranes","Total planned vertical load is 300 kN and Crane A supports 58%. Calculate both reactions."],
+["Tandem Cranes","Crane A reaction is 7.2 t and applicable chart capacity is 9 t. Calculate utilisation percentage."],
+["Tandem Cranes","Crane B reaction is 8.4 t and applicable chart capacity is 10.5 t. Calculate utilisation percentage."],
+["Tandem Cranes","Reactions are 95 kN and 110 kN. Apply a hypothetical 10% study allowance to each and calculate adjusted values."],
+["Tandem Cranes","Crane A's share rises from 45% to 52% of a 200 kN total. Calculate old and new reactions and increase."],
 
-    if (kg === null) {
-        basicResult.textContent = "Please enter a valid weight greater than zero.";
-        return;
-    }
+["Capacity Percentage","Chart capacity is 18 t and planned total load is 13.5 t. Calculate capacity used percentage."],
+["Capacity Percentage","A 7.2 t load is 80% of chart capacity. Calculate implied capacity."],
+["Capacity Percentage","An accessory WLL is 10 t and planned load is 6.5 t. Calculate percentage of WLL used."],
+["Capacity Percentage","Chart capacity is 12.5 t, load is 9 t and rigging is 0.5 t. Calculate total mass and capacity percentage."],
+["Capacity Percentage","A crane is at 72% of a 20 t applicable capacity. Calculate load in tonnes."],
+["Capacity Percentage","A 16 t load is compared with 20 t capacity. Calculate unused capacity in tonnes and percentage."],
+["Capacity Percentage","Load is 11.2 t and applicable chart capacity is 14 t. Calculate utilisation percentage."],
+["Capacity Percentage","Chart capacity changes from 16 t to 13 t. Calculate reduction in tonnes and percentage."],
+["Capacity Percentage","A load is 85% of a 9 t capacity. Calculate load and remaining capacity."],
+["Capacity Percentage","Planned load is 6.8 t and applicable chart capacity is 8 t. Calculate utilisation percentage."],
 
-    basicResult.textContent =
-        "Idealised equal share: " +
-        (kg / 2).toLocaleString(undefined, {
-            maximumFractionDigits: 3
-        }) +
-        " kg per leg, assuming two vertical legs share the load equally. " +
-        "This is not a verified rigging design.";
-});
+["Unit Conversion","Convert 450 kN to approximate tonnes-force using 9.81 kN per tonne-force."],
+["Unit Conversion","Convert 7.5 tonnes mass to approximate weight force in kN using g = 9.81 m/s²."],
+["Unit Conversion","Convert 98.1 kN to approximate tonnes-force."],
+["Unit Conversion","Convert 2.75 m to millimetres and centimetres."],
+["Unit Conversion","Convert a 28 ft boom length to metres using 1 ft = 0.3048 m."],
+["Unit Conversion","Convert 15 m to feet using 1 m ≈ 3.28084 ft."],
 
-document.getElementById("tensionBtn").addEventListener("click", function () {
-    const loadInput = document.getElementById("loadKN");
-    const loadKN = getPositiveNumber(loadInput);
-    const angle = Number(document.getElementById("angle").value);
-    const tensionResult = document.getElementById("tensionResult");
+["Load Moment","A 6 t load acts at a 12 m horizontal radius. Calculate simplified load moment in tonne-metres."],
+["Load Moment","A simplified load moment is 90 tonne-metres and load is 7.5 t. Calculate corresponding radius."],
+["Load Moment","A 4.5 t load radius increases from 8 m to 10 m. Calculate initial and final moments and percentage increase."],
+["Load Moment","Compare a 9 t load at 7 m radius with a 6 t load at 10 m. Calculate both simplified moments."],
 
-    if (loadKN === null) {
-        tensionResult.textContent =
-            "Please enter a supported load force greater than zero.";
-        return;
-    }
+["Ground Pressure","Outrigger reaction is 320 kN and mat contact area is 2 m². Calculate average pressure in kN/m²."],
+["Ground Pressure","Average pressure is 150 kN/m² over area 2.4 m². Calculate corresponding force."],
+["Ground Pressure","A 450 kN force must be spread to average pressure no greater than 180 kN/m². Calculate minimum theoretical contact area."],
 
-    if (!Number.isFinite(angle) || angle <= 0 || angle > 90) {
-        tensionResult.textContent = "Please select a valid angle.";
-        return;
-    }
+["Rigging Mass","Four shackles each weigh 12 kg and two slings each weigh 18 kg. Calculate combined rigging mass."],
+["Rigging Mass","Load is 5,600 kg, accessories 145 kg and lifting beam 380 kg. Calculate combined suspended mass in kg and tonnes."],
+["Rigging Mass","A 2.4 t machine, 160 kg lifting beam and 90 kg accessories form the suspended load. Calculate total mass."],
 
-    const radians = angle * Math.PI / 180;
-    const denominator = 2 * Math.sin(radians);
-    const tension = loadKN / denominator;
+["Other Calculations","Estimated load is 8.0 t but verified mass is 8.6 t. Calculate difference and percentage increase."],
+["Other Calculations","A load is 4.2 m high and must pass through an opening 5.5 m high. Calculate theoretical vertical clearance."],
+["Other Calculations","A load travels 18 m at idealised hoisting speed 0.3 m/s. Calculate travel time in seconds and minutes."],
+["Combined Load and Capacity","Load mass is 9.2 t, lifting beam 0.65 t and rigging 0.15 t. Chart capacity is 12 t. Calculate total suspended mass and capacity percentage."]
+];
 
-    if (!Number.isFinite(tension)) {
-        tensionResult.textContent = "Unable to calculate. Check the inputs.";
-        return;
-    }
-
-    tensionResult.textContent =
-        "Idealised tension: " +
-        tension.toLocaleString(undefined, {
-            maximumFractionDigits: 3
-        }) +
-        " kN per leg at " + angle +
-        "° from horizontal, assuming symmetrical equal loading.";
-});
-
+const container = document.getElementById("questions");
+const filter = document.getElementById("filter");
 const search = document.getElementById("search");
-const questionItems = Array.from(
-    document.querySelectorAll("main details")
-);
-const questionCount = document.getElementById("questionCount");
+const count = document.getElementById("count");
 
-function filterQuestions() {
+const topics = [...new Set(data.map(item => item[0]))];
+
+topics.forEach(topic => {
+    const option = document.createElement("option");
+    option.value = topic;
+    option.textContent = topic;
+    filter.appendChild(option);
+});
+
+const sections = {};
+topics.forEach(topic => {
+    const section = document.createElement("section");
+    section.className = "card topic";
+    section.dataset.topic = topic;
+
+    const heading = document.createElement("h2");
+    heading.textContent = topic;
+
+    const list = document.createElement("ol");
+    section.append(heading, list);
+    container.appendChild(section);
+    sections[topic] = { section, list };
+});
+
+data.forEach((item, index) => {
+    const li = document.createElement("li");
+    li.value = index + 1;
+    li.textContent = item[1];
+    sections[item[0]].list.appendChild(li);
+});
+
+function applyFilter() {
     const term = search.value.trim().toLowerCase();
+    const chosenTopic = filter.value;
     let visible = 0;
 
-    questionItems.forEach(function (item) {
-        const matches = item.textContent.toLowerCase().includes(term);
-        item.style.display = matches ? "" : "none";
+    Object.values(sections).forEach(group => {
+        let groupVisible = 0;
 
-        if (matches) {
-            visible++;
-        }
+        [...group.list.children].forEach(li => {
+            const matchesText = li.textContent.toLowerCase().includes(term);
+            const matchesTopic = !chosenTopic ||
+                group.section.dataset.topic === chosenTopic;
+            const show = matchesText && matchesTopic;
+
+            li.hidden = !show;
+            if (show) {
+                visible++;
+                groupVisible++;
+            }
+        });
+
+        group.section.hidden = groupVisible === 0;
     });
 
-    questionCount.textContent =
-        visible + " question(s) shown.";
+    count.textContent = "Showing " + visible + " question(s)";
 }
 
-search.addEventListener("input", filterQuestions);
+search.addEventListener("input", applyFilter);
+filter.addEventListener("change", applyFilter);
+document.getElementById("print").addEventListener("click", () => window.print());
 
-document.getElementById("showAll").addEventListener("click", function () {
-    questionItems.forEach(function (item) {
-        if (item.style.display !== "none") {
-            item.open = true;
-        }
-    });
-});
-
-document.getElementById("hideAll").addEventListener("click", function () {
-    questionItems.forEach(function (item) {
-        item.open = false;
-    });
-});
-
-filterQuestions();
+applyFilter();
 </script>
-
 </body>
 </html>
