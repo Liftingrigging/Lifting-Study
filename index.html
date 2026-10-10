@@ -294,6 +294,16 @@
     <footer>
         <p>&copy; 2026 Lifting &amp; Rigging Study Hub. Learning for safer lifting operations.</p>
     </footer>
-
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register(
+        "/Lifting-Study/service-worker.js"
+      ).catch((error) => {
+        console.error("Service worker registration failed:", error);
+      });
+    });
+  }
+</script>
 </body>
 </html>
