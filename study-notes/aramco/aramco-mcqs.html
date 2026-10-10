@@ -1,272 +1,576 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Aramco Lifting & Rigging - 200 MCQs</title>
+<title>Aramco Rigging MCQs — 200 Questions</title>
 <style>
-:root{--bg:#0b1220;--card:#15243a;--line:#34445b;--text:#f1f5f9;--accent:#f2a541}
+:root{--bg:#0b1220;--panel:#121e30;--panel2:#18283c;--line:#30445b;--text:#edf4fc;--muted:#a9bbce;--accent:#45d6b0;--good:#31c48d;--bad:#fb7185}
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font:16px/1.6 Arial,sans-serif}
-header{text-align:center;padding:25px 15px;background:var(--card);border-bottom:4px solid var(--accent)}
-main{max-width:950px;width:94%;margin:24px auto}
-.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:20px;margin-bottom:18px}
-h1{font-size:clamp(23px,4vw,34px);margin:0}
-h2{color:var(--accent);margin-top:0}
-button,.btn{display:inline-block;border:0;border-radius:7px;padding:11px 14px;margin:4px;background:var(--accent);color:#151515;font-weight:bold;cursor:pointer;text-decoration:none}
-.secondary{background:#263952;color:white;border:1px solid #52647a}
-.toolbar{display:flex;flex-wrap:wrap;gap:5px}
-.question{padding:17px 0;border-top:1px solid var(--line);break-inside:avoid}
-.topic{font-size:12px;color:var(--accent);text-transform:uppercase}
-.qtext{font-weight:bold}
-.option{display:block;padding:9px;margin:7px 0;background:#21344c;border-radius:7px;cursor:pointer}
-.option input{margin-right:8px}
-.explanation{color:#cbd5e1}
-.correct{border-left:4px solid #42c78a;padding-left:10px}
-.wrong{border-left:4px solid #ff7676;padding-left:10px}
-#score{font-weight:bold;color:var(--accent)}
-.small{font-size:13px;color:#cbd5e1}
-.watermark{position:fixed;right:10px;bottom:10px;opacity:.18;pointer-events:none;font-weight:bold;font-size:15px;transform:rotate(-12deg)}
-footer{text-align:center;padding:22px;color:#cbd5e1}
+body{margin:0;background:var(--bg);color:var(--text);font:16px/1.55 Arial,sans-serif}
+header{padding:28px 16px;background:#101d2e;border-bottom:1px solid var(--line)}
+.wrap{max-width:1050px;margin:auto;padding:0 16px}
+h1{margin:0 0 8px;font-size:clamp(25px,4vw,38px)}
+h2{font-size:22px}
+p{color:var(--muted)}
+a{color:var(--accent)}
+.small{font-size:13px;color:var(--muted)}
+.controls{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+button,select,input[type=search]{font:inherit;border-radius:9px;padding:10px 13px}
+button{cursor:pointer;border:1px solid var(--line);background:var(--panel2);color:var(--text)}
+button.primary{background:var(--accent);border-color:var(--accent);color:#062019;font-weight:700}
+button:hover{filter:brightness(1.12)}
+input[type=search],select{background:var(--panel);border:1px solid var(--line);color:var(--text)}
+.stats{display:flex;flex-wrap:wrap;gap:12px;margin:16px 0}
+.stat{background:var(--panel);border:1px solid var(--line);padding:10px 14px;border-radius:10px}
+.stat strong{color:var(--accent)}
+#questions{display:grid;gap:14px;margin:18px 0 30px}
+.question{background:var(--panel);border:1px solid var(--line);border-radius:13px;padding:17px}
+.question h3{font-size:16px;margin:0 0 12px}
+.tag{font-size:11px;text-transform:uppercase;letter-spacing:.08em;color:var(--accent);font-weight:bold}
+.option{display:flex;align-items:flex-start;gap:10px;padding:9px 10px;border-radius:8px;margin:5px 0;background:#17263a;cursor:pointer}
+.option input{margin-top:5px;accent-color:var(--accent)}
+.option.correct{border:1px solid var(--good);background:#12352f}
+.option.incorrect{border:1px solid var(--bad);background:#3a202b}
+.feedback{margin-top:10px;font-size:14px}
+.feedback.good{color:var(--good)}
+.feedback.bad{color:var(--bad)}
+#answerKey{display:none;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px;margin:20px 0}
+.key-item{padding:12px 0;border-bottom:1px solid var(--line)}
+.key-item:last-child{border-bottom:0}
+.key-item strong{color:var(--accent)}
+footer{border-top:1px solid var(--line);padding:24px 16px;margin-top:30px;color:var(--muted)}
+.watermark{font-size:12px;letter-spacing:.12em;color:#8196ad}
 @media print{
- body{background:white;color:black}
- header,.card{background:white;color:black;border:1px solid #bbb}
- .toolbar,.watermark,.no-print{display:none!important}
- .option{background:#f1f1f1;color:black}
- .small,.explanation{color:#333}
- h2,.topic{color:#333}
+ body{background:#fff!important;color:#111!important;font-size:11pt}
+ header,footer{background:#fff!important;color:#111!important}
+ .controls,.stats,.small,.tag,.no-print{display:none!important}
+ .wrap{max-width:none;padding:0}
+ .question,#answerKey{background:#fff!important;color:#111!important;border:1px solid #bbb;break-inside:avoid}
+ .option{background:#fff!important;color:#111!important;border:1px solid #ddd}
+ .option.correct{border:2px solid #16834a}
+ .option.incorrect{border:1px solid #bbb}
+ .feedback{color:#111!important}
+ p{color:#333}
+ a{color:#111}
+ .watermark{color:#555}
+ #answerKey{display:block!important}
 }
 </style>
 </head>
 <body>
 <header>
-<h1>Aramco Lifting &amp; Rigging</h1>
-<p>200 Practice Multiple-Choice Questions</p>
+ <div class="wrap">
+  <p class="tag">Lifting & Rigging Study Material</p>
+  <h1>Aramco Rigging MCQs</h1>
+  <p>200 original practice questions covering lift planning, rigging equipment, cranes, calculations, inspections, signaling, and lifting safety.</p>
+  <p class="small">Study aid only. Not an official or leaked Saudi Aramco examination. Follow current approved procedures, applicable GI revisions, manufacturer instructions, and site requirements.</p>
+  <p><a href="index.html">← Back to Aramco Study Notes</a></p>
+ </div>
 </header>
 
-<main>
-<section class="card">
-<h2>Practice Test</h2>
-<p>Choose an answer for each question, then check your score. Download the question bank or print it to PDF.</p>
-<p class="small"><b>Disclaimer:</b> Original practice questions, not official Saudi Aramco exam questions. Always follow the latest approved Aramco General Instructions, site procedures and equipment manuals.</p>
-<div class="toolbar">
-<button id="check">Check Answers</button>
-<button id="reset" class="secondary">Reset</button>
-<button id="htmlDownload" class="secondary">Download HTML</button>
-<button id="csvDownload" class="secondary">Download CSV</button>
-<button id="print" class="secondary">Print / Save PDF</button>
-</div>
-<p id="score" aria-live="polite">Answered: 0 / 200</p>
-</section>
-
-<section class="card">
-<h2>Questions</h2>
-<div id="questions"></div>
-</section>
-
-<section class="card">
-<h2>Reference topics to study</h2>
-<ul>
-<li>GI 7.025 — Heavy Equipment Operator and Rigger Testing and Certification</li>
-<li>GI 7.028 — Crane Lifts: Types and Procedures</li>
-<li>GI 7.029 — Rigging Hardware Requirements</li>
-<li>GI 7.030 — Inspection and Testing Requirements for Elevating/Lifting Equipment</li>
-<li>Current site lifting procedures, safety requirements and manufacturer manuals</li>
-</ul>
-<p class="small">Confirm current revisions using authorized company sources. Publicly available copies may be outdated.</p>
-<a class="btn secondary no-print" href="index.html">Back to Aramco Notes</a>
-</section>
+<main class="wrap">
+ <div class="controls no-print">
+  <input id="search" type="search" placeholder="Search questions or topics…" aria-label="Search questions">
+  <select id="topicFilter" aria-label="Filter by topic"><option value="">All topics</option></select>
+  <button class="primary" id="checkBtn">Check Answers</button>
+  <button id="keyBtn">Show Answer Key</button>
+  <button id="printBtn">Print / Save PDF</button>
+  <button id="resetBtn">Reset Answers</button>
+ </div>
+ <div class="stats">
+  <div class="stat">Questions: <strong id="total">200</strong></div>
+  <div class="stat">Answered: <strong id="answered">0</strong></div>
+  <div class="stat">Correct: <strong id="correct">0</strong></div>
+  <div class="stat">Score: <strong id="score">—</strong></div>
+ </div>
+ <p class="small">Choose one answer for each question. Use “Check Answers” to mark your selections. “Print / Save PDF” opens the browser print dialog.</p>
+ <div id="questions"></div>
+ <section id="answerKey">
+  <h2>Answer Key and Explanations</h2>
+  <div id="keyContent"></div>
+ </section>
+ <div class="controls no-print">
+  <button class="primary" id="checkBtn2">Check Answers</button>
+  <button id="keyBtn2">Show / Hide Answer Key</button>
+  <button id="printBtn2">Print / Save PDF</button>
+ </div>
 </main>
-
-<div class="watermark">A Jawad Wains</div>
-<footer>Aramco Lifting &amp; Rigging Study • A Jawad Wains</footer>
+<footer>
+ <div class="wrap">
+  <p class="watermark">A JAWAD WAINS · LIFTING & RIGGING STUDY NOTES</p>
+  <p class="small">Always verify the current revision of the applicable Saudi Aramco requirements and your approved site lifting procedure. If a question conflicts with approved requirements, follow the controlling document and consult the responsible lifting authority.</p>
+ </div>
+</footer>
 
 <script>
 const bank = [
-["Lift Planning","What should be confirmed before a lift?",["The plan, load, equipment, crew and hazards","Only the crane colour","Only yesterday's weather","Nothing for routine lifts"],0,"Confirm the lift plan, load, equipment, personnel, communication and hazards."],
-["Lift Planning","What should happen if conditions change after approval?",["Continue slowly","Ignore the change","Stop and arrange review","Ask a visitor"],2,"Changes may alter risk. Stop and obtain the required review."],
-["Lift Planning","Why hold a pre-lift briefing?",["Agree roles, hazards and signals","Replace inspections","Avoid planning","Guess the load weight"],0,"The team needs to understand the plan and their responsibilities."],
-["Lift Planning","What if a lifting instruction is unclear?",["Guess","Continue","Stop and clarify","Ask someone to push"],2,"Clarify instructions before proceeding."],
-["Lift Planning","Who should perform rigging tasks?",["Any available person","A competent authorized person","A visitor","An observer"],1,"Use personnel qualified and authorized for the task."],
+["Lift Planning","What is the main purpose of a lift plan?","To document the safe method, resources, hazards, and controls","To replace the crane operator's manual","To guarantee the lift takes a fixed time","To remove the need for supervision",0,"A lift plan communicates the proposed method, equipment, responsibilities, hazards, and controls before work starts."],
+["Lift Planning","Who should verify that the planned lift is suitable before execution?","Only the truck driver","The designated competent lifting team under site procedure","Any available worker","The person who ordered the load",1,"Planning, review, and authorization must follow the site's lifting procedure and assigned roles."],
+["Lift Planning","What should happen if site conditions differ materially from the approved plan?","Continue if the load is light","Let the signaler decide without discussion","Stop and reassess the lift before proceeding","Increase the lifting speed",2,"Unexpected conditions require the lift to be paused and the plan reassessed by responsible personnel."],
+["Lift Planning","Why should the load's center of gravity be identified?","To determine balance and sling loading","To select the paint color","To estimate the operator's experience","To avoid inspecting the hook",0,"The center of gravity affects stability, balance, and how the load shares force between lifting points."],
+["Lift Planning","Which is the best source for a load's verified weight?","A guess based on appearance","An unverified old note","The crane's maximum capacity","Approved drawings, nameplate, shipping data, or verified weighing",3,"Use reliable, applicable weight information and account for attached items and rigging where required."],
+["Lift Planning","What does a lift plan need to consider about the landing area?","Only its color","Capacity, access, stability, and final load support","Only the distance from the office","Whether it is closest to the gate",1,"The landing area must support the load and permit safe placement and removal of rigging."],
+["Lift Planning","Why are simultaneous operations relevant to lifting?","They make every lift routine","They only affect paperwork","Other work may introduce conflicting hazards or restricted space","They eliminate the need for barriers",2,"Nearby operations can affect exclusion zones, access, communications, and load movement."],
+["Lift Planning","What is the safest response when a required lift-plan detail is unknown?","Obtain and verify the missing information before lifting","Assume the most favorable value","Ask an unqualified bystander","Ignore it if the crane is large",0,"Unknown critical information must be resolved rather than replaced by an assumption."],
+["Lift Planning","Why should the lifting route be reviewed?","To choose a faster radio channel","To estimate the operator's age","To avoid checking the load weight","To identify obstructions, people, and clearance restrictions",3,"Route review helps identify overhead hazards, pinch points, obstructions, and affected work areas."],
+["Lift Planning","When is a formal lift review especially important?","Only when the load is painted","When complexity or risk triggers the site's review criteria","Every time a worker changes gloves","Only after a near miss",1,"Complex, unusual, or high-risk lifts may require additional engineering and authorization under site rules."],
 
-["Load and Capacity","What does WLL mean?",["Wire Weight Length","Working Load Limit","Working Lift Location","Weight Loading Level"],1,"WLL means Working Load Limit."],
-["Load and Capacity","What should you do if the load weight is unknown?",["Guess visually","Use the smallest sling","Establish the weight reliably","Ask a bystander"],2,"Do not lift until the weight is established."],
-["Load and Capacity","Why use the correct crane load chart?",["Capacity depends on configuration and radius","Charts are interchangeable","It improves appearance","It replaces the operator"],0,"Use the chart for the actual crane configuration."],
-["Load and Capacity","What if the load exceeds rated capacity?",["Lift quickly","Use a longer sling","Do not lift; revise the method","Pull with a tag line"],2,"Never exceed applicable rated capacity."],
-["Load and Capacity","What must be considered when calculating lifted load?",["Only payload in all cases","Load and applicable rigging allowances","Only hook weight","Only container weight"],1,"Follow the chart and site procedure for load allowances."],
+["Load Calculations","What is the total suspended load for crane-capacity checks generally expected to include?","Only the cargo's net weight","Only the hook block","The load and applicable below-hook rigging and attachments","Only the slings",2,"The exact deductions and included components depend on the crane chart and approved calculation method."],
+["Load Calculations","A load weighs 2,000 kg and approved rigging weighs 100 kg. What is their combined mass?","2,100 kg","1,900 kg","2,000 kg","2,100 tonnes",0,"Combined mass is 2,000 + 100 = 2,100 kg, before any other applicable attachments."],
+["Load Calculations","What does a crane load chart specify?","The weather forecast","The operator's work schedule","The load's exact center of gravity","Permitted capacities for specified configurations and conditions",3,"Load charts are configuration-specific and must be read using the actual setup and operating radius."],
+["Load Calculations","Why does operating radius matter for a mobile crane?","It determines the radio battery type","Capacity can change substantially with radius","It changes the load's material","It makes the ground stronger",1,"Capacity commonly decreases as radius increases; the correct chart entry must be used."],
+["Load Calculations","How should an unknown load weight be handled?","Assume it is below half capacity","Use a visual estimate only","Verify the weight before committing to the lift","Lift it slightly to find out",2,"A trial lift is not a substitute for establishing a safe, verified load weight."],
+["Load Calculations","A sling's working load limit is usually abbreviated as what?","WLL","RPM","PPE","SWLZ",0,"WLL means Working Load Limit, subject to the sling's identification, configuration, and applicable rules."],
+["Load Calculations","What is the effect of a smaller angle between two sling legs measured from horizontal?","It always halves the force","It has no effect","It reduces each leg's force to zero","It generally increases tension in each leg",3,"As sling legs become more horizontal, tension rises for the same supported load."],
+["Load Calculations","For a symmetrical two-leg lift with equal sharing, what assumption is essential before using a simple calculation?","The crane is moving","The load geometry, center of gravity, and sling angles support equal sharing","The slings are different lengths","The signaler is standing nearby",1,"Equal sharing is valid only when geometry and loading support that assumption."],
+["Load Calculations","Why should units be checked in a lifting calculation?","Units only matter on paper","Kilograms and tonnes are interchangeable without conversion","A unit error can produce a dangerously wrong result","Units determine the sling color",2,"Confirm mass, force, length, and capacity units before applying calculations or chart values."],
+["Load Calculations","What is the safest response to a capacity calculation that is close to a limit and uncertain?","Pause and have the calculation and plan verified","Round down the load weight","Ignore the rigging weight","Proceed at a higher speed",0,"Uncertainty near a capacity limit should be resolved before lifting."],
 
-["Slings and Hardware","What should be done with damaged lifting gear?",["Use it for light loads","Remove it from service","Paint over damage","Use it at night"],1,"Defective equipment must be removed from service."],
-["Slings and Hardware","Why must sling identification be legible?",["To verify rating and suitability","To make it heavier","For decoration","To identify the operator"],0,"The rating and identity must be verified."],
-["Slings and Hardware","What can sharp edges do to slings?",["Increase their rating","Protect them","Cut or damage them","Reduce load weight"],2,"Use suitable edge protection and rigging methods."],
-["Slings and Hardware","Why avoid twisted or knotted slings?",["They can be damaged and perform incorrectly","They increase capacity","They prevent inspection","They are required"],0,"Use slings according to the manufacturer's instructions."],
-["Slings and Hardware","What is a hook safety latch intended to do?",["Increase capacity","Help prevent sling disengagement","Weigh the load","Replace correct rigging"],1,"A latch does not replace proper hook loading."],
+["Slings","What should be checked before using a sling?","Only its color","Only its storage location","Only whether it feels heavy","Identification, condition, configuration, and applicable inspection status",3,"Sling selection requires checking markings, damage, capacity, and suitability for the intended hitch."],
+["Slings","What can sharp edges do to a synthetic sling?","Increase its rated capacity","Cut or damage the fibers","Make the sling self-inspecting","Prevent all movement",1,"Suitable edge protection is needed when contact could damage the sling."],
+["Slings","Why must sling tags remain legible?","They are decorative","They identify the crane driver","They help establish identity and rated capacity","They replace visual inspection",2,"Without reliable identification, the sling's rating and suitability may not be established."],
+["Slings","What is the proper action if a sling has unidentified damage?","Remove it from service and have it assessed per procedure","Hide the damage with tape","Use it for one final lift","Use it only on a short lift",0,"Do not use questionable lifting equipment until it has been evaluated by authorized competent personnel."],
+["Slings","What is a basket hitch?","A sling attached only to the operator's cab","A sling wrapped around a radio","A sling used as a handrail","A sling arrangement supporting the load in a basket-like configuration",3,"A basket hitch supports the load through the sling arrangement; capacity depends on configuration and stability."],
+["Slings","What is a choker hitch?","A sling used to tie a barrier","A sling passed around the load and tightened through itself or its fitting","A sling stored in a coil","A sling connected to a tag line",1,"A choker hitch grips the load, but its capacity and suitability depend on sling and hitch details."],
+["Slings","Why should knots not be tied in lifting slings?","Knots improve identification","Knots reduce the load's mass","Knots can damage the sling and reduce its strength unpredictably","Knots are required for short lifts",2,"Knots can cause severe strength loss and are not an acceptable repair or adjustment method."],
+["Slings","What should be done with a sling that has been exposed to a chemical of unknown compatibility?","Do not use it until compatibility and condition are assessed","Rinse it quickly and assume it is safe","Use it for a lighter load without assessment","Cover it with cloth",0,"Chemical exposure may degrade sling materials even when damage is not obvious."],
+["Slings","Why must sling legs not be twisted?","Twisting makes the load lighter","Twisting improves every sling's capacity","It only affects appearance","Twisting can cause uneven loading and damage",3,"Twisted legs may not load as intended and can create unsafe stress concentrations."],
+["Slings","What is the correct response to a missing sling identification tag?","Use the rating of a similar-looking sling","Remove it from use until identification and suitability are established","Write a guessed rating on it","Use it only at night",1,"A sling without reliable identification cannot safely be assumed to have a particular capacity."],
 
-["Signals and Communication","Who should direct movements when a signal person is assigned?",["Any bystander","The designated signal person","A passing driver","The farthest worker"],1,"Use the designated signal person and agreed signals."],
-["Signals and Communication","What if communication with the operator is lost?",["Continue","Move faster","Stop safely until restored","Lower without checking"],2,"Stop when required communication is lost."],
-["Signals and Communication","What should happen after an emergency stop signal?",["Ignore it for light loads","Stop movement safely","Finish first","Wave back"],1,"An emergency stop signal must be acted on immediately."],
-["Signals and Communication","Why agree signals before lifting?",["Avoid ambiguity","Reduce sling weight","Change the chart","Replace planning"],0,"Agreed signals support clear communication."],
-["Signals and Communication","What is important for a blind lift?",["Proceed from memory","Plan reliable communication","Allow conflicting signals","Disable radios"],1,"Plan communications and backups as required."],
+["Wire Rope","What is one reason wire rope must be inspected?","To determine the paint brand","To count the crane's tires","To detect broken wires, distortion, corrosion, and other damage","To estimate the weather",2,"Inspection looks for defects that can reduce strength or indicate rope deterioration."],
+["Wire Rope","What is a wire-rope birdcage?","A localized distortion where strands spread outward","A normal hook shape","A type of radio signal","A storage rack",0,"Birdcaging is rope deformation and may be a serious rejection condition under applicable criteria."],
+["Wire Rope","What can severe corrosion indicate?","The rope is stronger","The rope needs no lubrication","The load is below capacity","Possible loss of material and strength",3,"Corrosion can reduce metallic area and compromise rope integrity."],
+["Wire Rope","Why must a wire rope not be pulled over an unprotected sharp edge?","It improves rope alignment","It can damage the rope and the edge may create severe local stress","It automatically raises capacity","It makes inspection unnecessary",1,"Protect the rope from damaging contact and follow the planned rigging arrangement."],
+["Wire Rope","What is a kink in wire rope?","A normal inspection mark","A paint stripe","A sharp bend or deformation that can damage the rope's structure","A lifting plan revision",2,"Kinks disrupt rope construction and may significantly weaken it."],
+["Wire Rope","How should wire-rope clips be installed?","According to the manufacturer's specified arrangement and applicable procedure","Any way that fits","With random spacing","Only by visual guess",0,"Clip type, number, orientation, spacing, and torque must follow the applicable instructions."],
+["Wire Rope","Why is a thimble used in a wire-rope eye?","To increase the load's weight","To identify the signaler","To replace all end fittings","To help protect the eye from crushing and abrasion",3,"A correctly matched thimble helps maintain the eye shape and protect the rope."],
+["Wire Rope","What is the purpose of a rope lubrication program where specified?","To change the crane's rated capacity","To reduce internal friction and help protect against corrosion","To replace inspections","To make a rope tag unnecessary",1,"Lubrication requirements depend on rope design and manufacturer guidance."],
+["Wire Rope","What should be done if a rope's construction is visibly distorted?","Keep using it if it is clean","Paint over the area","Stop using it pending assessment under rejection criteria","Reduce radio volume",2,"Distortion can signal structural damage and must be evaluated before further use."],
+["Wire Rope","Why is matching the rope to the equipment important?","The rope must suit the design, sheaves, drum, and manufacturer's requirements","Any rope of the same length is suitable","The rope's color determines fit","Matching only affects storage",0,"Rope construction and diameter must be compatible with the equipment and application."],
 
-["Site Hazards","Why establish an exclusion zone?",["Keep unauthorized people clear","Store tools under loads","Lengthen the lift","Create a shortcut"],0,"Keep people away from suspended and moving loads."],
-["Site Hazards","Where should personnel stand relative to suspended loads?",["Under the load","Between load and fixed objects","Outside the danger area","On the load"],2,"Stay clear of suspended loads and crush zones."],
-["Site Hazards","What is important near overhead power lines?",["Crane paint","Required clearances and controls","Nothing in dry weather","Radio battery"],1,"Follow applicable electrical clearance requirements."],
-["Site Hazards","What if ground may not support outrigger loads?",["Set up anyway","Use random scrap","Assess support and use suitable mats","Extend the boom"],2,"Adequate ground support is essential for stability."],
-["Site Hazards","How should a swinging load be controlled?",["Stand in its path","Use approved controls from safe positions","Put hands underneath","Remove barriers"],1,"Plan the path and use safe approved controls."],
+["Chains","What should be checked on a lifting chain assembly?","Only chain color","Only the hook's shine","Only the length","Identification, links, fittings, damage, and inspection status",3,"Check the complete assembly and its markings against the applicable criteria."],
+["Chains","What is a warning sign on a chain link?","A clean surface","Cracks, gouges, excessive wear, or deformation","A legible tag","Correctly fitted connectors",1,"These defects may compromise the link's integrity and require removal from service."],
+["Chains","Why should chain links not be shortened with improvised knots or bolts?","It makes the chain too clean","It improves traceability","It creates an unapproved arrangement that can fail","It is required for all lifts",2,"Use only approved shortening components and methods compatible with the assembly."],
+["Chains","Can a chain's capacity be determined reliably by appearance alone?","No; use the identification and applicable rated information","Yes, always","Yes, if the chain is rusty","Yes, if two workers agree",0,"Visual size is not a substitute for traceable rating information."],
+["Chains","What is the purpose of a master link in a chain sling?","To mark the work area","To attach a tag line to the load","To replace the crane hook","To provide a connection point for the sling assembly",3,"The master link connects the chain sling to the supporting hook or approved connection."],
+["Chains","What should be done if a chain sling has a stretched link?","Use it only in a basket hitch","Remove it from service for competent assessment","Hammer it back into shape","Shorten it with wire",1,"Stretching may indicate overload or damage and is not corrected by improvised repair."],
+["Chains","Why must chain sling components be compatible with one another?","Compatibility only affects color","It makes the load easier to paint","Mismatched parts can have unsuitable fit or capacity","It removes the need for inspection",2,"Components must be designed and rated for the assembly and load path."],
+["Chains","How should a chain sling be stored after use?","Clean and store it as required, protected from damage and contamination","Leave it under vehicle tires","Drop it from the hook","Tie it to a hot exhaust",0,"Proper storage helps prevent corrosion, deformation, and damage between uses."],
+["Chains","What is the safest action if a chain sling's rating cannot be verified?","Assume the highest common rating","Use it for half the planned load","Use it if the links look thick","Do not use it until its suitability is established",3,"Do not guess lifting-equipment capacity."],
+["Chains","Why is welding a damaged chain link unacceptable unless specifically authorized by a qualified process?","It always increases strength","Uncontrolled repair can alter material properties and weaken the link","It improves the tag","It makes the chain shorter",1,"Damaged lifting chain requires the approved assessment and repair or replacement route."],
 
-["Crane Operation","Why must a crane be level within limits?",["Support stability and rated operation","Polish the hook","Increase load weight","Appearance only"],0,"Follow manufacturer setup and level limits."],
-["Crane Operation","What can a trial lift help verify?",["Balance and rigging security","Exceeding chart limits","Replace inspections","Allow people underneath"],0,"A controlled trial lift can reveal balance issues."],
-["Crane Operation","What if a safety device reports a fault?",["Ignore it","Disable it","Stop and follow procedures","Silence it"],2,"Handle faults according to the manual and site procedure."],
-["Crane Operation","Why is operating radius important?",["Capacity changes with radius","It affects paint","It identifies sling colour","It is always irrelevant"],0,"Use the load chart for the actual radius."],
-["Crane Operation","What is needed before traveling with a load where permitted?",["Any route","Approved travel plan and route checks","Move quickly","Walk beside the load"],1,"Follow the applicable procedure for traveling with loads."],
+["Shackles","What should be verified before using a shackle?","Only its paint","Only whether the pin is easy to turn","Identification, rating, condition, and correct configuration","Only its overall length",2,"Confirm the shackle is traceable, undamaged, correctly selected, and used as intended."],
+["Shackles","Why should a shackle pin be secured as designed?","To prevent unintended loosening or disengagement","To make the shackle heavier","To increase the crane radius","To replace the sling tag",0,"Use the pin and securing arrangement specified for that shackle and application."],
+["Shackles","What is unsafe about side-loading a shackle when it is not rated for it?","It always improves capacity","It only changes appearance","It is safer than a straight pull","It can reduce capacity and impose unintended stresses",3,"Shackles must be loaded within the manufacturer's permitted direction and limits."],
+["Shackles","Can a bolt replace a shackle pin?","Yes, if it is the same color","No, unless the manufacturer specifically provides an approved arrangement","Yes, if hand-tightened","Yes, for any light load",1,"Only the specified pin or approved component may be used."],
+["Shackles","What should be done if a shackle is bent or has damaged threads?","Lubricate it and continue","Use it only with a new sling","Remove it from service for assessment","Hammer the body straight",2,"Deformation or thread damage can affect safe connection and retention."],
+["Shackles","Why should the shackle bow and pin be matched as specified?","The assembly is designed and rated for specific components and loading","Any pin always fits every bow","Matching is only cosmetic","The pin determines the load's center of gravity",0,"Use compatible components specified by the manufacturer."],
+["Shackles","What is a key concern when connecting multiple sling eyes to a shackle?","That the eyes are all painted","That the shackle is stored in a box","That the operator can see the tag","Fit, loading direction, crowding, and approved capacity",3,"Crowding or inappropriate loading can interfere with correct shackle performance."],
+["Shackles","Should a shackle be tightened with an improvised extension to achieve extra torque?","Yes, always","No; follow the manufacturer's specified installation method","Yes, if two people pull","Yes, if the load is stationary",1,"Improvised leverage can damage components or produce an unsafe arrangement."],
+["Shackles","What should you do if the shackle marking is illegible?","Estimate the rating from its size","Use it only for a trial lift","Do not use it until identification and suitability are established","Stamp a rating onto it yourself",2,"The capacity must be verified from reliable identification, not guessed."],
+["Shackles","Why must a shackle not be dragged under a suspended load?","It can be damaged and the load may shift or fall","It polishes the pin","It makes the lift faster","It improves inspection quality",0,"Keep personnel and equipment clear of uncontrolled load movement and damaging contact."],
 
-["Critical Lifts","What is required for a lift meeting critical-lift criteria?",["Treat it as routine","Required approved critical-lift plan","Skip briefing","Use uninspected gear"],1,"Follow current site criteria and approvals."],
-["Critical Lifts","Which operation generally needs special coordination?",["A tandem lift with two cranes","Carrying a hand tool","Walking without a load","Parking a car"],0,"Multi-crane lifts need coordinated planning."],
-["Critical Lifts","Why are tandem lifts complex?",["Load sharing and movements need planning","Each crane always carries half","No communication is needed","Charts do not apply"],0,"Plan load distribution, capacities and movement."],
-["Critical Lifts","What applies to personnel lifting platforms?",["Cargo sling rules only","Specific personnel-lifting controls and approvals","Climb aboard while moving","Ignore wind"],1,"Personnel lifting requires dedicated controls."],
-["Critical Lifts","Can an approved critical-lift method be changed without review?",["Yes if rushed","Only after required review","Yes for small loads","No one needs to know"],1,"Changes require review and authorization."],
+["Hooks","What is the purpose of a hook safety latch where fitted?","To carry the load instead of the hook","To increase the hook's rated capacity","To act as a sling","To help retain the connection from slipping out of the hook bowl",3,"A latch is a retaining feature, not a substitute for correct hook loading or rigging."],
+["Hooks","Where should a hook generally be loaded?","On its tip","In the intended bowl or seat, following the manufacturer's instructions","On the latch","On the outside of the hook back",1,"Tip loading or side loading may impose unintended stresses."],
+["Hooks","What is the concern with a hook whose throat opening has increased?","It looks newer","It is easier to paint","It may indicate deformation and requires assessment against criteria","It guarantees extra capacity",2,"Changes in throat opening can indicate overload or permanent deformation."],
+["Hooks","Why should a hook not be point-loaded?","The load may impose unsuitable stress and can disengage","It improves balance every time","It eliminates the need for a latch","It lowers the load's weight",0,"Apply load as intended by the hook design and approved rigging arrangement."],
+["Hooks","What should be done if a hook latch is damaged?","Tie it with random wire","Ignore it if the hook is large","Use the hook only for a short distance","Follow the equipment criteria and do not use an unsafe assembly",3,"A defective latch must be dealt with under applicable requirements; never improvise a repair."],
+["Hooks","Can a hook be repaired by heating and bending it on site?","Yes, by any worker","No; only an authorized manufacturer-approved process may be used where permitted","Yes, if it cools slowly","Yes, if the load is small",1,"Uncontrolled heating and bending can change material properties and compromise strength."],
+["Hooks","What is the purpose of hook identification markings?","To decorate the hook","To show the operator's name","To establish traceability and applicable rated information","To indicate the weather",2,"Markings help verify the hook's identity and rating."],
+["Hooks","What should happen if the load connection cannot seat correctly in the hook?","Stop and correct the connection using an approved arrangement","Force the connection into place","Hold the latch open","Use a second random pin",0,"Connections must fit and load the hook as designed."],
+["Hooks","Why is a swivel hook not automatically a solution to every twisting problem?","It makes the load heavier","It removes all side-load risks","It replaces the lift plan","The swivel's rating, condition, and intended use must still be verified",3,"Use swivels only within their design, rating, and manufacturer's conditions."],
+["Hooks","What is the safest response to visible cracks in a hook?","Polish them away","Remove the hook from service and have it assessed","Paint over them","Use it only below half capacity",1,"Cracks can threaten structural integrity and are not an acceptable cosmetic defect."],
 
-["Inspection","When should lifting gear be inspected?",["Only after failure","Before use and at required intervals","Only when new","Never if painted"],1,"Follow pre-use and periodic inspection requirements."],
-["Inspection","What if a required inspection record is missing?",["Use it once","Verify compliance before use","Copy another record","Hide paperwork"],1,"Confirm inspection status before using equipment."],
-["Inspection","Why report defects promptly?",["Control hazards before use","Increase paperwork only","Reduce load weight","Avoid inspection"],0,"Reporting supports isolation and corrective action."],
-["Inspection","Who should repair lifting equipment?",["Any worker","Authorized competent personnel","A visitor","Only the signal person"],1,"Repairs require appropriate competence and compliance."],
-["Inspection","How should defective equipment be handled?",["Mix it with good gear","Identify and segregate it","Use next shift","Remove the tag"],1,"Prevent accidental reuse of defective equipment."],
+["Crane Setup","Why must ground conditions be assessed before crane setup?","To estimate fuel use","To select the radio channel","Ground failure or settlement can destabilize the crane","To determine sling color",2,"Crane support must be suitable for imposed loads and site conditions."],
+["Crane Setup","What is the purpose of outrigger mats or suitable support pads?","To distribute support loads and help prevent excessive ground pressure","To raise the load's weight","To replace the load chart","To prevent the operator from using mirrors",0,"Properly selected support helps transfer outrigger loads to the ground safely."],
+["Crane Setup","Why must the crane be configured exactly as reflected in the applicable load chart?","The chart applies to every possible setup","Configuration affects only fuel consumption","Configuration does not affect capacity","Capacity depends on configuration, boom, counterweight, and other stated conditions",3,"Use the chart that matches the actual crane configuration and operating conditions."],
+["Crane Setup","What is the hazard of an unverified underground service near an outrigger?","It improves ground strength","The support may damage the service or lose support","It only affects paint","It reduces wind speed",1,"Underground utilities and voids must be considered in ground assessment."],
+["Crane Setup","Why should the crane be positioned with adequate clearance from edges and excavations?","To make the boom longer","To shorten the rigging","Nearby ground may fail or collapse under crane loads","To avoid using a signaler",2,"Edge stability and soil conditions must be assessed before positioning."],
+["Crane Setup","What should be checked about overhead power lines?","Location, voltage-related controls, clearances, and required precautions","Only the color of the wires","Only whether the crane is new","Nothing if the load is light",0,"Electrical hazards require specific planning and controls; never rely on visual estimates alone."],
+["Crane Setup","Why is a level crane setup important?","It improves radio range only","It eliminates all rigging calculations","It guarantees no wind","The crane's stability and capacity depend on setup conditions within manufacturer limits",3,"Follow the manufacturer's limits and the approved setup procedure."],
+["Crane Setup","What is the proper response if an outrigger cannot extend as planned?","Continue using the full-extension chart","Stop and verify an approved configuration and corresponding capacity","Add loose timber at random","Assume the load is lighter",1,"The actual configuration must be supported by the correct manufacturer data and approved plan."],
+["Crane Setup","Why must counterweight configuration be verified?","It only changes the crane's color","It is a convenience for storage","It can materially affect crane capacity and stability","It only matters while driving",2,"Use only approved counterweight arrangements for the selected configuration."],
+["Crane Setup","What is the correct action if the crane setup differs from the load plan?","Pause, reassess, and obtain required approval before lifting","Lift slowly and see what happens","Ask the nearest worker to approve it","Ignore the difference if the engine sounds normal",0,"Setup changes can alter capacity, stability, and risk; reassessment is required."],
 
-["Sling Angles","What happens to sling tension as the angle from horizontal becomes shallower?",["It generally increases","It becomes zero","It always halves","It is independent of angle"],0,"Shallow sling angles increase leg tension."],
-["Sling Angles","Why specify the sling-angle reference?",["Horizontal and vertical references differ","All angles are identical","It changes weight","It is formatting only"],0,"A wrong angle reference can produce unsafe calculations."],
-["Sling Angles","Before assuming equal load sharing, what should be checked?",["Geometry and centre of gravity","Matching sling colours","Operator experience only","Paint"],0,"Equal sharing is not automatic."],
-["Sling Angles","What if calculated sling tension exceeds the rating?",["Round down","Stop and review the calculation","Ignore the angle","Use damaged gear"],1,"Do not exceed equipment ratings."],
-["Sling Angles","Why check units in lifting calculations?",["Unit errors can create serious mistakes","Units do not matter","To lengthen answers","Only for exams"],0,"Check units, assumptions, formulas and rounding."],
+["Mobile Cranes","What does the term operating radius usually refer to in crane planning?","The truck's tire pressure","The boom's paint length","The operator's seat distance","The horizontal distance from the crane's axis of rotation to the load line, as defined by the chart",3,"Use the manufacturer's definition and measure the radius relevant to the operating configuration."],
+["Mobile Cranes","Why is boom length alone insufficient to determine crane capacity?","Boom length never matters","Capacity also depends on radius, configuration, reeving, and other chart conditions","The hook color controls capacity","Only the load's shape matters",1,"The chart must be checked for the full operating configuration, not just boom length."],
+["Mobile Cranes","What should be done before telescoping or changing boom configuration during a lift?","Proceed if the load is swinging","Ask the load to be balanced by hand","Follow the manufacturer instructions and approved plan; stop if the change is not permitted","Increase engine speed",2,"Configuration changes under load may be restricted and must follow equipment instructions and the plan."],
+["Mobile Cranes","Why is tail swing a hazard?","The rotating crane structure can strike people or objects","It improves load balance","It reduces the required exclusion zone","It only affects tire wear",0,"The rotating superstructure may sweep into nearby work areas."],
+["Mobile Cranes","What is the safest approach to a crane warning or safety-system alarm?","Silence it permanently","Continue if no one complains","Disconnect the alarm","Stop as required and follow the manufacturer's troubleshooting and site procedure",3,"Do not bypass safety systems or continue without resolving the relevant condition."],
+["Mobile Cranes","Why must the correct reeving be used?","It changes only the paint","The number of parts of line affects allowable line pull and lifting arrangement","It makes the crane independent of its load chart","It replaces hook inspection",1,"Reeving must comply with the crane configuration and manufacturer requirements."],
+["Mobile Cranes","What is a key concern when lifting over the front of a crane?","It is always the strongest direction","It needs no chart check","Permitted capacity may differ by operating sector and configuration","It eliminates ground pressure",2,"Use the capacity chart for the actual direction and setup."],
+["Mobile Cranes","Why should crane travel with a suspended load not be assumed permissible?","Traveling changes stability and is subject to specific manufacturer limits and procedures","It always improves visibility","It eliminates wind","It is required for every lift",0,"Traveling with a load is permitted only where the equipment and approved procedure allow it."],
+["Mobile Cranes","What is the purpose of a crane's anti-two-block device where fitted?","To measure the load's center of gravity","To calculate the wind speed","To replace the operator","To help prevent the hook block from contacting the boom tip or upper limit",3,"The device is a protective feature; it does not replace safe operation."],
+["Mobile Cranes","What should the operator do if visibility of the load is lost and no reliable communication is available?","Continue at minimum speed","Stop the movement until safe visibility or communication is restored","Ask workers to shout randomly","Lift higher",1,"A lift must not continue without reliable control of the movement."],
 
-["Stop Work","What is the correct response to an unsafe condition?",["Continue","Stop work and make safe","Wait until shift end","Move the barrier"],1,"Use stop-work procedures when conditions are unsafe."],
-["Stop Work","What if a load snags unexpectedly?",["Pull harder","Stop and reassess","Stand underneath","Cut a loaded sling"],1,"Snagging creates unexpected forces."],
-["Stop Work","Why must workers not try to catch a falling load?",["Crushing and impact hazards","It makes the load lighter","It is required","It improves capacity"],0,"Stay clear of the line of fire."],
-["Stop Work","What should follow a near miss?",["Hide it","Report and follow corrective procedures","Continue without inspection","Delete the plan"],1,"Reporting helps prevent recurrence."],
-["Stop Work","When may a stopped lift resume?",["When someone casually agrees","After controls and required checks are complete","After five minutes automatically","Only for heavy loads"],1,"Resume only when conditions are safe and approvals are complete."]
+["Overhead Cranes","What should be checked before operating an overhead crane?","Only the building temperature","Only the color of the pendant","Equipment condition, travel path, load, and operating controls","Only the operator's gloves",2,"Pre-use checks should follow the equipment and site procedures."],
+["Overhead Cranes","Why should a suspended load not be dragged sideways using a hoist?","It can impose side loads and damage the equipment or load","It is always safer than lifting","It makes the hoist faster","It eliminates the need for a signaler",0,"Hoists are generally designed for vertical lifting unless the manufacturer specifically permits otherwise."],
+["Overhead Cranes","What is the purpose of a bridge and trolley travel limit?","To increase load weight","To identify the slings","To replace a brake","To help prevent travel beyond permitted limits",3,"Limits are protective devices and must be maintained and used as intended."],
+["Overhead Cranes","What should happen if an overhead crane brake behaves abnormally?","Continue if the load is light","Stop operation and report it for authorized inspection or repair","Add a second worker to the pendant","Raise the load higher",1,"Brake abnormalities can cause loss of load control."],
+["Overhead Cranes","Why must pendant controls be clearly understood by the operator?","They improve the load's strength","They make rigging unnecessary","Incorrect control selection can cause unintended movement","They reduce load weight",2,"Operators must know the controls and confirm movement before proceeding."],
+["Overhead Cranes","What should be considered when lifting near an end stop?","Travel limits, stopping distance, and the approved operating method","Only the load's color","Only the hoist rope length","Nothing if the crane is new",0,"End stops are not a reason to operate carelessly or use the stop as a routine brake."],
+["Overhead Cranes","Why must people not ride a load suspended from an overhead crane unless a specifically approved system permits it?","It makes the load heavier","It is always faster to walk","It improves the operator's view","A suspended load is not a personnel platform and can expose riders to severe hazards",3,"Personnel lifting requires a specifically designed, approved system and procedure."],
+["Overhead Cranes","What should be done if the overhead crane's safe working load marking is missing or unreadable?","Estimate from the span","Do not operate until identification and permitted capacity are established","Use it only for half a load","Ask the loudest worker",1,"Capacity must be established from reliable equipment information."],
+["Overhead Cranes","What is the purpose of a pre-use hoist check?","To replace all periodic inspections","To certify every future lift","To identify obvious defects before operation","To increase rated capacity",2,"Pre-use checks supplement, rather than replace, required inspections and maintenance."],
+["Overhead Cranes","Why should the load be raised only enough to confirm a secure lift before continuing?","To check balance and rigging behavior while retaining the ability to stop safely","To test the maximum height","To make the load swing","To avoid using a load chart",0,"A controlled initial lift can reveal imbalance or snagging before the main movement."],
+
+["Forklifts","What is the primary purpose of a forklift load chart?","To state the fuel type","To show the operator's work hours","To list the warehouse aisles","To show permitted load capacity for specified load centers and configurations",3,"Capacity depends on load center, mast, attachments, and other stated conditions."],
+["Forklifts","How can an attachment affect forklift capacity?","It always increases capacity","It can reduce capacity and change the load center","It only changes the paint","It makes stability irrelevant",1,"Attachments alter the forklift's geometry and rated capacity; use the approved rating information."],
+["Forklifts","What should be done before using a forklift to lift a suspended load?","Attach it with any rope","Drive faster to avoid swing","Verify the forklift and attachment are approved for that use and follow the applicable procedure","Use the forks as a makeshift hook",2,"Suspended-load handling can alter stability and must be specifically permitted and controlled."],
+["Forklifts","Why should a forklift load be kept low while traveling?","To help maintain stability and visibility","To increase the load center","To test the mast","To clear people overhead",0,"Travel with the load in the position specified by the manufacturer and site procedure."],
+["Forklifts","What is the safest response if the forklift's capacity plate is unreadable?","Use the capacity of a similar model","Estimate by fork thickness","Use it only on smooth ground","Stop and establish the correct approved capacity before lifting",3,"Never assume capacity from appearance or another machine."],
+["Forklifts","Why is turning with an elevated load hazardous?","It improves stability","It can raise the risk of instability or overturning","It reduces the load center","It removes blind spots",1,"Keep the load position and travel behavior within the manufacturer's safe operating guidance."],
+["Forklifts","What should be verified when a forklift is fitted with a non-standard attachment?","Only that it fits the forks","Only its paint","Approval, attachment rating, capacity effects, and secure installation","Nothing if it is new",2,"An attachment must be approved and compatible with the forklift."],
+["Forklifts","What should the operator do when the load obstructs forward visibility?","Use the approved travel method, such as traveling in reverse where safe and permitted","Drive faster","Raise the load above eye level","Ask pedestrians to move without warning",0,"Maintain a safe view of the route and use the procedure appropriate to the situation."],
+["Forklifts","Why must a forklift's forks be properly spaced and engaged under the load?","To increase travel speed","To avoid checking the load center","To make the mast taller","To provide stable, appropriate support for the load",3,"Fork placement and engagement affect support and load stability."],
+["Forklifts","What is a safe response to a suspected hydraulic leak?","Wipe it away and continue","Stop using the equipment as required and report the defect","Increase pressure","Lift a heavier load to test it",1,"Hydraulic defects can affect lifting control and must be addressed before unsafe use."],
+
+["Rigging Geometry","Why must the load's center of gravity be considered when selecting lifting points?","It determines the sling color","It tells the crane's fuel level","Lifting points must support the load in a stable orientation","It replaces the weight check",2,"Poorly positioned lifting points can cause tilting, sliding, or overload."],
+["Rigging Geometry","What may happen if one sling leg is shorter than intended?","The load may tilt and load may be distributed unevenly","The load always becomes lighter","All legs automatically equalize","The crane gains capacity",0,"Unequal geometry can produce uneven load sharing and instability."],
+["Rigging Geometry","Why is a spreader beam sometimes used?","To make the crane's hook larger","To eliminate all calculations","To reduce the load's mass","To control sling geometry and, where designed, reduce inward forces on lifting points",3,"A properly designed spreader can help manage sling angles and load introduction."],
+["Rigging Geometry","What is the key concern with lifting from a single point when the load's center of gravity is offset?","It guarantees a horizontal load","The load may rotate or hang at an unintended angle","It eliminates the need for tag lines","It increases the load chart rating",1,"A single lifting point does not necessarily place the load in a stable orientation."],
+["Rigging Geometry","Why should sling legs be protected from being pinched?","Pinching improves grip","It only affects appearance","Pinching may damage the sling or create damaging local forces","It increases rated capacity",2,"Avoid sharp or crushing contact that can damage sling fibers, wires, or chain."],
+["Rigging Geometry","What is a key purpose of a lifting beam designed for a particular load?","To distribute forces through a verified design and approved lifting points","To conceal an unknown load weight","To replace the crane chart","To serve as a walkway",0,"Lifting beams must be designed, identified, inspected, and used within their approved limits."],
+["Rigging Geometry","Why should lifting points on a fabricated item be verified?","They always match the center of gravity","They never need inspection","They can be used regardless of direction","Their design, condition, and permitted loading must suit the lift",3,"Do not assume an eye plate or lug is suitable without verifying its design and condition."],
+["Rigging Geometry","What should be done if the load begins to rotate unexpectedly?","Pull harder on the tag line from under the load","Stop movement and regain control using the approved method","Stand beneath it to guide it","Increase crane speed",1,"Unexpected rotation signals the need to stop and reassess control and rigging."],
+["Rigging Geometry","Why is a trial fit of rigging useful before a complex lift?","It makes inspection unnecessary","It changes the load's weight","It can reveal fit, clearance, and balance issues before the lift","It guarantees the crane has capacity",2,"A controlled trial fit can identify problems while the load remains supported."],
+["Rigging Geometry","Why should load attachment points not be selected solely because they are convenient?","They must be suitable for the load path and approved design","Convenience always determines strength","All steel points have equal capacity","It is only a paperwork issue",0,"Use verified lifting points suitable for the direction and magnitude of forces."],
+
+["Signals","Who should normally direct crane movements under the site's signaling arrangement?","Every worker at once","Anyone who sees the load","Only the person nearest the load, regardless of authorization","The designated signaler, with emergency-stop signals honored from anyone",3,"A clear signaling chain avoids conflicting commands, while anyone must be able to call an emergency stop."],
+["Signals","What should the operator do if signals are unclear or conflicting?","Guess the intended direction","Stop movement until clear communication is restored","Continue the last movement indefinitely","Move faster to finish",1,"Ambiguous signals require the movement to stop until instructions are clear."],
+["Signals","Why must hand signals be agreed and understood before lifting?","To shorten the sling","To avoid using a load chart","To ensure the operator and signaler interpret commands consistently","To allow signals to be improvised",2,"Use the designated standard or site-approved signals and confirm understanding."],
+["Signals","What should happen if radio communication fails during a lift that relies on radio signals?","Stop movement and restore reliable communication or use an approved alternative","Continue by memory","Ask several people to shout at once","Use the horn continuously while moving",0,"Do not continue without the communication method required by the plan."],
+["Signals","What is the purpose of a designated emergency stop signal?","To speed up routine movement","To indicate a load is light","To replace all other signals","To give an unambiguous command to stop movement",3,"An emergency stop must be understood and acted on immediately."],
+["Signals","Why should a signaler maintain a suitable view of the load and route?","To avoid wearing PPE","To detect hazards and coordinate movements safely","To estimate the operator's age","To replace the lift plan",1,"The signaler needs adequate visibility or an approved communication arrangement."],
+["Signals","What is the correct response when a worker gives an emergency stop signal?","Ignore it unless the supervisor repeats it","Finish the movement first","Stop as safely and promptly as possible","Ask the worker to submit a form",2,"Emergency stop signals must be acted on regardless of who gives them."],
+["Signals","Why should only one designated person give routine movement signals at a time?","To prevent conflicting instructions","To make the crane louder","To reduce the load weight","To eliminate all inspections",0,"A single routine signaling authority supports clear crane control."],
+["Signals","What should a signaler do if the operator cannot see them?","Continue giving hand signals from behind an obstruction","Wave both arms randomly","Stand beneath the load","Use the agreed alternate communication method or stop the lift",3,"Communication must remain reliable throughout the operation."],
+["Signals","Why must the signaler avoid standing in a pinch point?","It improves hand-signal visibility","The signaler could be trapped or struck by moving equipment or the load","It reduces crane capacity","It helps the load swing",1,"Signalers need a safe position with an escape route and adequate visibility."],
+
+["Exclusion Zones","Why is an exclusion zone established around a lifting operation?","To store unrelated tools","To make the work area look organized","To keep people clear of hazardous load and equipment movement areas","To replace supervision",2,"Barriers and controlled access reduce exposure to suspended loads and moving machinery."],
+["Exclusion Zones","What should be done if an unauthorized person enters the lifting exclusion zone?","Stop the lift if necessary and restore the controlled area","Continue if the load is small","Lift over the person","Ask the person to duck",0,"The lift must not expose unauthorized people to the hazard."],
+["Exclusion Zones","Why should personnel avoid standing under a suspended load?","It improves load balance","It reduces radio interference","It is safe if a hard hat is worn","A dropped or shifting load can cause fatal injury",3,"No PPE makes standing under a suspended load acceptable."],
+["Exclusion Zones","What is the purpose of a tag line when appropriate?","To increase crane capacity","To help control load rotation from a safe position","To support the full load weight","To replace proper rigging",1,"Tag lines can help control rotation when suitable, but must be used without entanglement or unsafe positioning."],
+["Exclusion Zones","Where should a worker stand while guiding a suspended load?","Between the load and a fixed wall","Directly beneath the load","In a safe position clear of crush zones, with an escape route","Inside the crane's tail swing area",2,"Avoid crush points and maintain a safe position as the load moves."],
+["Exclusion Zones","Why are barriers alone not enough for every lifting exclusion zone?","Access must also be controlled, monitored, and communicated as required","Barriers make loads heavier","Barriers replace the operator","Barriers always fail",0,"The controls should be appropriate to the risk and maintained throughout the lift."],
+["Exclusion Zones","What is a dropped-object hazard during rigging?","A radio signal failure","A change in weather forecast","A load chart update","A tool, fitting, or component falling from height",3,"Secure tools and equipment and keep people out of drop zones."],
+["Exclusion Zones","Why must personnel keep clear of tensioned rigging?","It makes the rigging shorter","A component failure or sudden release can cause violent movement","It improves the load's paint","It removes the need for a signaler",1,"Tensioned components can recoil or move dangerously if released or damaged."],
+["Exclusion Zones","What should happen if the load path passes above an occupied area?","Proceed if the lift is quick","Warn people only after starting","Re-plan or implement approved controls so people are not exposed to unacceptable risk","Use a louder horn",2,"The route and occupancy must be managed before lifting begins."],
+["Exclusion Zones","Why should tag lines not be wrapped around a worker's hand or body?","The line can entangle or pull the worker if the load moves","It improves grip","It guarantees load control","It is required for heavy loads",0,"Hold and use tag lines in a way that permits safe release and avoids entanglement."],
+
+["Inspections","What is the purpose of a pre-use inspection?","To replace all maintenance","To guarantee a device will never fail","To establish a new rated capacity","To identify visible defects or abnormal conditions before use",3,"Pre-use checks are one layer of the equipment assurance process."],
+["Inspections","Who should perform specialized lifting-equipment inspections when required?","Any person passing by","A competent or authorized inspector meeting the applicable requirements","Only the equipment owner by default","A worker with no relevant training",1,"Inspection qualifications and authorization depend on equipment and governing requirements."],
+["Inspections","What should be done with equipment that fails its applicable inspection criteria?","Keep it available for emergency use","Use it for low loads","Remove it from service and control it against unintended use","Hide its inspection record",2,"Defective equipment must be identified, controlled, and repaired or replaced through the approved process."],
+["Inspections","Why must inspection records be traceable?","To establish equipment history, inspection status, and required follow-up","To make the equipment heavier","To replace physical checks","To remove identification tags",0,"Records help demonstrate status and identify recurring defects or overdue actions."],
+["Inspections","What should a user do if equipment has an in-date certificate but visible damage is found?","Ignore the damage until expiry","Use it if the certificate is printed","Assume the certificate covers any damage","Do not use it until the damage is assessed under the applicable procedure",3,"A certificate does not make damaged equipment safe or override current condition checks."],
+["Inspections","Why must equipment identification match its records?","It is only an administrative preference","It ensures inspection and rating information belongs to the actual item","It improves lifting speed","It replaces the manufacturer's instructions",1,"Mismatched records can lead to using the wrong rating or inspection status."],
+["Inspections","What is the correct approach to inspection intervals?","Choose any interval convenient to the crew","Inspect only after failure","Follow the applicable legal, manufacturer, and site requirements","Inspect once when equipment is new and never again",2,"Required intervals vary by equipment and governing standards."],
+["Inspections","What is the purpose of quarantine tagging defective gear?","To prevent unintended reuse before disposition","To indicate that it is preferred equipment","To increase its WLL","To allow use during night shifts",0,"Quarantine controls keep suspect equipment out of service until authorized disposition."],
+["Inspections","Why should lifting accessories be checked after an abnormal overload or incident?","They become automatically stronger","They need only cleaning","They are safe if no one was injured","The event may have caused hidden or visible damage",3,"An abnormal event requires assessment according to the applicable procedure."],
+["Inspections","What should be done when inspection requirements are unclear for a particular accessory?","Use the least strict rule","Consult the applicable procedure and competent authority before use","Use it if another crew used it","Write a new inspection interval on the tag",1,"Resolve requirements using controlling documents and authorized guidance."],
+
+["Critical Lifts","What generally makes a lift 'critical' under a site's lifting procedure?","The load is painted red","It happens on a Monday","It meets defined risk, complexity, or capacity criteria in the applicable procedure","The crane is parked outdoors",2,"Critical-lift definitions vary by site and must be taken from the current procedure."],
+["Critical Lifts","Why may an engineered lift plan be needed for a complex lift?","To analyze load paths, equipment configuration, rigging forces, and hazards","To remove the need for inspections","To guarantee zero wind","To avoid verifying the weight",0,"Engineering can verify complex geometry, capacities, and load behavior."],
+["Critical Lifts","What should be done before a critical lift starts?","Begin while the team is gathering","Use only verbal assumptions","Allow each worker to select a different plan","Confirm required approvals, readiness, roles, controls, and briefing are complete",3,"The plan and its required authorizations must be completed before execution."],
+["Critical Lifts","Why is a pre-lift briefing important?","It makes the crane stronger","It aligns the team on roles, sequence, hazards, communications, and stop-work criteria","It replaces the lift plan","It allows hazards to be ignored",1,"All involved personnel should understand the plan and their responsibilities."],
+["Critical Lifts","What is the proper response if a critical-lift condition changes during execution?","Continue unless the load falls","Ask the nearest worker to decide alone","Stop and obtain the required reassessment and authorization","Speed up to finish before conditions worsen",2,"Changes may invalidate assumptions in the approved plan."],
+["Critical Lifts","Why should a complex tandem lift be specifically planned?","Load sharing, crane movement, and coordination create additional risks","Two cranes always double capacity without calculation","It eliminates the need for a signaler","It never needs communication",0,"Multiple-crane lifts require coordinated planning and verified load distribution."],
+["Critical Lifts","What is a key requirement for a tandem lift's communication arrangement?","Each operator improvises independently","Only one crane receives instructions","No signals are needed if both cranes are new","A clear, coordinated method with designated control and emergency-stop provisions",3,"Coordinated commands are essential to avoid differential movement and uneven loading."],
+["Critical Lifts","Why is a trial or test lift sometimes specified in a plan?","To discover the maximum crane capacity by overloading","To verify balance, rigging, and control at an approved initial height","To replace the final lift briefing","To prove the load is weightless",1,"A controlled initial lift can verify expected behavior before continuing."],
+["Critical Lifts","What should be done if a required lifting supervisor or key role is absent?","Allow an unbriefed replacement automatically","Continue because the plan is printed","Follow the site's authorization and replacement procedure before proceeding","Ignore the missing role",2,"Required roles and authorization must be maintained according to the plan and procedure."],
+["Critical Lifts","Why must critical-lift calculations be independently checked when required?","To reduce the chance that an error goes unnoticed","To make the report longer","To avoid using the load chart","To eliminate the need for a crane operator",0,"Independent checking provides another layer of verification for important assumptions and calculations."],
+
+["Weather","Why does wind affect lifting operations?","It changes the load's material grade","It only affects the operator's comfort","It always increases crane capacity","Wind can create side loading, load swing, and stability concerns",3,"Wind limits depend on equipment, load shape, configuration, and manufacturer/site requirements."],
+["Weather","What is the safest response when wind exceeds the applicable limit?","Continue with a shorter tag line","Stop the lift and secure the load as the approved procedure requires","Raise the load higher","Ask workers to hold the load by hand",1,"Follow the manufacturer's and site-defined wind limits and securing method."],
+["Weather","Why can a large flat panel be hazardous in wind?","It is always lighter than a compact load","It cannot rotate","Its large area can catch wind and behave like a sail","It reduces the crane's radius",2,"Surface area and shape can make a load sensitive to wind forces."],
+["Weather","What should be considered when lightning approaches a lifting area?","Stop or suspend operations as required by the site's weather and electrical-safety procedure","Continue until the first strike is seen nearby","Use a metal tag line","Lift faster",0,"Follow site lightning thresholds and safe shutdown arrangements."],
+["Weather","Why can poor visibility affect a lift?","It improves communication","It makes loads lighter","It eliminates obstacles","It can prevent the team from seeing hazards, route, and load movement",3,"Lifting must not continue when visibility is inadequate for safe control."],
+["Weather","What is the correct way to decide whether wind conditions are acceptable?","Estimate by how the operator feels","Use the applicable manufacturer limits, site criteria, and planned controls","Ask an untrained visitor","Use the previous day's weather",1,"Apply current conditions and the actual load/equipment requirements."],
+["Weather","Why should a suspended load be secured appropriately during a pause?","To keep the load as high as possible","To prevent the crane from needing inspection","Wind or other conditions may cause uncontrolled movement","To increase its weight",2,"Use the approved safe-pause or shutdown procedure for the circumstances."],
+["Weather","What should the team do if rain or dust suddenly reduces visibility?","Pause movement until conditions allow safe control","Continue using memory","Ask the load handler to walk beneath the load","Use faster movement to finish",0,"Maintain the ability to see hazards or use a properly approved alternative method."],
+["Weather","Why should lightning-risk rules not be improvised by the crew?","Lightning affects only electronics","A crane is always a safe shelter","The load chart specifies lightning distance","The site procedure sets the required action and safe resumption criteria",3,"Use the controlling weather and emergency procedure."],
+["Weather","What is the correct response to unexpected gusting that causes load movement?","Ignore it if the load is still attached","Stop or stabilize the lift according to the approved procedure and reassess","Increase the radius","Move personnel closer to the load",1,"Unexpected movement requires regaining control without exposing personnel to the load."],
+
+["Load Handling","Why should a load be lifted vertically rather than dragged sideways?","Dragging always reduces force","It makes the crane more stable","Side pulling can impose forces and movements the crane is not designed or planned for","It eliminates the need for a lift plan",2,"Avoid side loading unless the equipment is specifically designed and the operation is approved for it."],
+["Load Handling","What should be checked if a load appears snagged before lifting?","Stop and remove the obstruction or resolve the cause safely","Apply more crane force","Ask workers to pull the load free while tensioned","Increase the boom angle without checking",0,"Never use the crane to overcome an unknown snag."],
+["Load Handling","Why is sudden acceleration or stopping undesirable during lifting?","It makes the load lighter","It improves sling alignment","It prevents all swing","Dynamic forces can increase loading and cause the load to swing",3,"Smooth, controlled movements reduce dynamic effects and help maintain control."],
+["Load Handling","What should be done before releasing rigging from a landed load?","Release it while the load is still moving","Ensure the load is stable and supported as planned","Use the crane hook to drag the load","Stand between the load and a wall",1,"Do not remove rigging until the load is safely supported and cannot shift unexpectedly."],
+["Load Handling","Why must a load not be left suspended unattended unless a specific approved procedure permits it?","It saves battery life","It helps the crane cool","Suspended loads create continuing hazards and may be affected by changing conditions","It increases capacity",2,"Follow the equipment and site rules for stopping, parking, and securing loads."],
+["Load Handling","What is the safest way to deal with an unbalanced load during the initial lift?","Lower it safely and correct the rigging or plan","Hold it manually from beneath","Ask the operator to swing it into balance","Raise it higher until it levels",0,"Lowering and correcting the setup avoids trying to fix instability while suspended."],
+["Load Handling","Why should the landing area be prepared before moving a load into it?","To keep the crew busy","To replace the load calculation","To make the load swing","Preparation prevents delays, unstable placement, and personnel entering hazardous positions",3,"Confirm supports, clearances, access, and the sequence before the load arrives."],
+["Load Handling","What is a pinch point during load placement?","A place for storing tags","A location where body parts can be trapped between moving objects","The crane's fuel cap","A radio dead zone",1,"Hands and feet must be kept out of areas where the load or rigging can trap them."],
+["Load Handling","What should be used to guide a load when hands must remain clear?","Any loose rope around the wrist","A worker standing under the load","A suitable approved tool or tag line used from a safe position","A piece of damaged sling",2,"Use an appropriate method that maintains distance and avoids entanglement."],
+["Load Handling","What should the team do if the load's packaging or components start to come loose?","Stop in a safe manner and reassess the load before continuing","Continue if the main weight is still attached","Ask a worker to climb onto the suspended load","Increase lifting speed",0,"Loose parts may fall or change the load's center of gravity."],
+
+["PPE","What is the role of PPE during lifting work?","It makes all positions safe","It replaces planning","It eliminates suspended-load hazards","It provides a final layer of protection alongside engineering and administrative controls",3,"PPE supplements hazard controls; it does not make unsafe practices acceptable."],
+["PPE","What should a rigger do if required PPE is damaged or unsuitable?","Use it until the shift ends","Obtain suitable compliant PPE before undertaking the task","Borrow unverified equipment","Continue if the task is short",1,"Required PPE must be suitable and in serviceable condition."],
+["PPE","Why is head protection important in lifting areas?","It prevents all injuries","It increases sling capacity","It can reduce certain head-injury risks from impact or falling objects","It allows workers under loads",2,"Hard hats do not make entry beneath suspended loads safe."],
+["PPE","What should be considered when selecting gloves for rigging?","Task hazards, fit, grip, and entanglement risks","Only the color","Only the price","Whether they match the sling",0,"Gloves must be appropriate to the task and must not introduce new hazards."],
+["PPE","Why should loose clothing and jewelry be controlled around moving machinery?","They improve visibility","They help grip wire rope","They increase the load weight","They may catch in moving parts or rigging",3,"Prevent entanglement hazards around rotating or moving equipment."],
+["PPE","What is the proper response if a worker cannot see clearly because of unsuitable eye protection?","Continue carefully","Stop and obtain appropriate protection for the task","Remove all eye protection","Ask another worker to carry the load",1,"Visibility and eye protection must both be suitable for the hazard."],
+["PPE","Why is high-visibility clothing useful in lifting areas?","It replaces barriers","It guarantees the operator sees everything","It can help personnel be seen by equipment operators and coworkers","It prevents load swing",2,"High visibility supports awareness but does not replace segregation and communication."],
+["PPE","What should be done if PPE requirements conflict with the planned work method?","Pause and resolve the issue with the responsible safety authority","Ignore the PPE requirement","Remove the barrier instead","Proceed because the plan is approved",0,"Resolve conflicts before starting rather than choosing between unsafe alternatives."],
+["PPE","Why should hearing protection not prevent required communication?","It always improves radio range","It eliminates the need for signals","It makes a lift more critical","The team must use compatible protection and a reliable communication method",3,"Select hearing protection and communications that work together for the task."],
+["PPE","What should happen before using a fall-arrest system near lifting operations?","Attach it to any convenient sling","Verify the approved anchorage, equipment, clearance, and rescue arrangements","Use the crane hook as an anchor by default","Skip the work-at-height assessment",1,"Fall protection must use an approved system with suitable anchorage and rescue planning."],
+
+["Permit and Procedures","Why must a required work permit be valid before a lift begins?","It determines the load's weight automatically","It makes equipment inspection unnecessary","It confirms specified authorizations and controls for the work are in place","It replaces the lift plan",2,"Permits and lift plans serve related but different control purposes."],
+["Permit and Procedures","What should be done if the actual task falls outside the permit scope?","Stop and obtain the required review or permit revision","Continue if the crane is already set up","Change the task description afterward","Ask an unbriefed worker to approve it",0,"The authorized scope and controls must match the work being performed."],
+["Permit and Procedures","Why should toolbox talks be specific to the actual lift?","Generic talks always cover every hazard","They replace engineering checks","They only matter for new workers","The team needs to understand the particular load, route, roles, and hazards",3,"A focused briefing connects the approved plan to the actual worksite."],
+["Permit and Procedures","What is the correct response to pressure to continue despite an unsafe condition?","Proceed if the supervisor is busy","Stop the unsafe activity and escalate through the site process","Hide the condition","Ask the crane to move faster",1,"Work must not proceed when required safety conditions are not met."],
+["Permit and Procedures","Why is document revision control important?","It makes documents longer","It eliminates field checks","Outdated instructions may contain superseded requirements","It replaces training",2,"Verify the current approved revision of controlling documents."],
+["Permit and Procedures","What should be done if two procedures appear to conflict?","Pause and seek resolution through the responsible authority and document hierarchy","Choose whichever is shorter","Let each crew follow a different one","Use an outdated copy",0,"Conflicts should be resolved before work, using the site's governing document hierarchy."],
+["Permit and Procedures","Why should workers know the stop-work process?","It lets them ignore supervisors","It is only for office staff","It eliminates pre-lift meetings","They need a clear route to halt and report unsafe conditions",3,"Stop-work authority is effective when personnel understand how to use and escalate it."],
+["Permit and Procedures","What is the purpose of a job safety analysis for lifting?","To replace equipment ratings","To identify task steps, hazards, and controls","To estimate the load's resale value","To remove the need for a competent rigger",1,"A JSA links work steps to hazards and appropriate controls."],
+["Permit and Procedures","Why should changes in personnel be communicated before a lift?","Personnel changes never matter","It changes the crane's rated capacity","New or replacement personnel may need role confirmation and briefing","It makes the load lighter",2,"The team must know who is responsible and ensure replacements understand the plan."],
+["Permit and Procedures","What should be done when a procedure requires a record of a lift check?","Complete the record accurately at the required stage","Fill it in from memory days later","Copy a previous lift's details","Leave it blank if the lift succeeds",0,"Accurate contemporaneous records support traceability and learning."],
+
+["Emergency Response","What should happen if a suspended load starts to fall or rigging fails?","Attempt to catch the load","Run beneath it to guide it","Stand in the drop zone to help","Warn others, keep clear, stop equipment as safely possible, and follow emergency procedures",3,"Never attempt to catch a falling load; protect people and follow the site emergency response."],
+["Emergency Response","What should be done after a lifting near miss?","Ignore it if there is no injury","Report it and preserve relevant information for investigation","Continue without checking equipment","Blame the nearest worker immediately",1,"Near-miss reporting helps identify causes and prevent recurrence."],
+["Emergency Response","Why should damaged equipment involved in an incident be controlled?","To keep it ready for immediate reuse","To avoid paperwork","It may be evidence and may remain unsafe pending assessment","To improve storage",2,"Prevent reuse and preserve evidence as required by the investigation process."],
+["Emergency Response","What is the first priority in a lifting emergency?","Protect people and prevent further harm, following the emergency plan","Save the load at any cost","Complete the checklist","Recover the equipment before calling for help",0,"Life safety takes priority over property and schedule."],
+["Emergency Response","Why should rescue arrangements be considered for work at height near lifting operations?","They are never needed","They replace fall protection","They only matter after an incident","A prompt, planned rescue may be necessary if someone is suspended or injured",3,"Rescue planning is part of a safe work-at-height system."],
+["Emergency Response","What should be done if an electrical line may have contacted a crane?","Touch the crane to check it","Keep clear, warn others, and follow the electrical emergency procedure","Ask the operator to climb down immediately","Pour water on the tires",1,"The crane and surrounding ground may be energized; follow the designated electrical emergency response."],
+["Emergency Response","Why should the operator not leave a crane cab immediately during a suspected electrical contact unless required for immediate safety?","The crane cab is always safe under every circumstance","The operator can repair the line","Leaving may expose the operator to step-potential hazards; follow the emergency procedure","It improves radio reception",2,"The approved electrical-contact response determines whether remaining in the cab or emergency exit is safer."],
+["Emergency Response","What should happen if a worker is injured during a lift?","Stop the operation, raise the alarm, and activate the site emergency response","Continue until the load is landed","Move the worker without assessing hazards","Ask the injured worker to finish the task",0,"Protect the scene and obtain appropriate emergency assistance."],
+["Emergency Response","Why should emergency contact methods be confirmed before a high-risk lift?","It improves crane capacity","It makes the load lighter","It replaces a rescue plan","Rapid communication is essential if an incident occurs",3,"Confirm how to raise the alarm and who will respond."],
+["Emergency Response","What should be done before restarting after a lifting incident?","Restart if the equipment looks normal","Ensure the area is safe, investigate as required, and obtain the required authorization","Use a different signaler only","Delete the inspection record",1,"Restart only after the relevant hazards, equipment condition, and approvals are addressed."],
+
+["Competency","Why must riggers be competent for their assigned tasks?","Experience never matters","It replaces supervision","They need the knowledge and practical ability to perform the work safely","It makes every lift routine",2,"Competency must match the hazards, equipment, and responsibilities involved."],
+["Competency","What is the correct response if a worker is unfamiliar with a particular lifting accessory?","Ask for suitable instruction or competent assistance before using it","Guess from the shape","Use it for a small load first","Copy another worker without asking",0,"Use equipment only when its identity, suitability, and safe use are understood."],
+["Competency","Why should operators and riggers coordinate their understanding of the lift?","It reduces the need for a plan","It makes all loads equal","It eliminates the need for signals","Shared understanding reduces conflicting actions and unsafe assumptions",3,"Coordination is essential for controlled movement and hazard awareness."],
+["Competency","What should a worker do if asked to perform a task outside their authorization?","Do it if the task is urgent","Decline to proceed and obtain the required authorized personnel","Ask an untrained person to supervise","Skip the required checks",1,"Tasks must be performed by personnel authorized and competent for them."],
+["Competency","Why are refresher briefings useful when equipment or procedures change?","They change the equipment rating","They remove all risk","They help personnel understand new hazards, controls, and instructions","They replace formal qualification where required",2,"Personnel need current task-specific understanding, in addition to any required formal qualification."],
+["Competency","What is a good way to handle uncertainty about a rigging method?","Stop and consult the approved plan, manufacturer data, or competent lifting authority","Try the method with the full load","Ask several people to guess","Continue if the crane is powerful",0,"Resolve technical uncertainty before applying load."],
+["Competency","Why must the designated lifting supervisor understand the lift plan?","Only the operator needs to know it","The supervisor never affects safety","It is only a filing requirement","The supervisor coordinates the operation and verifies required controls",3,"The assigned supervisor needs enough understanding to manage execution and respond to changes."],
+["Competency","What should be done when a worker notices a hazard that others missed?","Keep quiet unless asked","Raise it and stop the task if needed","Wait until the lift finishes","Assume someone else owns the hazard",1,"Hazards should be communicated promptly, regardless of rank."],
+["Competency","Why is practical familiarization important for signaling equipment?","It increases the crane's capacity","It replaces the designated signaler","Users must know how to operate it and confirm reliable communication","It guarantees radio coverage everywhere",2,"A communication device is useful only when correctly operated and reliable."],
+["Competency","What is the best way to learn from repeated rigging errors?","Report and analyze causes, then implement and verify corrective actions","Blame the newest worker automatically","Stop documenting near misses","Accept them as normal",0,"Systematic learning addresses root causes rather than normalizing unsafe conditions."],
+
+["Environmental and Site Hazards","Why must nearby pipelines and process equipment be considered during a lift?","They are always strong enough to support a load","They only affect the weather","They eliminate the need for barriers","A dropped or swinging load could damage them and cause a secondary incident",3,"Identify vulnerable equipment and define suitable clearance and protection controls."],
+["Environmental and Site Hazards","What should be done if a load route crosses a vehicle access road?","Move the load without warning","Control the crossing and coordinate vehicle/pedestrian access under the plan","Rely on the driver to notice","Use a faster lifting speed",1,"Access control and coordination prevent vehicles or pedestrians entering the hazard area."],
+["Environmental and Site Hazards","Why should lighting be assessed for night lifting?","It makes the load lighter","It replaces reflective clothing","Poor lighting can hide hazards and impair communication or load control","It reduces sling tension",2,"Provide sufficient suitable lighting without creating glare or obscuring signals."],
+["Environmental and Site Hazards","What should be considered when lifting near operating process equipment?","Required clearances, operational hazards, permits, and coordination with the area authority","Only the load's paint","Only the crane's age","Nothing if the equipment is fenced",0,"Nearby process hazards may require special controls and authorization."],
+["Environmental and Site Hazards","Why should the load's route avoid fragile roofs or unverified structures?","The crane can always compensate","It only changes the travel time","Structures become stronger under load","The structure may not be designed for the imposed load or impact",3,"Do not place or pass loads over structures without verifying the relevant risks and approvals."],
+["Environmental and Site Hazards","What is the safest response if the ground becomes soft after rain?","Continue if the crane is already positioned","Reassess ground bearing and crane support before continuing","Add loose scrap under the outriggers","Ignore it if the crane is level",1,"Ground conditions can change and may affect crane stability."],
+["Environmental and Site Hazards","Why should the crew account for nearby excavation work?","Excavations always improve access","They make the crane lighter","Excavations may affect ground stability and available support","They eliminate the need for a lift plan",2,"Evaluate excavation edges, soil, and support capacity as part of setup planning."],
+["Environmental and Site Hazards","What should be done if a load may contain loose internal contents?","Secure or assess the contents before lifting","Assume the contents are fixed","Lift it quickly","Ask a worker to shake the load while suspended",0,"Shifting contents can change the center of gravity and create unexpected movement."],
+["Environmental and Site Hazards","Why should chemical or hazardous contents be identified before lifting a container?","The crane chart identifies the chemical","It changes the signaler's role only","All containers are harmless","A leak or damage may create hazards beyond the lifting operation",3,"Consider containment, handling restrictions, emergency response, and the approved work procedure."],
+["Environmental and Site Hazards","What is a safe approach to lifting in a congested area?","Use the shortest route regardless of hazards","Plan clearances, access control, communications, and movement before starting","Ask pedestrians to duck","Rely on the operator's judgment alone",1,"Congested lifts require deliberate route planning and coordination."],
+
+["Final Verification","What should be verified immediately before the lift starts?","Only that the engine is running","Only that the load is painted","Personnel, rigging, equipment setup, communications, area controls, and required approvals","Only that the hook is high",2,"A pre-lift check confirms the operation matches the approved plan and is ready to proceed."],
+["Final Verification","What is the correct response if the actual load appears heavier than documented?","Stop and verify the weight and capacity basis","Proceed using the old value","Reduce the signaler's distance","Lift it briefly to test the crane",0,"Never use an unverified weight for capacity decisions."],
+["Final Verification","Why should the crane operator be told about nearby hazards and planned movements?","The operator already knows every site hazard","It only matters for critical lifts","It makes the load chart unnecessary","The operator needs the information to control movement safely",3,"Relevant hazards and movement constraints must be shared with the operator."],
+["Final Verification","What should be done if the sling arrangement differs from the drawing?","Proceed if it looks stronger","Stop and verify the changed arrangement and required approval","Use a second sling without recalculating","Ask the load to be balanced manually",1,"An unreviewed rigging change can alter forces and stability."],
+["Final Verification","Why must rigging be removed only after the load is safely landed?","To save time","It makes the crane lighter","Premature removal can cause the load to shift, fall, or become unstable","It improves the sling's rating",2,"The load must be stable and properly supported before disconnecting rigging."],
+["Final Verification","What should happen when all lift controls are verified and the team is ready?","Proceed according to the approved sequence while monitoring conditions","Ignore further changes","Allow multiple people to signal conflicting directions","Move the load as fast as possible",0,"A controlled lift follows the plan and remains responsive to changing conditions."],
+["Final Verification","Why should the lift be stopped if a person enters a danger area?","The load will automatically stop","It only matters for heavy loads","It is acceptable if the person is trained","The person may be exposed to moving equipment or a suspended load",3,"Restore the exclusion zone before resuming the lift."],
+["Final Verification","What is the correct action when the load begins to snag during travel?","Increase force until it releases","Stop and safely resolve the cause rather than pulling through it","Move the crane sideways","Send a worker beneath the load",1,"Snagging can create unexpected forces and damage; never force the load free."],
+["Final Verification","Why should the completed lift be reviewed when required by site procedure?","To guarantee future lifts need no planning","To avoid reporting defects","To capture issues, confirm equipment condition, and improve future work","To remove the lift plan",2,"Post-lift review and reporting support learning and equipment control."],
+["Final Verification","What is the most important principle when a planned lifting method becomes unsafe?","Stop, make the area safe, and obtain an approved reassessment","Finish the lift before reporting it","Ask workers to improvise a new method","Continue if the schedule is tight",0,"Safety takes precedence over schedule; changes must be reassessed and authorized."] 
 ];
 
-// Expand 50 core questions into 200 contextualized practice questions.
-const contexts = [
-"at a routine site lift",
-"during a night shift",
-"near an operating work area",
-"with a newly assigned crew"
+// Add additional distinct questions until the bank contains exactly 200.
+// Each entry is independently worded and tests a separate practical decision.
+const extra = [
+["Lift Planning","Why should the lifting accessories be included in the pre-lift briefing?","Their selection and arrangement affect capacity and safe load control","They determine the weather","They replace the crane chart","They make the load weight irrelevant",0,"The team should understand the rigging arrangement and its limits."],
+["Lift Planning","What is the purpose of confirming the landing sequence?","To reduce the crane's engine temperature","To make the load swing","To avoid inspecting the landing area","To ensure the load can be placed and disconnected safely",3,"The landing sequence should be planned with support, access, and personnel positions in mind."],
+["Load Calculations","What should be done if a load chart value is difficult to read?","Choose the nearest larger number","Obtain a legible chart or verified manufacturer information","Ask a coworker to guess","Use the previous crane's chart",1,"Capacity must be determined from clear, correct data for the actual crane."],
+["Load Calculations","Why is a load's projected area relevant to a windy lift?","It determines the tag color","It changes the sling's material","Wind force can be affected by the area exposed to wind","It replaces the wind limit",2,"Large projected areas can create substantial wind forces."],
+["Slings","Why must a synthetic sling not be dragged over rough ground?","Abrasion and contamination can damage the sling","It increases its rated capacity","It removes the need for cleaning","It makes the load lighter",0,"Protect synthetic slings from abrasion, cuts, and contamination."],
+["Slings","What should be checked when selecting a sling for a hot load?","Only the sling length","Only the hook size","Only the load color","The sling material's temperature limits and manufacturer instructions",3,"Heat can damage sling materials; confirm compatibility before use."],
+["Wire Rope","Why is the rope's minimum sheave diameter important?","It changes the load's color","An unsuitable sheave can increase bending stress and shorten rope life","It eliminates inspection","It replaces lubrication",1,"Sheave compatibility must follow the rope and equipment manufacturer requirements."],
+["Wire Rope","What should be checked when a wire rope is reeved through sheaves?","Only the rope's paint","Only the hook latch","Correct routing, groove compatibility, and absence of damaging interference","Nothing if the rope is new",2,"Incorrect reeving can damage the rope and affect safe operation."],
+["Chains","Why should chain slings be protected from severe impact?","Impact can cause damage or deformation that may not be obvious","Impact increases WLL","Impact is only a noise issue","It removes corrosion",0,"Inspect after impact and follow the relevant criteria."],
+["Chains","What is the correct response if a chain sling's master link does not fit the hook correctly?","Force it over the hook tip","Use a random connector","Grind the link to fit","Stop and obtain a compatible approved connection",3,"Connections must fit and load as designed."],
+["Shackles","Why should a shackle not be loaded against its threads?","It improves the connection","Thread contact may create unsuitable loading and damage","It increases capacity","It is the normal method for all shackles",1,"Follow the manufacturer's intended loading and assembly arrangement."],
+["Shackles","What should be verified when a shackle is used with a synthetic sling?","Only the sling color","Only the shackle's storage box","The connection geometry must avoid damaging contact and remain within ratings","Nothing if the sling is new",2,"Protect the sling and verify compatible geometry and ratings."],
+["Hooks","Why should a hook be checked for smooth movement where it is designed to swivel?","Binding or abnormal movement may indicate a defect","A swivel always increases capacity","Movement replaces inspection","It changes the load's weight",0,"Use and inspect swivels according to the manufacturer."],
+["Hooks","What is the danger of using a hook with an unknown rating?","It is always stronger than a shackle","It is safe if it is large","It can be used for short lifts","Its suitability cannot be established without reliable rating information",3,"Do not infer capacity from appearance."],
+["Crane Setup","Why should crane mats be selected for the actual support conditions?","Any mat works on any ground","Loads and ground conditions vary, so support must be verified","Mats replace the load chart","Mats eliminate all settlement",1,"Mats must be suitable for imposed loads and ground conditions."],
+["Crane Setup","What should be considered when a crane is set up on a slope?","Only the operator's comfort","Only the boom color","The manufacturer's allowable setup limits and approved leveling method","Nothing if the outriggers are extended",2,"Operate within the manufacturer's limits and site procedure."],
+["Mobile Cranes","Why must the hook block and reeving be considered in crane configuration?","They affect the approved lifting arrangement and chart conditions","They only change the paint","They replace the counterweight","They make radius irrelevant",0,"Use the correct configuration and applicable capacity information."],
+["Mobile Cranes","What is the correct response if a crane's rated capacity limiter shows an unexpected warning?","Cover the display","Continue if the load is moving","Disconnect the warning","Stop as required and investigate according to the manufacturer and site procedure",3,"Do not bypass or ignore a safety-system warning."],
+["Overhead Cranes","Why should the hoist rope be kept correctly reeved and aligned?","It makes the hook heavier","Misalignment can damage equipment and affect safe operation","It replaces the load chart","It prevents the need for maintenance",1,"Follow the manufacturer's routing and operating requirements."],
+["Overhead Cranes","What should an operator do if the crane travels unexpectedly after a control input?","Continue and see if it settles","Increase the speed","Stop safely and report or investigate the control abnormality","Ask someone to pull the bridge",2,"Unexpected movement can indicate a control or equipment fault."],
+["Forklifts","Why should forklift forks not be used as an improvised personnel platform?","The forks are not a substitute for an approved personnel-lifting system","It makes the forklift lighter","It improves visibility","It is safe at low speed",0,"Personnel lifting requires an approved system and procedure."],
+["Forklifts","What should be checked when a forklift attachment is removed?","Only its paint","Only the operator's license","Only the battery charge","The forklift's configuration and capacity plate must reflect the approved setup",3,"The machine's rating depends on its actual approved configuration."],
+["Rigging Geometry","Why is a load's shape relevant to rigging selection?","Shape only affects paint","Shape affects stability, contact points, and possible sling movement","Shape replaces the weight check","Shape makes all sling angles equal",1,"Irregular loads may shift or require specially planned rigging."],
+["Rigging Geometry","What is the risk of placing sling legs over a loose cover or removable part?","It makes the load heavier","It improves grip","The cover or part may detach and fail to support the load","It increases the lifting point rating",2,"Rig only from verified load-bearing points and secure components."],
+["Signals","Why should radio instructions use agreed concise phrases?","To reduce ambiguity and prevent misinterpretation","To make the load move faster","To replace emergency stop signals","To avoid checking the radio",0,"Standardized concise communication improves coordination."],
+["Signals","What should the signaler do when they cannot confirm the operator heard the instruction?","Repeat different commands rapidly","Continue without confirmation","Move beneath the load","Stop movement until communication is confirmed",3,"Reliable communication must be maintained before continuing."],
+["Exclusion Zones","Why should barriers be repositioned when the lift route changes?","Barriers are decorative","The controlled area must cover the actual hazards and movement path","It increases capacity","It makes the load lighter",1,"Exclusion zones should reflect the actual route and potential movement."],
+["Exclusion Zones","What is a swing radius hazard?","A sling rating","A hook inspection label","The area swept by rotating equipment or a swinging load","A calculation unit",2,"Keep people and objects clear of the full movement envelope."],
+["Inspections","Why should damaged identification labels not be recreated from memory?","Incorrect labels could misstate rating or traceability","It improves the equipment","It is required for all old gear","It increases inspection frequency",0,"Only authorized reliable identification should be applied."],
+["Inspections","What is the purpose of checking a lifting accessory's storage condition?","It makes it look new","It replaces the periodic inspection","It increases the rated load","Poor storage can cause corrosion, abrasion, or other damage",3,"Storage conditions affect equipment condition between uses."],
+["Critical Lifts","Why should a lift's hold points be defined when needed?","They slow all work without benefit","They identify where checks or authorization are required before continuing","They replace signals","They make all loads critical",1,"Hold points prevent progression before important checks are complete."],
+["Critical Lifts","What should be considered when a load must pass through a restricted opening?","Only the load's weight","Only the crane's age","Clearance, orientation, movement control, and contingency space","Nothing if the operator is experienced",2,"Restricted clearances need deliberate planning and control."],
+["Weather","Why should wind be assessed at the lift location rather than assumed from a distant report?","Local conditions and effects can differ from a general forecast","It changes the sling tag","It makes the load lighter","It replaces the manufacturer's limit",0,"Use current relevant conditions and approved measurement/assessment methods."],
+["Weather","What should the crew do if dust obscures the signaler's hand signals?","Continue by guessing","Lift faster","Ask workers to wave more randomly","Stop and restore a reliable communication method",3,"Do not continue when signals cannot be reliably understood."],
+["Load Handling","Why should the load not be used to push or pull another object?","It makes the load chart unnecessary","The crane and rigging may be exposed to unplanned forces","It improves stability","It is the normal way to clear obstructions",1,"Use equipment only for approved operations and avoid side loads or snagging."],
+["Load Handling","What should happen if rigging slips during the initial lift?","Hold it in place by hand","Continue to the destination","Lower safely and correct the rigging arrangement","Increase lifting speed",2,"A slipping connection indicates the arrangement needs correction before continuing."],
+["PPE","Why should a hard hat's suspension and shell be inspected?","Damage can reduce the protection it provides","It changes the load's center of gravity","It replaces eye protection","It increases visibility",0,"Use PPE in serviceable condition according to its instructions."],
+["PPE","What should be considered when wearing fall protection near moving machinery?","Only the harness color","Only the worker's height","Only the weather","The system must not create entanglement or other interaction hazards",3,"Assess fall protection together with machinery and lifting hazards."],
+["Permit and Procedures","Why must the pre-lift checklist reflect the actual crane and rigging?","Generic checklists always suffice","The check must verify the equipment and arrangement actually being used","It replaces the operator's manual","It makes the load lighter",1,"Checks must be relevant to the actual configuration and task."],
+["Permit and Procedures","What should happen if a permit expires before the lift is complete?","Continue until the load is landed regardless of rules","Change the printed expiry time","Follow the site's stop-work and permit renewal process","Ignore it if the load is suspended",2,"Follow the applicable permit process and safe suspended-load arrangements."],
+["Emergency Response","Why should workers know the muster or emergency assembly location?","It supports organized accountability during an emergency","It increases crane capacity","It replaces first aid","It is only for visitors",0,"Personnel need to know where to report under the site's emergency plan."],
+["Emergency Response","What should be done if rigging failure is suspected but not confirmed?","Continue if nothing has fallen","Hide the equipment","Use it for a lighter lift","Stop and treat the equipment as suspect until assessed",3,"Do not continue on the assumption that questionable gear is safe."],
+["Competency","Why should new crew members receive a site-specific induction?","It replaces job training","They need to understand local hazards, controls, and emergency arrangements","It makes every lift simple","It removes the need for supervision",1,"Site-specific induction complements role competency and task briefing."],
+["Competency","What should a rigger do if the operator's action does not match the signal given?","Give several new signals at once","Move closer under the load","Use the agreed stop signal and re-establish clear communication","Ignore it",2,"Stop and clarify rather than allowing conflicting movement to continue."],
+["Environmental and Site Hazards","Why should a lift near a public road have controlled access?","To prevent public traffic or pedestrians entering the hazard area","To make the crane faster","To replace the lift plan","To avoid inspecting the rigging",0,"Public exposure requires effective access and traffic controls."],
+["Environmental and Site Hazards","What should be checked when lifting a packaged load with unknown internal restraint?","Only the outside paint","Only the crane tires","Only the lifting height","Whether contents can shift and whether packaging is suitable for lifting",3,"Unsecured contents can shift and change the load's behavior."],
+["Final Verification","What should the crew do if the lift plan does not identify a safe landing position?","Start the lift and decide later","Resolve the landing method and support before lifting","Lift to maximum height","Ask workers to catch the load",1,"The destination and placement method are part of the lift plan."],
+["Final Verification","Why should the load's final position be checked against nearby services and equipment?","Only to save time","Only if the load is large","The load may damage services or create clearance and access hazards","It replaces rigging inspection",2,"Confirm the planned placement is safe for nearby assets and future access."],
+["Final Verification","What is the correct response if a required inspection is overdue?","Do not use the equipment until its status is resolved under the applicable procedure","Use it for a single lift","Assume it passed last time","Change the date on the record",0,"Required inspection status must be current before use."],
+["Final Verification","Why should the lifting area be checked again immediately before movement?","The site never changes","It is only a paperwork step","It replaces the pre-lift briefing","People, vehicles, and obstructions may have changed since planning",3,"A final area check catches changing conditions before the load moves."]
 ];
-const questions=[];
-bank.forEach((item,index)=>{
-  contexts.forEach((context,ci)=>{
-    questions.push({
-      topic:item[0],
-      q:item[1].replace(/\?$/,"")+" "+context+"?",
-      o:item[2],
-      a:item[3],
-      e:item[4]
-    });
-  });
+ // Expand to 200 distinct questions using a curated set of 50 additional scenarios with unique prompts.
+const finalExtra = [
+["Load Calculations","A load weighs 1.8 tonnes and rigging weighs 0.15 tonnes. What combined mass should be considered?","1.95 tonnes","1.65 tonnes","1.8 tonnes","15 tonnes",0,"Add the load and rigging masses: 1.8 + 0.15 = 1.95 tonnes."],
+["Load Calculations","Why should a dynamic allowance be included when required by the governing method?","To make the calculation harder","To remove the load weight","To account for specified effects beyond static weight","To replace the load chart",2,"Use only the dynamic factors required by the applicable calculation method."],
+["Load Calculations","What should be done if the crane chart is expressed in a different unit from the load data?","Compare the numbers directly","Convert units consistently before comparing capacity","Ignore the units","Round both values to whole numbers",1,"Unit conversion is essential for a valid comparison."],
+["Slings","Why should a sling not be shortened by twisting its body?","Twisting can damage the sling and change how it carries load","It always improves strength","It makes inspection easier","It is a manufacturer-approved universal method",0,"Use approved shortening methods and fittings only."],
+["Slings","What is the purpose of a protective sleeve on a sling?","To identify the operator","To make the sling longer","To replace the tag","To reduce damage from contact when suitable for the application",3,"Protection must be appropriate to the edge, sling material, and load."],
+["Wire Rope","Why should a wire-rope end termination be checked?","It only affects appearance","The termination must be suitable and secure for the intended load","It makes the rope weightless","It replaces rope inspection",1,"End terminations are critical components of the load path."],
+["Wire Rope","What is the concern with a flattened wire rope?","It always has extra capacity","It is easier to handle","Flattening may indicate damage or deformation requiring assessment","It only changes the color",2,"Deformation can affect the rope's integrity and running behavior."],
+["Chains","Why should chain slings be used only within their marked grade and rating?","Material grade and assembly rating affect permitted capacity","All chains have the same capacity","The grade only indicates color","It replaces checking the hook",0,"Use traceable rated equipment and its approved configuration."],
+["Chains","What should be done if a chain sling is contaminated with a substance that may attack its material?","Use it after wiping the surface","Use it only for a short lift","Cover it with a rag","Remove it from use until the effects and suitability are assessed",3,"Chemical compatibility must be established before reuse."],
+["Shackles","What should be checked when a shackle pin is replaced?","Only the pin's color","It must be the specified compatible type and rating","Any steel pin is acceptable","The pin can be shorter if it fits",1,"Use the manufacturer-specified pin or approved replacement."],
+["Hooks","Why must a hook's swivel not be forced when it binds?","It increases the capacity","It makes the load level","Binding may indicate a defect that needs assessment","It eliminates side loading",2,"Do not force a potentially defective lifting component."],
+["Crane Setup","Why should the crane's swing area be reviewed before setup?","To identify obstructions and people within the movement envelope","To select the load's color","To avoid calculating radius","To remove the need for a signaler",0,"Plan clearance around the crane's full operating movement."],
+["Crane Setup","What is the risk of setting outriggers on a cover or slab without verification?","It improves load distribution automatically","It replaces mats","It makes the ground stronger","The supporting structure may not withstand the imposed load",3,"Verify support capacity rather than assuming a surface is adequate."],
+["Mobile Cranes","Why should the crane operator know the planned landing position before lifting?","It changes the fuel level","The destination affects route, radius, clearance, and movement control","It replaces the load chart","It makes the load lighter",1,"Plan the entire movement from pickup to final placement."],
+["Mobile Cranes","What should be done if a crane's configuration display differs from the actual setup?","Continue if the display looks close","Ignore it until the next service","Stop and correct or verify the configuration before lifting","Use a larger load",2,"The capacity basis must match the actual equipment configuration."],
+["Overhead Cranes","Why should a hoist not be used to pull a load free from a fixed obstruction?","It can impose unplanned forces and damage the hoist or structure","It is always safer than lowering","It reduces the load weight","It eliminates snagging hazards",0,"Resolve the obstruction without applying unplanned pulling forces."],
+["Overhead Cranes","What should be checked about an overhead crane's runway area?","Only its paint","Only the hook size","Only the operator's schedule","Clearance, obstructions, and any relevant access restrictions",3,"The travel path must be clear and suitable for the operation."],
+["Forklifts","Why should the load center be considered when using long loads on a forklift?","It affects only the color","A longer load can shift the load center and reduce permitted capacity","It increases capacity automatically","It replaces attachment approval",1,"Use the correct capacity information for the actual load geometry."],
+["Forklifts","What should the operator do if a forklift begins to feel unstable?","Turn sharply","Raise the load to see better","Stop movement and follow the approved response without abrupt actions","Ask someone to hold the mast",2,"Respond to instability cautiously and according to training and manufacturer guidance."],
+["Rigging Geometry","Why should lifting points be checked for load direction?","A point may be designed for particular force directions only","All points accept any direction","It only matters for color","It replaces load weight verification",0,"Verify lifting point capacity for the actual direction of loading."],
+["Rigging Geometry","What is the risk of a sling sliding toward the center of a smooth load?","It improves balance","It increases WLL","It makes the load lighter","The load may shift or drop; the rigging must prevent unsafe slip",3,"Use a suitable hitch and verified control of sling position."],
+["Signals","Why should the operator repeat or confirm critical instructions when the system allows?","It replaces the lift plan","It helps verify the message was understood correctly","It makes the crane faster","It removes the need for a signaler",1,"Closed-loop communication can reduce misunderstandings."],
+["Signals","What should happen if the signaler's position becomes unsafe?","Continue giving signals from the hazard","Move under the load for a better view","Stop the lift and re-establish a safe signaling position","Ask the operator to guess",2,"The signaler must remain safe and able to communicate effectively."],
+["Exclusion Zones","Why must the exclusion zone include possible load swing, not just the load's current position?","The load can move beyond its initial footprint","It makes the crane slower","It changes the sling rating","It replaces barriers",0,"Account for plausible movement and the equipment's swept area."],
+["Exclusion Zones","What should be done if a tag line becomes entangled?","Pull it hard","Wrap it around the hand","Stand beneath the load to untangle it","Stop movement and resolve the entanglement from a safe position",3,"Do not create additional force or expose workers to the load."],
+["Inspections","Why should equipment be inspected after prolonged storage?","Storage makes all equipment safe","Conditions during storage may cause deterioration or defects","It replaces certification","It increases the WLL",1,"Check the item's condition and status before returning it to service."],
+["Inspections","What should happen when an accessory's inspection status cannot be confirmed?","Use it if it looks new","Use it only in a basket hitch","Hold it from use until the required status is established","Attach a handwritten guess",2,"Unverified inspection status is not a basis for use."],
+["Critical Lifts","Why should a contingency plan be considered for a complex lift?","Unexpected conditions may require a safe pause, recovery, or alternative method","It guarantees the lift cannot fail","It replaces the main plan","It eliminates weather risk",0,"A contingency plan addresses foreseeable deviations and safe recovery."],
+["Critical Lifts","What is the risk of coordinating two cranes without a clear movement sequence?","It reduces all dynamic loads","It makes the load lighter","It improves visibility","Differential movement may overload a crane or destabilize the load",3,"A coordinated sequence and communication plan are essential."],
+["Weather","Why should the load be assessed for wind sensitivity even when its mass is high?","Heavy loads cannot move in wind","A large or shaped load may still experience significant wind force","Mass replaces wind checks","Wind only affects empty hooks",1,"Wind effects depend on projected area, shape, and conditions as well as mass."],
+["Weather","What should be considered before resuming after severe weather?","Only whether the rain has stopped","Only the operator's preference","Equipment, ground, visibility, and current operating conditions","Nothing if the lift plan is signed",2,"Verify that conditions are again within approved limits."],
+["Load Handling","Why should a load be kept under control during lowering?","Uncontrolled descent can cause impact, instability, or damage","It increases the WLL","It makes the crane lighter","It removes pinch points",0,"Controlled lowering protects the load, equipment, and personnel."],
+["Load Handling","What should be done if the load does not land evenly on its supports?","Remove rigging immediately","Push it with a forklift without a plan","Leave it partly suspended and walk away","Reassess and stabilize it before disconnecting rigging",3,"Do not release rigging until the load is safely supported."],
+["PPE","Why must respiratory protection be selected for the actual hazard?","Any mask works for all substances","Different hazards require appropriate protection and fit","It replaces ventilation","It makes the lifting area safe by itself",1,"Use the correct respiratory protection program and equipment where required."],
+["PPE","What should workers do if PPE interferes with safe operation of a control?","Remove it without authorization","Use the control with eyes closed","Pause and resolve the issue using suitable approved PPE and method","Ask another worker to take the risk",2,"PPE and work methods must be compatible with safe task performance."],
+["Permit and Procedures","Why should the lift plan identify stop-work triggers?","The team needs clear conditions that require the lift to pause","It makes the plan longer without purpose","It replaces the load chart","It guarantees no change occurs",0,"Explicit triggers help the team respond consistently to changing conditions."],
+["Permit and Procedures","What should be done if the job location changes after permit approval?","Assume the permit covers every location","Continue if the crane is the same","Change the location in pen without review","Follow the permit and reassessment process for the new location",3,"Location changes may alter hazards, access, and required controls."],
+["Emergency Response","Why should the crew avoid rushing to recover a dropped load?","It improves reporting","Recovery can expose workers to unstable loads and damaged equipment","It reduces the incident severity automatically","It replaces the investigation",1,"Secure the area and follow an authorized recovery plan."],
+["Emergency Response","What should be done if a load contacts a live process line?","Continue if no leak is visible","Move the load away as fast as possible without assessment","Stop, protect people, and activate the applicable emergency response","Touch the line to inspect it",2,"Potential process damage may create secondary hazards; follow emergency procedures."],
+["Competency","Why should workers know the limitations of their equipment?","Knowing limits helps prevent use outside the approved operating envelope","It makes every lift critical","It replaces supervision","It removes the need for inspections",0,"Users must understand and observe equipment limitations."],
+["Competency","What should a team do when the planned lift depends on an assumption no one can verify?","Proceed if the schedule is tight","Use a more powerful crane automatically","Ask an untrained worker","Pause and obtain reliable information or revise the plan",3,"Critical assumptions must be validated before the lift."],
+["Environmental and Site Hazards","Why should lifting operations near a trench consider the trench support system?","It changes sling color","The trench may be affected by nearby loading or ground movement","It makes the load lighter","It replaces ground assessment",1,"Consider excavation stability and the effects of crane support loads."],
+["Environmental and Site Hazards","What should be done if pedestrian access cannot be kept separate from the lift route?","Continue with verbal warnings only","Lift above the pedestrians","Re-plan or establish effective approved access control before lifting","Ask pedestrians to run across",2,"Separate people from the lifting hazard using effective controls."],
+["Final Verification","Why should rigging components be checked for compatibility as a complete system?","Individual ratings alone do not guarantee compatible connections or load sharing","All components of similar size are interchangeable","It only matters for critical lifts","It replaces inspection",0,"The entire load path must be suitable and correctly assembled."],
+["Final Verification","What should be done if the planned load path creates an unavoidable blind spot?","Continue based on memory","Use any available worker as signaler","Increase speed to minimize exposure","Establish an approved reliable communication arrangement before movement",3,"The operator must be able to control the lift through reliable signals or communication."],
+["Final Verification","Why must lifting equipment not be modified without authorization?","Modification always improves strength","It can change design assumptions, ratings, and safe operation","It makes inspection easier","It replaces manufacturer instructions",1,"Modifications must follow approved engineering and manufacturer requirements."],
+["Final Verification","What should be verified before the rigging is disconnected from a load with a high center of gravity?","Only the sling tag","Only the crane's fuel level","That the load is stable and will not overturn or shift after disconnection","That the operator has left the cab",2,"Consider stability after the lifting support is removed."],
+["Final Verification","What is the best response when an unexpected hazard appears mid-lift?","Stop in a controlled manner, secure the situation, and reassess before proceeding","Ignore it if the load is almost landed","Ask workers to move it by hand","Continue while discussing the hazard",0,"Pause safely and address the hazard before continuing."]
+];
+
+const topics = [...new Set(bank.concat(extra,finalExtra).map(x=>x[0]))];
+const all = bank.concat(extra,finalExtra).slice(0,200);
+
+const root = document.getElementById("questions");
+const filter = document.getElementById("topicFilter");
+const search = document.getElementById("search");
+const answerKey = document.getElementById("answerKey");
+const keyContent = document.getElementById("keyContent");
+let checked = false;
+
+topics.sort().forEach(t=>{
+ const o=document.createElement("option");o.value=t;o.textContent=t;filter.appendChild(o);
 });
 
-const root=document.getElementById("questions");
-questions.forEach((item,i)=>{
-  const box=document.createElement("div");
-  box.className="question";
-  const topic=document.createElement("div");
-  topic.className="topic";
-  topic.textContent=item.topic;
-  box.appendChild(topic);
-  const title=document.createElement("p");
-  title.className="qtext";
-  title.textContent=(i+1)+". "+item.q;
-  box.appendChild(title);
-  item.o.forEach((option,j)=>{
-    const label=document.createElement("label");
-    label.className="option";
-    const input=document.createElement("input");
-    input.type="radio";
-    input.name="q"+i;
-    input.value=j;
-    input.addEventListener("change",updateCount);
-    label.appendChild(input);
-    label.appendChild(document.createTextNode(String.fromCharCode(65+j)+". "+option));
-    box.appendChild(label);
-  });
-  const explanation=document.createElement("p");
-  explanation.className="explanation";
-  explanation.hidden=true;
-  explanation.id="exp"+i;
-  box.appendChild(explanation);
-  root.appendChild(box);
-});
-
-function updateCount(){
-  let count=0;
-  questions.forEach((_,i)=>{
-    if(document.querySelector('input[name="q'+i+'"]:checked'))count++;
-  });
-  document.getElementById("score").textContent="Answered: "+count+" / "+questions.length;
+function esc(s){return String(s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));}
+function render(){
+ const term=search.value.trim().toLowerCase(), topic=filter.value;
+ root.innerHTML="";
+ all.forEach((q,i)=>{
+  if(topic && q[0]!==topic)return;
+  if(term && !q.slice(0,6).join(" ").toLowerCase().includes(term))return;
+  const card=document.createElement("article");
+  card.className="question";card.id="q"+i;
+  card.dataset.index=i;
+  const options=q.slice(2,6);
+  card.innerHTML=`<div class="tag">${esc(q[0])} · Question ${i+1}</div>
+   <h3>${i+1}. ${esc(q[1])}</h3>
+   <div class="options">${options.map((op,j)=>`<label class="option" data-choice="${j}">
+   <input type="radio" name="q${i}" value="${j}" aria-label="Option ${String.fromCharCode(65+j)}">
+   <span><strong>${String.fromCharCode(65+j)}.</strong> ${esc(op)}</span></label>`).join("")}</div>
+   <div class="feedback" aria-live="polite"></div>`;
+  root.appendChild(card);
+  card.querySelectorAll("input").forEach(inp=>inp.addEventListener("change",()=>{
+   updateStats();
+   if(checked)markCard(card,i);
+  }));
+ });
+ updateStats();
 }
-
-document.getElementById("check").addEventListener("click",()=>{
-  let score=0,answered=0;
-  questions.forEach((item,i)=>{
-    const chosen=document.querySelector('input[name="q'+i+'"]:checked');
-    const exp=document.getElementById("exp"+i);
-    exp.hidden=false;
-    exp.className="explanation";
-    if(chosen)answered++;
-    if(chosen && Number(chosen.value)===item.a){
-      score++;
-      exp.classList.add("correct");
-      exp.textContent="Correct. "+item.e;
-    }else{
-      if(chosen)exp.classList.add("wrong");
-      exp.textContent=(chosen?"Incorrect. ":"Not answered. ")+
-        "Correct answer: "+String.fromCharCode(65+item.a)+". "+item.e;
-    }
-  });
-  document.getElementById("score").textContent=
-    "Score: "+score+" / "+questions.length+" • Answered: "+answered+" / "+questions.length;
-});
-
-document.getElementById("reset").addEventListener("click",()=>{
-  document.querySelectorAll('#questions input').forEach(input=>input.checked=false);
-  document.querySelectorAll(".explanation").forEach(exp=>{
-    exp.hidden=true;
-    exp.textContent="";
-    exp.className="explanation";
-  });
-  updateCount();
-  window.scrollTo({top:0,behavior:"smooth"});
-});
-
-function downloadFile(name,content,type){
-  const blob=new Blob([content],{type:type});
-  const url=URL.createObjectURL(blob);
-  const link=document.createElement("a");
-  link.href=url;
-  link.download=name;
-  document.body.appendChild(link);
-  link.click();
-  link.remove();
-  URL.revokeObjectURL(url);
+function markCard(card,i){
+ const q=all[i],selected=card.querySelector("input:checked");
+ const fb=card.querySelector(".feedback");
+ card.querySelectorAll(".option").forEach((el,j)=>{
+  el.classList.remove("correct","incorrect");
+  if(j===q[2])el.classList.add("correct");
+  if(selected && j===Number(selected.value) && j!==q[2])el.classList.add("incorrect");
+ });
+ if(!selected){fb.className="feedback";fb.textContent="Not answered.";return;}
+ const good=Number(selected.value)===q[2];
+ fb.className="feedback "+(good?"good":"bad");
+ fb.textContent=(good?"Correct. ":"Incorrect. ")+"Answer: "+String.fromCharCode(65+q[2])+". "+q[2+q[2]+1]+" — "+q[7];
 }
-
-document.getElementById("htmlDownload").addEventListener("click",()=>{
-  downloadFile("aramco-lifting-rigging-200-mcqs.html",
-    "<!DOCTYPE html>\n"+document.documentElement.outerHTML,
-    "text/html;charset=utf-8");
-});
-
-document.getElementById("csvDownload").addEventListener("click",()=>{
-  const rows=[["Topic","Question","Option A","Option B","Option C","Option D","Answer","Explanation"]];
-  questions.forEach(q=>rows.push([
-    q.topic,q.q,...q.o,String.fromCharCode(65+q.a),q.e
-  ]));
-  const csv=rows.map(row=>row.map(value=>
-    '"'+String(value).replace(/"/g,'""')+'"'
-  ).join(",")).join("\r\n");
-  downloadFile("aramco-lifting-rigging-200-mcqs.csv","\ufeff"+csv,"text/csv;charset=utf-8");
-});
-
-document.getElementById("print").addEventListener("click",()=>window.print());
+function updateStats(){
+ let answered=0,correct=0;
+ all.forEach((q,i)=>{
+  const selected=document.querySelector(`input[name="q${i}"]:checked`);
+  if(selected){answered++;if(Number(selected.value)===q[2])correct++;}
+ });
+ document.getElementById("answered").textContent=answered;
+ document.getElementById("correct").textContent=correct;
+ document.getElementById("score").textContent=answered?Math.round(correct/answered*100)+"%":"—";
+ document.getElementById("total").textContent=all.length;
+}
+function checkAnswers(){
+ checked=true;
+ all.forEach((q,i)=>{const card=document.getElementById("q"+i);if(card)markCard(card,i);});
+ updateStats();
+}
+function buildKey(){
+ keyContent.innerHTML=all.map((q,i)=>`<div class="key-item"><strong>${i+1}. ${String.fromCharCode(65+q[2])} — ${esc(q[2+q[2]+1])}</strong><br>${esc(q[7])}</div>`).join("");
+}
+function toggleKey(){
+ if(answerKey.style.display==="block"){answerKey.style.display="none";}
+ else{answerKey.style.display="block";answerKey.scrollIntoView({behavior:"smooth",block:"start"});}
+}
+document.getElementById("checkBtn").onclick=checkAnswers;
+document.getElementById("checkBtn2").onclick=checkAnswers;
+document.getElementById("keyBtn").onclick=toggleKey;
+document.getElementById("keyBtn2").onclick=toggleKey;
+document.getElementById("printBtn").onclick=()=>window.print();
+document.getElementById("printBtn2").onclick=()=>window.print();
+document.getElementById("resetBtn").onclick=()=>{
+ checked=false;
+ document.querySelectorAll('#questions input[type="radio"]').forEach(x=>x.checked=false);
+ document.querySelectorAll(".option").forEach(x=>x.classList.remove("correct","incorrect"));
+ document.querySelectorAll(".feedback").forEach(x=>{x.textContent="";x.className="feedback";});
+ answerKey.style.display="none";
+ updateStats();
+ window.scrollTo({top:0,behavior:"smooth"});
+};
+search.addEventListener("input",render);
+filter.addEventListener("change",render);
+buildKey();
+render();
 </script>
 </body>
 </html>
