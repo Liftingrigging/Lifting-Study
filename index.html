@@ -292,7 +292,16 @@
     </main>
 
     <footer>
-        <p>&copy; 2026 Lifting &amp; Rigging Study Hub. Learning for safer lifting operations.</p>
+        <p>&copy; 2026 Lifting &amp; Rigging Study Hub. Learning for safer lifting operations.</p> <div class="install-app-section" style="text-align:center; margin:20px 0;">
+  <button id="installAppBtn" type="button"
+    style="background:#e58b2a; color:#fff; border:0;
+    border-radius:8px; padding:12px 24px; font-size:16px;
+    font-weight:bold; cursor:pointer;">
+    📱 Install App
+  </button>
+  <p id="installAppMessage" role="status" aria-live="polite"
+    style="font-size:14px; margin-top:8px;"></p>
+</div>
     </footer>
 <script>
   if ("serviceWorker" in navigator) {
