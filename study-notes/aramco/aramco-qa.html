@@ -1,194 +1,211 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1220">
-  <title>Aramco Lifting &amp; Rigging Questions and Answers</title>
 
+<!-- ARAMCO LIFTING & RIGGING: 100 WRITTEN QUESTIONS AND ANSWERS -->
+<section id="aramco-lifting-qa" style="max-width:950px;margin:25px auto;padding:18px;font-family:Arial,sans-serif;line-height:1.65;color:inherit;">
   <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      font-family: Arial, sans-serif;
-      background: #0b1220;
-      color: #f1f5f9;
-      line-height: 1.7;
+    #aramco-lifting-qa .qa-card {
+      border:1px solid #71809655;
+      border-radius:10px;
+      padding:14px 16px;
+      margin:12px 0;
+      break-inside:avoid;
     }
-
-    header {
-      text-align: center;
-      background: #142238;
-      padding: 28px 16px;
-      border-bottom: 4px solid #e58b2a;
+    #aramco-lifting-qa .qa-card h3 {
+      margin:0 0 8px;
+      font-size:17px;
     }
-
-    header h1 { margin: 0 0 8px; font-size: 27px; }
-
-    main {
-      width: min(850px, 92%);
-      margin: 25px auto;
+    #aramco-lifting-qa .qa-card p { margin:0; }
+    #aramco-lifting-qa .qa-topic {
+      margin-top:25px;
+      font-size:21px;
+      font-weight:bold;
     }
-
-    .panel {
-      background: #142238;
-      border: 1px solid #334155;
-      border-radius: 12px;
-      padding: 20px;
-      margin-bottom: 18px;
+    #aramco-lifting-qa .qa-label { font-weight:bold; }
+    #aramco-lifting-qa button {
+      padding:10px 15px;
+      margin:5px 5px 12px 0;
+      border:1px solid #718096;
+      border-radius:7px;
+      cursor:pointer;
     }
-
-    h2 { color: #f5a742; }
-
-    details {
-      background: #22334c;
-      border: 1px solid #40536c;
-      border-radius: 8px;
-      padding: 14px;
-      margin: 12px 0;
-    }
-
-    summary {
-      cursor: pointer;
-      font-weight: bold;
-    }
-
-    .answer {
-      color: #dbeafe;
-      margin-top: 12px;
-    }
-
-    .back-link {
-      display: inline-block;
-      background: #e58b2a;
-      color: #111827;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 11px 16px;
-      border-radius: 8px;
-      margin: 5px 6px 5px 0;
-    }
-
-    footer {
-      text-align: center;
-      padding: 24px 12px;
-      border-top: 1px solid #334155;
-      color: #cbd5e1;
+    @media print {
+      #aramco-lifting-qa .qa-controls { display:none!important; }
+      #aramco-lifting-qa .qa-card { border:1px solid #aaa; }
     }
   </style>
-</head>
 
-<body>
-  <header>
-    <h1>Aramco Lifting &amp; Rigging</h1>
-    <p>Questions &amp; Answers for study and revision</p>
-  </header>
+  <h2>Aramco Lifting &amp; Rigging — 100 Questions and Answers</h2>
+  <p>
+    Written revision questions covering lifting plans, rigger responsibilities,
+    crane operations, rigging gear, inspections, signaling and worksite safety.
+    No calculations or multiple-choice questions.
+  </p>
+  <p><strong>Study note:</strong> These are original practice questions, not an official Saudi Aramco examination bank. Always follow current approved Saudi Aramco procedures, applicable General Instructions, equipment-manufacturer requirements and site instructions.
+  </p>
 
-  <main>
-    <section class="panel">
-      <h2>General Lifting Safety</h2>
-      <p>Choose a question to reveal its answer.</p>
+  <div class="qa-controls">
+    <button type="button" onclick="window.print()">Print / Save PDF</button>
+    <button type="button" onclick="document.querySelectorAll('#aramco-lifting-qa .qa-answer').forEach(x=>x.hidden=!x.hidden)">Show / Hide Answers</button>
+  </div>
 
-      <details>
-        <summary>1. What should be checked before a lifting operation?</summary>
-        <p class="answer">
-          Check the approved lift plan, load information, lifting equipment,
-          operator and crew qualifications, communication arrangements, and
-          site hazards. Follow the applicable site procedure.
-        </p>
-      </details>
+  <div id="aramco-lifting-qa-list"></div>
 
-      <details>
-        <summary>2. What does WLL mean?</summary>
-        <p class="answer">
-          WLL means Working Load Limit. Never exceed the applicable rated
-          capacity of the lifting gear or equipment.
-        </p>
-      </details>
+  <script>
+  (function () {
+    const sections = [
+      ["1. Lift Planning and Risk Assessment", [
+        ["What is the purpose of a lift plan?", "It describes the safe lifting method, equipment, rigging arrangement, personnel, load path, communication and required controls."],
+        ["Who should approve a lift plan?", "Personnel authorized under the applicable site lifting procedure must review and approve it according to the lift category."],
+        ["When must a lift plan be reviewed?", "When relevant conditions change, such as the load, crane configuration, rigging arrangement, location, ground condition or lifting sequence."],
+        ["What is a lifting risk assessment?", "It identifies hazards, evaluates the associated risks and defines controls before the lifting operation begins."],
+        ["What is a toolbox talk?", "A pre-job discussion that confirms the task, hazards, controls, responsibilities, signals and stop-work arrangements."],
+        ["Why must the load be identified before lifting?", "The team must understand the load, its known weight, center of gravity, lifting points, contents and handling hazards."],
+        ["What should happen if site conditions differ from the approved plan?", "Pause the operation, make the situation safe, reassess the change and obtain the required approval before restarting."],
+        ["What is a critical lift?", "A lift that meets criteria defined as critical by the applicable procedure and requires additional planning or authorization."],
+        ["Why must the load path be checked?", "To prevent collision with people, structures, operating equipment, overhead obstructions and other hazards."],
+        ["Why is a pre-lift meeting important?", "It confirms that the team understands the plan, assigned roles, communication, hazards and emergency actions."]
+      ]],
+      ["2. Rigger Responsibilities", [
+        ["What is the main duty of a rigger?", "To select, inspect and connect suitable rigging equipment and help control the load in accordance with the approved lifting arrangement."],
+        ["What should a rigger do if unsure about equipment suitability?", "Stop and obtain confirmation from a competent or authorized person before using the equipment."],
+        ["Can a rigger continue an operation that appears unsafe?", "No. The rigger should raise the concern and use the site's stop-work process."],
+        ["What is the lifting supervisor responsible for?", "Coordinating the lifting team and ensuring the operation follows the approved plan and applicable site requirements."],
+        ["What is the crane operator responsible for?", "Operating the crane within its approved limits, following authorized signals and stopping when conditions are unsafe."],
+        ["What is the signaler's responsibility?", "To communicate clear, agreed instructions to the crane operator and monitor the movement for hazards."],
+        ["Can one person perform more than one lifting role?", "Only where permitted by the applicable procedure and where the person is competent and able to perform each duty safely."],
+        ["What should a rigger do if communication is lost?", "Stop the movement and resume only after reliable communication has been restored."],
+        ["Why must lifting roles be clearly assigned?", "Clear responsibilities reduce confusion, conflicting instructions and missed safety checks."],
+        ["Who can call for a lift to stop?", "Anyone who identifies an unsafe condition should raise the alarm; the team must follow the site's stop-work requirements."]
+      ]],
+      ["3. Slings and Rigging Accessories", [
+        ["What should be checked on a sling before use?", "Its identification, rated capacity, condition, fittings and any damage specified in the inspection criteria."],
+        ["Why must sling identification remain readable?", "It allows the sling to be identified and its rating and traceability to be verified."],
+        ["Can a damaged sling be used for a small lift?", "No. Suspected damaged equipment must be removed from service under the site's inspection process."],
+        ["What is a shackle used for?", "It connects compatible rigging components or approved lifting points within the shackle's rated capacity."],
+        ["Why must the correct shackle pin be used?", "The specified pin preserves the intended connection and helps prevent unsafe loading or disengagement."],
+        ["Can ordinary bolts replace shackle pins?", "No. Use only the specified compatible pin or a component explicitly approved for that shackle."],
+        ["What is a master link used for?", "It provides a rated connection point for compatible sling legs or other approved rigging components."],
+        ["Why must rigging components be compatible?", "They must fit correctly, transfer the load as intended and preserve the capacity of the complete assembly."],
+        ["What is a sling protector used for?", "It helps protect a sling from abrasion or sharp edges when suitable for the application."],
+        ["What should be done with unidentified rigging equipment?", "Do not use it until its identity, rating, condition and suitability have been established."]
+      ]],
+      ["4. Sling Handling and Hooks", [
+        ["Why must slings not be knotted to shorten them?", "Knots can damage the sling and reduce its strength; use an approved adjustment method."],
+        ["Why should sling legs not be twisted?", "Twisting can cause uneven loading, damage and unpredictable behavior."],
+        ["What should be checked on a lifting hook?", "Identification, condition, deformation, wear, cracks and the latch where fitted."],
+        ["What is the purpose of a hook safety latch?", "It helps prevent a compatible connection from accidentally slipping out; it does not increase the hook's capacity."],
+        ["Can a hook be side-loaded without approval?", "No. Use the hook only in loading directions and configurations permitted by the manufacturer and procedure."],
+        ["Why must slings be protected from sharp edges?", "Sharp edges can cut or abrade sling material and cause failure."],
+        ["What should be done if synthetic sling stitching is damaged?", "Remove the sling from service and follow the approved inspection and disposition process."],
+        ["How should wire-rope slings be stored?", "As specified by the manufacturer and site procedure, protected from damage and harmful environmental conditions."],
+        ["Why must equipment markings not be altered?", "Altered markings can misidentify equipment and cause unsafe selection."],
+        ["What is the safest response to a questionable lifting accessory?", "Stop using it, prevent accidental reuse and report it for inspection or replacement."]
+      ]],
+      ["5. Crane Safety", [
+        ["What must be confirmed before crane operation?", "Crane suitability, inspection status, configuration, setup, operating limits, work area and operator authorization."],
+        ["Why must a crane stand on suitable ground?", "The ground and support arrangement must safely withstand the loads without unacceptable settlement or instability."],
+        ["Why are outriggers used?", "They provide the support configuration required for the crane's approved operating arrangement."],
+        ["Can outriggers be set differently from the approved arrangement?", "Only where the manufacturer permits the configuration and the capacity information and lift plan cover it."],
+        ["Why must the crane load chart be followed?", "It defines permitted lifting capacity for the relevant crane configuration and operating conditions."],
+        ["What should the operator do if a warning device activates?", "Stop as appropriate and follow manufacturer instructions and site procedures; never bypass a safety device to continue."],
+        ["Why is a clear view or reliable signaler important?", "The operator needs dependable information about the load, its path and surrounding hazards."],
+        ["What should happen if a crane makes an abnormal noise?", "Stop safely, report the condition and obtain required technical inspection or clearance."],
+        ["Why should crane movements be smooth?", "Smooth movements help limit shock loading, swinging and sudden changes in load behavior."],
+        ["Can a crane drag a load sideways?", "Not unless the manufacturer explicitly permits it and an approved procedure addresses the operation."]
+      ]],
+      ["6. Load Control and Lifting Operations", [
+        ["What is a trial lift?", "A controlled initial lift used to check attachment security, balance and clearance before continuing."],
+        ["Why should a load be lifted slightly at first?", "To confirm that the load is secure and balanced and that the rigging behaves as intended."],
+        ["Why must people stay clear of a suspended load?", "A suspended load can fall, swing or shift, causing severe injury or damage."],
+        ["Can anyone stand beneath a suspended load?", "No. Personnel must remain outside prohibited areas beneath suspended loads."],
+        ["What is an exclusion zone?", "A controlled area that keeps unauthorized people away from lifting hazards and the load's movement path."],
+        ["Why should a load not be left suspended unattended?", "An unattended suspended load creates continuing hazards; follow the approved procedure to lower or secure it safely."],
+        ["What is the purpose of a tag line?", "Where suitable and permitted, it helps control load rotation or swing while keeping personnel at a safe position."],
+        ["Can a tag line be wrapped around a person's hand or body?", "No. It must be handled so it cannot entangle or pull the person toward the load."],
+        ["Why should a load be secured before unhooking?", "It must be stable and supported so it cannot topple, slide or move unexpectedly."],
+        ["What should be done if the load starts swinging dangerously?", "Stop or pause movement safely and allow the team to regain control using the approved method."]
+      ]],
+      ["7. Signals and Communication", [
+        ["Why must standard hand signals be agreed before a lift?", "The operator and signaler must interpret instructions consistently and avoid conflicting movements."],
+        ["Who should normally give routine crane movement signals?", "The designated signaler, except for an emergency stop signal that must be acted upon."],
+        ["What should an operator do if a signal is unclear?", "Stop movement until the instruction is clarified."],
+        ["What should happen if two people give conflicting directions?", "Stop the operation and resolve the conflict before restarting."],
+        ["Why should radios be checked before lifting?", "The team must confirm that communication equipment works and the agreed channel is available."],
+        ["What is an emergency stop signal?", "A clearly understood signal directing the operator to stop immediately; it must be obeyed regardless of who gives it."],
+        ["Why should signalers remain in a safe position?", "They need to observe the operation without entering the load path or another hazardous area."],
+        ["Can a signaler stand where the operator cannot see them?", "Only if the approved communication arrangement reliably maintains contact and situational awareness."],
+        ["What should be done if radio communication fails?", "Stop the movement and restore the agreed reliable communication method before continuing."],
+        ["Why should unnecessary conversation be avoided during a lift?", "It reduces distraction and helps important instructions and warnings remain clear."]
+      ]],
+      ["8. Inspections and Equipment Control", [
+        ["Why must lifting equipment be inspected?", "Inspection helps identify defects that could make equipment unsafe for service."],
+        ["Who should inspect lifting equipment?", "Personnel competent and authorized for the required inspection under the applicable procedure."],
+        ["What should happen to defective equipment?", "Remove it from service, identify or quarantine it to prevent reuse, and report it for disposition."],
+        ["Why are inspection records important?", "They provide traceability of inspection status, defects, maintenance and authorization for use."],
+        ["Does a valid inspection record make visibly damaged equipment acceptable?", "No. Defects found before use must be addressed even if a record appears current."],
+        ["Why should equipment markings be checked?", "Markings help confirm equipment identity, rating and suitability for the intended task."],
+        ["What should be done if an inspection tag is missing?", "Follow the site procedure to establish inspection status; do not assume the equipment is safe."],
+        ["Why must equipment be used within its rated capacity?", "Exceeding its rating can cause damage, loss of control or failure."],
+        ["Can rigging equipment be modified on site without authorization?", "No. Modification requires the appropriate engineering or manufacturer approval and site authorization."],
+        ["Why must equipment be stored properly after use?", "Proper storage helps prevent damage, corrosion, contamination and deterioration."]
+      ]],
+      ["9. Permits and Worksite Safety", [
+        ["Why may a lifting operation require a work permit?", "The permit system coordinates hazards, authorizations, isolations and other worksite controls when required."],
+        ["Does a work permit replace a lift plan?", "No. A permit and a lift plan serve different purposes and must both be followed when required."],
+        ["Why should nearby operations be coordinated?", "Coordination prevents conflicting activities, simultaneous-operation hazards and unexpected interference."],
+        ["What should be checked for overhead power lines?", "Their location, applicable clearances, isolation requirements and controls established by the approved procedure."],
+        ["Can a crane approach power lines based only on visual judgment?", "No. Required clearances and controls must be established through the applicable electrical and lifting procedures."],
+        ["Why must the lifting area be barricaded where required?", "Barricades help prevent unauthorized entry into hazardous areas."],
+        ["Why must escape routes remain clear?", "Personnel need safe access and egress during normal work and emergencies."],
+        ["What PPE should lifting personnel wear?", "PPE specified by the risk assessment and site rules, such as hard hat, safety footwear, suitable gloves and high-visibility clothing."],
+        ["Why must lighting be adequate?", "Personnel need to see the load, equipment, signals, hazards and movement path clearly."],
+        ["What should happen when an unsafe condition is discovered?", "Stop or pause the task, make the area safe, report the hazard and resume only when the controls are adequate."]
+      ]],
+      ["10. Weather, Emergencies and Safe Completion", [
+        ["How should wind affect a lifting decision?", "The team must follow the crane manufacturer's limits, load characteristics and the site's approved weather criteria."],
+        ["What should happen if weather exceeds the permitted limit?", "Stop the lift and secure or lower the load using the approved safe method."],
+        ["Why can a large-area load be affected by wind?", "Wind can create significant force and cause the load to rotate, swing or become difficult to control."],
+        ["What should the team do if visibility becomes inadequate?", "Stop the operation until safe visibility or an approved alternative control is restored."],
+        ["What is the first priority during a lifting emergency?", "Protect people from immediate danger and follow the site's emergency response procedure."],
+        ["Why should emergency arrangements be discussed before lifting?", "The team needs to know how to raise the alarm, stop work, secure the area and summon assistance."],
+        ["What should happen after a lifting near miss?", "Report it promptly, preserve relevant information and follow the site's investigation and corrective-action process."],
+        ["Why must a load be landed on a suitable surface?", "The landing area must support the load and allow it to be placed without instability or uncontrolled movement."],
+        ["When may rigging be disconnected after landing?", "Only after the load is stable, properly supported and safe to disconnect under the approved method."],
+        ["What final checks are needed after the lift?", "Confirm the load is stable, equipment is safely released, the area is clear and defects or lessons are reported."]
+      ]]
+    ];
 
-      <details>
-        <summary>3. What should you do if lifting gear is damaged?</summary>
-        <p class="answer">
-          Stop using it, prevent further use, and report it according to
-          site procedures. It must be assessed by an authorized person
-          before any return to service.
-        </p>
-      </details>
+    const list = document.getElementById("aramco-lifting-qa-list");
+    let number = 0;
 
-      <details>
-        <summary>4. What is the role of a designated signal person?</summary>
-        <p class="answer">
-          The signal person communicates agreed signals to the crane operator
-          and helps coordinate the lift. The crew must understand the signals
-          and communication method before lifting begins.
-        </p>
-      </details>
+    sections.forEach(section => {
+      const heading = document.createElement("h2");
+      heading.className = "qa-topic";
+      heading.textContent = section[0];
+      list.appendChild(heading);
 
-      <details>
-        <summary>5. What is a suspended-load hazard?</summary>
-        <p class="answer">
-          A suspended load can fall, swing, or shift unexpectedly. Keep people
-          clear of the danger area and never stand or walk beneath a suspended
-          load.
-        </p>
-      </details>
+      section[1].forEach(item => {
+        number++;
+        const card = document.createElement("article");
+        card.className = "qa-card";
 
-      <details>
-        <summary>6. Why is a lift plan important?</summary>
-        <p class="answer">
-          It identifies the load, equipment, roles, lifting method,
-          hazards, controls, and communication arrangements needed for the
-          planned operation.
-        </p>
-      </details>
+        const question = document.createElement("h3");
+        question.innerHTML = '<span>Q' + number + '.</span> ' + item[0];
 
-      <details>
-        <summary>7. What should happen if conditions become unsafe?</summary>
-        <p class="answer">
-          Stop the operation when safe to do so, keep people clear, communicate
-          the hazard, and resume only after the issue has been addressed
-          and the required authorization obtained.
-        </p>
-      </details>
+        const answer = document.createElement("p");
+        answer.className = "qa-answer";
+        answer.innerHTML = '<strong>Answer:</strong> ' + item[1];
 
-      <details>
-        <summary>8. Why is the load weight important?</summary>
-        <p class="answer">
-          The load weight is needed to select suitable equipment and verify
-          that the planned configuration and capacities are adequate.
-          Account for relevant rigging accessories and attachments.
-        </p>
-      </details>
+        card.appendChild(question);
+        card.appendChild(answer);
+        list.appendChild(card);
+      });
+    });
+  })();
 
-      <details>
-        <summary>9. What is the purpose of a pre-lift briefing?</summary>
-        <p class="answer">
-          It ensures the team understands the plan, individual roles,
-          hazards, exclusion zones, signals, and actions to take if the
-          lift must be stopped.
-        </p>
-      </details>
-
-      <details>
-        <summary>10. Can damaged or unidentified lifting accessories be used?</summary>
-        <p class="answer">
-          No. Remove them from service and report them. Follow the applicable
-          inspection and approval process before any equipment is reused.
-        </p>
-      </details>
-    </section>
-
-    <section class="panel">
-      <h2>Other Study Pages</h2>
-      <a class="back-link" href="index.html">← Aramco Home</a>
-      <a class="back-link" href="aramco-mcqs.html">Practice MCQs →</a>
-    </section>
-  </main>
-
-  <footer>
-    <p>Lifting &amp; Rigging Study</p>
-    <p>General study material. Follow current site procedures and applicable requirements.</p>
-  </footer>
-</body>
-</html>
+  function toggleAnswers() {
+    document.querySelectorAll("#aramco-lifting-qa .qa-answer")
+      .forEach(answer => answer.hidden = !answer.hidden);
+  }
+  </script>
+</section>
+<!-- END ARAMCO LIFTING & RIGGING Q&A -->
