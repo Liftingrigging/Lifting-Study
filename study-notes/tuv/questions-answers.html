@@ -1,331 +1,423 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TÜV Rigging Questions & Answers</title>
+<title>150 TÜV Lifting and Rigging Interview Questions & Answers</title>
 <style>
+:root {
+  --navy:#103653;
+  --blue:#1769aa;
+  --pale:#edf5fb;
+  --border:#d7e1e9;
+  --text:#24313b;
+}
+* { box-sizing:border-box; }
 body {
-  font-family: Arial, sans-serif;
-  margin: 0;
-  background: #f3f6f9;
-  color: #243447;
-  line-height: 1.6;
+  margin:0;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:#f4f7fa;
+  line-height:1.6;
 }
 header {
-  background: #082b49;
-  color: white;
-  text-align: center;
-  padding: 28px 15px;
+  background:var(--navy);
+  color:white;
+  text-align:center;
+  padding:28px 15px;
 }
+header h1 { margin:0 0 8px; }
+header p { margin:0; }
 nav {
-  background: #061f35;
-  text-align: center;
-  padding: 12px;
+  display:flex;
+  flex-wrap:wrap;
+  justify-content:center;
+  gap:15px;
+  margin-top:16px;
 }
-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 8px;
-  display: inline-block;
-}
+nav a { color:white; }
 main {
-  max-width: 900px;
-  margin: 24px auto;
-  padding: 0 15px;
+  max-width:1000px;
+  margin:22px auto;
+  padding:0 14px 35px;
 }
-.card {
-  background: white;
-  padding: 20px;
-  margin-bottom: 15px;
-  border-radius: 10px;
-  border: 1px solid #dbe3eb;
+.notice {
+  background:#fff4dc;
+  border:1px solid #e7cb8b;
+  border-radius:8px;
+  padding:14px;
+  margin-bottom:16px;
 }
-details {
-  background: white;
-  border: 1px solid #dbe3eb;
-  border-radius: 8px;
-  margin: 12px 0;
-  padding: 14px;
+.controls {
+  display:grid;
+  grid-template-columns:2fr 1fr auto;
+  gap:10px;
+  padding:12px;
+  background:white;
+  border:1px solid var(--border);
+  border-radius:9px;
 }
-summary {
-  cursor: pointer;
-  font-weight: bold;
-  color: #082b49;
-}
-.answer {
-  background: #eaf7f0;
-  padding: 12px;
-  margin-top: 12px;
-  border-radius: 6px;
-}
-.note {
-  background: #fff7df;
-  padding: 12px;
-  border-left: 4px solid #d6a42a;
-}
-input {
-  width: 100%;
-  padding: 12px;
-  box-sizing: border-box;
-  border: 1px solid #b9c7d4;
-  border-radius: 7px;
-  font-size: 16px;
+input,select,button {
+  width:100%;
+  min-width:0;
+  padding:11px;
+  font:inherit;
+  border:1px solid #b9c8d6;
+  border-radius:6px;
 }
 button {
-  background: #0b5c87;
-  color: white;
-  border: 0;
-  border-radius: 6px;
-  padding: 10px 14px;
-  cursor: pointer;
-  margin: 5px 4px 5px 0;
+  background:var(--blue);
+  color:white;
+  cursor:pointer;
+  font-weight:bold;
 }
+#count { color:#526170; }
+.topic { margin-top:24px; }
+.topic h2 {
+  color:var(--navy);
+  border-bottom:2px solid var(--border);
+  padding-bottom:7px;
+}
+.item {
+  background:white;
+  border:1px solid var(--border);
+  border-radius:8px;
+  margin:10px 0;
+  overflow:hidden;
+}
+.question { padding:13px; font-weight:bold; }
+.number { color:var(--blue); margin-right:7px; }
+.answer {
+  padding:13px;
+  background:var(--pale);
+  border-top:1px solid var(--border);
+}
+.answer strong { color:var(--navy); }
 footer {
-  text-align: center;
-  padding: 20px;
-  background: #082b49;
-  color: white;
+  text-align:center;
+  padding:20px;
+  color:#526170;
+}
+@media(max-width:650px) {
+  .controls { grid-template-columns:1fr; }
+}
+@media print {
+  body { background:white; color:black; font-size:11pt; }
+  header { background:white; color:black; padding:8px; }
+  nav,.controls,footer { display:none !important; }
+  main { max-width:none; margin:0; padding:0; }
+  .notice { background:white; }
+  .topic { margin-top:16px; }
+  .topic h2 { break-after:avoid; }
+  .item { break-inside:avoid; border:1px solid #bbb; }
+  .answer { background:white; }
+  a { color:black; }
 }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>TÜV Rigging Questions & Answers</h1>
-  <p>Study notes for lifting and rigging operations</p>
+  <h1>150 TÜV Lifting &amp; Rigging Interview Questions</h1>
+  <p>Saudi industrial-site interview preparation with answers</p>
+  <nav>
+    <a href="../../index.html">Home</a>
+    <a href="index.html">TÜV Study Notes</a>
+    <a href="mcqs.html">MCQ Quiz</a>
+    <a href="calculations-questions-answer.html">Calculation Questions</a>
+  </nav>
 </header>
 
-<nav>
-  <a href="../../index.html">Home</a>
-  <a href="index.html">TÜV Study Notes</a>
-  <a href="mcqs.html">MCQ Quiz</a>
-</nav>
-
 <main>
-  <section class="card">
-    <h2>Questions & Answers</h2>
-    <p>Read each question, think about your answer, then open the answer below it.</p>
+  <div class="notice">
+    <strong>Important:</strong> These are original interview-practice
+    questions, not official TÜV, Saudi Aramco or other company examination
+    questions. Saudi industrial sites may follow different approved
+    procedures. Always follow the current site rules, applicable Saudi
+    requirements, the equipment manufacturer's instructions and the
+    approved lifting plan. Do not rely on this study page instead of
+    formal training or certification.
+  </div>
+
+  <div class="controls">
     <input id="search" type="search"
-      placeholder="Search questions..."
-      aria-label="Search questions">
-    <p id="count"></p>
-    <button type="button" id="openAll">Show all answers</button>
-    <button type="button" id="closeAll">Hide all answers</button>
-  </section>
+      placeholder="Search a question or answer..."
+      aria-label="Search questions and answers">
+    <select id="topic" aria-label="Filter by topic">
+      <option value="">All topics</option>
+    </select>
+    <button id="print" type="button">Print / Save as PDF</button>
+  </div>
 
-  <section class="card">
-    <p class="note">
-      These are original practice study notes, not official TÜV examination questions.
-      Always follow current manufacturer instructions, applicable standards,
-      your approved lift plan and site procedures.
-    </p>
-  </section>
-
-  <section id="questions">
-
-    <details>
-      <summary>1. What does WLL mean?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Working Load Limit. It is the manufacturer's
-        rated limit for a specified equipment configuration and use.
-      </div>
-    </details>
-
-    <details>
-      <summary>2. What should you check before using a sling?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Check its condition, identification tag,
-        rated capacity, suitability, connections and any damage or defects.
-      </div>
-    </details>
-
-    <details>
-      <summary>3. What should you do if a sling's identification tag is missing?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Remove it from service until its identity and
-        capacity can be verified through the approved process. Never guess its WLL.
-      </div>
-    </details>
-
-    <details>
-      <summary>4. What is the centre of gravity (COG)?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> The point through which the resultant weight
-        of an object can be considered to act.
-      </div>
-    </details>
-
-    <details>
-      <summary>5. Why is the centre of gravity important?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> It helps determine load balance, stability,
-        lifting-point suitability and how the load may move when lifted.
-      </div>
-    </details>
-
-    <details>
-      <summary>6. What happens when sling legs become shallower?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Sling-leg tension generally increases as the
-        angle measured from horizontal decreases. The approved lift plan and
-        equipment ratings must be checked.
-      </div>
-    </details>
-
-    <details>
-      <summary>7. What should you do if you find a damaged shackle?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Stop using it, prevent further use and report
-        it for assessment under the site's inspection procedure.
-      </div>
-    </details>
-
-    <details>
-      <summary>8. Why must people stay clear of suspended loads?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> A load can fall, swing or shift and cause
-        serious or fatal injuries. Keep people outside the designated hazard area.
-      </div>
-    </details>
-
-    <details>
-      <summary>9. What should the operator do if a signal is unclear?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Stop the movement safely and re-establish clear
-        communication before continuing.
-      </div>
-    </details>
-
-    <details>
-      <summary>10. What should happen if an emergency stop signal is given?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> The operator must stop the movement safely and
-        follow the site's procedure.
-      </div>
-    </details>
-
-    <details>
-      <summary>11. Why must ground conditions be checked before crane setup?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Weak ground, voids or underground services can
-        cause settlement, equipment instability or overturning.
-      </div>
-    </details>
-
-    <details>
-      <summary>12. What is the purpose of a crane load chart?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> It specifies the crane's rated lifting capacity
-        for defined configurations and operating conditions.
-      </div>
-    </details>
-
-    <details>
-      <summary>13. What should you do if a load starts tilting unexpectedly?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Stop the lift, lower the load safely if possible,
-        and reassess the centre of gravity, rigging arrangement and lifting points.
-      </div>
-    </details>
-
-    <details>
-      <summary>14. Why should sharp edges be protected?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Sharp edges can cut or damage slings.
-        Use suitable edge protection according to the sling manufacturer's guidance.
-      </div>
-    </details>
-
-    <details>
-      <summary>15. What should you do if the lift conditions change from the plan?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Stop and reassess the risks. Revise and obtain
-        the required approval for the lift plan before continuing.
-      </div>
-    </details>
-
-    <details>
-      <summary>16. What is a choker hitch?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> A sling arrangement in which the sling passes
-        around the load and through itself or its designed fitting to form a choke.
-        Use the applicable rated capacity for that hitch.
-      </div>
-    </details>
-
-    <details>
-      <summary>17. Why should slings not be knotted or twisted?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Knots and harmful twists can damage the sling
-        and change how forces are carried.
-      </div>
-    </details>
-
-    <details>
-      <summary>18. What is a tag line used for?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Where appropriate in the lift plan, it helps
-        control load rotation or movement from a safe position. It must not
-        create entanglement or other hazards.
-      </div>
-    </details>
-
-    <details>
-      <summary>19. What should you do if a load snags during lifting?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> Stop the movement and reassess. Never force a
-        snagged load by applying extra crane force or sudden movement.
-      </div>
-    </details>
-
-    <details>
-      <summary>20. Why is a pre-lift toolbox talk important?</summary>
-      <div class="answer">
-        <strong>Answer:</strong> It confirms the method, hazards, controls,
-        team roles, signals and actions required if conditions become unsafe.
-      </div>
-    </details>
-
-  </section>
+  <p id="count" aria-live="polite"></p>
+  <div id="questions"></div>
 </main>
 
 <footer>
-  Lifting & Rigging Study Hub
+  Lifting and Rigging Interview Study Resource
 </footer>
 
 <script>
+const data = [
+/* 1–15: BASIC RIGGING */
+["Rigging Fundamentals","What is rigging?","Rigging is selecting, inspecting and using lifting accessories to connect a load safely to lifting equipment."],
+["Rigging Fundamentals","What is a rigger's main responsibility?","To prepare and connect the load safely, inspect rigging equipment, follow the lift plan, communicate with the team and keep people clear of hazards."],
+["Rigging Fundamentals","What is a lifting operation?","An operation involving raising, lowering or moving a load using a crane or other lifting equipment."],
+["Rigging Fundamentals","What is WLL?","Working Load Limit: the maximum load an item is designated to lift under specified conditions."],
+["Rigging Fundamentals","What is SWL?","Safe Working Load is a term used for a specified safe load limit. Follow the marking, standard and manufacturer instructions applicable to the equipment."],
+["Rigging Fundamentals","What is the difference between WLL and breaking strength?","WLL is the designated working limit; breaking strength is the force at which the item fails under defined test conditions. Breaking strength is not an allowable lifting load."],
+["Rigging Fundamentals","What is a lifting accessory?","Equipment used between the lifting machine and the load, such as slings, shackles, hooks, eyebolts and lifting beams."],
+["Rigging Fundamentals","What is a lifting point?","A designed attachment point on a load or structure used to connect lifting equipment."],
+["Rigging Fundamentals","Why must the load weight be known before lifting?","To verify that the crane, lifting accessories and lifting arrangement have adequate capacity."],
+["Rigging Fundamentals","What is a lifting plan?","A documented plan describing the load, equipment, rigging arrangement, responsibilities, hazards, route and controls for the lift."],
+["Rigging Fundamentals","What is a lift supervisor?","A designated competent person who coordinates and supervises the lifting operation according to site requirements."],
+["Rigging Fundamentals","What is a banksman or signalman?","A trained person who communicates agreed signals to guide the crane operator when required."],
+["Rigging Fundamentals","What is a competent person?","A person with the required training, knowledge, experience and authorization to perform the assigned task."],
+["Rigging Fundamentals","Why is a pre-lift briefing necessary?","It confirms roles, communication, hazards, the lifting sequence, exclusion zones and emergency arrangements."],
+["Rigging Fundamentals","What should you do if you do not understand the lift instructions?","Stop before the lift starts and ask the supervisor to clarify the instructions."],
+
+/* 16–30: SLINGS AND RIGGING HARDWARE */
+["Slings & Hardware","What types of lifting slings are commonly used?","Wire-rope slings, chain slings, synthetic webbing slings and round slings."],
+["Slings & Hardware","What should you check on a sling before use?","Identification and capacity markings, condition, damage, fittings, certification or inspection status as required, and suitability for the lift."],
+["Slings & Hardware","What is a wire-rope sling?","A lifting sling made from wire rope with suitable terminations or fittings."],
+["Slings & Hardware","What is a webbing sling?","A textile sling made from woven synthetic material, commonly used where the load surface needs protection."],
+["Slings & Hardware","What is a round sling?","A flexible synthetic sling made with load-bearing yarns inside a protective cover."],
+["Slings & Hardware","What is a chain sling?","A sling made from rated lifting chain and compatible components, assembled for a specified lifting arrangement."],
+["Slings & Hardware","What is a shackle used for?","Connecting compatible lifting components or attaching rigging to an approved lifting point."],
+["Slings & Hardware","What is the difference between a bow shackle and a D shackle?","A bow shackle has a wider rounded body, while a D shackle has a narrower shape. Selection depends on the approved load direction and manufacturer's rating."],
+["Slings & Hardware","Why must a shackle pin be correctly secured?","An incorrectly fitted or unsecured pin can loosen or disengage during the operation."],
+["Slings & Hardware","Can you use an unidentified sling?","No. Do not use lifting gear whose identity, rating or required inspection status cannot be verified."],
+["Slings & Hardware","What is a sling hitch?","The way a sling connects to and supports a load, such as vertical, basket or choker hitch."],
+["Slings & Hardware","What is a basket hitch?","A sling arrangement that passes under the load and supports it in a basket-like configuration, subject to the sling manufacturer's restrictions."],
+["Slings & Hardware","What is a choker hitch?","A sling arrangement in which the sling passes around the load and tightens on itself. Its capacity depends on the sling and hitch configuration."],
+["Slings & Hardware","Why use edge protection?","To protect slings from sharp edges and protect the load where needed."],
+["Slings & Hardware","Can knots be tied in lifting slings to shorten them?","No. Do not knot or improvise sling shortening. Use approved equipment and the manufacturer's instructions."],
+
+/* 31–45: INSPECTION */
+["Inspection & Defects","What is a pre-use inspection?","A check before use to identify visible damage, missing markings, defects or other reasons the equipment may be unsafe."],
+["Inspection & Defects","What do you do if a sling is damaged?","Stop using it, remove it from service or quarantine it according to site procedure, and report it to the responsible person."],
+["Inspection & Defects","What wire-rope defects require attention?","Broken wires, kinks, crushing, birdcaging, corrosion, heat damage, distortion or damaged end fittings."],
+["Inspection & Defects","What textile sling defects require attention?","Cuts, tears, abrasion, damaged stitching, chemical or heat damage, exposed load-bearing fibres and unreadable identification."],
+["Inspection & Defects","What chain sling defects require attention?","Cracks, elongation, bent or twisted links, excessive wear, corrosion, heat damage or damaged connecting components."],
+["Inspection & Defects","What defects should you look for on a shackle?","Cracks, bending, excessive wear, damaged threads, a mismatched pin, deformation or unreadable markings."],
+["Inspection & Defects","Can a rigger repair a lifting sling by stitching or welding it?","Only repairs specifically authorized by the manufacturer and performed by an approved competent service provider are acceptable. Do not improvise repairs."],
+["Inspection & Defects","Why are identification tags important?","They help identify the equipment, its rated capacity and other information needed to confirm suitability."],
+["Inspection & Defects","What is a thorough examination?","A formal examination by a suitably competent person at the required interval and after specified events, in accordance with applicable requirements."],
+["Inspection & Defects","Does a valid inspection tag guarantee that equipment is safe today?","No. A pre-use inspection is still necessary, and any damage or unsafe condition means the item must not be used."],
+["Inspection & Defects","What should you do if an inspection certificate cannot be found?","Follow the site's equipment-control procedure and do not use the item until its required status is verified."],
+["Inspection & Defects","Why must lifting gear be stored correctly?","To prevent damage from moisture, chemicals, heat, sharp edges, contamination and improper handling."],
+["Inspection & Defects","Can equipment with unreadable WLL markings be used?","Not unless its identity and capacity can be reliably verified through an approved process. Otherwise remove it from service."],
+["Inspection & Defects","Why must different lifting components be compatible?","Incompatible dimensions, ratings or load directions can damage components or cause failure."],
+["Inspection & Defects","Who should decide whether a questionable lifting accessory can return to service?","The authorized competent person or inspection authority under the site's equipment-control procedure."],
+
+/* 46–60: CRANES */
+["Crane Safety","What is a crane load chart?","The manufacturer's document showing allowable lifting capacities for specified crane configurations and operating conditions."],
+["Crane Safety","What is working radius?","The horizontal distance, as defined by the manufacturer, from the crane's reference axis to the load line."],
+["Crane Safety","Why is working radius important?","The crane's rated capacity generally changes with radius, so the actual radius must match the load chart and lift plan."],
+["Crane Safety","What should be checked before a crane lift?","Crane condition, operator authorization, configuration, load chart, ground conditions, lifting accessories, communication and the approved plan."],
+["Crane Safety","Why must the crane be set up on suitable ground?","Weak or uneven ground can settle or fail, causing instability or overturning."],
+["Crane Safety","What is the purpose of outrigger mats?","To distribute outrigger reactions over a larger area, subject to proper design and ground assessment."],
+["Crane Safety","Can a crane be set up on an underground service route without verification?","No. Underground services, voids, trenches and ground capacity must be assessed before setup."],
+["Crane Safety","What is a crane's rated capacity?","The allowable capacity specified by the manufacturer for a particular configuration and operating condition."],
+["Crane Safety","Can the crane operator estimate capacity from experience instead of using the load chart?","No. The correct manufacturer load chart and approved lift plan must be followed."],
+["Crane Safety","What should be done if the crane's configuration differs from the lift plan?","Stop and have the responsible lifting authority verify the configuration, chart capacity and plan before lifting."],
+["Crane Safety","What is a load moment indicator or rated capacity indicator?","A device that provides information or warnings about crane loading conditions, as designed for that crane. It does not replace the load chart or planning."],
+["Crane Safety","Can safety devices be bypassed to complete a lift?","No. Stop the operation and report the fault according to site procedure."],
+["Crane Safety","Why must crane movements be smooth?","Sudden acceleration, braking or swinging can increase dynamic forces and reduce control of the load."],
+["Crane Safety","What should you do if the crane becomes unstable or an alarm indicates an unsafe condition?","Stop the operation, warn the team and follow the operator's and site's emergency procedure. Do not continue until authorized."],
+["Crane Safety","Who is allowed to operate a crane?","A properly trained, assessed and authorized operator who meets the applicable site and legal requirements."],
+
+/* 61–75: SIGNALS AND COMMUNICATION */
+["Signals & Communication","Why is communication important during lifting?","It coordinates crane movements, prevents conflicting instructions and helps keep personnel clear of hazards."],
+["Signals & Communication","Who should normally direct the crane operator during a lift?","The designated signaler or other person authorized under the site's communication procedure."],
+["Signals & Communication","What should the operator do if signals are unclear?","Stop the movement and obtain clear instructions before continuing."],
+["Signals & Communication","What should happen if radio communication fails?","Stop the lift safely and restore the agreed communication method before resuming."],
+["Signals & Communication","Can two people give conflicting signals to the operator?","The team must follow one agreed system and designated signaler, except that anyone must be able to give an emergency stop."],
+["Signals & Communication","What is the purpose of standard hand signals?","To communicate crane movements consistently when visual hand signals are the agreed method."],
+["Signals & Communication","What is an emergency stop signal?","The agreed signal that requires the operator to stop immediately. Everyone involved must understand the site's signal protocol."],
+["Signals & Communication","What should the signaler do if they lose sight of the load?","Stop the lift unless a safe, approved communication arrangement maintains control."],
+["Signals & Communication","What should a rigger do if a pedestrian enters the exclusion zone?","Stop the operation, warn the team and ensure the area is clear before resuming."],
+["Signals & Communication","Why should radio instructions be short and clear?","Concise, standardized instructions reduce misunderstanding and help the operator respond correctly."],
+["Signals & Communication","What should be agreed during the pre-lift briefing?","Signal methods, radio channel, designated signaler, emergency stop, movement sequence and communication-loss procedure."],
+["Signals & Communication","Should a signaler stand where the operator cannot see them?","Not when visual signals are required. Use an approved communication arrangement that maintains safe visibility and control."],
+["Signals & Communication","What if an unauthorized person gives a normal movement signal?","The operator should follow the agreed communication protocol and stop if instructions are conflicting or unclear."],
+["Signals & Communication","Why should the signaler avoid distractions?","They must continuously monitor the relevant movement, load path and hazards."],
+["Signals & Communication","Can anyone give an emergency stop?","Site rules should ensure that anyone who sees immediate danger can call for a stop, and the signal is understood by the operator."],
+
+/* 76–90: LIFT PLANNING AND PERMITS */
+["Lift Planning & Permits","What is a routine lift?","A lift classified as routine under the site's approved criteria, using established controls and a suitable plan."],
+["Lift Planning & Permits","What is a critical lift?","A lift meeting the site's criteria for additional planning, review or approval due to its risk or complexity."],
+["Lift Planning & Permits","Are critical-lift criteria identical at every Saudi site?","No. Follow the specific site's current lifting procedure and approval criteria."],
+["Lift Planning & Permits","What information should a lift plan contain?","Load details, crane configuration, capacity checks, rigging arrangement, ground assessment, route, hazards, responsibilities and emergency controls as required."],
+["Lift Planning & Permits","Why must the actual load weight be verified?","An incorrect weight can lead to selecting unsuitable crane capacity or lifting accessories."],
+["Lift Planning & Permits","What is a permit to work?","A formal authorization system used by a site to control specified work and its associated hazards."],
+["Lift Planning & Permits","Does a permit replace the lift plan?","No. The permit and lift plan serve different purposes and must both be completed when required."],
+["Lift Planning & Permits","What is a toolbox talk?","A short pre-job discussion of the task, hazards, controls, roles and emergency arrangements."],
+["Lift Planning & Permits","What is a risk assessment?","A systematic process to identify hazards, assess risk and select controls to reduce risk to an acceptable level."],
+["Lift Planning & Permits","What is a method statement?","A document describing how a task will be performed, including sequence, resources, responsibilities and safety controls."],
+["Lift Planning & Permits","What should happen if site conditions change after the briefing?","Stop and reassess the risks and plan; obtain the required reapproval before resuming."],
+["Lift Planning & Permits","Why is a lifting exclusion zone required?","To keep people away from the load path and areas where a dropped load or equipment failure could cause injury."],
+["Lift Planning & Permits","What should be checked along the load travel route?","Obstructions, personnel, structures, overhead lines, ground conditions, clearances and the planned landing area."],
+["Lift Planning & Permits","Why should the landing area be prepared before lifting?","It must support the load safely and allow controlled landing, securing and removal of rigging."],
+["Lift Planning & Permits","Who can approve a lift plan?","The person or authority designated by the site's lifting procedure, with the required competence and authorization."],
+
+/* 91–105: SAFE LIFTING PRACTICES */
+["Safe Lifting Practices","Can a person stand under a suspended load?","No. Keep people out from under suspended loads and follow the site's exclusion-zone requirements."],
+["Safe Lifting Practices","Can a suspended load be left unattended?","Do not leave it suspended unattended unless a specifically approved procedure permits it and all required controls are in place."],
+["Safe Lifting Practices","Why should a load be lifted a short distance initially when the procedure requires it?","A controlled initial lift can help verify balance, rigging seating and load control before proceeding."],
+["Safe Lifting Practices","What should you do if a load starts swinging?","Stop or pause movement as appropriate, keep people clear and regain control using the approved procedure. Never try to stop a heavy load by hand."],
+["Safe Lifting Practices","Can you pull a load sideways with a crane?","Do not side-pull unless the crane manufacturer explicitly permits the operation and an approved plan addresses it."],
+["Safe Lifting Practices","What is a trial lift?","A controlled initial lift used, where required, to confirm the load is secure, balanced and behaving as planned."],
+["Safe Lifting Practices","Why must the hook be positioned correctly above the load?","To reduce side loading, uncontrolled swing and unexpected movement when the load leaves the ground."],
+["Safe Lifting Practices","Why should the load be secured before disconnecting slings?","To prevent the load from shifting, rolling, tipping or falling when the rigging is removed."],
+["Safe Lifting Practices","Can hands be placed between a load and a fixed object while positioning?","Avoid crush and pinch points. Use approved tag lines or tools and maintain a safe position."],
+["Safe Lifting Practices","What is a tag line used for?","To help control load orientation or rotation from a safe position when permitted by the lift plan."],
+["Safe Lifting Practices","Can a tag line be wrapped around a hand or body?","No. Keep it free and maintain a safe escape path; never wrap it around a body part."],
+["Safe Lifting Practices","What should you do if the load catches on an obstruction?","Stop. Do not increase crane force to free it. Assess the obstruction and follow the approved recovery procedure."],
+["Safe Lifting Practices","Why must loads be landed on suitable supports?","Unsuitable supports can fail or allow the load to roll, tip or damage equipment."],
+["Safe Lifting Practices","Can people ride on a suspended load or crane hook?","No, unless a specifically designed and approved personnel-lifting system is used under applicable requirements. Never ride a load or hook."],
+["Safe Lifting Practices","What should you do if wind conditions exceed the permitted limit?","Stop the lift and follow the crane manufacturer's and site's wind-limit procedure."],
+
+/* 106–120: HAZARDS AND ENVIRONMENT */
+["Hazards & Environment","What hazards exist near overhead power lines?","Electric shock, electrocution and arcing. Maintain required clearances and follow the approved power-line control procedure."],
+["Hazards & Environment","Can you assume a power line is de-energized because it looks inactive?","No. Treat it as energized unless the authorized electrical authority confirms otherwise and required controls are implemented."],
+["Hazards & Environment","What should be done before lifting near a power line?","Plan the work, identify line voltage and location, establish required clearances, and arrange isolation or other controls through authorized personnel when required."],
+["Hazards & Environment","What is a blind lift?","A lift where the operator cannot directly see part of the load or travel path, requiring an approved communication and control arrangement."],
+["Hazards & Environment","Why is poor visibility dangerous during lifting?","The operator or signaler may not see hazards, people or load movement. Stop if safe control cannot be maintained."],
+["Hazards & Environment","How can high winds affect a lifting operation?","Wind can increase load swing, reduce control and exceed equipment limits, especially for large surface-area loads."],
+["Hazards & Environment","What should happen during lightning or a severe weather warning?","Follow the site's weather procedure and stop or suspend lifting when required."],
+["Hazards & Environment","Why must trenches and excavations be identified near crane setup?","They may reduce ground stability and affect the safe load-bearing area."],
+["Hazards & Environment","What is a pinch point?","A location where a body part can be trapped between moving equipment or between an object and a fixed surface."],
+["Hazards & Environment","What is a dropped-object hazard?","The risk that tools, rigging components or other objects fall and injure people or damage equipment."],
+["Hazards & Environment","Why should housekeeping be maintained in the lifting area?","Clear access reduces trips, obstructions and interference with emergency movement."],
+["Hazards & Environment","What should you do if an oil leak creates a slip hazard in the work area?","Stop or secure the work as needed, report it and arrange cleanup under the site's spill procedure."],
+["Hazards & Environment","Why is lighting important for night lifting?","The operator, signaler and riggers need adequate visibility of the load, signals, route and hazards."],
+["Hazards & Environment","What should be done if unauthorized workers enter the lifting area?","Stop the operation, clear the area and restore access controls before resuming."],
+["Hazards & Environment","Why should the lifting team check for nearby simultaneous operations?","Other activities may introduce conflicting movements, people, equipment or hazards into the lift zone."],
+
+/* 121–135: ROLES AND SAUDI SITE PRACTICE */
+["Saudi Site Practice","What should a rigger do before starting work on a Saudi industrial site?","Confirm required training and authorization, attend the briefing, understand the lift plan and permits, and inspect the assigned equipment."],
+["Saudi Site Practice","Are TÜV certification and site authorization always the same thing?","No. A certificate and a site's separate authorization or competency requirements are distinct; verify the requirements of the employer and site."],
+["Saudi Site Practice","Does every Saudi industrial site use exactly the same lifting procedure?","No. Applicable law, client standards and site-specific procedures may differ. Follow the current requirements for your worksite."],
+["Saudi Site Practice","What is Saudi Aramco GI 7.025 commonly associated with?","It is associated with heavy equipment operator and rigger testing and certification. Check the current controlled document and employer requirements for details."],
+["Saudi Site Practice","What is the purpose of site lifting procedures?","To define safe lifting requirements, roles, approvals, equipment controls and operating practices for that site."],
+["Saudi Site Practice","What should you do if a site rule is stricter than your previous employer's rule?","Follow the applicable current site rule and ask the responsible authority if clarification is needed."],
+["Saudi Site Practice","Can you claim to be certified if your certification has expired?","No. Report your actual status and complete the required renewal or reassessment before performing work that requires valid certification."],
+["Saudi Site Practice","Why is an equipment register important?","It helps track identification, inspection status, certification, maintenance and equipment availability."],
+["Saudi Site Practice","What is a stop-work authority?","The authority or responsibility to stop work when an unsafe condition or uncontrolled risk is identified, according to site rules."],
+["Saudi Site Practice","What should you do if a supervisor asks you to perform an unsafe lift?","Explain the safety concern, stop the operation and escalate through the site's lifting and stop-work process."],
+["Saudi Site Practice","Why should lifting records be maintained?","They provide evidence of planning, inspections, approvals, competency and other required controls."],
+["Saudi Site Practice","What is the purpose of a job safety analysis?","To break the job into steps, identify hazards at each step and establish appropriate controls."],
+["Saudi Site Practice","What should a rigger do if assigned a task outside their competence?","Inform the supervisor and do not perform the task until appropriately trained, competent and authorized."],
+["Saudi Site Practice","Why is incident reporting important?","It enables hazards to be corrected, causes to be investigated and similar incidents to be prevented."],
+["Saudi Site Practice","Should a worker falsify an inspection checklist or lifting record?","Never. Records must be accurate; report errors or missing checks through the proper process."],
+
+/* 136–150: EMERGENCIES AND PROFESSIONAL CONDUCT */
+["Emergency Response","What is the first action if someone is injured during a lift?","Stop the operation if safe, raise the alarm and activate the site's emergency response procedure."],
+["Emergency Response","What should you do if a sling fails during a lift?","Warn people, stop movement if safe, keep everyone clear, activate the site response and do not reuse the failed gear."],
+["Emergency Response","What should happen after a dropped-load incident?","Secure the area, provide emergency assistance, report the incident and preserve the scene as required by site procedure."],
+["Emergency Response","What should you do if a crane loses power while holding a load?","Keep personnel clear and follow the operator's emergency procedure and manufacturer instructions. Do not improvise a recovery."],
+["Emergency Response","What should you do if a fire occurs near the lifting area?","Raise the alarm, stop the operation if safe, follow the site emergency plan and evacuate as instructed."],
+["Emergency Response","What is the correct response to a near miss?","Report it promptly, make the area safe and cooperate with the investigation and corrective actions."],
+["Emergency Response","Can you attempt an unfamiliar emergency recovery without authorization?","No. Follow the emergency plan and instructions from authorized competent personnel."],
+["Emergency Response","Why should emergency access routes remain clear?","Responders need unobstructed access to reach people and equipment quickly."],
+["Emergency Response","What should be done if a load becomes unstable on landing?","Keep people clear, do not approach the danger zone and obtain an approved stabilization plan from competent personnel."],
+["Emergency Response","Why should the lifting team know the site's emergency contact method?","It enables rapid reporting and coordinated response to an incident."],
+["Professional Conduct","How do you answer an interviewer who asks about a lift you have never performed?","Be honest about your experience, explain what you know and state that you would follow the approved procedure under competent supervision."],
+["Professional Conduct","What makes a good rigger?","Competence, attention to detail, clear communication, sound hazard awareness, honest reporting and willingness to stop unsafe work."],
+["Professional Conduct","Why is teamwork important in lifting operations?","Safe lifting depends on coordinated actions by the operator, rigger, signaler, supervisor and other involved personnel."],
+["Professional Conduct","What should you do if you discover you made a mistake in a lift preparation?","Tell the supervisor immediately, stop the lift if necessary and correct the issue before proceeding."],
+["Professional Conduct","What is the most important principle in a lifting operation?","Safety comes first: follow the approved plan and procedures, use suitable inspected equipment, maintain communication and stop when conditions are unsafe."]
+];
+
+const topicSelect = document.getElementById("topic");
+const root = document.getElementById("questions");
 const search = document.getElementById("search");
-const items = [...document.querySelectorAll("#questions details")];
 const count = document.getElementById("count");
 
-function updateSearch() {
-  const term = search.value.trim().toLowerCase();
-  let visible = 0;
+[...new Set(data.map(item => item[0]))].forEach(topic => {
+  const option = document.createElement("option");
+  option.value = topic;
+  option.textContent = topic;
+  topicSelect.appendChild(option);
+});
 
-  items.forEach(item => {
-    const match = item.textContent.toLowerCase().includes(term);
-    item.style.display = match ? "" : "none";
-    if (match) visible++;
+function renderQuestions() {
+  const term = search.value.trim().toLowerCase();
+  const selectedTopic = topicSelect.value;
+  root.innerHTML = "";
+  let shown = 0;
+  const groups = new Map();
+
+  data.forEach((item, index) => {
+    const [topic, question, answer] = item;
+
+    if (selectedTopic && topic !== selectedTopic) return;
+
+    if (term && !(topic + " " + question + " " + answer)
+      .toLowerCase().includes(term)) return;
+
+    if (!groups.has(topic)) groups.set(topic, []);
+    groups.get(topic).push({
+      number: index + 1,
+      question,
+      answer
+    });
+    shown++;
   });
 
-  count.textContent = visible + " questions shown";
+  groups.forEach((items, topic) => {
+    const section = document.createElement("section");
+    section.className = "topic";
+
+    const heading = document.createElement("h2");
+    heading.textContent = topic;
+    section.appendChild(heading);
+
+    items.forEach(item => {
+      const card = document.createElement("article");
+      card.className = "item";
+
+      const question = document.createElement("div");
+      question.className = "question";
+
+      const number = document.createElement("span");
+      number.className = "number";
+      number.textContent = "Q" + item.number + ". ";
+
+      question.appendChild(number);
+      question.appendChild(document.createTextNode(item.question));
+
+      const answer = document.createElement("div");
+      answer.className = "answer";
+
+      const label = document.createElement("strong");
+      label.textContent = "Answer: ";
+
+      answer.appendChild(label);
+      answer.appendChild(document.createTextNode(item.answer));
+
+      card.appendChild(question);
+      card.appendChild(answer);
+      section.appendChild(card);
+    });
+
+    root.appendChild(section);
+  });
+
+  count.textContent =
+    "Showing " + shown + " of " + data.length + " questions.";
 }
 
-search.addEventListener("input", updateSearch);
+search.addEventListener("input", renderQuestions);
+topicSelect.addEventListener("change", renderQuestions);
 
-document.getElementById("openAll").addEventListener("click", () => {
-  items.forEach(item => {
-    if (item.style.display !== "none") item.open = true;
-  });
+document.getElementById("print").addEventListener("click", () => {
+  window.print();
 });
 
-document.getElementById("closeAll").addEventListener("click", () => {
-  items.forEach(item => item.open = false);
-});
-
-updateSearch();
+renderQuestions();
 </script>
-
 </body>
 </html>
