@@ -314,5 +314,46 @@
     });
   }
 </script>
+    <script>
+let deferredInstallPrompt = null;
+
+const installBtn = document.getElementById("installAppBtn");
+const installMsg = document.getElementById("installAppMessage");
+
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+});
+
+window.addEventListener("appinstalled", () => {
+  installMsg.textContent = "App installed successfully!";
+  deferredInstallPrompt = null;
+});
+
+if (installBtn && installMsg) {
+  installBtn.addEventListener("click", async () => {
+    if (window.matchMedia("(display-mode: standalone)").matches) {
+      installMsg.textContent = "The app is already installed.";
+      return;
+    }
+
+    if (!deferredInstallPrompt) {
+      installMsg.textContent =
+        "If installation is available, use Chrome's menu and choose Install page as app. Otherwise, check the PWA setup.";
+      return;
+    }
+
+    deferredInstallPrompt.prompt();
+    const result = await deferredInstallPrompt.userChoice;
+
+    installMsg.textContent =
+      result.outcome === "accepted"
+        ? "Installation accepted. Follow the browser prompts."
+        : "Installation was cancelled.";
+
+    deferredInstallPrompt = null;
+  });
+}
+</script>
 </body>
 </html>
