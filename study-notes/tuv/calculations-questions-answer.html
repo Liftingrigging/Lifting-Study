@@ -1,0 +1,726 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TÜV Rigging Calculations Questions &amp; Answers</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+    background: #f3f6f9;
+    color: #243447;
+    line-height: 1.65;
+}
+
+header {
+    background: #082b49;
+    color: white;
+    text-align: center;
+    padding: 32px 16px;
+}
+
+header h1 {
+    margin: 0 0 8px;
+    font-size: clamp(25px, 5vw, 36px);
+}
+
+header p {
+    margin: 0;
+}
+
+nav {
+    background: #061f35;
+    text-align: center;
+    padding: 10px;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 10px;
+    font-weight: bold;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+main {
+    max-width: 950px;
+    width: 94%;
+    margin: 25px auto;
+}
+
+.card {
+    background: white;
+    border: 1px solid #dbe3eb;
+    border-radius: 10px;
+    padding: 22px;
+    margin-bottom: 18px;
+    box-shadow: 0 3px 10px rgba(20, 40, 60, 0.05);
+}
+
+h2, h3 {
+    color: #082b49;
+}
+
+.formula {
+    background: #eaf2f8;
+    border-left: 4px solid #0b5c87;
+    border-radius: 6px;
+    padding: 14px;
+    font-weight: bold;
+    overflow-wrap: anywhere;
+    margin: 12px 0;
+}
+
+.answer {
+    background: #eaf7f0;
+    border-radius: 7px;
+    padding: 13px;
+    margin-top: 10px;
+}
+
+.warning {
+    background: #fff7df;
+    border-left: 4px solid #d6a42a;
+    padding: 14px;
+    border-radius: 6px;
+}
+
+details {
+    background: white;
+    border: 1px solid #dbe3eb;
+    border-radius: 8px;
+    padding: 14px;
+    margin: 12px 0;
+}
+
+summary {
+    color: #082b49;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+input, select {
+    width: 100%;
+    padding: 12px;
+    margin: 6px 0 14px;
+    border: 1px solid #b9c7d4;
+    border-radius: 7px;
+    font-size: 16px;
+    background: white;
+}
+
+button {
+    background: #0b5c87;
+    color: white;
+    border: 0;
+    border-radius: 7px;
+    padding: 11px 15px;
+    margin: 4px 4px 4px 0;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #083e5c;
+}
+
+button.secondary {
+    background: #e5edf3;
+    color: #082b49;
+}
+
+.result {
+    margin-top: 14px;
+    padding: 12px;
+    border-radius: 7px;
+    background: #eaf2f8;
+    overflow-wrap: anywhere;
+}
+
+.search-box {
+    margin-bottom: 16px;
+}
+
+footer {
+    background: #082b49;
+    color: white;
+    text-align: center;
+    padding: 20px;
+    margin-top: 30px;
+}
+
+@media (max-width: 600px) {
+    .card {
+        padding: 16px;
+    }
+
+    nav a {
+        padding: 7px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+    <h1>TÜV Rigging Calculations</h1>
+    <p>Calculation Questions &amp; Answers — Step-by-Step Practice</p>
+</header>
+
+<nav>
+    <a href="../../index.html">Home</a>
+    <a href="../index.html">Study Notes</a>
+    <a href="index.html">TÜV Notes</a>
+    <a href="mcqs.html">MCQ Quiz</a>
+    <a href="questions-answers.html">General Q&amp;A</a>
+</nav>
+
+<main>
+
+<section class="card">
+    <h2>Welcome to Rigging Calculations</h2>
+    <p>
+        Use this page to practise basic lifting calculations, understand
+        formulas, and revise important rigging concepts.
+    </p>
+
+    <div class="warning">
+        <strong>Important safety notice:</strong>
+        These are original educational practice examples, not official TÜV
+        examination questions or an approved lifting plan. Actual lifting
+        operations require verified load data, manufacturer ratings,
+        applicable standards, the approved lift plan and competent-person
+        verification.
+    </div>
+</section>
+
+<section class="card">
+    <h2>Find a question</h2>
+    <input
+        type="search"
+        id="search"
+        class="search-box"
+        placeholder="Search calculations and questions..."
+        aria-label="Search calculations and questions"
+    >
+
+    <p id="questionCount" aria-live="polite"></p>
+
+    <button type="button" id="showAll">Show all answers</button>
+    <button type="button" class="secondary" id="hideAll">Hide all answers</button>
+</section>
+
+<section class="card">
+    <h2>1. Kilograms and tonnes</h2>
+
+    <div class="formula">
+        Tonnes = Kilograms ÷ 1,000
+    </div>
+
+    <h3>Worked example</h3>
+    <p>A load weighs 2,500 kg. Convert it to tonnes.</p>
+    <p>Step 1: Divide 2,500 by 1,000.</p>
+    <div class="answer">
+        <strong>Answer: 2.5 tonnes.</strong>
+    </div>
+
+    <div id="questions1">
+
+        <details>
+            <summary>Q1. Convert 4,800 kg to tonnes.</summary>
+            <div class="answer">
+                4,800 ÷ 1,000 = <strong>4.8 tonnes.</strong>
+            </div>
+        </details>
+
+        <details>
+            <summary>Q2. Convert 1.75 tonnes to kilograms.</summary>
+            <div class="answer">
+                1.75 × 1,000 = <strong>1,750 kg.</strong>
+            </div>
+        </details>
+
+        <details>
+            <summary>Q3. A load weighs 6,250 kg. What is its weight in tonnes?</summary>
+            <div class="answer">
+                6,250 ÷ 1,000 = <strong>6.25 tonnes.</strong>
+            </div>
+        </details>
+    </div>
+</section>
+
+<section class="card">
+    <h2>2. Equal load sharing</h2>
+
+    <div class="formula">
+        Load per leg = Total load ÷ Number of equally loaded legs
+    </div>
+
+    <p>
+        This is a simplified calculation for idealised equal load sharing.
+        It must not be assumed that every sling leg in a real arrangement
+        shares the load equally.
+    </p>
+
+    <h3>Worked example</h3>
+    <p>
+        A 1,000 kg load is supported equally by two vertical sling legs.
+    </p>
+    <p>1,000 ÷ 2 = 500 kg per leg.</p>
+
+    <div class="answer">
+        <strong>Answer: 500 kg per leg under the stated assumptions.</strong>
+    </div>
+
+    <div id="questions2">
+        <details>
+            <summary>Q4. A 1,600 kg load is equally supported by two vertical legs. What is the load per leg?</summary>
+            <div class="answer">
+                1,600 ÷ 2 = <strong>800 kg per leg.</strong>
+            </div>
+        </details>
+
+        <details>
+            <summary>Q5. A 900 kg load is ideally shared equally by three vertical legs. What is the share per leg?</summary>
+            <div class="answer">
+                900 ÷ 3 = <strong>300 kg per leg.</strong>
+                This is only a mathematical example; actual load distribution
+                must be established for the real arrangement.
+            </div>
+        </details>
+
+        <details>
+            <summary>Q6. Can you always divide the load by the number of sling legs?</summary>
+            <div class="answer">
+                <strong>No.</strong> Sling geometry, leg stiffness, centre of
+                gravity and arrangement can produce unequal loading. Use the
+                approved calculation and lift plan.
+            </div>
+        </details>
+    </div>
+</section>
+
+<section class="card">
+    <h2>3. Sling tension and sling angle</h2>
+
+    <p>
+        For a simplified, symmetrical two-leg sling arrangement, with the
+        angle measured from the horizontal:
+    </p>
+
+    <div class="formula">
+        Tension per leg = W ÷ (2 × sin θ)
+    </div>
+
+    <p><strong>W</strong> = supported load force in kN.</p>
+    <p><strong>θ</strong> = sling angle measured from horizontal.</p>
+
+    <h3>Worked example</h3>
+    <p>
+        The supported load force is 10 kN and both sling legs are at
+        60° from horizontal.
+    </p>
+    <p>sin 60° ≈ 0.866</p>
+    <p>Tension = 10 ÷ (2 × 0.866)</p>
+    <p>Tension ≈ 5.77 kN per leg.</p>
+
+    <div class="answer">
+        <strong>Answer: approximately 5.77 kN per leg</strong>,
+        under the stated idealised assumptions.
+    </div>
+
+    <div id="questions3">
+        <details>
+            <summary>Q7. What happens to sling tension when the angle from horizontal decreases?</summary>
+            <div class="answer">
+                Sling-leg tension generally increases as the angle becomes
+                shallower. Horizontal forces on the load and lifting points
+                can also increase.
+            </div>
+        </details>
+
+        <details>
+            <summary>Q8. Why must you confirm the angle reference before calculating sling tension?</summary>
+            <div class="answer">
+                The formula depends on whether the angle is measured from
+                horizontal or vertical. Using the wrong reference can produce
+                an incorrect result.
+            </div>
+        </details>
+
+        <details>
+            <summary>Q9. Is the formula above sufficient to approve a real lift?</summary>
+            <div class="answer">
+                <strong>No.</strong> It is a simplified educational model.
+                The actual arrangement, load distribution, equipment ratings,
+                lifting points, manufacturer instructions and approved plan
+                must all be checked.
+            </div>
+        </details>
+    </div>
+</section>
+
+<section class="card">
+    <h2>4. Percentage of rated capacity</h2>
+
+    <div class="formula">
+        Percentage used = (Applied load ÷ Rated capacity) × 100
+    </div>
+
+    <h3>Worked example</h3>
+    <p>
+        An illustrative load is 3 tonnes and the applicable rated capacity
+        is 5 tonnes.
+    </p>
+    <p>(3 ÷ 5) × 100 = 60%</p>
+
+    <div class="answer">
+        <strong>Answer: 60% of the stated rated capacity.</strong>
+        This percentage alone does not prove that a lift is safe.
+    </div>
+
+    <div id="questions4">
+        <details>
+            <summary>Q10. A 2-tonne load is compared with a 4-tonne rated capacity. What percentage is used?</summary>
+            <div class="answer">
+                (2 ÷ 4) × 100 = <strong>50%.</strong>
+            </div>
+        </details>
+
+        <details>
+            <summary>Q11. A load is rated at 4 tonnes, but the equipment capacity for the actual configuration is only 3 tonnes. Can the lift proceed?</summary>
+            <div class="answer">
+                <strong>No.</strong> The planned load exceeds the stated
+                applicable capacity. Stop and have the lift arrangement
+                reviewed and corrected before proceeding.
+            </div>
+        </details>
+    </div>
+</section>
+
+<section class="card">
+    <h2>5. Load weight and additional equipment</h2>
+
+    <p>
+        The crane's applicable capacity calculation must account for the
+        load and the relevant rigging, attachments and deductions according
+        to the crane manufacturer's load-chart instructions.
+    </p>
+
+    <div id="questions5">
+        <details>
+            <summary>Q12. Why is it important to know the actual load weight?</summary>
+            <div class="answer">
+                Load weight is essential for selecting suitable equipment
+                and checking the planned lift against applicable ratings.
+                Do not rely on a guess when reliable weight information is required.
+            </div>
+        </details>
+
+        <details>
+            <summary>Q13. Should rigging weight be ignored when checking a crane load chart?</summary>
+            <div class="answer">
+                <strong>No.</strong> Follow the manufacturer's instructions
+                for the total suspended load and any required deductions.
+            </div>
+        </details>
+    </div>
+</section>
+
+<section class="card">
+    <h2>6. Crane working radius and load charts</h2>
+
+    <p>
+        Working radius is generally the horizontal distance from the crane's
+        relevant axis of rotation to the load line, as defined by the
+        manufacturer.
+    </p>
+
+    <div class="warning">
+        <strong>Remember:</strong> Crane capacity cannot be determined from
+        radius alone. Use the correct manufacturer's load chart for the
+        actual crane configuration, setup and operating conditions.
+    </div>
+
+    <div id="questions6">
+        <details>
+            <summary>Q14. Can crane capacity be determined from working radius alone?</summary>
+            <div class="answer">
+                <strong>No.</strong> The correct load chart and the crane's
+                actual configuration and conditions must be verified.
+            </div>
+        </details>
+
+        <details>
+            <summary>Q15. Why can increasing the crane's working radius reduce its rated capacity?</summary>
+            <div class="answer">
+                Increasing radius generally increases the overturning moment.
+                The permitted capacity depends on the specific crane and its
+                manufacturer's load chart.
+            </div>
+        </details>
+    </div>
+</section>
+
+<section class="card">
+    <h2>7. Centre of gravity and load balance</h2>
+
+    <div id="questions7">
+        <details>
+            <summary>Q16. What is the centre of gravity (COG)?</summary>
+            <div class="answer">
+                It is the point through which the resultant weight of an
+                object can be considered to act.
+            </div>
+        </details>
+
+        <details>
+            <summary>Q17. What may happen if a load is lifted from unsuitable lifting points?</summary>
+            <div class="answer">
+                The load may tilt, rotate, become unstable or overload
+                equipment or lifting points.
+            </div>
+        </details>
+
+        <details>
+            <summary>Q18. What should you do if a load tilts unexpectedly during the initial test lift?</summary>
+            <div class="answer">
+                Stop the lift and lower the load safely if possible.
+                Reassess the centre of gravity, lifting points and rigging
+                arrangement before proceeding.
+            </div>
+        </details>
+    </div>
+</section>
+
+<section class="card">
+    <h2>8. Interactive calculation tools</h2>
+    <p>
+        These tools perform basic arithmetic for study purposes. They do not
+        verify a real lifting arrangement.
+    </p>
+
+    <label for="weightKg"><strong>Load weight in kilograms</strong></label>
+    <input
+        type="number"
+        id="weightKg"
+        min="0.001"
+        step="any"
+        placeholder="Example: 2500"
+    >
+
+    <button type="button" id="toTonnes">Convert to tonnes</button>
+    <button type="button" id="twoLegs">Idealised equal share: two vertical legs</button>
+
+    <div id="basicResult" class="result" aria-live="polite">
+        Enter a positive load weight to begin.
+    </div>
+
+    <hr>
+
+    <h3>Idealised two-leg sling tension calculator</h3>
+
+    <label for="loadKN"><strong>Supported load force (kN)</strong></label>
+    <input
+        type="number"
+        id="loadKN"
+        min="0.001"
+        step="any"
+        placeholder="Example: 10"
+    >
+
+    <label for="angle"><strong>Sling angle from horizontal (degrees)</strong></label>
+    <select id="angle">
+        <option value="30">30°</option>
+        <option value="45">45°</option>
+        <option value="60" selected>60°</option>
+        <option value="75">75°</option>
+        <option value="90">90°</option>
+    </select>
+
+    <button type="button" id="tensionBtn">Calculate idealised tension</button>
+
+    <div id="tensionResult" class="result" aria-live="polite">
+        Enter the supported load force and choose an angle.
+    </div>
+
+    <p class="warning">
+        The tension calculator assumes two identical legs, symmetrical
+        geometry and equal load sharing. It does not account for all real
+        lifting conditions, sling ratings, dynamic effects, lifting-point
+        limitations or design requirements. Do not use its result alone
+        to plan or approve a lift.
+    </p>
+</section>
+
+<section class="card">
+    <h2>9. Final revision questions</h2>
+
+    <div id="questions9">
+        <details>
+            <summary>Q19. What should happen if actual lifting conditions differ from the approved lift plan?</summary>
+            <div class="answer">
+                Stop and reassess the risks. Make any required changes through
+                the approved process and obtain the necessary authorisation
+                before continuing.
+            </div>
+        </details>
+
+        <details>
+            <summary>Q20. What should you do if a lifting accessory is damaged or its capacity cannot be verified?</summary>
+            <div class="answer">
+                Remove it from service, prevent further use and report it
+                according to the site's procedure. Never guess its capacity
+                or use damaged equipment.
+            </div>
+        </details>
+    </div>
+</section>
+
+</main>
+
+<footer>
+    Lifting &amp; Rigging Study Hub | TÜV Calculation Practice
+</footer>
+
+<script>
+const weightInput = document.getElementById("weightKg");
+const basicResult = document.getElementById("basicResult");
+
+function getPositiveNumber(input) {
+    const value = Number(input.value);
+
+    if (
+        input.value.trim() === "" ||
+        !Number.isFinite(value) ||
+        value <= 0
+    ) {
+        return null;
+    }
+
+    return value;
+}
+
+document.getElementById("toTonnes").addEventListener("click", function () {
+    const kg = getPositiveNumber(weightInput);
+
+    if (kg === null) {
+        basicResult.textContent = "Please enter a valid weight greater than zero.";
+        return;
+    }
+
+    basicResult.textContent =
+        kg.toLocaleString() + " kg = " +
+        (kg / 1000).toLocaleString(undefined, {
+            maximumFractionDigits: 4
+        }) + " tonnes.";
+});
+
+document.getElementById("twoLegs").addEventListener("click", function () {
+    const kg = getPositiveNumber(weightInput);
+
+    if (kg === null) {
+        basicResult.textContent = "Please enter a valid weight greater than zero.";
+        return;
+    }
+
+    basicResult.textContent =
+        "Idealised equal share: " +
+        (kg / 2).toLocaleString(undefined, {
+            maximumFractionDigits: 3
+        }) +
+        " kg per leg, assuming two vertical legs share the load equally. " +
+        "This is not a verified rigging design.";
+});
+
+document.getElementById("tensionBtn").addEventListener("click", function () {
+    const loadInput = document.getElementById("loadKN");
+    const loadKN = getPositiveNumber(loadInput);
+    const angle = Number(document.getElementById("angle").value);
+    const tensionResult = document.getElementById("tensionResult");
+
+    if (loadKN === null) {
+        tensionResult.textContent =
+            "Please enter a supported load force greater than zero.";
+        return;
+    }
+
+    if (!Number.isFinite(angle) || angle <= 0 || angle > 90) {
+        tensionResult.textContent = "Please select a valid angle.";
+        return;
+    }
+
+    const radians = angle * Math.PI / 180;
+    const denominator = 2 * Math.sin(radians);
+    const tension = loadKN / denominator;
+
+    if (!Number.isFinite(tension)) {
+        tensionResult.textContent = "Unable to calculate. Check the inputs.";
+        return;
+    }
+
+    tensionResult.textContent =
+        "Idealised tension: " +
+        tension.toLocaleString(undefined, {
+            maximumFractionDigits: 3
+        }) +
+        " kN per leg at " + angle +
+        "° from horizontal, assuming symmetrical equal loading.";
+});
+
+const search = document.getElementById("search");
+const questionItems = Array.from(
+    document.querySelectorAll("main details")
+);
+const questionCount = document.getElementById("questionCount");
+
+function filterQuestions() {
+    const term = search.value.trim().toLowerCase();
+    let visible = 0;
+
+    questionItems.forEach(function (item) {
+        const matches = item.textContent.toLowerCase().includes(term);
+        item.style.display = matches ? "" : "none";
+
+        if (matches) {
+            visible++;
+        }
+    });
+
+    questionCount.textContent =
+        visible + " question(s) shown.";
+}
+
+search.addEventListener("input", filterQuestions);
+
+document.getElementById("showAll").addEventListener("click", function () {
+    questionItems.forEach(function (item) {
+        if (item.style.display !== "none") {
+            item.open = true;
+        }
+    });
+});
+
+document.getElementById("hideAll").addEventListener("click", function () {
+    questionItems.forEach(function (item) {
+        item.open = false;
+    });
+});
+
+filterQuestions();
+</script>
+
+</body>
+</html>
