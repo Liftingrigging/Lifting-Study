@@ -187,7 +187,6 @@
         margin-top: 0;
     }
 
-    /* Explore and Save as PDF buttons */
     .card-actions {
         display: flex;
         flex-wrap: wrap;
@@ -207,7 +206,6 @@
         font-weight: bold;
         font-size: 14px;
         cursor: pointer;
-        margin-top: 0;
         font-family: inherit;
         line-height: 1.3;
     }
@@ -489,8 +487,8 @@
 
 <script>
     /*
-     * Opens the selected existing page in a new tab.
-     * The visitor can then use the browser's Print / Save as PDF option.
+     * Opens the selected study page in a new tab.
+     * Attempts to open the print dialog once it loads.
      */
     function savePageAsPDF(page) {
         const allowedPages = [
@@ -508,13 +506,43 @@
 
         const pdfWindow = window.open(
             "/Lifting-Study/" + page,
-            "_blank",
-            "noopener"
+            "_blank"
         );
 
         if (!pdfWindow) {
-            alert("Please allow pop-ups for this website, then try again.");
+            alert("Your browser blocked the new tab. Please allow pop-ups and try again.");
+            return;
         }
+
+        let printStarted = false;
+
+        function startPrint() {
+            if (printStarted) return;
+            printStarted = true;
+
+            try {
+                pdfWindow.focus();
+                pdfWindow.print();
+            } catch (error) {
+                alert(
+                    "The page opened, but automatic printing was blocked. " +
+                    "In the new tab, open the browser menu and choose Print, " +
+                    "then Save as PDF."
+                );
+            }
+        }
+
+        pdfWindow.addEventListener("load", startPrint, { once: true });
+
+        /*
+         * Fallback for browsers that don't fire the load event
+         * as expected. Printing may still be blocked by the browser.
+         */
+        window.setTimeout(() => {
+            if (!printStarted && !pdfWindow.closed) {
+                startPrint();
+            }
+        }, 2500);
     }
 
     if ("serviceWorker" in navigator) {
