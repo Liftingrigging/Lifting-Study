@@ -1,824 +1,424 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10243a">
+  <title>Material Weight Calculator | Lifting Study</title>
 
-    <title>Lifting & Rigging Calculators</title>
+  <style>
+    :root {
+      --navy: #10243a;
+      --blue: #1769aa;
+      --light: #f1f6fb;
+      --border: #d7e2ee;
+      --text: #203247;
+      --muted: #63758a;
+      --green: #16845b;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            color: #0f172a;
-        }
+    * { box-sizing: border-box; }
 
-        header {
-            background: #0f172a;
-            color: white;
-            padding: 30px 20px;
-            text-align: center;
-        }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background: linear-gradient(145deg, #e8f2fc, #f8fbff 55%, #e9f8f1);
+      min-height: 100vh;
+    }
 
-        nav {
-            background: #1e293b;
-            padding: 14px;
-            text-align: center;
-        }
+    header {
+      color: white;
+      background: linear-gradient(120deg, #10243a, #1769aa);
+      padding: 25px 18px;
+      text-align: center;
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-        }
+    header h1 {
+      margin: 0 0 8px;
+      font-size: clamp(25px, 5vw, 36px);
+    }
 
-        .container {
-            max-width: 1100px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+    header p {
+      margin: 0;
+      color: #dcecff;
+      line-height: 1.5;
+    }
 
-        .intro {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 30px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        }
+    .container {
+      width: min(900px, 100%);
+      margin: 28px auto;
+      padding: 0 16px 36px;
+    }
 
-        .section-title {
-            margin-top: 35px;
-            margin-bottom: 15px;
-        }
+    .panel {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: clamp(18px, 4vw, 30px);
+      margin-bottom: 20px;
+      box-shadow: 0 8px 28px rgba(16, 36, 58, 0.08);
+    }
 
-        .calculator-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-        }
+    h2 {
+      color: var(--navy);
+      margin: 0 0 16px;
+      font-size: 23px;
+    }
 
-        .calculator-card {
-            background: white;
-            padding: 22px;
-            border-radius: 12px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-            display: flex;
-            flex-direction: column;
-        }
+    .formula {
+      background: var(--navy);
+      color: white;
+      border-radius: 14px;
+      padding: 22px 14px;
+      text-align: center;
+      font-size: clamp(22px, 5vw, 31px);
+      font-weight: bold;
+      line-height: 1.4;
+      margin: 18px 0;
+    }
 
-        .calculator-card h3 {
-            margin-top: 0;
-            color: #0369a1;
-        }
+    .hint {
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 14px;
+    }
 
-        .calculator-card p {
-            line-height: 1.6;
-            flex-grow: 1;
-        }
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
 
-        .button {
-            display: inline-block;
-            text-align: center;
-            background: #0284c7;
-            color: white;
-            padding: 12px;
-            border-radius: 7px;
-            text-decoration: none;
-            font-weight: bold;
-            margin-top: 15px;
-        }
+    label {
+      display: block;
+      font-weight: bold;
+      margin-bottom: 8px;
+    }
 
-        .button:hover {
-            background: #0369a1;
-        }
+    input, select {
+      display: block;
+      width: 100%;
+      min-width: 0;
+      min-height: 48px;
+      padding: 12px;
+      border: 1px solid #bdcddd;
+      border-radius: 10px;
+      background: white;
+      color: var(--text);
+      font-size: 16px;
+    }
 
-        .notice {
-            background: #fff7ed;
-            border-left: 5px solid #f97316;
-            padding: 18px;
-            margin-top: 35px;
-            border-radius: 8px;
-        }
+    input:focus, select:focus {
+      outline: 3px solid #c8e4ff;
+      border-color: var(--blue);
+    }
 
-        footer {
-            text-align: center;
-            background: #0f172a;
-            color: white;
-            padding: 20px;
-            margin-top: 40px;
-        }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 22px;
+    }
 
-        @media (max-width: 600px) {
+    button, .back-link {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 46px;
+      padding: 12px 18px;
+      border: 0;
+      border-radius: 10px;
+      background: var(--blue);
+      color: white;
+      font-size: 15px;
+      font-weight: bold;
+      text-decoration: none;
+      cursor: pointer;
+    }
 
-            nav a {
-                display: block;
-                margin: 9px 0;
-            }
+    button.secondary {
+      background: #e8eef5;
+      color: var(--navy);
+    }
 
-            .container {
-                padding: 15px;
-            }
-        }
-    </style>
+    .results {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+      margin-top: 20px;
+    }
+
+    .result-card {
+      padding: 18px 10px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: var(--light);
+      text-align: center;
+      min-width: 0;
+    }
+
+    .result-card .unit {
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: bold;
+    }
+
+    .result-card .value {
+      color: var(--green);
+      font-size: clamp(19px, 4vw, 27px);
+      font-weight: bold;
+      overflow-wrap: anywhere;
+      margin-top: 9px;
+    }
+
+    .error {
+      color: #b42318;
+      font-weight: bold;
+      margin-top: 14px;
+    }
+
+    .hidden { display: none; }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      padding: 0 16px 28px;
+      font-size: 13px;
+    }
+
+    @media (max-width: 560px) {
+      .field-grid { grid-template-columns: 1fr; }
+      .results { grid-template-columns: 1fr; }
+      .result-card {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        text-align: left;
+        gap: 10px;
+      }
+      .result-card .value { margin-top: 0; }
+      .buttons button, .buttons .back-link { flex: 1; }
+    }
+
+    @media print {
+      body { background: white; }
+      header { background: white; color: black; padding: 10px; }
+      header p { color: #333; }
+      .container { margin: 12px auto; }
+      .panel { box-shadow: none; }
+      .buttons, footer { display: none !important; }
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <h1>Material Weight Calculator</h1>
+    <p>Lifting & Rigging Study Resources</p>
+  </header>
 
-<header>
-    <h1>Lifting & Rigging Calculators</h1>
-    <p>Study and reference tools for lifting operations</p>
-</header>
+  <main class="container">
+    <section class="panel">
+      <h2>Material Weight Formula</h2>
 
-<nav>
-    <a href="index.html">Home</a>
-    <a href="rigging.html">Lifting Accessories</a>
-    <a href="calculation.html">Calculations</a>
-    <a href="cranes.html">Cranes</a>
-    <a href="planning.html">Lift Planning</a>
-    <a href="safety.html">Safety</a>
-    <a href="study-notes.html">Study Notes</a>
-</nav>
+      <div class="formula">
+        Weight = Volume × Density
+      </div>
 
-<div class="container">
+      <p class="hint">
+        Enter the material volume and density. The calculator will show
+        the result in kilograms (kg), metric tonnes (ton), and pounds (lbs).
+      </p>
+    </section>
 
-    <div class="intro">
+    <section class="panel">
+      <h2>Calculate Material Weight</h2>
 
-        <h2>Lifting Calculation Tools</h2>
+      <form id="weightForm">
+        <div class="field-grid">
+          <div>
+            <label for="volume">Volume</label>
+            <input
+              id="volume"
+              type="number"
+              min="0"
+              step="any"
+              placeholder="Enter volume"
+              required
+            >
+          </div>
 
-        <p>
-            Use these calculators for lifting, rigging and crane study.
-            They are intended for educational and preliminary calculation
-            purposes.
+          <div>
+            <label for="volumeUnit">Volume Unit</label>
+            <select id="volumeUnit">
+              <option value="m3">Cubic metres (m³)</option>
+              <option value="ft3">Cubic feet (ft³)</option>
+              <option value="cm3">Cubic centimetres (cm³)</option>
+              <option value="l">Litres (L)</option>
+            </select>
+          </div>
+
+          <div>
+            <label for="density">Density</label>
+            <input
+              id="density"
+              type="number"
+              min="0"
+              step="any"
+              placeholder="Enter density"
+              required
+            >
+          </div>
+
+          <div>
+            <label for="densityUnit">Density Unit</label>
+            <select id="densityUnit">
+              <option value="kgm3">kg/m³</option>
+              <option value="kgft3">kg/ft³</option>
+              <option value="gcm3">g/cm³</option>
+              <option value="lbft3">lb/ft³</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="buttons">
+          <button type="submit">Calculate Weight</button>
+          <button type="button" class="secondary" id="clearButton">
+            Clear
+          </button>
+        </div>
+
+        <p id="errorMessage" class="error hidden" role="alert"></p>
+      </form>
+
+      <div id="results" class="hidden" aria-live="polite">
+        <h2 style="margin-top:28px">Calculated Material Weight</h2>
+
+        <div class="results">
+          <div class="result-card">
+            <div class="unit">Kilograms (kg)</div>
+            <div class="value" id="kgResult">—</div>
+          </div>
+
+          <div class="result-card">
+            <div class="unit">Metric tonnes (ton)</div>
+            <div class="value" id="tonResult">—</div>
+          </div>
+
+          <div class="result-card">
+            <div class="unit">Pounds (lbs)</div>
+            <div class="value" id="lbsResult">—</div>
+          </div>
+        </div>
+
+        <p class="hint">
+          These are mass-based material-weight calculations, commonly used
+          in lifting estimates. Verify material dimensions and density before
+          using the result for a lift plan.
         </p>
 
-        <p>
-            Always verify actual lifting conditions using approved lift
-            plans, manufacturer data, load charts, certificates,
-            applicable standards and competent-person review.
-        </p>
+        <div class="buttons">
+          <button type="button" id="printButton">Print / Save as PDF</button>
+        </div>
+      </div>
+    </section>
 
+    <div class="buttons">
+      <a class="back-link" href="index.html">← Back to Home</a>
     </div>
-
-
-    <!-- MATERIAL & LOAD CALCULATORS -->
-
-    <h2 class="section-title">Material & Load Calculators</h2>
-
-    <div class="calculator-grid">
-
-        <div class="calculator-card">
-
-            <h3>Material Weight Calculator</h3>
-
-            <p>
-                Calculate the estimated mass and weight force of a material
-                using its volume and density.
-            </p>
-
-            <p>
-                Supports steel, stainless steel, aluminium, concrete,
-                copper, brass, water and other common materials.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/material-weight-calculator.html">
-            
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Load Weight Calculator</h3>
-
-            <p>
-                Calculate load weight and gravitational force from mass.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/load-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Gross Load Calculator</h3>
-
-            <p>
-                Calculate total suspended load including rigging,
-                hook block, lifting beam and other equipment.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/gross-load-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Hook Load Calculator</h3>
-
-            <p>
-                Estimate total hook load from the lifted load and
-                suspended lifting accessories.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/hook-load-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- SLING & RIGGING CALCULATORS -->
-
-    <h2 class="section-title">Sling & Rigging Calculators</h2>
-
-    <div class="calculator-grid">
-
-        <div class="calculator-card">
-
-            <h3>Sling Calculation</h3>
-
-            <p>
-                Calculate approximate tension in a symmetrical two-leg
-                sling arrangement.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/sling-calculation.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Sling Tension & SWL Study</h3>
-
-            <p>
-                Study sling-leg tension and compare it with an entered
-                manufacturer-rated WLL.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/sling-tension-swl-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Angle Calculator</h3>
-
-            <p>
-                Calculate sling angle factors and approximate leg tension
-                for symmetrical two-leg lifting.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/angle-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Shackle WLL Study</h3>
-
-            <p>
-                Estimate load sharing between effective lifting points
-                and compare against a manufacturer-rated shackle WLL.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/shackle-wll-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Chain Sling Capacity Study</h3>
-
-            <p>
-                Estimate load per effective chain leg using the selected
-                sling angle and manufacturer WLL.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/chain-sling-capacity-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>D/d Ratio Calculator</h3>
-
-            <p>
-                Calculate the mathematical D/d ratio for wire rope and
-                sling bending studies.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/d-d-ratio-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Sling Length & Angle</h3>
-
-            <p>
-                Calculate sling length and lifting angles from vertical
-                height and horizontal distance.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/sling-length-angle-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Wire Rope Breaking Load Study</h3>
-
-            <p>
-                Compare manufacturer-entered minimum breaking force with
-                a study design factor and applied load.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/wire-rope-breaking-load-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- CRANE CALCULATORS -->
-
-    <h2 class="section-title">Crane Calculators</h2>
-
-    <div class="calculator-grid">
-
-        <div class="calculator-card">
-
-            <h3>Crane Utilization Calculator</h3>
-
-            <p>
-                Calculate gross load and preliminary crane utilization
-                percentage.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/crane-utilization-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Crane Selection Calculator</h3>
-
-            <p>
-                Compare estimated gross load with the crane rated capacity
-                entered for the actual configuration.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/crane-selection-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Load Moment Calculator</h3>
-
-            <p>
-                Calculate load moment from gross load and operating radius.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/load-moment-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Superlift Study Calculator</h3>
-
-            <p>
-                Study gross suspended load, crane utilization and remaining
-                rated capacity.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/superlift-study-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Radius Calculator</h3>
-
-            <p>
-                Calculate horizontal radius and vertical boom component
-                from boom length and angle.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/radius-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Boom Height Calculator</h3>
-
-            <p>
-                Calculate boom length, horizontal radius, vertical height
-                and boom angle.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/boom-height-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- LIFT PLANNING CALCULATORS -->
-
-    <h2 class="section-title">Lift Planning Calculators</h2>
-
-    <div class="calculator-grid">
-
-        <div class="calculator-card">
-
-            <h3>Center of Gravity Calculator</h3>
-
-            <p>
-                Calculate the approximate center of gravity from multiple
-                weights and their positions.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/center-of-gravity-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Ground Bearing Calculator</h3>
-
-            <p>
-                Calculate bearing pressure and approximate required support
-                area from load and allowable pressure.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/ground-bearing-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Outrigger Reaction & Mat Size</h3>
-
-            <p>
-                Study required support area and bearing pressure from an
-                estimated outrigger reaction.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/outrigger-reaction-mat-size-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Tailing Load Distribution</h3>
-
-            <p>
-                Study simplified two-point load reactions for a tailing
-                lift arrangement.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/tailing-load-distribution-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Lifting Beam Reaction</h3>
-
-            <p>
-                Study simplified reactions for a symmetrical lifting beam
-                arrangement.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/lifting-beam-reaction-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Critical Lift Planning Calculator</h3>
-
-            <p>
-                Combine gross load, crane utilization, load moment and
-                preliminary ground-support calculations.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/critical-lift-planning-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Tip Height & Clearance</h3>
-
-            <p>
-                Study boom tip height, obstacle clearance and clearance
-                margin.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/tip-height-clearance-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-
-        <div class="calculator-card">
-
-            <h3>Snatch Block / Reeving</h3>
-
-            <p>
-                Study simplified rope tension based on supporting rope
-                parts and estimated reeving efficiency.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/snatch-block-reeving-calculator.html"
-            >
-                Open Calculator
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <!-- UNIT CONVERTER -->
-
-    <h2 class="section-title">Units & Measurements</h2>
-
-    <div class="calculator-grid">
-
-        <div class="calculator-card">
-
-            <h3>Universal Units Converter</h3>
-
-            <p>
-                Convert mass, force, length, area, volume, pressure,
-                load moment, speed, angle and temperature.
-            </p>
-
-            <a
-                class="button"
-                href="calculation/force-unit-converter.html"
-            >
-                Open Converter
-            </a>
-
-        </div>
-
-    </div>
-
-
-    <div class="notice">
-
-        <strong>Safety & Engineering Notice</strong>
-
-        <p>
-            These calculators are provided for study, learning and
-            preliminary calculation purposes only.
-        </p>
-
-        <p>
-            Calculator results do not replace an approved lift plan,
-            manufacturer load chart, certified equipment data,
-            engineering calculations, applicable standards or
-            competent-person verification.
-        </p>
-
-        <p>
-            Actual crane capacity, rigging WLL, ground conditions,
-            structural capacity and lifting arrangements must be
-            verified before any lifting operation.
-        </p>
-
-    </div>
-
-</div>
-
-
-<footer>
-    Lifting & Rigging Study Hub
-    <br>
-    <small>Created by Jawad Wains</small>
-</footer>
-
-<style>
-.pdf-download-btn {
-    background: #187443;
-    color: white;
-    padding: 13px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 15px 0;
-}
-
-.pdf-download-btn:hover {
-    background: #105b32;
-}
-
-@media print {
-    nav,
-    footer,
-    .pdf-download-btn,
-    button {
-        display: none !important;
+  </main>
+
+  <footer>
+    Lifting & Rigging Study Resources
+  </footer>
+
+  <script>
+    const form = document.getElementById("weightForm");
+    const results = document.getElementById("results");
+    const errorMessage = document.getElementById("errorMessage");
+
+    // Convert entered volume to cubic metres.
+    const volumeToM3 = {
+      m3: 1,
+      ft3: 0.028316846592,
+      cm3: 0.000001,
+      l: 0.001
+    };
+
+    // Convert entered density to kg/m³.
+    const densityToKgM3 = {
+      kgm3: 1,
+      kgft3: 35.3146667215,
+      gcm3: 1000,
+      lbft3: 16.01846337396
+    };
+
+    function formatNumber(value) {
+      return value.toLocaleString("en-US", {
+        maximumFractionDigits: 3
+      });
     }
 
-    body {
-        background: white;
-        color: black;
-    }
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
 
-    main {
-        width: 100%;
-        margin: 0;
-    }
+      errorMessage.classList.add("hidden");
+      errorMessage.textContent = "";
 
-    .section-card {
-        box-shadow: none;
-        break-inside: avoid;
-    }
+      const volume = Number(document.getElementById("volume").value);
+      const density = Number(document.getElementById("density").value);
+      const volumeUnit = document.getElementById("volumeUnit").value;
+      const densityUnit = document.getElementById("densityUnit").value;
 
-    a {
-        color: black;
-        text-decoration: none;
-    }
-}
-</style>
-    <!-- Save as PDF option -->
-<div class="pdf-save-option">
-  <button type="button" onclick="window.print()">Save as PDF</button>
-</div>
+      if (
+        !Number.isFinite(volume) ||
+        !Number.isFinite(density) ||
+        volume <= 0 ||
+        density <= 0
+      ) {
+        errorMessage.textContent =
+          "Please enter a volume and density greater than zero.";
+        errorMessage.classList.remove("hidden");
+        results.classList.add("hidden");
+        return;
+      }
 
-<style>
-  .pdf-save-option {
-    text-align: center;
-    margin: 24px auto;
-  }
-  .pdf-save-option button {
-    padding: 10px 18px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: white;
-    color: #222;
-    font-size: 15px;
-    cursor: pointer;
-  }
-  @media print {
-    .pdf-save-option { display: none !important; }
-  }
-</style>
+      const volumeM3 = volume * volumeToM3[volumeUnit];
+      const densityKgM3 = density * densityToKgM3[densityUnit];
+
+      const kg = volumeM3 * densityKgM3;
+      const ton = kg / 1000;
+      const lbs = kg * 2.20462262185;
+
+      if (![kg, ton, lbs].every(Number.isFinite)) {
+        errorMessage.textContent =
+          "The result is too large to calculate. Check your inputs.";
+        errorMessage.classList.remove("hidden");
+        results.classList.add("hidden");
+        return;
+      }
+
+      document.getElementById("kgResult").textContent =
+        formatNumber(kg) + " kg";
+      document.getElementById("tonResult").textContent =
+        formatNumber(ton) + " ton";
+      document.getElementById("lbsResult").textContent =
+        formatNumber(lbs) + " lbs";
+
+      results.classList.remove("hidden");
+    });
+
+    document.getElementById("clearButton").addEventListener("click", function () {
+      form.reset();
+      results.classList.add("hidden");
+      errorMessage.classList.add("hidden");
+      errorMessage.textContent = "";
+    });
+
+    document.getElementById("printButton").addEventListener("click", function () {
+      window.print();
+    });
+  </script>
 </body>
 </html>
