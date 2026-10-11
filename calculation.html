@@ -2,9 +2,9 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#10263f">
-  <title>Lifting & Rigging Calculators</title>
+  <title>Lifting &amp; Rigging Calculators</title>
   <style>
     :root {
       --navy: #10263f;
@@ -14,39 +14,25 @@
       --text: #203047;
       --muted: #627187;
     }
-
     * { box-sizing: border-box; }
-
     body {
       margin: 0;
       background: var(--light);
       color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
     }
-
     header {
       background: var(--navy);
       color: white;
-      padding: 30px 18px;
+      padding: 32px 18px;
       text-align: center;
     }
-
     header h1 {
       margin: 0 0 10px;
       font-size: clamp(25px, 5vw, 36px);
     }
-
-    header p {
-      margin: 0;
-      color: #d6e3f0;
-      line-height: 1.6;
-    }
-
-    .container {
-      width: min(1150px, 94%);
-      margin: 24px auto 40px;
-    }
-
+    header p { margin: 0; color: #d6e3f0; line-height: 1.6; }
+    .container { width: min(1150px, 94%); margin: 24px auto 40px; }
     .top-actions {
       display: flex;
       flex-wrap: wrap;
@@ -55,7 +41,6 @@
       align-items: center;
       margin-bottom: 18px;
     }
-
     .back-link, .pdf-button {
       display: inline-block;
       border: 1px solid var(--border);
@@ -67,7 +52,6 @@
       font-size: 14px;
       cursor: pointer;
     }
-
     .search-box {
       width: 100%;
       padding: 14px;
@@ -77,19 +61,12 @@
       margin-bottom: 22px;
       background: white;
     }
-
-    .category {
-      margin: 26px 0 12px;
-      font-size: 21px;
-      color: var(--navy);
-    }
-
+    .category { margin: 26px 0 12px; font-size: 21px; color: var(--navy); }
     .grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
       gap: 15px;
     }
-
     .card {
       background: white;
       border: 1px solid var(--border);
@@ -98,15 +75,9 @@
       display: flex;
       flex-direction: column;
       min-width: 0;
-      box-shadow: 0 2px 6px rgba(16, 38, 63, 0.04);
+      box-shadow: 0 2px 6px rgba(16, 38, 63, .04);
     }
-
-    .card h3 {
-      margin: 0 0 10px;
-      font-size: 17px;
-      line-height: 1.4;
-    }
-
+    .card h3 { margin: 0 0 10px; font-size: 17px; line-height: 1.4; }
     .card p {
       margin: 0 0 18px;
       color: var(--muted);
@@ -114,7 +85,6 @@
       line-height: 1.5;
       flex-grow: 1;
     }
-
     .open-link {
       display: block;
       text-align: center;
@@ -125,9 +95,7 @@
       text-decoration: none;
       font-weight: bold;
     }
-
     .open-link:hover { background: #10548a; }
-
     #noResults {
       display: none;
       background: white;
@@ -137,14 +105,13 @@
       text-align: center;
       color: var(--muted);
     }
-
     footer {
       text-align: center;
       padding: 22px 15px;
       color: var(--muted);
       font-size: 13px;
+      line-height: 1.6;
     }
-
     @media print {
       body { background: white; }
       header { background: white; color: black; padding: 12px; }
@@ -157,7 +124,6 @@
   </style>
 </head>
 <body>
-
 <header>
   <h1>Lifting &amp; Rigging Calculators</h1>
   <p>Study tools for lifting calculations, crane planning and rigging operations.</p>
@@ -165,56 +131,26 @@
 
 <main class="container">
   <div class="top-actions">
-    <a class="back-link" href="index.html">← Back to Home</a>
+    <a class="back-link" href="../index.html">← Back to Home</a>
     <button class="pdf-button" type="button" onclick="window.print()">Save as PDF</button>
   </div>
 
-  <input
-    id="search"
-    class="search-box"
-    type="search"
-    placeholder="Search calculators by name..."
-    aria-label="Search calculators"
-  >
-
+  <input id="search" class="search-box" type="search"
+         placeholder="Search calculators by name..."
+         aria-label="Search calculators">
   <p id="noResults">No calculators match your search.</p>
 
   <section class="calculator-section">
-    <h2 class="category">Load &amp; Weight Calculations</h2>
+    <h2 class="category">Weight &amp; Load Study</h2>
     <div class="grid">
       <article class="card">
         <h3>Material Weight Calculator</h3>
-        <p>Calculate material weight using volume and material density.</p>
+        <p>Calculate material weight using selected material density and volume.</p>
         <a class="open-link" href="calculation/material-weight-calculator.html">Open Calculator</a>
       </article>
       <article class="card">
-        <h3>Load Calculator</h3>
-        <p>Open the load calculation tool.</p>
-        <a class="open-link" href="calculation/load-calculator.html">Open Calculator</a>
-      </article>
-      <article class="card">
-        <h3>Gross Load Calculator</h3>
-        <p>Calculate gross load for lifting study purposes.</p>
-        <a class="open-link" href="calculation/gross-load-calculator.html">Open Calculator</a>
-      </article>
-      <article class="card">
-        <h3>Hook Load Calculator</h3>
-        <p>Open the hook load calculation tool.</p>
-        <a class="open-link" href="calculation/hook-load-calculator">Open Calculator</a>
-      </article>
-      <article class="card">
-        <h3>Force Unit Converter</h3>
-        <p>Convert between force units.</p>
-        <a class="open-link" href="calculation/force-unit-converter.html">Open Calculator</a>
-      </article>
-      <article class="card">
-        <h3>Load Moment Calculator</h3>
-        <p>Calculate load moment from load and radius.</p>
-        <a class="open-link" href="calculation/load-moment-calculator.html">Open Calculator</a>
-      </article>
-      <article class="card">
         <h3>Center of Gravity Calculator</h3>
-        <p>Estimate a combined center of gravity from component data.</p>
+        <p>Study the combined center of gravity of components.</p>
         <a class="open-link" href="calculation/center-of-gravity-calculator.html">Open Calculator</a>
       </article>
     </div>
@@ -230,7 +166,7 @@
       </article>
       <article class="card">
         <h3>Sling Length &amp; Angle Calculator</h3>
-        <p>Calculate sling geometry from length and angle inputs.</p>
+        <p>Study sling geometry using length and angle inputs.</p>
         <a class="open-link" href="calculation/sling-length-angle-calculator.html">Open Calculator</a>
       </article>
       <article class="card">
@@ -296,7 +232,7 @@
       </article>
       <article class="card">
         <h3>Angle Calculator</h3>
-        <p>Calculate angles using the inputs provided by the tool.</p>
+        <p>Calculate angles using the tool's inputs.</p>
         <a class="open-link" href="calculation/angle-calculator.html">Open Calculator</a>
       </article>
       <article class="card">
@@ -356,14 +292,13 @@
     });
 
     sections.forEach(function (section) {
-      const hasVisibleCard = Array.from(section.querySelectorAll(".card"))
+      const visible = Array.from(section.querySelectorAll(".card"))
         .some(function (card) { return card.style.display !== "none"; });
-      section.style.display = hasVisibleCard ? "" : "none";
+      section.style.display = visible ? "" : "none";
     });
 
     noResults.style.display = visibleCards === 0 ? "block" : "none";
   });
 </script>
-
 </body>
 </html>
