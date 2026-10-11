@@ -7,36 +7,26 @@
   <title>Material Weight Calculator | Lifting Study</title>
 
   <style>
-    :root {
-      --navy: #10243a;
-      --blue: #1769aa;
-      --light: #f1f6fb;
-      --border: #d7e2ee;
-      --text: #203247;
-      --muted: #63758a;
-      --green: #16845b;
-    }
-
     * { box-sizing: border-box; }
 
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background: linear-gradient(145deg, #e8f2fc, #f8fbff 55%, #e9f8f1);
+      color: #203247;
+      background: linear-gradient(140deg, #e8f2fc, #f8fbff, #e9f8f1);
       min-height: 100vh;
     }
 
     header {
-      color: white;
       background: linear-gradient(120deg, #10243a, #1769aa);
-      padding: 25px 18px;
+      color: white;
       text-align: center;
+      padding: 28px 16px;
     }
 
     header h1 {
       margin: 0 0 8px;
-      font-size: clamp(25px, 5vw, 36px);
+      font-size: clamp(26px, 5vw, 36px);
     }
 
     header p {
@@ -45,80 +35,72 @@
       line-height: 1.5;
     }
 
-    .container {
-      width: min(900px, 100%);
+    main {
+      width: min(850px, 100%);
       margin: 28px auto;
-      padding: 0 16px 36px;
+      padding: 0 16px 32px;
     }
 
     .panel {
       background: white;
-      border: 1px solid var(--border);
-      border-radius: 18px;
       padding: clamp(18px, 4vw, 30px);
+      border: 1px solid #d7e2ee;
+      border-radius: 18px;
       margin-bottom: 20px;
       box-shadow: 0 8px 28px rgba(16, 36, 58, 0.08);
     }
 
     h2 {
-      color: var(--navy);
-      margin: 0 0 16px;
+      margin: 0 0 18px;
+      color: #10243a;
       font-size: 23px;
     }
 
     .formula {
-      background: var(--navy);
+      background: #10243a;
       color: white;
+      padding: 22px 12px;
       border-radius: 14px;
-      padding: 22px 14px;
       text-align: center;
-      font-size: clamp(22px, 5vw, 31px);
+      font-size: clamp(22px, 5vw, 30px);
       font-weight: bold;
-      line-height: 1.4;
       margin: 18px 0;
     }
 
-    .hint {
-      color: var(--muted);
-      line-height: 1.6;
-      font-size: 14px;
-    }
-
-    .field-grid {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
+    .field {
+      margin-bottom: 20px;
     }
 
     label {
       display: block;
-      font-weight: bold;
       margin-bottom: 8px;
+      font-weight: bold;
     }
 
-    input, select {
+    select, input {
       display: block;
       width: 100%;
-      min-width: 0;
-      min-height: 48px;
+      min-height: 49px;
       padding: 12px;
       border: 1px solid #bdcddd;
       border-radius: 10px;
       background: white;
-      color: var(--text);
+      color: #203247;
       font-size: 16px;
     }
 
-    input:focus, select:focus {
+    select:focus, input:focus {
       outline: 3px solid #c8e4ff;
-      border-color: var(--blue);
+      border-color: #1769aa;
     }
 
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 22px;
+    .density-info {
+      margin-top: 9px;
+      padding: 12px 14px;
+      background: #eef6ff;
+      border-radius: 10px;
+      color: #294b6b;
+      line-height: 1.6;
     }
 
     button, .back-link {
@@ -129,7 +111,7 @@
       padding: 12px 18px;
       border: 0;
       border-radius: 10px;
-      background: var(--blue);
+      background: #1769aa;
       color: white;
       font-size: 15px;
       font-weight: bold;
@@ -139,7 +121,14 @@
 
     button.secondary {
       background: #e8eef5;
-      color: var(--navy);
+      color: #10243a;
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
     }
 
     .results {
@@ -150,26 +139,32 @@
     }
 
     .result-card {
-      padding: 18px 10px;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      background: var(--light);
-      text-align: center;
       min-width: 0;
+      padding: 20px 10px;
+      border: 1px solid #d7e2ee;
+      border-radius: 13px;
+      background: #f1f6fb;
+      text-align: center;
     }
 
-    .result-card .unit {
-      color: var(--muted);
+    .unit {
+      color: #63758a;
       font-size: 14px;
       font-weight: bold;
     }
 
-    .result-card .value {
-      color: var(--green);
-      font-size: clamp(19px, 4vw, 27px);
+    .value {
+      color: #16845b;
+      font-size: clamp(19px, 3.5vw, 26px);
       font-weight: bold;
       overflow-wrap: anywhere;
-      margin-top: 9px;
+      margin-top: 10px;
+    }
+
+    .hint {
+      color: #63758a;
+      font-size: 14px;
+      line-height: 1.6;
     }
 
     .error {
@@ -182,32 +177,33 @@
 
     footer {
       text-align: center;
-      color: var(--muted);
+      color: #63758a;
       padding: 0 16px 28px;
       font-size: 13px;
     }
 
     @media (max-width: 560px) {
-      .field-grid { grid-template-columns: 1fr; }
       .results { grid-template-columns: 1fr; }
+
       .result-card {
         display: flex;
-        justify-content: space-between;
         align-items: center;
-        text-align: left;
+        justify-content: space-between;
         gap: 10px;
+        text-align: left;
       }
-      .result-card .value { margin-top: 0; }
-      .buttons button, .buttons .back-link { flex: 1; }
+
+      .value { margin-top: 0; }
+
+      .buttons button, .buttons a { flex: 1; }
     }
 
     @media print {
       body { background: white; }
-      header { background: white; color: black; padding: 10px; }
+      header { background: white; color: black; }
       header p { color: #333; }
-      .container { margin: 12px auto; }
-      .panel { box-shadow: none; }
       .buttons, footer { display: none !important; }
+      .panel { box-shadow: none; }
     }
   </style>
 </head>
@@ -215,10 +211,10 @@
 <body>
   <header>
     <h1>Material Weight Calculator</h1>
-    <p>Lifting & Rigging Study Resources</p>
+    <p>Lifting &amp; Rigging Study Resources</p>
   </header>
 
-  <main class="container">
+  <main>
     <section class="panel">
       <h2>Material Weight Formula</h2>
 
@@ -227,8 +223,9 @@
       </div>
 
       <p class="hint">
-        Enter the material volume and density. The calculator will show
-        the result in kilograms (kg), metric tonnes (ton), and pounds (lbs).
+        Select a material and enter its volume. The density will be filled
+        in automatically, and the result will be shown in kg, metric tonnes,
+        and lbs.
       </p>
     </section>
 
@@ -236,50 +233,37 @@
       <h2>Calculate Material Weight</h2>
 
       <form id="weightForm">
-        <div class="field-grid">
-          <div>
-            <label for="volume">Volume</label>
-            <input
-              id="volume"
-              type="number"
-              min="0"
-              step="any"
-              placeholder="Enter volume"
-              required
-            >
-          </div>
+        <div class="field">
+          <label for="material">Select Material</label>
+          <select id="material" required>
+            <option value="steel">Steel</option>
+            <option value="stainless">Stainless Steel</option>
+            <option value="aluminum">Aluminium</option>
+            <option value="copper">Copper</option>
+            <option value="concrete">Concrete</option>
+            <option value="water">Water</option>
+            <option value="timber">Timber (typical)</option>
+            <option value="castiron">Cast Iron</option>
+            <option value="brass">Brass</option>
+            <option value="lead">Lead</option>
+          </select>
 
-          <div>
-            <label for="volumeUnit">Volume Unit</label>
-            <select id="volumeUnit">
-              <option value="m3">Cubic metres (m³)</option>
-              <option value="ft3">Cubic feet (ft³)</option>
-              <option value="cm3">Cubic centimetres (cm³)</option>
-              <option value="l">Litres (L)</option>
-            </select>
+          <div class="density-info">
+            <strong>Material Density:</strong>
+            <span id="densityValue">7,850 kg/m³</span>
           </div>
+        </div>
 
-          <div>
-            <label for="density">Density</label>
-            <input
-              id="density"
-              type="number"
-              min="0"
-              step="any"
-              placeholder="Enter density"
-              required
-            >
-          </div>
-
-          <div>
-            <label for="densityUnit">Density Unit</label>
-            <select id="densityUnit">
-              <option value="kgm3">kg/m³</option>
-              <option value="kgft3">kg/ft³</option>
-              <option value="gcm3">g/cm³</option>
-              <option value="lbft3">lb/ft³</option>
-            </select>
-          </div>
+        <div class="field">
+          <label for="volume">Volume (m³)</label>
+          <input
+            id="volume"
+            type="number"
+            min="0"
+            step="any"
+            placeholder="Enter volume in cubic metres"
+            required
+          >
         </div>
 
         <div class="buttons">
@@ -293,7 +277,7 @@
       </form>
 
       <div id="results" class="hidden" aria-live="polite">
-        <h2 style="margin-top:28px">Calculated Material Weight</h2>
+        <h2 style="margin-top:28px">Calculated Weight</h2>
 
         <div class="results">
           <div class="result-card">
@@ -302,7 +286,7 @@
           </div>
 
           <div class="result-card">
-            <div class="unit">Metric tonnes (ton)</div>
+            <div class="unit">Metric Tonnes (ton)</div>
             <div class="value" id="tonResult">—</div>
           </div>
 
@@ -313,9 +297,9 @@
         </div>
 
         <p class="hint">
-          These are mass-based material-weight calculations, commonly used
-          in lifting estimates. Verify material dimensions and density before
-          using the result for a lift plan.
+          Densities are typical reference values. Actual density can vary
+          by grade, composition, moisture, and product specification.
+          Verify the material weight before planning a lift.
         </p>
 
         <div class="buttons">
@@ -330,29 +314,29 @@
   </main>
 
   <footer>
-    Lifting & Rigging Study Resources
+    Lifting &amp; Rigging Study Resources
   </footer>
 
   <script>
+    const materials = {
+      steel:     { name: "Steel",           density: 7850 },
+      stainless: { name: "Stainless Steel", density: 8000 },
+      aluminum:  { name: "Aluminium",       density: 2700 },
+      copper:    { name: "Copper",          density: 8960 },
+      concrete:  { name: "Concrete",        density: 2400 },
+      water:     { name: "Water",           density: 1000 },
+      timber:    { name: "Timber (typical)",density: 600 },
+      castiron:  { name: "Cast Iron",       density: 7200 },
+      brass:     { name: "Brass",           density: 8500 },
+      lead:      { name: "Lead",            density: 11340 }
+    };
+
     const form = document.getElementById("weightForm");
+    const materialSelect = document.getElementById("material");
+    const volumeInput = document.getElementById("volume");
+    const densityValue = document.getElementById("densityValue");
     const results = document.getElementById("results");
     const errorMessage = document.getElementById("errorMessage");
-
-    // Convert entered volume to cubic metres.
-    const volumeToM3 = {
-      m3: 1,
-      ft3: 0.028316846592,
-      cm3: 0.000001,
-      l: 0.001
-    };
-
-    // Convert entered density to kg/m³.
-    const densityToKgM3 = {
-      kgm3: 1,
-      kgft3: 35.3146667215,
-      gcm3: 1000,
-      lbft3: 16.01846337396
-    };
 
     function formatNumber(value) {
       return value.toLocaleString("en-US", {
@@ -360,40 +344,42 @@
       });
     }
 
-    form.addEventListener("submit", function (event) {
+    function updateDensity() {
+      const material = materials[materialSelect.value];
+      densityValue.textContent =
+        formatNumber(material.density) + " kg/m³";
+
+      results.classList.add("hidden");
+      errorMessage.classList.add("hidden");
+    }
+
+    materialSelect.addEventListener("change", updateDensity);
+
+    form.addEventListener("submit", function(event) {
       event.preventDefault();
+
+      const volume = Number(volumeInput.value);
+      const material = materials[materialSelect.value];
 
       errorMessage.classList.add("hidden");
       errorMessage.textContent = "";
 
-      const volume = Number(document.getElementById("volume").value);
-      const density = Number(document.getElementById("density").value);
-      const volumeUnit = document.getElementById("volumeUnit").value;
-      const densityUnit = document.getElementById("densityUnit").value;
-
-      if (
-        !Number.isFinite(volume) ||
-        !Number.isFinite(density) ||
-        volume <= 0 ||
-        density <= 0
-      ) {
+      if (!Number.isFinite(volume) || volume <= 0) {
         errorMessage.textContent =
-          "Please enter a volume and density greater than zero.";
+          "Please enter a volume greater than zero.";
         errorMessage.classList.remove("hidden");
         results.classList.add("hidden");
         return;
       }
 
-      const volumeM3 = volume * volumeToM3[volumeUnit];
-      const densityKgM3 = density * densityToKgM3[densityUnit];
-
-      const kg = volumeM3 * densityKgM3;
+      // Weight in kg = volume in m³ × density in kg/m³.
+      const kg = volume * material.density;
       const ton = kg / 1000;
       const lbs = kg * 2.20462262185;
 
       if (![kg, ton, lbs].every(Number.isFinite)) {
         errorMessage.textContent =
-          "The result is too large to calculate. Check your inputs.";
+          "The result is too large. Please check the volume.";
         errorMessage.classList.remove("hidden");
         results.classList.add("hidden");
         return;
@@ -401,24 +387,30 @@
 
       document.getElementById("kgResult").textContent =
         formatNumber(kg) + " kg";
+
       document.getElementById("tonResult").textContent =
         formatNumber(ton) + " ton";
+
       document.getElementById("lbsResult").textContent =
         formatNumber(lbs) + " lbs";
 
       results.classList.remove("hidden");
     });
 
-    document.getElementById("clearButton").addEventListener("click", function () {
+    document.getElementById("clearButton").addEventListener("click", function() {
       form.reset();
+      updateDensity();
+      volumeInput.value = "";
       results.classList.add("hidden");
       errorMessage.classList.add("hidden");
       errorMessage.textContent = "";
     });
 
-    document.getElementById("printButton").addEventListener("click", function () {
+    document.getElementById("printButton").addEventListener("click", function() {
       window.print();
     });
+
+    updateDensity();
   </script>
 </body>
 </html>
