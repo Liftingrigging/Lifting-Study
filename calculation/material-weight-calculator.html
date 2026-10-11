@@ -1,395 +1,610 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#10213b">
+  <title>Material Weight Calculator | Lifting &amp; Rigging</title>
 
-    <title>Material Weight Calculator</title>
+  <style>
+    :root {
+      --navy: #10213b;
+      --blue: #2563eb;
+      --cyan: #06b6d4;
+      --purple: #7c3aed;
+      --text: #17243b;
+      --muted: #65738b;
+      --border: #dce5f0;
+      --white: #ffffff;
+    }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #f1f5f9;
-            color: #0f172a;
-        }
+    * {
+      box-sizing: border-box;
+    }
 
-        header {
-            background: #0f172a;
-            color: white;
-            padding: 25px 20px;
-            text-align: center;
-        }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(ellipse at 10% 10%, rgba(6, 182, 212, 0.32), transparent 35%),
+        radial-gradient(ellipse at 90% 15%, rgba(124, 58, 237, 0.28), transparent 35%),
+        radial-gradient(ellipse at 50% 95%, rgba(37, 99, 235, 0.25), transparent 40%),
+        linear-gradient(135deg, #eaf5ff 0%, #f3edff 50%, #e4fbfa 100%);
+      background-attachment: fixed;
+    }
 
-        nav {
-            background: #1e293b;
-            padding: 12px;
-            text-align: center;
-        }
+    header {
+      color: white;
+      text-align: center;
+      padding: 34px 18px 38px;
+      background: linear-gradient(120deg, #10213b, #174a83, #5530a8);
+      box-shadow: 0 8px 25px rgba(16, 33, 59, 0.18);
+    }
 
-        nav a {
-            color: white;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-        }
+    .header-label {
+      display: inline-block;
+      padding: 7px 13px;
+      margin-bottom: 13px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 30px;
+      background: rgba(255,255,255,.1);
+      font-size: 12px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
 
-        .container {
-            max-width: 800px;
-            margin: 30px auto;
-            padding: 20px;
-        }
+    header h1 {
+      margin: 0 0 10px;
+      font-size: clamp(27px, 5vw, 39px);
+    }
 
-        .card {
-            background: white;
-            padding: 25px;
-            border-radius: 12px;
-            margin-bottom: 20px;
-            box-shadow: 0 3px 12px rgba(0,0,0,0.08);
-        }
+    header p {
+      margin: 0 auto;
+      max-width: 620px;
+      color: #e3efff;
+      line-height: 1.6;
+    }
 
-        h1, h2 {
-            margin-top: 0;
-        }
+    .container {
+      width: min(760px, 94%);
+      margin: 26px auto 40px;
+    }
 
-        label {
-            display: block;
-            font-weight: bold;
-            margin-top: 15px;
-            margin-bottom: 6px;
-        }
+    .actions {
+      display: flex;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-bottom: 18px;
+    }
 
-        input,
-        select {
-            width: 100%;
-            padding: 12px;
-            box-sizing: border-box;
-            border: 1px solid #cbd5e1;
-            border-radius: 7px;
-            font-size: 16px;
-        }
+    .action-button {
+      display: inline-block;
+      padding: 11px 15px;
+      border: 1px solid rgba(255,255,255,.8);
+      border-radius: 9px;
+      background: rgba(255,255,255,.88);
+      color: #17345b;
+      text-decoration: none;
+      font-size: 14px;
+      cursor: pointer;
+    }
 
-        button {
-            width: 100%;
-            margin-top: 20px;
-            padding: 14px;
-            background: #0284c7;
-            color: white;
-            border: none;
-            border-radius: 7px;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+    .action-button:hover {
+      background: white;
+      border-color: var(--cyan);
+    }
 
-        button:hover {
-            background: #0369a1;
-        }
+    .calculator {
+      overflow: hidden;
+      border: 1px solid rgba(255,255,255,.85);
+      border-radius: 20px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 18px 50px rgba(38, 62, 110, .14);
+      backdrop-filter: blur(12px);
+    }
 
-        .result {
-            background: #e0f2fe;
-            border-left: 5px solid #0284c7;
-            padding: 20px;
-            margin-top: 20px;
-            border-radius: 8px;
-        }
+    .calculator-heading {
+      padding: 23px 24px;
+      color: white;
+      background: linear-gradient(115deg, #17365d, #2563a6, #087e9c);
+    }
 
-        .result-row {
-            display: flex;
-            justify-content: space-between;
-            gap: 20px;
-            padding: 9px 0;
-            border-bottom: 1px solid #bae6fd;
-        }
+    .calculator-heading h2 {
+      margin: 0 0 8px;
+      font-size: 23px;
+    }
 
-        .result-row:last-child {
-            border-bottom: none;
-        }
+    .calculator-heading p {
+      margin: 0;
+      color: #e2f5ff;
+      font-size: 14px;
+      line-height: 1.6;
+    }
 
-        .value {
-            font-weight: bold;
-        }
+    .calculator-body {
+      padding: clamp(18px, 4vw, 28px);
+    }
 
-        .warning {
-            background: #fff7ed;
-            border-left: 5px solid #f97316;
-            padding: 15px;
-            margin-top: 20px;
-            border-radius: 8px;
-        }
+    label {
+      display: block;
+      margin: 19px 0 8px;
+      color: #213552;
+      font-size: 14px;
+      font-weight: 700;
+    }
 
-        footer {
-            text-align: center;
-            background: #0f172a;
-            color: white;
-            padding: 20px;
-            margin-top: 40px;
-        }
+    select,
+    input {
+      width: 100%;
+      min-height: 48px;
+      padding: 12px 13px;
+      border: 1px solid #cbd7e6;
+      border-radius: 10px;
+      outline: none;
+      background: #fbfdff;
+      color: var(--text);
+      font: inherit;
+      font-size: 16px;
+    }
 
-        @media (max-width: 600px) {
-            nav a {
-                display: block;
-                margin: 8px 0;
-            }
+    select:focus,
+    input:focus {
+      border-color: var(--blue);
+      box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
+    }
 
-            .result-row {
-                flex-direction: column;
-                gap: 3px;
-            }
-        }
-    </style>
+    input[readonly] {
+      background: #eef5ff;
+      color: #173e70;
+      font-weight: 700;
+    }
+
+    .field-hint {
+      margin: 7px 0 0;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.5;
+    }
+
+    .formula-card {
+      margin-top: 22px;
+      padding: 18px;
+      border: 1px solid #bfdbfe;
+      border-radius: 12px;
+      background: linear-gradient(115deg, #eff6ff, #f5f3ff, #ecfeff);
+    }
+
+    .formula-title {
+      margin: 0 0 8px;
+      color: #174a83;
+      font-size: 13px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .6px;
+    }
+
+    .formula {
+      color: #172f52;
+      font-size: clamp(17px, 4vw, 22px);
+      font-weight: 800;
+      line-height: 1.5;
+    }
+
+    .formula-explanation {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .results-heading {
+      margin: 27px 0 13px;
+      font-size: 18px;
+      color: #17345b;
+    }
+
+    .results {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .result-card {
+      min-width: 0;
+      padding: 17px 10px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      text-align: center;
+      background: linear-gradient(145deg, #ffffff, #f2f7ff);
+    }
+
+    .result-card:nth-child(2) {
+      background: linear-gradient(145deg, #ffffff, #f4f0ff);
+    }
+
+    .result-card:nth-child(3) {
+      background: linear-gradient(145deg, #ffffff, #eafafa);
+    }
+
+    .result-unit {
+      margin-bottom: 11px;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .result-value {
+      display: block;
+      color: #17345b;
+      font-size: clamp(18px, 3.7vw, 25px);
+      font-weight: 800;
+      overflow-wrap: anywhere;
+    }
+
+    .result-symbol {
+      display: inline-block;
+      margin-top: 7px;
+      color: var(--muted);
+      font-size: 12px;
+    }
+
+    .error {
+      min-height: 20px;
+      margin: 12px 0 0;
+      color: #b42318;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    .reset-row {
+      margin-top: 20px;
+      display: flex;
+      justify-content: flex-end;
+    }
+
+    .reset-button {
+      border: 1px solid #cbd7e6;
+      border-radius: 9px;
+      padding: 11px 17px;
+      background: white;
+      color: #23446e;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .reset-button:hover {
+      background: #eef5ff;
+    }
+
+    .notice {
+      margin-top: 20px;
+      padding: 15px;
+      border-left: 4px solid #0e9ab5;
+      border-radius: 7px;
+      background: #eefaff;
+      color: #37536b;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    footer {
+      padding: 20px 16px 30px;
+      color: #52637a;
+      text-align: center;
+      font-size: 12px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 480px) {
+      .results {
+        grid-template-columns: 1fr;
+      }
+
+      .result-card {
+        display: grid;
+        grid-template-columns: 1fr auto;
+        align-items: center;
+        gap: 8px;
+        text-align: left;
+        padding: 16px;
+      }
+
+      .result-unit {
+        margin: 0;
+      }
+
+      .result-value {
+        text-align: right;
+      }
+
+      .result-symbol {
+        display: none;
+      }
+    }
+
+    @media print {
+      body {
+        background: white;
+      }
+
+      header {
+        background: #17345b;
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+
+      .actions,
+      .reset-row {
+        display: none !important;
+      }
+
+      .container {
+        width: 100%;
+        margin: 10px auto;
+      }
+
+      .calculator {
+        box-shadow: none;
+        background: white;
+      }
+
+      .calculator-heading,
+      .formula-card,
+      .result-card {
+        print-color-adjust: exact;
+        -webkit-print-color-adjust: exact;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
-    <h1>Material Weight Calculator</h1>
-    <p>Calculate material weight from volume and density</p>
+  <div class="header-label">Lifting &amp; Rigging Study Tools</div>
+  <h1>Material Weight Calculator</h1>
+  <p>
+    Select a material, enter its volume, and calculate weight in kilograms,
+    metric tonnes, and pounds.
+  </p>
 </header>
 
-<nav>
-    <a href="../index.html">Home</a>
-    <a href="../calculation.html">Calculations</a>
-    <a href="../rigging.html">Lifting Accessories</a>
-    <a href="../cranes.html">Cranes</a>
-    <a href="../safety.html">Safety</a>
-</nav>
+<main class="container">
 
-<div class="container">
+  <div class="actions">
+    <a class="action-button" href="../calculation.html">← All Calculators</a>
+    <button class="action-button" type="button" onclick="window.print()">
+      Save as PDF
+    </button>
+  </div>
 
-    <div class="card">
+  <section class="calculator">
 
-        <h2>Material Selection</h2>
+    <div class="calculator-heading">
+      <h2>Material Weight</h2>
+      <p>Density fills automatically when you choose a material.</p>
+    </div>
 
-        <label for="material">Select Material</label>
+    <div class="calculator-body">
 
-        <select id="material">
-            <option value="7850">Steel</option>
-            <option value="8000">Stainless Steel</option>
-            <option value="7200">Cast Iron</option>
-            <option value="2700">Aluminium</option>
-            <option value="8960">Copper</option>
-            <option value="8500">Brass</option>
-            <option value="8800">Bronze</option>
-            <option value="11340">Lead</option>
-            <option value="7140">Zinc</option>
-            <option value="4500">Titanium</option>
-            <option value="2400">Concrete</option>
-            <option value="2500">Reinforced Concrete</option>
-            <option value="2500">Glass</option>
-            <option value="1000">Water</option>
-            <option value="600">Wood</option>
-            <option value="1600">Sand</option>
-            <option value="1800">Soil</option>
-            <option value="1100">Rubber</option>
-            <option value="950">Plastic</option>
-            <option value="custom">Custom Density</option>
-        </select>
+      <label for="material">Select Material</label>
+      <select id="material">
+        <option value="7850">Carbon Steel</option>
+        <option value="8000">Stainless Steel</option>
+        <option value="2700">Aluminium</option>
+        <option value="8960">Copper</option>
+        <option value="8500">Brass</option>
+        <option value="7200">Cast Iron</option>
+        <option value="11340">Lead</option>
+        <option value="2400">Concrete</option>
+        <option value="1000">Water</option>
+        <option value="600">Timber (typical)</option>
+        <option value="2500">Glass (typical)</option>
+        <option value="custom">Custom Material / Density</option>
+      </select>
 
-        <label for="density">Density (kg/m³)</label>
+      <label for="density">Density (kg/m³)</label>
+      <input
+        id="density"
+        type="number"
+        min="0.000001"
+        step="any"
+        value="7850"
+        readonly
+      >
+      <p class="field-hint" id="densityHint">
+        Typical reference density for carbon steel.
+      </p>
 
-        <input
-            type="number"
-            id="density"
-            value="7850"
-            min="0"
-            step="any"
-        >
+      <label for="volume">Volume (m³)</label>
+      <input
+        id="volume"
+        type="number"
+        min="0"
+        step="any"
+        inputmode="decimal"
+        placeholder="Enter volume in cubic metres"
+      >
+      <p class="field-hint">
+        Enter the volume in cubic metres (m³). No gravity input is required.
+      </p>
 
-        <label for="volume">Volume (m³)</label>
+      <div class="formula-card">
+        <p class="formula-title">Calculation Formula</p>
+        <div class="formula">Weight = Volume × Density</div>
+        <p class="formula-explanation">
+          Weight (kg) = Volume (m³) × Density (kg/m³)
+        </p>
+      </div>
 
-        <input
-            type="number"
-            id="volume"
-            placeholder="Example: 2.5"
-            min="0"
-            step="any"
-        >
+      <h3 class="results-heading">Calculated Results</h3>
 
-        <label for="gravity">Gravity (m/s²)</label>
+      <div class="results" aria-live="polite">
+        <div class="result-card">
+          <div>
+            <div class="result-unit">Kilograms</div>
+            <span class="result-symbol">kg</span>
+          </div>
+          <output class="result-value" id="kgResult">—</output>
+        </div>
 
-        <input
-            type="number"
-            id="gravity"
-            value="9.81"
-            min="0"
-            step="any"
-        >
+        <div class="result-card">
+          <div>
+            <div class="result-unit">Metric Tonnes</div>
+            <span class="result-symbol">t</span>
+          </div>
+          <output class="result-value" id="tonResult">—</output>
+        </div>
 
-        <button onclick="calculateWeight()">
-            Calculate Material Weight
+        <div class="result-card">
+          <div>
+            <div class="result-unit">Pounds</div>
+            <span class="result-symbol">lb</span>
+          </div>
+          <output class="result-value" id="lbResult">—</output>
+        </div>
+      </div>
+
+      <p class="error" id="error" role="alert"></p>
+
+      <div class="reset-row">
+        <button class="reset-button" type="button" id="resetButton">
+          Reset Calculator
         </button>
+      </div>
 
-        <div id="result"></div>
-
-    </div>
-
-    <div class="card">
-
-        <h2>Formula</h2>
-
-        <p><strong>Mass = Volume × Density</strong></p>
-
-        <p><strong>Weight Force = Mass × Gravity</strong></p>
-
-        <p>
-            The calculator uses the material density to estimate the
-            mass of the material.
-        </p>
+      <div class="notice">
+        <strong>Important:</strong> Material densities are typical reference
+        values and may vary with grade, alloy, moisture, temperature, and
+        material condition. Confirm the actual density before using the result
+        in a lifting plan. This calculator does not include lifting accessories
+        or dynamic loads.
+      </div>
 
     </div>
-
-    <div class="warning">
-
-        <strong>Important Safety Notice:</strong>
-
-        <p>
-            This calculator provides an estimated material weight for
-            study and preliminary lifting calculations only.
-        </p>
-
-        <p>
-            Actual lifting weight should be verified using manufacturer
-            data, drawings, nameplates, weighbridge data, engineering
-            calculations, or another approved source.
-        </p>
-
-        <p>
-            Do not use this calculator alone to determine crane capacity,
-            sling WLL, lifting accessory capacity, or approval of a lift.
-        </p>
-
-    </div>
-
-</div>
+  </section>
+</main>
 
 <footer>
-    Lifting & Rigging Study Hub
-    <br>
-    <small>Created by Jawad Wains</small>
+  For study purposes only. Always verify material data and lifting calculations
+  before operational use.
 </footer>
 
 <script>
+  const material = document.getElementById("material");
+  const density = document.getElementById("density");
+  const volume = document.getElementById("volume");
+  const densityHint = document.getElementById("densityHint");
+  const kgResult = document.getElementById("kgResult");
+  const tonResult = document.getElementById("tonResult");
+  const lbResult = document.getElementById("lbResult");
+  const error = document.getElementById("error");
+  const resetButton = document.getElementById("resetButton");
 
-    const materialSelect = document.getElementById("material");
-    const densityInput = document.getElementById("density");
+  const densityHints = {
+    "7850": "Typical reference density for carbon steel.",
+    "8000": "Typical reference density for stainless steel.",
+    "2700": "Typical reference density for aluminium.",
+    "8960": "Typical reference density for copper.",
+    "8500": "Typical reference density for brass.",
+    "7200": "Typical reference density for cast iron.",
+    "11340": "Typical reference density for lead.",
+    "2400": "Approximate concrete density; the mix and moisture affect it.",
+    "1000": "Approximate water density near 4°C.",
+    "600": "Illustrative timber density; species and moisture vary widely.",
+    "2500": "Approximate density for common glass.",
+    "custom": "Enter the verified density of your material."
+  };
 
-    materialSelect.addEventListener("change", function () {
+  function formatNumber(value) {
+    return new Intl.NumberFormat("en-US", {
+      maximumFractionDigits: 4
+    }).format(value);
+  }
 
-        if (this.value === "custom") {
-            densityInput.value = "";
-            densityInput.focus();
-        } else {
-            densityInput.value = this.value;
-        }
+  function clearResults() {
+    kgResult.textContent = "—";
+    tonResult.textContent = "—";
+    lbResult.textContent = "—";
+  }
 
-    });
-
-
-    function calculateWeight() {
-
-        const density = parseFloat(
-            document.getElementById("density").value
-        );
-
-        const volume = parseFloat(
-            document.getElementById("volume").value
-        );
-
-        const gravity = parseFloat(
-            document.getElementById("gravity").value
-        );
-
-        const result = document.getElementById("result");
-
-        if (
-            isNaN(density) ||
-            isNaN(volume) ||
-            isNaN(gravity) ||
-            density <= 0 ||
-            volume <= 0 ||
-            gravity <= 0
-        ) {
-
-            result.innerHTML = `
-                <div class="warning">
-                    Please enter valid positive values for
-                    density, volume and gravity.
-                </div>
-            `;
-
-            return;
-        }
-
-
-        // Mass in kilograms
-        const massKg = volume * density;
-
-
-        // Mass in tonnes
-        const massTonnes = massKg / 1000;
-
-
-        // Weight force in Newtons
-        const weightN = massKg * gravity;
-
-
-        // Weight force in kN
-        const weightKN = weightN / 1000;
-
-
-        result.innerHTML = `
-
-            <div class="result">
-
-                <h2>Calculation Result</h2>
-
-                <div class="result-row">
-                    <span>Density</span>
-                    <span class="value">
-                        ${density.toLocaleString()} kg/m³
-                    </span>
-                </div>
-
-                <div class="result-row">
-                    <span>Volume</span>
-                    <span class="value">
-                        ${volume.toLocaleString()} m³
-                    </span>
-                </div>
-
-                <div class="result-row">
-                    <span>Mass</span>
-                    <span class="value">
-                        ${massKg.toLocaleString(undefined, {
-                            maximumFractionDigits: 3
-                        })} kg
-                    </span>
-                </div>
-
-                <div class="result-row">
-                    <span>Mass</span>
-                    <span class="value">
-                        ${massTonnes.toLocaleString(undefined, {
-                            maximumFractionDigits: 3
-                        })} tonnes
-                    </span>
-                </div>
-
-                <div class="result-row">
-                    <span>Weight Force</span>
-                    <span class="value">
-                        ${weightKN.toLocaleString(undefined, {
-                            maximumFractionDigits: 3
-                        })} kN
-                    </span>
-                </div>
-
-            </div>
-
-        `;
+  function updateDensity() {
+    if (material.value === "custom") {
+      density.readOnly = false;
+      density.value = "";
+      density.placeholder = "Enter density in kg/m³";
+    } else {
+      density.readOnly = true;
+      density.value = material.value;
+      density.placeholder = "";
     }
 
+    densityHint.textContent =
+      densityHints[material.value] || "Check the selected material density.";
+
+    calculate();
+  }
+
+  function calculate() {
+    error.textContent = "";
+
+    const rawVolume = volume.value.trim();
+    const rawDensity = density.value.trim();
+
+    if (rawVolume === "") {
+      clearResults();
+      return;
+    }
+
+    const v = Number(rawVolume);
+    const d = Number(rawDensity);
+
+    if (!Number.isFinite(v) || v < 0) {
+      clearResults();
+      error.textContent = "Enter a valid volume of zero or greater.";
+      return;
+    }
+
+    if (rawDensity === "" || !Number.isFinite(d) || d <= 0) {
+      clearResults();
+      error.textContent = "Enter a valid density greater than zero.";
+      return;
+    }
+
+    const kg = v * d;
+    const tonnes = kg / 1000;
+    const pounds = kg * 2.20462262185;
+
+    if (![kg, tonnes, pounds].every(Number.isFinite)) {
+      clearResults();
+      error.textContent = "The result is too large to calculate.";
+      return;
+    }
+
+    kgResult.textContent = formatNumber(kg);
+    tonResult.textContent = formatNumber(tonnes);
+    lbResult.textContent = formatNumber(pounds);
+  }
+
+  material.addEventListener("change", updateDensity);
+  density.addEventListener("input", calculate);
+  volume.addEventListener("input", calculate);
+
+  resetButton.addEventListener("click", function () {
+    material.value = "7850";
+    density.value = "7850";
+    density.readOnly = true;
+    density.placeholder = "";
+    volume.value = "";
+    densityHint.textContent = densityHints["7850"];
+    error.textContent = "";
+    clearResults();
+  });
+
+  updateDensity();
 </script>
 
 </body>
