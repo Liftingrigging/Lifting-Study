@@ -69,7 +69,6 @@
         margin: 25px auto;
     }
 
-    /* Welcome section — original image preserved */
     .welcome {
         background:
             linear-gradient(rgba(8, 43, 73, 0.55), rgba(8, 43, 73, 0.55)),
@@ -103,7 +102,6 @@
         gap: 20px;
     }
 
-    /* Base style for the six study boxes */
     .section-card {
         position: relative;
         overflow: hidden;
@@ -114,7 +112,6 @@
         transition: transform 0.25s ease, box-shadow 0.25s ease;
     }
 
-    /* Coloured accent stripe */
     .section-card::before {
         content: "";
         position: absolute;
@@ -124,7 +121,7 @@
         height: 6px;
     }
 
-    /* 1. Lifting Accessories — blue */
+    /* Blue — Lifting Accessories */
     .section-card:nth-child(6n + 1) {
         background: linear-gradient(135deg, #cceaff, #f5fbff);
     }
@@ -133,7 +130,7 @@
         background: linear-gradient(90deg, #0878c9, #75d8ff);
     }
 
-    /* 2. Lifting Calculations — green */
+    /* Green — Lifting Calculations */
     .section-card:nth-child(6n + 2) {
         background: linear-gradient(135deg, #d0f5df, #f7fff9);
     }
@@ -142,7 +139,7 @@
         background: linear-gradient(90deg, #159b73, #9ae6bd);
     }
 
-    /* 3. Cranes — purple */
+    /* Purple — Cranes */
     .section-card:nth-child(6n + 3) {
         background: linear-gradient(135deg, #e4d9ff, #fcfaff);
     }
@@ -151,7 +148,7 @@
         background: linear-gradient(90deg, #7454d8, #c2aaff);
     }
 
-    /* 4. Lift Planning — gold */
+    /* Gold — Lift Planning */
     .section-card:nth-child(6n + 4) {
         background: linear-gradient(135deg, #ffe5c2, #fffaf2);
     }
@@ -160,7 +157,7 @@
         background: linear-gradient(90deg, #e58a27, #ffd18b);
     }
 
-    /* 5. Lifting Safety — rose */
+    /* Rose — Lifting Safety */
     .section-card:nth-child(6n + 5) {
         background: linear-gradient(135deg, #ffdce7, #fff8fa);
     }
@@ -169,7 +166,7 @@
         background: linear-gradient(90deg, #d94c78, #ffafc6);
     }
 
-    /* 6. Study Notes — teal */
+    /* Teal — Study Notes */
     .section-card:nth-child(6n) {
         background: linear-gradient(135deg, #cef0ed, #f8fffe);
     }
@@ -190,20 +187,41 @@
         margin-top: 0;
     }
 
+    /* Explore and Save as PDF buttons */
+    .card-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        align-items: center;
+        margin-top: 12px;
+    }
+
     .button {
         display: inline-block;
         background: #0b5c87;
         color: white;
         text-decoration: none;
-        padding: 11px 18px;
+        padding: 11px 16px;
+        border: none;
         border-radius: 6px;
         font-weight: bold;
-        margin-top: 8px;
-        transition: background 0.2s ease;
+        font-size: 14px;
+        cursor: pointer;
+        margin-top: 0;
+        font-family: inherit;
+        line-height: 1.3;
     }
 
     .button:hover {
         background: #083e5c;
+    }
+
+    .pdf-button {
+        background: #16845b;
+    }
+
+    .pdf-button:hover {
+        background: #106744;
     }
 
     @media (hover: hover) {
@@ -213,7 +231,6 @@
         }
     }
 
-    /* About the Creator — original photo and content preserved */
     .creator {
         display: flex;
         align-items: center;
@@ -283,7 +300,6 @@
         margin-top: 8px;
     }
 
-    /* Keep layout and text readable when printing */
     @media print {
         body {
             background: white;
@@ -325,6 +341,15 @@
             font-size: 13px;
             padding: 9px 10px;
         }
+
+        .card-actions {
+            gap: 8px;
+        }
+
+        .card-actions .button {
+            flex: 1 1 auto;
+            text-align: center;
+        }
     }
 </style>
 
@@ -359,7 +384,11 @@
                 Learn about slings, shackles, hooks, master links, lifting beams,
                 clamps, inspection requirements and working load limits.
             </p>
-            <a class="button" href="rigging.html">Explore Accessories</a>
+            <div class="card-actions">
+                <a class="button" href="rigging.html">Explore Accessories</a>
+                <button class="button pdf-button" type="button"
+                    onclick="savePageAsPDF('rigging.html')">↓ Save as PDF</button>
+            </div>
         </article>
 
         <article class="section-card">
@@ -368,7 +397,11 @@
                 Study load weight, sling angles, sling tension, centre of gravity
                 and other essential lifting calculations.
             </p>
-            <a class="button" href="calculation.html">Open Calculations</a>
+            <div class="card-actions">
+                <a class="button" href="calculation.html">Open Calculations</a>
+                <button class="button pdf-button" type="button"
+                    onclick="savePageAsPDF('calculation.html')">↓ Save as PDF</button>
+            </div>
         </article>
 
         <article class="section-card">
@@ -377,7 +410,11 @@
                 Learn crane types, components, load charts, working radius,
                 configurations and basic crane safety.
             </p>
-            <a class="button" href="cranes.html">Explore Cranes</a>
+            <div class="card-actions">
+                <a class="button" href="cranes.html">Explore Cranes</a>
+                <button class="button pdf-button" type="button"
+                    onclick="savePageAsPDF('cranes.html')">↓ Save as PDF</button>
+            </div>
         </article>
 
         <article class="section-card">
@@ -386,7 +423,11 @@
                 Review lifting plans, risk assessments, ground conditions,
                 communication, exclusion zones and critical lift considerations.
             </p>
-            <a class="button" href="planning.html">Explore Lift Planning</a>
+            <div class="card-actions">
+                <a class="button" href="planning.html">Explore Lift Planning</a>
+                <button class="button pdf-button" type="button"
+                    onclick="savePageAsPDF('planning.html')">↓ Save as PDF</button>
+            </div>
         </article>
 
         <article class="section-card">
@@ -395,7 +436,11 @@
                 Learn about hazards, pre-use inspections, safe lifting practices,
                 roles and responsibilities, and accident prevention.
             </p>
-            <a class="button" href="safety.html">Explore Safety</a>
+            <div class="card-actions">
+                <a class="button" href="safety.html">Explore Safety</a>
+                <button class="button pdf-button" type="button"
+                    onclick="savePageAsPDF('safety.html')">↓ Save as PDF</button>
+            </div>
         </article>
 
         <article class="section-card">
@@ -404,7 +449,11 @@
                 Review lifting and rigging study materials, practice questions
                 and preparation resources for competency assessments.
             </p>
-            <a class="button" href="study-notes.html">Open Study Notes</a>
+            <div class="card-actions">
+                <a class="button" href="study-notes.html">Open Study Notes</a>
+                <button class="button pdf-button" type="button"
+                    onclick="savePageAsPDF('study-notes.html')">↓ Save as PDF</button>
+            </div>
         </article>
     </section>
 
@@ -433,15 +482,41 @@
     </p>
 
     <div class="install-app-section">
-        <button id="installAppBtn" type="button">
-            📱 Install App
-        </button>
-
+        <button id="installAppBtn" type="button">📱 Install App</button>
         <p id="installAppMessage" role="status" aria-live="polite"></p>
     </div>
 </footer>
 
 <script>
+    /*
+     * Opens the selected existing page in a new tab.
+     * The visitor can then use the browser's Print / Save as PDF option.
+     */
+    function savePageAsPDF(page) {
+        const allowedPages = [
+            "rigging.html",
+            "calculation.html",
+            "cranes.html",
+            "planning.html",
+            "safety.html",
+            "study-notes.html"
+        ];
+
+        if (!allowedPages.includes(page)) {
+            return;
+        }
+
+        const pdfWindow = window.open(
+            "/Lifting-Study/" + page,
+            "_blank",
+            "noopener"
+        );
+
+        if (!pdfWindow) {
+            alert("Please allow pop-ups for this website, then try again.");
+        }
+    }
+
     if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {
             navigator.serviceWorker.register(
