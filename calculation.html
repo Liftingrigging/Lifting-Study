@@ -750,9 +750,6 @@
     <br>
     <small>Created by Jawad Wains</small>
 </footer>
-<button class="pdf-download-btn" onclick="window.print()">
-    📥 Download This Study Material as PDF
-</button>
 
 <style>
 .pdf-download-btn {
@@ -799,6 +796,29 @@
         text-decoration: none;
     }
 }
+</style>
+    <!-- Save as PDF option -->
+<div class="pdf-save-option">
+  <button type="button" onclick="window.print()">Save as PDF</button>
+</div>
+
+<style>
+  .pdf-save-option {
+    text-align: center;
+    margin: 24px auto;
+  }
+  .pdf-save-option button {
+    padding: 10px 18px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    background: white;
+    color: #222;
+    font-size: 15px;
+    cursor: pointer;
+  }
+  @media print {
+    .pdf-save-option { display: none !important; }
+  }
 </style>
 </body>
 </html>
