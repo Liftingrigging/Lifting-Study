@@ -3,196 +3,336 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Crane Selection & Lift Safety</title>
+<title>Crane Selection Calculator</title>
+
 <style>
-:root{
-  --cyan:#67e8f9;
-  --blue:#60a5fa;
-  --green:#86efac;
-  --text:#f3f8ff;
-  --muted:#b6c7da;
-  --panel:rgba(9,23,41,.83);
-  --border:rgba(148,190,225,.25);
+:root {
+  --cyan: #67e8f9;
+  --blue: #60a5fa;
+  --green: #86efac;
+  --text: #f3f8ff;
+  --muted: #b6c7da;
+  --panel: rgba(9, 23, 41, 0.86);
+  --border: rgba(148, 190, 225, 0.25);
 }
-*{box-sizing:border-box}
-body{
-  margin:0;
-  min-height:100vh;
-  padding:28px 16px;
-  font-family:Inter,Segoe UI,Arial,sans-serif;
-  color:var(--text);
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 24px 14px;
+  font-family: "Segoe UI", Arial, sans-serif;
+  color: var(--text);
   background:
-    linear-gradient(115deg,rgba(3,10,24,.88),rgba(5,24,45,.72)),
-    radial-gradient(ellipse at 12% 12%,#155e75 0,transparent 40%),
-    radial-gradient(ellipse at 88% 85%,#1e3a8a 0,transparent 42%),
-    linear-gradient(135deg,#07111f,#102e4a 55%,#081426);
-  background-attachment:fixed;
+    linear-gradient(115deg, rgba(3,10,24,.88), rgba(5,24,45,.72)),
+    radial-gradient(ellipse at 12% 12%, #155e75, transparent 42%),
+    radial-gradient(ellipse at 88% 85%, #1e3a8a, transparent 42%),
+    linear-gradient(135deg, #07111f, #102e4a 55%, #081426);
+  background-attachment: fixed;
 }
-body:before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.12;
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  opacity: .12;
   background-image:
-    linear-gradient(rgba(160,210,255,.18) 1px,transparent 1px),
-    linear-gradient(90deg,rgba(160,210,255,.18) 1px,transparent 1px);
-  background-size:42px 42px;
+    linear-gradient(rgba(160,210,255,.18) 1px, transparent 1px),
+    linear-gradient(90deg,rgba(160,210,255,.18) 1px, transparent 1px);
+  background-size: 42px 42px;
 }
-.container{max-width:980px;margin:auto;position:relative}
-.hero{
-  position:relative;
-  overflow:hidden;
-  padding:32px;
-  border:1px solid var(--border);
-  border-radius:24px;
-  background:linear-gradient(120deg,rgba(15,39,65,.94),rgba(8,20,38,.83));
-  box-shadow:0 25px 80px rgba(0,0,0,.3);
+
+.container {
+  max-width: 950px;
+  margin: auto;
+  position: relative;
 }
-.hero:after{
-  content:"";
-  position:absolute;
-  width:260px;height:260px;
-  right:-100px;top:-130px;
-  border:1px solid rgba(103,232,249,.28);
-  border-radius:50%;
-  box-shadow:0 0 0 25px rgba(103,232,249,.035),
-             0 0 0 55px rgba(103,232,249,.025);
+
+.hero, .panel {
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  background: var(--panel);
+  backdrop-filter: blur(18px);
+  box-shadow: 0 18px 55px rgba(0,0,0,.25);
 }
-.eyebrow{
-  color:var(--cyan);
-  letter-spacing:3px;
-  font-weight:800;
-  font-size:12px;
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 30px;
+  background: linear-gradient(120deg,rgba(15,39,65,.96),rgba(8,20,38,.88));
 }
-h1{
-  margin:17px 0 10px;
-  font-size:clamp(30px,6vw,48px);
-  line-height:1.1;
-  letter-spacing:-1.5px;
+
+.hero::after {
+  content: "";
+  position: absolute;
+  width: 230px;
+  height: 230px;
+  right: -95px;
+  top: -115px;
+  border: 1px solid rgba(103,232,249,.3);
+  border-radius: 50%;
+  box-shadow: 0 0 0 25px rgba(103,232,249,.035),
+              0 0 0 55px rgba(103,232,249,.025);
 }
-h1 span{color:var(--cyan)}
-p{color:var(--muted);line-height:1.7}
-.hero p{max-width:650px}
-.pill{
-  display:inline-flex;align-items:center;gap:8px;
-  padding:8px 12px;border:1px solid var(--border);
-  border-radius:100px;color:#d6e8fa;font-size:12px;
-  background:rgba(255,255,255,.04);
+
+.eyebrow {
+  color: var(--cyan);
+  letter-spacing: 3px;
+  font-weight: 800;
+  font-size: 12px;
 }
-.dot{
-  width:7px;height:7px;border-radius:50%;
-  background:var(--green);box-shadow:0 0 12px var(--green);
+
+h1 {
+  margin: 16px 0 10px;
+  font-size: clamp(30px, 6vw, 46px);
+  line-height: 1.12;
+  letter-spacing: -1px;
 }
-.panel{
-  margin-top:20px;
-  padding:26px;
-  border:1px solid var(--border);
-  border-radius:20px;
-  background:var(--panel);
-  backdrop-filter:blur(18px);
-  box-shadow:0 16px 50px rgba(0,0,0,.2);
+
+h1 span { color: var(--cyan); }
+
+p {
+  color: var(--muted);
+  line-height: 1.7;
 }
-.section-head{
-  display:flex;align-items:center;gap:12px;margin-bottom:22px;
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  border-radius: 100px;
+  color: #d6e8fa;
+  font-size: 12px;
+  background: rgba(255,255,255,.04);
 }
-.section-icon{
-  display:grid;place-items:center;
-  width:43px;height:43px;border-radius:13px;
-  background:rgba(103,232,249,.1);
-  border:1px solid rgba(103,232,249,.24);
-  font-size:21px;
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  box-shadow: 0 0 12px var(--green);
 }
-h2{font-size:20px;margin:0}
-.subheading{font-size:13px;color:var(--muted);margin-top:5px}
-.grid{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;
+
+.panel {
+  margin-top: 20px;
+  padding: 25px;
 }
-label{display:block;font-size:13px;font-weight:700;margin-bottom:9px;color:#e2edf8}
-.unit{color:#8faecb;font-weight:500}
-input{
-  width:100%;height:52px;padding:0 15px;
-  border-radius:11px;border:1px solid #36516e;
-  background:rgba(3,13,27,.8);color:white;font-size:16px;
-  transition:border .2s,box-shadow .2s;
+
+.section-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 22px;
 }
-input:focus{
-  outline:none;border-color:var(--cyan);
-  box-shadow:0 0 0 3px rgba(103,232,249,.12);
+
+.section-icon {
+  display: grid;
+  place-items: center;
+  width: 43px;
+  height: 43px;
+  border-radius: 13px;
+  background: rgba(103,232,249,.1);
+  border: 1px solid rgba(103,232,249,.24);
+  font-size: 21px;
 }
-button{
-  width:100%;min-height:54px;margin-top:22px;
-  border:0;border-radius:12px;
-  background:linear-gradient(100deg,#67e8f9,#60a5fa);
-  color:#071525;font-size:15px;font-weight:800;
-  cursor:pointer;transition:transform .2s,filter .2s;
+
+h2 { font-size: 20px; margin: 0; }
+
+.subheading {
+  font-size: 13px;
+  color: var(--muted);
+  margin-top: 5px;
 }
-button:hover{filter:brightness(1.08);transform:translateY(-1px)}
-button:focus-visible{outline:3px solid white;outline-offset:3px}
-#error{display:none;color:#fecaca;margin-top:14px;font-size:14px}
-#error.show{display:block}
-#result{display:none}
-#result.show{display:block}
-.result-top{
-  display:flex;justify-content:space-between;align-items:center;
-  gap:12px;flex-wrap:wrap;margin-bottom:18px;
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 18px;
 }
-.status{
-  padding:7px 11px;border-radius:100px;font-size:11px;
-  letter-spacing:1px;font-weight:800;
-  color:#fde68a;background:rgba(245,158,11,.1);
-  border:1px solid rgba(245,158,11,.3);
+
+label {
+  display: block;
+  font-size: 13px;
+  font-weight: 700;
+  margin-bottom: 9px;
+  color: #e2edf8;
 }
-.stats{
-  display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;
+
+.unit { color: #8faecb; font-weight: 500; }
+
+input {
+  width: 100%;
+  height: 52px;
+  padding: 0 15px;
+  border-radius: 11px;
+  border: 1px solid #36516e;
+  background: rgba(3,13,27,.8);
+  color: white;
+  font-size: 16px;
 }
-.stat{
-  padding:18px;border-radius:14px;
-  border:1px solid var(--border);background:rgba(255,255,255,.035);
-  min-width:0;
+
+input:focus {
+  outline: none;
+  border-color: var(--cyan);
+  box-shadow: 0 0 0 3px rgba(103,232,249,.12);
 }
-.stat-label{font-size:12px;color:var(--muted);line-height:1.5}
-.stat-value{
-  font-size:clamp(23px,4vw,32px);font-weight:800;
-  letter-spacing:-.5px;margin-top:9px;overflow-wrap:anywhere;
+
+button {
+  width: 100%;
+  min-height: 54px;
+  margin-top: 22px;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(100deg,#67e8f9,#60a5fa);
+  color: #071525;
+  font-size: 15px;
+  font-weight: 800;
+  cursor: pointer;
 }
-.cyan{color:var(--cyan)}
-.green{color:var(--green)}
-.warning{
-  margin-top:17px;padding:17px;border-radius:13px;
-  border:1px solid rgba(245,158,11,.4);
-  background:rgba(120,75,8,.18);color:#f8dfad;
-  font-size:13px;line-height:1.75;
+
+button:hover { filter: brightness(1.08); }
+
+#error {
+  display: none;
+  color: #fecaca;
+  margin-top: 14px;
+  font-size: 14px;
 }
-.warning strong{color:#fde68a}
-.info{
-  margin-top:17px;padding:16px;border-radius:13px;
-  background:rgba(96,165,250,.07);
-  border:1px solid rgba(96,165,250,.22);
-  font-size:13px;color:#d5e5f7;line-height:1.75;
+
+#error.show { display: block; }
+
+#result { display: none; }
+#result.show { display: block; }
+
+.result-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  margin-bottom: 18px;
 }
-.calc-table{width:100%;border-collapse:collapse;margin-top:14px}
-.calc-table td{
-  padding:12px 5px;border-bottom:1px solid var(--border);
-  font-size:13px;line-height:1.5;
+
+.status {
+  padding: 7px 11px;
+  border-radius: 100px;
+  font-size: 11px;
+  letter-spacing: 1px;
+  font-weight: 800;
+  color: #fde68a;
+  background: rgba(245,158,11,.1);
+  border: 1px solid rgba(245,158,11,.3);
 }
-.calc-table td:first-child{color:var(--muted);padding-right:14px}
-.calc-table td:last-child{text-align:right;font-weight:700}
-.formula{
-  margin-top:14px;padding:14px;border-radius:10px;
-  background:rgba(0,0,0,.2);color:#bdeaf3;
-  font:13px/1.7 ui-monospace,SFMono-Regular,Consolas,monospace;
-  overflow-wrap:anywhere;
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(2,minmax(0,1fr));
+  gap: 12px;
 }
-.footer{text-align:center;color:#91a9c1;font-size:12px;line-height:1.8;padding:24px 5px}
-@media(max-width:600px){
-  body{padding:14px 10px}
-  .hero,.panel{padding:20px;border-radius:17px}
-  .grid,.stats{grid-template-columns:1fr}
-  .stat{padding:15px}
+
+.stat {
+  padding: 18px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: rgba(255,255,255,.035);
+  min-width: 0;
+}
+
+.stat-label {
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.stat-value {
+  font-size: clamp(24px,4vw,32px);
+  font-weight: 800;
+  margin-top: 9px;
+  overflow-wrap: anywhere;
+}
+
+.cyan { color: var(--cyan); }
+.green { color: var(--green); }
+
+.calc-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 16px;
+}
+
+.calc-table td {
+  padding: 12px 5px;
+  border-bottom: 1px solid var(--border);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.calc-table td:first-child {
+  color: var(--muted);
+  padding-right: 14px;
+}
+
+.calc-table td:last-child {
+  text-align: right;
+  font-weight: 700;
+}
+
+.formula {
+  margin-top: 15px;
+  padding: 15px;
+  border-radius: 10px;
+  background: rgba(0,0,0,.2);
+  color: #bdeaf3;
+  font: 13px/1.8 Consolas, monospace;
+  overflow-wrap: anywhere;
+}
+
+.warning {
+  margin-top: 17px;
+  padding: 17px;
+  border-radius: 13px;
+  border: 1px solid rgba(245,158,11,.4);
+  background: rgba(120,75,8,.18);
+  color: #f8dfad;
+  font-size: 13px;
+  line-height: 1.75;
+}
+
+.warning strong { color: #fde68a; }
+
+.info {
+  margin-top: 16px;
+  padding: 16px;
+  border-radius: 13px;
+  background: rgba(96,165,250,.07);
+  border: 1px solid rgba(96,165,250,.22);
+  font-size: 13px;
+  color: #d5e5f7;
+  line-height: 1.75;
+}
+
+.footer {
+  text-align: center;
+  color: #91a9c1;
+  font-size: 12px;
+  line-height: 1.8;
+  padding: 24px 5px;
+}
+
+@media(max-width:600px) {
+  body { padding: 12px 9px; }
+  .hero, .panel { padding: 19px; border-radius: 16px; }
+  .grid, .stats { grid-template-columns: 1fr; }
 }
 </style>
 </head>
+
 <body>
 <div class="container">
 
@@ -200,9 +340,8 @@ button:focus-visible{outline:3px solid white;outline-offset:3px}
   <div class="eyebrow">LIFTING ENGINEERING · FIELD PLANNING</div>
   <h1>Crane Selection<br><span>&amp; Lift Safety</span></h1>
   <p>
-    Evaluate your lifting requirements with a preliminary design-load
-    calculation and identify the working radius that must be verified
-    against the crane manufacturer's certified load chart.
+    Enter your load weight, picking radius, drop radius and placing height
+    to calculate a preliminary value using your specified formula.
   </p>
   <div class="pill"><span class="dot"></span> Preliminary assessment tool</div>
 </header>
@@ -212,7 +351,7 @@ button:focus-visible{outline:3px solid white;outline-offset:3px}
     <div class="section-icon">⚙</div>
     <div>
       <h2>Lift requirements</h2>
-      <div class="subheading">Enter the four required values</div>
+      <div class="subheading">Enter all four values</div>
     </div>
   </div>
 
@@ -235,72 +374,73 @@ button:focus-visible{outline:3px solid white;outline-offset:3px}
     </div>
   </div>
 
-  <button type="button" id="calculate">Calculate lift requirements ↗</button>
+  <button type="button" id="calculate">Calculate crane requirements ↗</button>
   <div id="error" role="alert"></div>
 </section>
 
 <section class="panel" id="result" aria-live="polite">
   <div class="result-top">
     <div>
-      <h2>Assessment results</h2>
-      <div class="subheading">Calculated from your four inputs</div>
+      <h2>Calculation results</h2>
+      <div class="subheading">Calculated using your requested formula</div>
     </div>
-    <span class="status">CHART VERIFICATION REQUIRED</span>
+    <span class="status">LOAD CHART CHECK REQUIRED</span>
   </div>
 
   <div class="stats">
     <div class="stat">
-      <div class="stat-label">Calculated design load</div>
-      <div class="stat-value cyan" id="designLoad">—</div>
-      <div class="stat-label">Tonnes, using the selected calculation factor</div>
+      <div class="stat-label">Calculated result</div>
+      <div class="stat-value cyan" id="calculatedCapacity">—</div>
+      <div class="stat-label">Tonnes from the requested formula</div>
     </div>
     <div class="stat">
-      <div class="stat-label">Governing working radius</div>
-      <div class="stat-value green" id="radius">—</div>
-      <div class="stat-label">Maximum of picking and drop radius</div>
+      <div class="stat-label">Larger working radius</div>
+      <div class="stat-value green" id="radiusResult">—</div>
+      <div class="stat-label">Maximum of the two radii</div>
     </div>
     <div class="stat">
       <div class="stat-label">Load weight entered</div>
-      <div class="stat-value" id="baseLoad">—</div>
-      <div class="stat-label">Tonnes, excluding unentered accessories</div>
+      <div class="stat-value" id="weightResult">—</div>
+      <div class="stat-label">Tonnes</div>
     </div>
     <div class="stat">
       <div class="stat-label">Placing height</div>
       <div class="stat-value" id="heightResult">—</div>
-      <div class="stat-label">Metres above the stated reference level</div>
+      <div class="stat-label">Metres</div>
     </div>
   </div>
 
   <table class="calc-table">
     <tbody>
-      <tr><td>Load weight entered</td><td id="rowWeight">—</td></tr>
-      <tr><td>Planning calculation factor</td><td id="rowFactor">—</td></tr>
-      <tr><td>Calculated design load</td><td id="rowDesign">—</td></tr>
+      <tr><td>Load weight</td><td id="rowWeight">—</td></tr>
       <tr><td>Picking radius</td><td id="rowPick">—</td></tr>
       <tr><td>Drop radius</td><td id="rowDrop">—</td></tr>
-      <tr><td>Governing radius to verify</td><td id="rowRadius">—</td></tr>
+      <tr><td>Larger radius</td><td id="rowRadius">—</td></tr>
+      <tr><td>Divisor</td><td>2</td></tr>
+      <tr><td>Multiplication factor</td><td>0.75</td></tr>
       <tr><td>Placing height</td><td id="rowHeight">—</td></tr>
     </tbody>
   </table>
 
-  <div class="formula" id="formula">Design load = load weight × calculation factor</div>
+  <div class="formula" id="formula">
+    Calculated result = (load × larger radius) ÷ 2 × 0.75
+  </div>
 
   <div class="warning">
-    <strong>Safety-critical limitation</strong><br>
-    The design load shown is a preliminary screening calculation, not the
-    crane's required rated capacity. It does not prove that a crane can
-    perform the lift. Include hook block, rigging and other applicable
-    deductions as required by the manufacturer's load chart and approved
-    lift plan. Verify the capacity at the actual working radius and
-    required hook height.
+    <strong>Important safety notice</strong><br>
+    This result follows the arithmetic formula you provided. It is not
+    proof of safe crane capacity and does not independently verify crane
+    suitability. Confirm the formula with your qualified lifting engineer.
+    The selected crane must have sufficient certified capacity at the
+    actual working radius and required hook height. Account for rigging,
+    hook block, crane configuration, outriggers, ground conditions, wind
+    and all applicable requirements in the approved lift plan.
   </div>
 
   <div class="info">
-    <strong>Crane recommendation:</strong> A specific crane model or
-    tonnage cannot be reliably selected from these four values alone.
-    Confirm the crane configuration, boom length, counterweight,
-    outrigger setup, ground conditions, load-chart capacity and all
-    applicable site and lifting requirements before approving the lift.
+    <strong>Crane recommendation:</strong> A specific crane model cannot
+    be confirmed from these four values alone without the crane fleet's
+    verified load-chart data and configuration details.
   </div>
 </section>
 
@@ -308,103 +448,114 @@ button:focus-visible{outline:3px solid white;outline-offset:3px}
   <div class="section-head">
     <div class="section-icon">🛡</div>
     <div>
-      <h2>Safety factor &amp; calculation basis</h2>
-      <div class="subheading">Transparent assumptions</div>
+      <h2>Formula &amp; safety</h2>
+      <div class="subheading">Your requested calculation method</div>
     </div>
   </div>
   <p>
-    The current example uses a planning calculation factor of
-    <strong style="color:var(--cyan)">1.25</strong> (25% above the entered
-    load). This is an illustrative assumption only, not a universal
-    crane-selection safety factor and not a verified TÜV Saudi Arabia rule.
+    <strong style="color:var(--cyan)">
+      Result = (Load weight × Larger radius) ÷ 2 × 0.75
+    </strong>
   </p>
   <p>
-    The factor is deliberately kept out of the input form so the calculator
-    retains your four requested fields. A competent lifting engineer must
-    establish the correct factor and load treatment for the applicable
-    standard, lift category and manufacturer's requirements.
+    The larger radius is the greater of the picking radius and drop radius.
+    The placing height is displayed as a lift requirement but is not used
+    in this formula.
+  </p>
+  <p>
+    The 0.75 multiplier is implemented exactly as requested. It should not
+    be assumed to be an approved safety factor or TÜV Saudi Arabia formula
+    without verification against the applicable lifting procedure.
   </p>
 </section>
 
-<footer>
+<footer class="footer">
   CRANE PLANNING TOOL · PRELIMINARY USE ONLY<br>
-  Always follow the approved lift plan, applicable Saudi regulations,
-  and the crane manufacturer's certified load chart.
+  Verify the lift using the manufacturer's certified load chart and
+  approved lifting procedure before any lifting operation.
 </footer>
+
 </div>
 
 <script>
-(function(){
+(function() {
   "use strict";
 
-  // Illustrative calculation factor only.
-  // Change only after the applicable engineering basis is verified.
-  const PLANNING_FACTOR = 1.25;
-
   const $ = id => document.getElementById(id);
-  const number = n => Number(n.toFixed(2)).toLocaleString("en-US");
-  const tonnes = n => number(n) + " t";
-  const metres = n => number(n) + " m";
 
-  function error(message){
+  function format(value) {
+    return Number(value.toFixed(2)).toLocaleString("en-US");
+  }
+
+  function showError(message) {
     $("error").textContent = message;
     $("error").className = "show";
     $("result").classList.remove("show");
   }
 
-  function calculate(){
-    $("error").className = "";
+  function calculate() {
     $("error").textContent = "";
+    $("error").className = "";
 
-    const raw = ["weight","pick","drop","height"].map(id => $(id).value.trim());
-    if(raw.some(value => value === "")){
-      error("Please enter all four values before calculating.");
+    const ids = ["weight", "pick", "drop", "height"];
+    const raw = ids.map(id => $(id).value.trim());
+
+    if (raw.some(value => value === "")) {
+      showError("Please enter all four values.");
       return;
     }
 
-    const [weight,pick,drop,height] = raw.map(Number);
+    const [weight, pick, drop, height] = raw.map(Number);
 
-    if(!raw.every((v,i) => Number.isFinite(Number(v))) ||
-       !Number.isFinite(weight) || weight <= 0 ||
-       !Number.isFinite(pick) || pick < 0 ||
-       !Number.isFinite(drop) || drop < 0 ||
-       !Number.isFinite(height) || height < 0){
-      error("Enter a positive load weight and valid non-negative radii and height.");
+    if (
+      !raw.every(value => Number.isFinite(Number(value))) ||
+      weight <= 0 ||
+      pick < 0 ||
+      drop < 0 ||
+      height < 0
+    ) {
+      showError(
+        "Enter a positive load weight and non-negative radii and height."
+      );
       return;
     }
 
-    const designLoad = weight * PLANNING_FACTOR;
-    const governingRadius = Math.max(pick,drop);
+    // Select the larger of the picking and drop radii.
+    const largerRadius = Math.max(pick, drop);
 
-    $("designLoad").textContent = tonnes(designLoad);
-    $("radius").textContent = metres(governingRadius);
-    $("baseLoad").textContent = tonnes(weight);
-    $("heightResult").textContent = metres(height);
+    // Requested formula:
+    // (Load weight × larger radius) ÷ 2 × 0.75
+    const calculatedCapacity = (weight * largerRadius / 2) * 0.75;
 
-    $("rowWeight").textContent = tonnes(weight);
-    $("rowFactor").textContent = PLANNING_FACTOR.toFixed(2) +
-      " (" + number((PLANNING_FACTOR - 1) * 100) + "% illustrative uplift)";
-    $("rowDesign").textContent = tonnes(designLoad);
-    $("rowPick").textContent = metres(pick);
-    $("rowDrop").textContent = metres(drop);
-    $("rowRadius").textContent = metres(governingRadius);
-    $("rowHeight").textContent = metres(height);
+    $("calculatedCapacity").textContent =
+      format(calculatedCapacity) + " t";
+
+    $("radiusResult").textContent = format(largerRadius) + " m";
+    $("weightResult").textContent = format(weight) + " t";
+    $("heightResult").textContent = format(height) + " m";
+
+    $("rowWeight").textContent = format(weight) + " t";
+    $("rowPick").textContent = format(pick) + " m";
+    $("rowDrop").textContent = format(drop) + " m";
+    $("rowRadius").textContent = format(largerRadius) + " m";
+    $("rowHeight").textContent = format(height) + " m";
 
     $("formula").textContent =
-      "Illustrative design load = " + number(weight) +
-      " t × " + PLANNING_FACTOR.toFixed(2) +
-      " = " + number(designLoad) +
-      " t. Verify all load-chart deductions and requirements separately.";
+      "(" + format(weight) + " × " + format(largerRadius) +
+      ") ÷ 2 × 0.75 = " + format(calculatedCapacity) + " t";
 
     $("result").classList.add("show");
-    $("result").scrollIntoView({behavior:"smooth",block:"nearest"});
+    $("result").scrollIntoView({
+      behavior: "smooth",
+      block: "nearest"
+    });
   }
 
-  $("calculate").addEventListener("click",calculate);
+  $("calculate").addEventListener("click", calculate);
 
-  ["weight","pick","drop","height"].forEach(id => {
-    $(id).addEventListener("keydown",event => {
-      if(event.key === "Enter") calculate();
+  ["weight", "pick", "drop", "height"].forEach(id => {
+    $(id).addEventListener("keydown", event => {
+      if (event.key === "Enter") calculate();
     });
   });
 })();
