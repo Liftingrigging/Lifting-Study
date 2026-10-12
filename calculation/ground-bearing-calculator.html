@@ -3,98 +3,179 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Crane Ground Bearing Calculator</title>
+<title>Crane Ground Bearing Pressure Calculator</title>
 <style>
 :root {
-  --bg:#0b1220; --panel:#131f31; --panel2:#1b2b42;
-  --border:#30425b; --text:#edf4ff; --muted:#a6b7ce;
-  --blue:#56a6ff; --green:#58d6a1; --orange:#ffad5c; --red:#ff7777;
+  --bg:#0b1220;
+  --panel:#131f31;
+  --panel2:#1b2b42;
+  --border:#30425b;
+  --text:#edf4ff;
+  --muted:#a6b7ce;
+  --green:#58d6a1;
+  --red:#ff7777;
+  --orange:#ffad5c;
 }
 * { box-sizing:border-box; }
 body {
-  margin:0; padding:20px; background:var(--bg); color:var(--text);
+  margin:0;
+  padding:20px;
+  background:var(--bg);
+  color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
 }
-.container { max-width:1050px; margin:auto; }
+.container { max-width:950px; margin:auto; }
 h1 { font-size:clamp(24px,4vw,34px); margin:0 0 8px; }
 h2 { font-size:18px; margin:0 0 16px; }
 .subtitle { color:var(--muted); line-height:1.5; margin-bottom:22px; }
-.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
-.panel { background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:18px; min-width:0; }
-.field { margin-bottom:15px; }
-label { display:block; color:var(--muted); font-size:14px; margin-bottom:7px; line-height:1.4; }
-input {
-  width:100%; min-height:44px; padding:10px 12px; border-radius:8px;
-  border:1px solid var(--border); background:#0c1728; color:var(--text); font-size:16px;
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:16px;
 }
-.help { color:var(--muted); font-size:12px; line-height:1.5; margin-top:5px; }
-.cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:12px; }
-.card { background:var(--panel2); border:1px solid var(--border); border-radius:12px; padding:15px; min-width:0; }
-.card h3 { color:var(--muted); font-size:14px; font-weight:normal; margin:0 0 10px; }
-.value { font-size:clamp(23px,3.5vw,32px); font-weight:bold; overflow-wrap:anywhere; }
-.unit { font-size:13px; color:var(--muted); margin-top:5px; }
-.status { display:block; font-size:13px; font-weight:bold; margin-top:10px; }
+.panel {
+  background:var(--panel);
+  border:1px solid var(--border);
+  border-radius:14px;
+  padding:18px;
+  min-width:0;
+}
+.field { margin-bottom:16px; }
+label {
+  display:block;
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.4;
+  margin-bottom:7px;
+}
+input {
+  width:100%;
+  min-height:44px;
+  padding:10px 12px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#0c1728;
+  color:var(--text);
+  font-size:16px;
+}
+.help {
+  color:var(--muted);
+  font-size:12px;
+  line-height:1.5;
+  margin-top:5px;
+}
+.card {
+  background:var(--panel2);
+  border:1px solid var(--border);
+  border-radius:12px;
+  padding:16px;
+  margin-bottom:12px;
+}
+.card-title { color:var(--muted); font-size:14px; }
+.value {
+  font-size:clamp(27px,4vw,36px);
+  font-weight:bold;
+  margin-top:9px;
+  overflow-wrap:anywhere;
+}
+.unit { color:var(--muted); font-size:13px; margin-top:5px; }
+.status { display:block; font-size:13px; font-weight:bold; margin-top:12px; }
 .pass { color:var(--green); }
 .fail { color:var(--red); }
 .neutral { color:var(--orange); }
-.bar { height:12px; background:#29394e; border-radius:20px; overflow:hidden; margin-top:9px; }
+.bar {
+  height:12px;
+  background:#29394e;
+  border-radius:20px;
+  overflow:hidden;
+  margin-top:10px;
+}
 .fill { height:100%; width:0; background:var(--green); }
 .fill.warn { background:var(--orange); }
 .fill.fail { background:var(--red); }
-.result-row { display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); font-size:14px; }
+.result-row {
+  display:flex;
+  justify-content:space-between;
+  gap:12px;
+  padding:11px 0;
+  border-bottom:1px solid var(--border);
+  font-size:14px;
+}
 .result-row:last-child { border-bottom:0; }
 .result-row span:first-child { color:var(--muted); }
 .result-row strong { text-align:right; overflow-wrap:anywhere; }
-.warning,.note,.method { border-radius:10px; padding:14px; margin-top:16px; font-size:13px; line-height:1.6; }
-.warning { background:#3a2028; border:1px solid #8c4652; color:#ffd6dc; }
-.note { background:#332719; border:1px solid #80603b; color:#ffe0b9; }
-.method { background:#102a29; border:1px solid #2e6559; color:#c7f7e5; }
-button { min-height:44px; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:#203955; color:var(--text); font-size:15px; cursor:pointer; }
-button:hover { filter:brightness(1.15); }
+.warning,.method {
+  border-radius:10px;
+  padding:14px;
+  margin-top:16px;
+  font-size:13px;
+  line-height:1.6;
+}
+.warning {
+  background:#332719;
+  border:1px solid #80603b;
+  color:#ffe0b9;
+}
+.method {
+  background:#102a29;
+  border:1px solid #2e6559;
+  color:#c7f7e5;
+}
+#error {
+  display:none;
+  margin-top:12px;
+  color:#ffd1d1;
+  background:#401f2a;
+  border:1px solid #9c4757;
+  padding:12px;
+  border-radius:8px;
+  font-size:13px;
+}
 .actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
-#error { display:none; margin-top:12px; color:#ffd1d1; background:#401f2a; border:1px solid #9c4757; padding:12px; border-radius:8px; }
+button {
+  min-height:44px;
+  padding:10px 14px;
+  border-radius:8px;
+  border:1px solid var(--border);
+  background:#203955;
+  color:var(--text);
+  font-size:15px;
+  cursor:pointer;
+}
 .footer { margin-top:18px; color:var(--muted); font-size:12px; line-height:1.6; }
-@media(max-width:720px) { body { padding:12px; } .grid { grid-template-columns:1fr; } }
-@media(max-width:400px) { .cards { grid-template-columns:1fr; } }
+@media(max-width:700px) {
+  body { padding:12px; }
+  .grid { grid-template-columns:1fr; }
+}
 @media print {
   body { background:white; color:black; padding:0; }
   .panel,.card { background:white; color:black; border:1px solid #aaa; }
   label,.subtitle,.help,.unit,.result-row span:first-child,.footer { color:#444; }
   input { color:black; background:white; border:1px solid #aaa; }
   button,.actions { display:none; }
-  .warning,.note,.method { color:black; background:white; border:1px solid #777; }
+  .warning,.method { color:black; background:white; border:1px solid #777; }
 }
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>Crane Ground Bearing Calculator</h1>
+  <h1>Crane Ground Bearing Pressure Calculator</h1>
   <div class="subtitle">
-    Crane parking and outrigger mat assessment · SI units · Live calculation
+    Calculate average ground bearing pressure beneath the crane mat.
   </div>
 
   <div class="grid">
     <section class="panel">
-      <h2>1. Crane and outrigger data</h2>
+      <h2>Input data</h2>
 
       <div class="field">
-        <label for="reaction">Maximum load on the most heavily loaded outrigger (tonnes)</label>
+        <label for="reaction">Maximum outrigger reaction (tonnes)</label>
         <input id="reaction" type="number" min="0.001" step="any" value="45">
-        <div class="help">Use the crane manufacturer's outrigger reaction data for the actual configuration. Do not assume the crane weight is divided equally by four.</div>
+        <div class="help">
+          Enter the maximum outrigger reaction from the crane manufacturer's
+          data for the planned crane configuration.
+        </div>
       </div>
-
-      <div class="field">
-        <label for="floatL">Outrigger float length or diameter (m)</label>
-        <input id="floatL" type="number" min="0.001" step="any" value="0.6">
-      </div>
-
-      <div class="field">
-        <label for="floatW">Outrigger float width (m)</label>
-        <input id="floatW" type="number" min="0.001" step="any" value="0.6">
-        <div class="help">For a circular float, enter its diameter in both dimensions. The calculated area is rectangular and may overestimate the true circular contact area.</div>
-      </div>
-
-      <h2 style="margin-top:22px">2. Mat or pad dimensions</h2>
 
       <div class="field">
         <label for="matL">Mat length (m)</label>
@@ -107,12 +188,16 @@ button:hover { filter:brightness(1.15); }
       </div>
 
       <div class="field">
-        <label for="capacity">Allowable ground bearing pressure from site assessment (kPa)</label>
+        <label for="capacity">Allowable ground bearing pressure (kPa)</label>
         <input id="capacity" type="number" min="0.001" step="any" value="150">
-        <div class="help">Enter the value accepted by the responsible geotechnical or temporary-works engineer. Do not use an assumed soil value as a site approval.</div>
+        <div class="help">
+          Use the allowable value provided or approved by the responsible
+          geotechnical or temporary-works engineer.
+        </div>
       </div>
 
       <div id="error" role="alert"></div>
+
       <div class="actions">
         <button id="reset" type="button">Reset values</button>
         <button id="print" type="button">Print / Save PDF</button>
@@ -120,131 +205,137 @@ button:hover { filter:brightness(1.15); }
     </section>
 
     <section class="panel">
-      <h2>3. Ground bearing results</h2>
+      <h2>Ground bearing results</h2>
 
-      <div class="cards">
-        <div class="card">
-          <h3>Mat contact area</h3>
-          <div class="value" id="matArea">4.00</div>
-          <div class="unit">m²</div>
-        </div>
-        <div class="card">
-          <h3>Minimum theoretical area required</h3>
-          <div class="value" id="requiredArea">2.94</div>
-          <div class="unit">m² at the entered allowable pressure</div>
-        </div>
-        <div class="card">
-          <h3>Pressure under mat on ground</h3>
-          <div class="value" id="groundPressure">110.33</div>
-          <div class="unit">kPa</div>
-          <span class="status" id="groundStatus">Checking…</span>
-          <div class="bar"><div class="fill" id="groundBar"></div></div>
-        </div>
-        <div class="card">
-          <h3>Pressure under float on mat</h3>
-          <div class="value" id="floatPressure">1226</div>
-          <div class="unit">kPa · simplified contact pressure</div>
-          <span class="status neutral">Mat structural check required</span>
-        </div>
+      <div class="card">
+        <div class="card-title">Ground bearing pressure under mat</div>
+        <div class="value" id="pressure">110.33</div>
+        <div class="unit">kPa</div>
+        <span class="status pass" id="status">Within entered allowable pressure</span>
+        <div class="bar"><div class="fill" id="bar"></div></div>
+        <div class="help" id="utilisation">73.6% of allowable pressure</div>
       </div>
 
-      <h2 style="margin-top:24px">4. Calculation summary</h2>
-      <div class="result-row"><span>Outrigger reaction</span><strong id="reactionKN">441.30 kN</strong></div>
-      <div class="result-row"><span>Mat contact area</span><strong id="areaSummary">4.00 m²</strong></div>
-      <div class="result-row"><span>Ground allowable pressure</span><strong id="allowableSummary">150.00 kPa</strong></div>
-      <div class="result-row"><span>Ground pressure utilisation</span><strong id="utilisation">73.6%</strong></div>
-      <div class="result-row"><span>Minimum square mat side (theoretical)</span><strong id="squareSide">1.71 m</strong></div>
-      <div class="result-row"><span>Area margin above theoretical minimum</span><strong id="areaMargin">1.06 m²</strong></div>
+      <div class="card">
+        <div class="card-title">Mat contact area</div>
+        <div class="value" id="area">4.00</div>
+        <div class="unit">m²</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Minimum theoretical mat area required</div>
+        <div class="value" id="requiredArea">2.94</div>
+        <div class="unit">m² at the entered allowable ground pressure</div>
+      </div>
+
+      <h2 style="margin-top:22px">Calculation summary</h2>
+      <div class="result-row">
+        <span>Outrigger reaction</span>
+        <strong id="force">441.30 kN</strong>
+      </div>
+      <div class="result-row">
+        <span>Mat dimensions</span>
+        <strong id="dimensions">2.00 × 2.00 m</strong>
+      </div>
+      <div class="result-row">
+        <span>Allowable ground pressure</span>
+        <strong id="allowable">150.00 kPa</strong>
+      </div>
+      <div class="result-row">
+        <span>Minimum square mat side (theoretical)</span>
+        <strong id="side">1.71 m</strong>
+      </div>
+      <div class="result-row">
+        <span>Area above theoretical minimum</span>
+        <strong id="margin">1.06 m²</strong>
+      </div>
 
       <div class="method">
-        <strong>Formulas used</strong><br>
-        Reaction force (kN) = outrigger reaction (tonnes) × 9.80665<br>
+        <strong>Formula</strong><br>
+        Load force (kN) = outrigger reaction (tonnes) × 9.80665<br>
         Mat area (m²) = mat length × mat width<br>
-        Ground pressure (kPa) = reaction force (kN) ÷ mat area (m²)<br>
-        Required area (m²) = reaction force (kN) ÷ allowable ground pressure (kPa)<br>
-        Float pressure (kPa) = reaction force (kN) ÷ float contact area (m²)
+        <strong>Ground pressure (kPa) = load force (kN) ÷ mat area (m²)</strong><br>
+        Required area (m²) = load force (kN) ÷ allowable pressure (kPa)
       </div>
     </section>
   </div>
 
   <div class="warning">
-    <strong>Engineering limitations:</strong> This calculator checks average pressure using the entered reaction and assumed full rectangular mat contact area. It does not calculate the crane's outrigger reaction, mat bending or shear strength, load-spreading through the mat, ground settlement, slope stability, or failure near excavations and buried services. Passing this pressure check does not by itself approve crane parking or a lift.
-  </div>
-
-  <div class="note">
-    <strong>Use of guidance:</strong> Use the manufacturer's maximum support reaction and a project-specific allowable ground pressure. The effective bearing area may be less than the mat's plan area if the mat is flexible, unevenly supported, damaged, or not fully in contact with the ground. Verify the mat and the supporting ground separately with a competent engineer.
+    <strong>Engineering limitation:</strong>
+    This calculator estimates average pressure assuming the full mat area
+    is in effective contact with the ground and the load is spread uniformly.
+    It does not check mat bending or shear strength, settlement, uneven support,
+    slope stability, nearby excavations, buried services, or crane stability.
+    A pressure result within the entered limit is not by itself approval to
+    park the crane or perform a lift. Verify the crane reaction, effective
+    bearing area, mat design and ground capacity with a competent engineer.
   </div>
 
   <div class="footer">
-    Preliminary calculation aid only. It is not an official TÜV NORD or LEEA calculator, certificate, or substitute for the applicable standards, manufacturer's instructions, ground investigation, or approved lift plan.
+    Preliminary calculation aid only. Not an official TÜV NORD or LEEA
+    calculator or certification. Use the applicable standards, manufacturer's
+    instructions, site ground assessment and approved lifting plan.
   </div>
 </div>
 
 <script>
 (() => {
-  const ids = ["reaction", "floatL", "floatW", "matL", "matW", "capacity"];
   const $ = id => document.getElementById(id);
-  const defaults = {
-    reaction: 45, floatL: 0.6, floatW: 0.6,
-    matL: 2, matW: 2, capacity: 150
-  };
+  const ids = ["reaction", "matL", "matW", "capacity"];
+  const defaults = { reaction:45, matL:2, matW:2, capacity:150 };
 
-  const fmt = (n, digits = 2) => n.toLocaleString(undefined, {
-    minimumFractionDigits: digits,
-    maximumFractionDigits: digits
+  const fmt = (n, digits=2) => n.toLocaleString(undefined, {
+    minimumFractionDigits:digits,
+    maximumFractionDigits:digits
   });
-
-  function showError(message) {
-    $("error").textContent = message;
-    $("error").style.display = "block";
-  }
 
   function calculate() {
     const v = {};
     for (const id of ids) v[id] = Number($(id).value);
 
-    for (const id of ids) {
-      if (!Number.isFinite(v[id]) || v[id] <= 0) {
-        showError("Please enter a valid positive number in every field.");
-        return;
-      }
+    const invalid = ids.some(id =>
+      !Number.isFinite(v[id]) || v[id] <= 0
+    );
+
+    if (invalid) {
+      $("error").textContent =
+        "Enter a valid positive number in all fields.";
+      $("error").style.display = "block";
+      return;
     }
 
     $("error").style.display = "none";
 
     const forceKN = v.reaction * 9.80665;
-    const floatArea = v.floatL * v.floatW;
-    const matArea = v.matL * v.matW;
-
-    const groundPressure = forceKN / matArea;
-    const floatPressure = forceKN / floatArea;
+    const area = v.matL * v.matW;
+    const pressure = forceKN / area;
     const requiredArea = forceKN / v.capacity;
-    const utilisation = groundPressure / v.capacity * 100;
-    const squareSide = Math.sqrt(requiredArea);
-    const areaMargin = matArea - requiredArea;
+    const utilisation = pressure / v.capacity * 100;
+    const margin = area - requiredArea;
+    const side = Math.sqrt(requiredArea);
 
-    $("matArea").textContent = fmt(matArea);
+    $("pressure").textContent = fmt(pressure);
+    $("area").textContent = fmt(area);
     $("requiredArea").textContent = fmt(requiredArea);
-    $("groundPressure").textContent = fmt(groundPressure);
-    $("floatPressure").textContent = fmt(floatPressure);
+    $("force").textContent = fmt(forceKN) + " kN";
+    $("dimensions").textContent = fmt(v.matL) + " × " + fmt(v.matW) + " m";
+    $("allowable").textContent = fmt(v.capacity) + " kPa";
+    $("side").textContent = fmt(side) + " m";
+    $("margin").textContent = fmt(margin) + " m²";
 
-    $("reactionKN").textContent = fmt(forceKN) + " kN";
-    $("areaSummary").textContent = fmt(matArea) + " m²";
-    $("allowableSummary").textContent = fmt(v.capacity) + " kPa";
-    $("utilisation").textContent = fmt(utilisation, 1) + "%";
-    $("squareSide").textContent = fmt(squareSide) + " m";
-    $("areaMargin").textContent = fmt(areaMargin) + " m²";
+    $("utilisation").textContent =
+      fmt(utilisation, 1) + "% of allowable pressure";
 
-    const status = $("groundStatus");
-    const bar = $("groundBar");
+    const status = $("status");
+    const bar = $("bar");
     bar.style.width = Math.min(utilisation, 100) + "%";
     bar.className = "fill";
 
-    if (groundPressure <= v.capacity) {
-      status.textContent = "PASS — average pressure is within entered limit";
+    if (pressure <= v.capacity) {
+      status.textContent = "WITHIN entered allowable pressure";
       status.className = "status pass";
     } else {
-      status.textContent = "FAIL — pressure exceeds entered limit";
+      status.textContent = "EXCEEDS entered allowable pressure";
       status.className = "status fail";
       bar.classList.add("fail");
     }
@@ -253,10 +344,8 @@ button:hover { filter:brightness(1.15); }
       bar.classList.add("warn");
     }
 
-    if (areaMargin < 0) {
-      $("areaMargin").textContent = fmt(areaMargin) + " m² — additional area needed";
-    } else {
-      $("areaMargin").textContent = fmt(areaMargin) + " m²";
+    if (margin < 0) {
+      $("margin").textContent = fmt(margin) + " m² — additional area needed";
     }
   }
 
