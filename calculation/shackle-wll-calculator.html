@@ -1,222 +1,799 @@
-<section class="panel">
-  <h2>4 — Find shackle diameter from SWL / WLL</h2>
-  <p class="hint">
-    Enter the required load and choose a shackle type. The lookup uses a reference
-    table, not a universal TÜV formula. Confirm the exact product's certified rating
-    and dimensions before selecting a shackle.
-  </p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Shackle WLL Calculator | Lifting & Rigging</title>
 
-  <div class="grid">
-    <div class="field">
-      <label for="requiredSWL">Required SWL / WLL (tonnes)</label>
-      <input id="requiredSWL" type="number" min="0.001" step="any"
-             placeholder="e.g. 4.5">
-    </div>
-    <div class="field">
-      <label for="reverseType">Shackle type</label>
-      <select id="reverseType">
-        <option value="bow">Bow / Anchor</option>
-        <option value="dee">D-type / Dee</option>
-      </select>
-    </div>
-    <div class="field">
-      <label for="inchFormat">Inch display format</label>
-      <select id="inchFormat">
-        <option value="mixed">Mixed fractions (1 1/4")</option>
-        <option value="fraction">Fractions (5/4")</option>
-      </select>
-    </div>
-  </div>
+<style>
+:root {
+  --bg: #07111f;
+  --panel: rgba(16, 31, 53, 0.86);
+  --panel2: rgba(24, 44, 70, 0.78);
+  --line: rgba(150, 190, 235, 0.20);
+  --text: #edf5ff;
+  --muted: #a9bdd5;
+  --blue: #49a6ff;
+  --cyan: #54e3e8;
+  --green: #65e6a6;
+  --orange: #ffc66d;
+  --red: #ff8585;
+}
 
-  <div class="metrics" style="margin-top:16px">
-    <div class="metric">
-      <label>Reference WLL</label>
-      <output id="reverseWll">—</output>
-      <small>tonnes</small>
-    </div>
-    <div class="metric">
-      <label>Reference diameter</label>
-      <output id="reverseMM">—</output>
-      <small>mm</small>
-    </div>
-    <div class="metric">
-      <label>Fractional inch diameter</label>
-      <output id="reverseIN">—</output>
-      <small>inches</small>
-    </div>
-  </div>
+* { box-sizing: border-box; }
 
-  <div id="reverseMessage" class="notice warn" aria-live="polite">
-    Enter a required SWL to find the next available reference rating.
-  </div>
+html { min-height: 100%; }
 
-  <div class="tablewrap">
-    <table>
-      <thead>
-        <tr>
-          <th>Reference WLL (t)</th>
-          <th>Nominal bow diameter (mm)</th>
-          <th>Fractional inch equivalent</th>
-          <th>Pin diameter (mm)</th>
-        </tr>
-      </thead>
-      <tbody id="reverseRows"></tbody>
-    </table>
-  </div>
-</section>
+body {
+  margin: 0;
+  min-height: 100vh;
+  color: var(--text);
+  font-family: Inter, "Segoe UI", Arial, sans-serif;
+  background:
+    radial-gradient(ellipse at 12% 8%, rgba(32, 125, 255, .22), transparent 36%),
+    radial-gradient(ellipse at 90% 25%, rgba(28, 221, 218, .13), transparent 33%),
+    radial-gradient(ellipse at 50% 100%, rgba(47, 82, 171, .20), transparent 45%),
+    linear-gradient(135deg, #050b15 0%, #0a1930 48%, #081322 100%);
+  background-attachment: fixed;
+  line-height: 1.6;
+}
+
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(135, 175, 225, .025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(135, 175, 225, .025) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+a { color: #8bcaff; }
+
+.page {
+  width: min(1120px, calc(100% - 32px));
+  margin: auto;
+  padding: 24px 0 48px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 30px;
+}
+
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.brand-icon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid rgba(84, 227, 232, .38);
+  border-radius: 14px;
+  color: var(--cyan);
+  background: linear-gradient(145deg, rgba(73,166,255,.2), rgba(84,227,232,.08));
+  box-shadow: 0 0 28px rgba(73,166,255,.13);
+  font-size: 23px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 9px 14px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  text-decoration: none;
+  background: rgba(255,255,255,.035);
+  color: var(--text);
+  transition: .2s;
+}
+
+.back-link:hover {
+  border-color: var(--blue);
+  background: rgba(73,166,255,.10);
+}
+
+.hero {
+  position: relative;
+  overflow: hidden;
+  padding: 34px;
+  border: 1px solid rgba(126, 181, 241, .23);
+  border-radius: 25px;
+  background:
+    radial-gradient(ellipse at 100% 0%, rgba(73,166,255,.19), transparent 48%),
+    linear-gradient(135deg, rgba(20,42,72,.92), rgba(8,22,40,.88));
+  box-shadow: 0 22px 65px rgba(0,0,0,.23);
+  margin-bottom: 24px;
+}
+
+.hero::after {
+  content: "⚓";
+  position: absolute;
+  right: 30px;
+  bottom: -42px;
+  font-size: 180px;
+  line-height: 1;
+  opacity: .045;
+  pointer-events: none;
+}
+
+.eyebrow {
+  display: inline-block;
+  margin-bottom: 12px;
+  padding: 5px 10px;
+  border: 1px solid rgba(84,227,232,.25);
+  border-radius: 999px;
+  color: var(--cyan);
+  background: rgba(84,227,232,.07);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1.3px;
+  text-transform: uppercase;
+}
+
+h1 {
+  margin: 0 0 12px;
+  font-size: clamp(28px, 5vw, 43px);
+  line-height: 1.15;
+  letter-spacing: -1.2px;
+}
+
+h1 span {
+  color: var(--cyan);
+}
+
+.hero p {
+  max-width: 760px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 16px;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+}
+
+.panel {
+  min-width: 0;
+  padding: 25px;
+  border: 1px solid var(--line);
+  border-radius: 21px;
+  background: var(--panel);
+  box-shadow: 0 18px 45px rgba(0,0,0,.18);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+}
+
+.panel.full { grid-column: 1 / -1; }
+
+.panel-heading {
+  display: flex;
+  align-items: flex-start;
+  gap: 13px;
+  margin-bottom: 20px;
+}
+
+.step {
+  flex: 0 0 42px;
+  display: grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 13px;
+  border: 1px solid rgba(73,166,255,.28);
+  color: var(--cyan);
+  background: linear-gradient(145deg, rgba(73,166,255,.17), rgba(84,227,232,.06));
+  font-weight: 900;
+}
+
+h2 {
+  margin: 0 0 4px;
+  font-size: 19px;
+  line-height: 1.3;
+}
+
+.subtitle {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  color: #d8e7fa;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.field { margin-bottom: 17px; }
+
+input, select {
+  display: block;
+  width: 100%;
+  min-width: 0;
+  min-height: 46px;
+  padding: 11px 13px;
+  border: 1px solid rgba(155,190,230,.24);
+  border-radius: 11px;
+  outline: none;
+  color: var(--text);
+  background-color: #0c1b2e;
+  font: inherit;
+  font-size: 14px;
+  transition: border-color .2s, box-shadow .2s;
+}
+
+select option {
+  color: #edf5ff;
+  background: #0c1b2e;
+}
+
+input:focus, select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(73,166,255,.13);
+}
+
+input::placeholder { color: #7288a4; }
+
+.row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 13px;
+}
+
+.choice-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.choice {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 13px;
+  background: rgba(255,255,255,.025);
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+  font: inherit;
+  transition: .2s;
+}
+
+.choice strong { display: block; font-size: 14px; }
+.choice small { color: var(--muted); font-size: 12px; }
+
+.choice.active {
+  border-color: var(--blue);
+  background: linear-gradient(135deg, rgba(73,166,255,.16), rgba(84,227,232,.06));
+  box-shadow: inset 0 0 0 1px rgba(73,166,255,.12);
+}
+
+button { font-family: inherit; }
+
+.primary {
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: 47px;
+  padding: 12px 16px;
+  border: 0;
+  border-radius: 12px;
+  color: #061323;
+  background: linear-gradient(100deg, #61b7ff, #54e3e8);
+  font-weight: 900;
+  cursor: pointer;
+  box-shadow: 0 8px 24px rgba(73,166,255,.16);
+  transition: transform .18s, filter .18s;
+}
+
+.primary:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+
+.result {
+  display: none;
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid rgba(101,230,166,.28);
+  border-radius: 14px;
+  background: rgba(38,155,103,.09);
+}
+
+.result.show { display: block; }
+
+.result-label {
+  color: var(--green);
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.result-value {
+  margin: 5px 0;
+  font-size: clamp(26px, 4vw, 35px);
+  font-weight: 900;
+  line-height: 1.2;
+  overflow-wrap: anywhere;
+}
+
+.result-detail {
+  color: #c4d7eb;
+  font-size: 13px;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.stat {
+  padding: 12px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: rgba(255,255,255,.035);
+  min-width: 0;
+}
+
+.stat small {
+  display: block;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.stat strong {
+  display: block;
+  margin-top: 3px;
+  font-size: 17px;
+  overflow-wrap: anywhere;
+}
+
+.notice {
+  margin-top: 16px;
+  padding: 13px 15px;
+  border: 1px solid rgba(255,198,109,.25);
+  border-radius: 12px;
+  color: #f2dcb7;
+  background: rgba(255,198,109,.065);
+  font-size: 12px;
+}
+
+.error {
+  display: none;
+  margin-top: 12px;
+  color: var(--red);
+  font-size: 13px;
+}
+
+.error.show { display: block; }
+
+.table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 490px;
+  font-size: 13px;
+}
+
+th, td {
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  text-align: left;
+}
+
+th {
+  color: var(--cyan);
+  background: rgba(73,166,255,.08);
+  font-size: 12px;
+}
+
+td { color: #d7e5f7; }
+tbody tr:last-child td { border-bottom: 0; }
+tbody tr:hover td { background: rgba(73,166,255,.045); }
+
+.footer {
+  margin-top: 25px;
+  color: #8198b5;
+  text-align: center;
+  font-size: 12px;
+}
+
+@media (max-width: 760px) {
+  .grid { grid-template-columns: 1fr; }
+  .panel.full { grid-column: auto; }
+  .hero { padding: 25px 22px; }
+  .panel { padding: 21px; }
+  .topbar { align-items: flex-start; }
+  .brand { font-size: 13px; }
+  .back-link { font-size: 12px; }
+}
+
+@media (max-width: 460px) {
+  .page { width: calc(100% - 22px); padding-top: 14px; }
+  .row { grid-template-columns: 1fr; gap: 0; }
+  .stats { grid-template-columns: 1fr; }
+  .hero::after { right: 0; font-size: 130px; }
+  .brand-icon { width: 38px; height: 38px; }
+  .choice { padding: 11px; }
+}
+</style>
+</head>
+
+<body>
+<div class="page">
+
+  <header class="topbar">
+    <div class="brand">
+      <div class="brand-icon">⚓</div>
+      <div>LIFTING <span style="color:#54e3e8"> &amp; RIGGING</span></div>
+    </div>
+    <a class="back-link" href="../calculation.html">← All Calculators</a>
+  </header>
+
+  <section class="hero">
+    <div class="eyebrow">Rigging tools · Reference calculator</div>
+    <h1>Shackle <span>WLL Calculator</span></h1>
+    <p>
+      Estimate reference shackle dimensions from a required working load limit,
+      or calculate a load using a known WLL and an entered angle factor.
+      Always verify the exact shackle manufacturer's specifications.
+    </p>
+  </section>
+
+  <main class="grid">
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div class="step">01</div>
+        <div>
+          <h2>Find diameter from SWL / WLL</h2>
+          <div class="subtitle">Enter the required working load in tonnes.</div>
+        </div>
+      </div>
+
+      <div class="choice-row">
+        <button type="button" class="choice active" id="bowChoice"
+                onclick="setType('Bow')">
+          <strong>Bow / Anchor</strong>
+          <small>Wider bow profile</small>
+        </button>
+        <button type="button" class="choice" id="deeChoice"
+                onclick="setType('D-type')">
+          <strong>D-type / Dee</strong>
+          <small>Narrower profile</small>
+        </button>
+      </div>
+
+      <div class="field">
+        <label for="requiredWll">Required SWL / WLL (tonnes)</label>
+        <input id="requiredWll" type="number" min="0.01" step="any"
+               placeholder="e.g. 3.25">
+      </div>
+
+      <div class="field">
+        <label for="inchFormat">Inch display format</label>
+        <select id="inchFormat">
+          <option value="mixed">Mixed fraction — 1 1/4"</option>
+          <option value="improper">Fraction — 5/4"</option>
+          <option value="decimal">Decimal inches — 1.25"</option>
+        </select>
+      </div>
+
+      <button class="primary" type="button" onclick="findDiameter()">
+        Find reference diameter →
+      </button>
+
+      <div class="error" id="diameterError" role="alert"></div>
+
+      <div class="result" id="diameterResult" aria-live="polite">
+        <div class="result-label">Reference result</div>
+        <div class="result-value" id="diameterHeadline">—</div>
+        <div class="result-detail" id="diameterDescription"></div>
+        <div class="stats">
+          <div class="stat">
+            <small>Nominal bow diameter</small>
+            <strong id="bowMm">—</strong>
+          </div>
+          <div class="stat">
+            <small>Equivalent in inches</small>
+            <strong id="bowInches">—</strong>
+          </div>
+          <div class="stat">
+            <small>Reference pin diameter</small>
+            <strong id="pinMm">—</strong>
+          </div>
+        </div>
+      </div>
+
+      <div class="notice">
+        <strong>Important:</strong> This is a reference lookup based on a
+        published EN 13889 Grade 6 dimensional/WLL table, not a universal
+        TÜV formula or a guarantee that a specific shackle is suitable.
+        Bow and D-type products can have different dimensions and ratings.
+        Confirm the manufacturer's model, marking, certificate, and WLL
+        before use.
+      </div>
+    </section>
+
+    <section class="panel">
+      <div class="panel-heading">
+        <div class="step">02</div>
+        <div>
+          <h2>Load / angle calculator</h2>
+          <div class="subtitle">Use the rated WLL and an approved factor.</div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="knownWll">Shackle WLL (tonnes)</label>
+        <input id="knownWll" type="number" min="0.01" step="any"
+               placeholder="Enter marked WLL">
+      </div>
+
+      <div class="row">
+        <div class="field">
+          <label for="angle">Angle (degrees)</label>
+          <input id="angle" type="number" min="0" max="90" step="any"
+                 placeholder="e.g. 45">
+        </div>
+        <div class="field">
+          <label for="factor">Approved capacity factor</label>
+          <input id="factor" type="number" min="0.01" max="1"
+                 step="any" placeholder="Enter verified factor">
+        </div>
+      </div>
+
+      <button class="primary" type="button" onclick="calculateLoad()">
+        Calculate reference load →
+      </button>
+
+      <div class="error" id="loadError" role="alert"></div>
+
+      <div class="result" id="loadResult" aria-live="polite">
+        <div class="result-label">Calculated reference load</div>
+        <div class="result-value" id="loadValue">—</div>
+        <div class="result-detail" id="loadDescription"></div>
+      </div>
+
+      <div class="notice">
+        Do not assume an angle factor. Enter only a factor approved for the
+        exact rigging arrangement by the applicable manufacturer instructions
+        or engineering procedure. This calculator does not establish a safe
+        working load for an unverified arrangement.
+      </div>
+    </section>
+
+    <section class="panel full">
+      <div class="panel-heading">
+        <div class="step">03</div>
+        <div>
+          <h2>Reference WLL / dimension table</h2>
+          <div class="subtitle">
+            Published EN 13889 Grade 6 reference values. Not a substitute
+            for the manufacturer's product table.
+          </div>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Reference WLL (t)</th>
+              <th>Nominal bow diameter (mm)</th>
+              <th>Pin diameter (mm)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td>0.50</td><td>6.5</td><td>8</td></tr>
+            <tr><td>0.75</td><td>8</td><td>9.5</td></tr>
+            <tr><td>1.00</td><td>10</td><td>11</td></tr>
+            <tr><td>1.50</td><td>11.2</td><td>12.2</td></tr>
+            <tr><td>2.00</td><td>13.5</td><td>16</td></tr>
+            <tr><td>3.25</td><td>16.5</td><td>19</td></tr>
+            <tr><td>4.75</td><td>20</td><td>22</td></tr>
+            <tr><td>6.50</td><td>23</td><td>25</td></tr>
+            <tr><td>8.50</td><td>25.5</td><td>28</td></tr>
+            <tr><td>9.50</td><td>29</td><td>32</td></tr>
+            <tr><td>12.0</td><td>33</td><td>35</td></tr>
+            <tr><td>13.5</td><td>36.5</td><td>38</td></tr>
+            <tr><td>17.0</td><td>39.5</td><td>42</td></tr>
+            <tr><td>25.0</td><td>46</td><td>51</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="notice">
+        The lookup selects the next listed reference WLL at or above the
+        requested value. The same reference table is displayed for both
+        shackle-type selections; it does not establish that both types have
+        identical dimensions. Use the correct manufacturer's table for
+        the selected product.
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    Lifting &amp; Rigging · Reference calculations only · Verify manufacturer data before use
+  </footer>
+</div>
 
 <script>
-(function () {
-  const $ = id => document.getElementById(id);
+const referenceTable = [
+  { wll: 0.50, bow: 6.5, pin: 8 },
+  { wll: 0.75, bow: 8, pin: 9.5 },
+  { wll: 1.00, bow: 10, pin: 11 },
+  { wll: 1.50, bow: 11.2, pin: 12.2 },
+  { wll: 2.00, bow: 13.5, pin: 16 },
+  { wll: 3.25, bow: 16.5, pin: 19 },
+  { wll: 4.75, bow: 20, pin: 22 },
+  { wll: 6.50, bow: 23, pin: 25 },
+  { wll: 8.50, bow: 25.5, pin: 28 },
+  { wll: 9.50, bow: 29, pin: 32 },
+  { wll: 12.0, bow: 33, pin: 35 },
+  { wll: 13.5, bow: 36.5, pin: 38 },
+  { wll: 17.0, bow: 39.5, pin: 42 },
+  { wll: 25.0, bow: 46, pin: 51 }
+];
 
-  /*
-   * Reference dimensions from EN 13889 Grade 6 table.
-   * These are a reference only, not a universal TÜV-certified
-   * selection formula for every manufacturer or shackle model.
-   *
-   * Fields: WLL tonnes, nominal bow diameter mm, pin diameter mm.
-   */
-  const reference = [
-    {wll:0.50, diameter:6.5, pin:8},
-    {wll:0.75, diameter:8, pin:9.5},
-    {wll:1.00, diameter:10, pin:11},
-    {wll:1.50, diameter:11.2, pin:12.2},
-    {wll:2.00, diameter:13.5, pin:16},
-    {wll:3.25, diameter:16.5, pin:19},
-    {wll:4.75, diameter:20, pin:22},
-    {wll:6.50, diameter:23, pin:25},
-    {wll:8.50, diameter:25.5, pin:28},
-    {wll:9.50, diameter:29, pin:32},
-    {wll:12.0, diameter:33, pin:35},
-    {wll:13.5, diameter:36.5, pin:38},
-    {wll:17.0, diameter:39.5, pin:42},
-    {wll:25.0, diameter:46, pin:51}
-  ];
+let selectedType = "Bow";
 
-  const inchFractions = [
-    {mm:6.35, n:1, d:4},
-    {mm:7.9375, n:5, d:16},
-    {mm:9.525, n:3, d:8},
-    {mm:11.1125, n:7, d:16},
-    {mm:12.7, n:1, d:2},
-    {mm:14.2875, n:9, d:16},
-    {mm:15.875, n:5, d:8},
-    {mm:19.05, n:3, d:4},
-    {mm:22.225, n:7, d:8},
-    {mm:25.4, n:1, d:1},
-    {mm:28.575, n:9, d:8},
-    {mm:31.75, n:5, d:4},
-    {mm:34.925, n:11, d:8},
-    {mm:38.1, n:3, d:2},
-    {mm:41.275, n:13, d:8},
-    {mm:44.45, n:7, d:4},
-    {mm:50.8, n:2, d:1},
-    {mm:57.15, n:9, d:4},
-    {mm:63.5, n:5, d:2},
-    {mm:69.85, n:11, d:4},
-    {mm:76.2, n:3, d:1}
-  ];
+function setType(type) {
+  selectedType = type;
+  document.getElementById("bowChoice").classList.toggle("active", type === "Bow");
+  document.getElementById("deeChoice").classList.toggle("active", type === "D-type");
+  document.getElementById("diameterResult").classList.remove("show");
+  hideError("diameterError");
+}
 
-  function gcd(a,b) {
-    while (b) {
-      const t = b;
-      b = a % b;
-      a = t;
-    }
-    return a || 1;
+function showError(id, message) {
+  const el = document.getElementById(id);
+  el.textContent = message;
+  el.classList.add("show");
+}
+
+function hideError(id) {
+  const el = document.getElementById(id);
+  el.textContent = "";
+  el.classList.remove("show");
+}
+
+function toFractionInches(mm) {
+  const format = document.getElementById("inchFormat").value;
+  const inches = mm / 25.4;
+
+  if (format === "decimal") {
+    return inches.toFixed(3).replace(/0+$/, "").replace(/\.$/, "") + '"';
   }
 
-  function inchLabel(mm) {
-    const exact = inchFractions.find(x => Math.abs(x.mm - mm) < 0.03);
-    const inches = mm / 25.4;
+  // Round to the nearest 1/16 inch for a readable fractional equivalent.
+  const denominator = 16;
+  const numerator = Math.round(inches * denominator);
 
-    if (!exact) return inches.toFixed(3) + '"';
+  if (numerator === 0) return '0"';
 
-    let whole = Math.floor(exact.n / exact.d);
-    let numerator = exact.n % exact.d;
-    let denominator = exact.d;
+  const whole = Math.floor(numerator / denominator);
+  let remainder = numerator % denominator;
 
-    if (numerator) {
-      const g = gcd(numerator, denominator);
-      numerator /= g;
-      denominator /= g;
-    }
+  if (remainder === 0) return whole + '"';
 
-    if (whole && numerator) {
-      return $('inchFormat').value === 'mixed'
-        ? whole + ' ' + numerator + '/' + denominator + '"'
-        : (whole * denominator + numerator) + '/' + denominator + '"';
-    }
+  // Reduce the fraction.
+  let a = remainder;
+  let b = denominator;
+  while (b !== 0) {
+    const temp = b;
+    b = a % b;
+    a = temp;
+  }
+  remainder /= a;
+  const reducedDenominator = denominator / a;
 
-    if (whole) return whole + '"';
-    return numerator + '/' + denominator + '"';
+  if (format === "improper") {
+    return (numerator / a) + "/" + reducedDenominator + '"';
   }
 
-  function displayNumber(n) {
-    return n.toLocaleString(undefined, {maximumFractionDigits:2});
+  return (whole ? whole + " " : "") +
+    remainder + "/" + reducedDenominator + '"';
+}
+
+function findDiameter() {
+  hideError("diameterError");
+
+  const input = Number(document.getElementById("requiredWll").value);
+  if (!Number.isFinite(input) || input <= 0) {
+    showError("diameterError", "Enter a valid SWL / WLL greater than zero.");
+    return;
   }
 
-  function updateReverseLookup() {
-    const requested = Number($('requiredSWL').value);
-    const message = $('reverseMessage');
-    const rows = $('reverseRows');
+  const match = referenceTable.find(item => item.wll >= input);
 
-    rows.innerHTML = '';
-    $('reverseWll').textContent = '—';
-    $('reverseMM').textContent = '—';
-    $('reverseIN').textContent = '—';
-
-    if (!$('requiredSWL').value.trim() ||
-        !Number.isFinite(requested) || requested <= 0) {
-      message.textContent = 'Enter a positive SWL / WLL in tonnes.';
-      return;
-    }
-
-    /*
-     * Find the next listed reference rating equal to or above
-     * the requested load. Never interpolate between table rows.
-     */
-    const match = reference.find(item => item.wll >= requested);
-
-    if (!match) {
-      message.textContent =
-        'The required load exceeds this reference table. Consult the actual manufacturer catalogue.';
-      return;
-    }
-
-    $('reverseWll').textContent = displayNumber(match.wll);
-    $('reverseMM').textContent = displayNumber(match.diameter);
-    $('reverseIN').textContent = inchLabel(match.diameter);
-
-    message.textContent =
-      'Reference match only. Verify the actual model, shackle type, markings, pin dimensions and certificate before use.';
-
-    reference.forEach(item => {
-      const tr = document.createElement('tr');
-      [
-        displayNumber(item.wll),
-        displayNumber(item.diameter),
-        inchLabel(item.diameter),
-        displayNumber(item.pin)
-      ].forEach(value => {
-        const td = document.createElement('td');
-        td.textContent = value;
-        tr.appendChild(td);
-      });
-      rows.appendChild(tr);
-    });
+  if (!match) {
+    showError(
+      "diameterError",
+      "This value is above the largest WLL in the reference table. Consult the exact manufacturer's catalogue."
+    );
+    document.getElementById("diameterResult").classList.remove("show");
+    return;
   }
 
-  $('requiredSWL').addEventListener('input', updateReverseLookup);
-  $('inchFormat').addEventListener('change', updateReverseLookup);
-  $('reverseType').addEventListener('change', function () {
-    $('reverseMessage').textContent =
-      this.value === 'dee'
-        ? 'The displayed diameter is a reference only. Confirm D-type body dimensions and WLL in the selected manufacturer's catalogue.'
-        : 'The displayed diameter is a reference only. Confirm Bow-type body dimensions and WLL in the selected manufacturer's catalogue.';
-    updateReverseLookup();
-  });
+  document.getElementById("diameterHeadline").textContent =
+    match.bow + " mm · " + toFractionInches(match.bow);
 
-  updateReverseLookup();
-})();
+  document.getElementById("diameterDescription").textContent =
+    "Required WLL: " + input + " t. Next listed reference WLL: " +
+    match.wll + " t. Selected type: " + selectedType +
+    ". Verify type-specific dimensions with the manufacturer.";
+
+  document.getElementById("bowMm").textContent = match.bow + " mm";
+  document.getElementById("bowInches").textContent = toFractionInches(match.bow);
+  document.getElementById("pinMm").textContent = match.pin + " mm";
+
+  document.getElementById("diameterResult").classList.add("show");
+}
+
+function calculateLoad() {
+  hideError("loadError");
+
+  const wll = Number(document.getElementById("knownWll").value);
+  const angle = Number(document.getElementById("angle").value);
+  const factor = Number(document.getElementById("factor").value);
+
+  if (!Number.isFinite(wll) || wll <= 0) {
+    showError("loadError", "Enter a valid shackle WLL greater than zero.");
+    return;
+  }
+  if (!Number.isFinite(angle) || angle < 0 || angle > 90) {
+    showError("loadError", "Enter an angle between 0° and 90°.");
+    return;
+  }
+  if (!Number.isFinite(factor) || factor <= 0 || factor > 1) {
+    showError("loadError", "Enter a verified capacity factor greater than 0 and no greater than 1.");
+    return;
+  }
+
+  const result = wll * factor;
+
+  document.getElementById("loadValue").textContent =
+    result.toFixed(3).replace(/0+$/, "").replace(/\.$/, "") + " t";
+
+  document.getElementById("loadDescription").textContent =
+    "Arithmetic result: " + wll + " t × " + factor +
+    " = " + result.toFixed(3) + " t. This is not a certification of safe capacity.";
+
+  document.getElementById("loadResult").classList.add("show");
+}
+
+document.getElementById("inchFormat").addEventListener("change", () => {
+  if (document.getElementById("diameterResult").classList.contains("show")) {
+    findDiameter();
+  }
+});
 </script>
+</body>
+</html>
