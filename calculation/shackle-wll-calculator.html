@@ -1,410 +1,222 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Shackle WLL Calculator | Lifting & Rigging</title>
-<style>
-:root {
-  --bg:#07111f;
-  --panel:#101f32;
-  --panel2:#162940;
-  --text:#edf5ff;
-  --muted:#a7b8ce;
-  --line:#2b405a;
-  --cyan:#32d6e8;
-  --blue:#478bff;
-  --green:#40d9a0;
-  --orange:#ffbf69;
-  --red:#ff7777;
-}
-*{box-sizing:border-box}
-body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(ellipse at 10% 0%,#123a5b 0,transparent 40%),
-    radial-gradient(ellipse at 100% 30%,#29214c 0,transparent 35%),
-    var(--bg);
-  min-height:100vh;
-}
-header{
-  padding:28px 18px;
-  text-align:center;
-  border-bottom:1px solid var(--line);
-  background:#07111fc9;
-}
-header h1{margin:0 0 9px;font-size:clamp(25px,4vw,38px)}
-header h1 span{color:var(--cyan)}
-header p{margin:0;color:var(--muted);line-height:1.6}
-.container{max-width:1100px;margin:auto;padding:24px 16px 50px}
-.nav{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:22px}
-.btn,button{
-  border:0;border-radius:10px;padding:12px 16px;
-  font-weight:700;cursor:pointer;text-decoration:none;
-  display:inline-block;font-size:14px;
-}
-.btn-secondary{background:#20354d;color:var(--text)}
-.btn-primary{background:linear-gradient(120deg,var(--cyan),var(--blue));color:#07111f}
-.panel{
-  background:linear-gradient(145deg,#13253aee,#0d1a2bea);
-  border:1px solid var(--line);border-radius:18px;
-  padding:22px;margin-bottom:20px;
-  box-shadow:0 12px 35px #0002;
-}
-h2{font-size:21px;margin:0 0 18px}
-h3{font-size:16px;margin:0 0 14px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
-.field{display:flex;flex-direction:column;gap:8px;min-width:0}
-label{font-size:13px;color:#c3d2e5;font-weight:700}
-input,select{
-  width:100%;min-width:0;padding:12px;
-  border-radius:9px;border:1px solid #38516e;
-  background:#091728;color:var(--text);font-size:16px;
-}
-input:focus,select:focus{outline:2px solid var(--cyan);outline-offset:1px}
-.hint{color:var(--muted);font-size:12px;line-height:1.5}
-.shackle-types{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:18px}
-.type-card{
-  border:1px solid var(--line);border-radius:12px;padding:15px;
-  background:#0b192a;cursor:pointer;text-align:left;color:var(--text);
-}
-.type-card.active{border-color:var(--cyan);background:#103044}
-.type-card strong{display:block;margin-bottom:6px;font-size:16px}
-.type-card small{color:var(--muted);line-height:1.4}
-.results{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
-.metric{background:#0a1929;border:1px solid var(--line);padding:16px;border-radius:12px}
-.metric .label{font-size:12px;color:var(--muted)}
-.metric .value{font-size:25px;font-weight:800;color:var(--cyan);margin-top:8px;overflow-wrap:anywhere}
-.metric small{color:var(--muted)}
-.table-wrap{overflow-x:auto}
-table{width:100%;border-collapse:collapse;min-width:520px}
-th,td{padding:13px 12px;border-bottom:1px solid var(--line);text-align:left}
-th{color:var(--cyan);font-size:12px;text-transform:uppercase;letter-spacing:.04em}
-td{font-size:14px}
-.warning{
-  border:1px solid #8a6432;background:#382b1b;
-  color:#ffe0ad;border-radius:12px;padding:15px;
-  line-height:1.6;font-size:13px;margin-top:16px;
-}
-.info{
-  border:1px solid #276d65;background:#102d30;
-  color:#c5fff0;border-radius:12px;padding:15px;
-  line-height:1.6;font-size:13px;
-}
-.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
-.factor-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
-.factor-grid .field label{font-size:12px}
-footer{text-align:center;padding:24px;color:var(--muted);font-size:12px}
-@media(max-width:650px){
-  .grid,.results{grid-template-columns:1fr}
-  .factor-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
-  .panel{padding:16px}
-}
-@media print{
-  body{background:white;color:black}
-  header,.nav,.actions{display:none}
-  .panel,.metric{background:white;color:black;box-shadow:none;border:1px solid #aaa}
-  .metric .value,th{color:#111}
-  .hint,.metric .label,.metric small{color:#333}
-}
-</style>
-</head>
-<body>
+<section class="panel">
+  <h2>4 — Find shackle diameter from SWL / WLL</h2>
+  <p class="hint">
+    Enter the required load and choose a shackle type. The lookup uses a reference
+    table, not a universal TÜV formula. Confirm the exact product's certified rating
+    and dimensions before selecting a shackle.
+  </p>
 
-<header>
-  <h1>Shackle <span>WLL Calculator</span></h1>
-  <p>Bow & D-type shackles · Metric and imperial sizes · Angle-capacity reference</p>
-</header>
-
-<main class="container">
-  <nav class="nav">
-    <a class="btn btn-secondary" href="../calculation.html">← All Calculators</a>
-    <a class="btn btn-secondary" href="../index.html">Home</a>
-  </nav>
-
-  <section class="panel">
-    <h2>01 — Select shackle</h2>
-    <div class="shackle-types">
-      <button type="button" class="type-card active" id="bowBtn" aria-pressed="true">
-        <strong>Bow / Anchor Shackle</strong>
-        <small>Wide bow shape. Use only within the manufacturer's permitted loading directions.</small>
-      </button>
-      <button type="button" class="type-card" id="deeBtn" aria-pressed="false">
-        <strong>D-type / Dee Shackle</strong>
-        <small>Narrower shape. Side loading may be restricted or require derating.</small>
-      </button>
+  <div class="grid">
+    <div class="field">
+      <label for="requiredSWL">Required SWL / WLL (tonnes)</label>
+      <input id="requiredSWL" type="number" min="0.001" step="any"
+             placeholder="e.g. 4.5">
     </div>
+    <div class="field">
+      <label for="reverseType">Shackle type</label>
+      <select id="reverseType">
+        <option value="bow">Bow / Anchor</option>
+        <option value="dee">D-type / Dee</option>
+      </select>
+    </div>
+    <div class="field">
+      <label for="inchFormat">Inch display format</label>
+      <select id="inchFormat">
+        <option value="mixed">Mixed fractions (1 1/4")</option>
+        <option value="fraction">Fractions (5/4")</option>
+      </select>
+    </div>
+  </div>
 
-    <div class="grid">
-      <div class="field">
-        <label for="unit">Diameter unit</label>
-        <select id="unit">
-          <option value="mm">Millimetres (mm)</option>
-          <option value="in">Inches (in)</option>
-        </select>
-      </div>
-      <div class="field">
-        <label for="diameter">Nominal shackle body / pin size</label>
-        <select id="diameter"></select>
-        <span class="hint">Size alone does not establish WLL. Confirm the exact model and manufacturer's marking.</span>
-      </div>
-      <div class="field">
-        <label for="wll">Manufacturer-rated WLL (tonnes)</label>
-        <input id="wll" type="number" min="0.001" max="10000" step="any" placeholder="Enter stamped / certified WLL">
-      </div>
-      <div class="field">
-        <label for="manufacturer">Manufacturer / model reference</label>
-        <input id="manufacturer" type="text" placeholder="e.g. model number / certificate">
-      </div>
+  <div class="metrics" style="margin-top:16px">
+    <div class="metric">
+      <label>Reference WLL</label>
+      <output id="reverseWll">—</output>
+      <small>tonnes</small>
     </div>
-  </section>
+    <div class="metric">
+      <label>Reference diameter</label>
+      <output id="reverseMM">—</output>
+      <small>mm</small>
+    </div>
+    <div class="metric">
+      <label>Fractional inch diameter</label>
+      <output id="reverseIN">—</output>
+      <small>inches</small>
+    </div>
+  </div>
 
-  <section class="panel">
-    <h2>02 — Rated capacity</h2>
-    <div class="results">
-      <div class="metric">
-        <div class="label">Selected shackle</div>
-        <div class="value" id="typeResult">Bow / Anchor</div>
-        <small id="sizeResult">Select a size</small>
-      </div>
-      <div class="metric">
-        <div class="label">Entered manufacturer WLL</div>
-        <div class="value" id="wllResult">—</div>
-        <small>tonnes (t)</small>
-      </div>
-      <div class="metric">
-        <div class="label">WLL in kilograms</div>
-        <div class="value" id="kgResult">—</div>
-        <small>kg equivalent</small>
-      </div>
-    </div>
-    <p class="hint" style="margin-top:14px">
-      The WLL above is entered by the user from the actual shackle marking or certificate.
-      This tool does not infer certified capacity from diameter.
-    </p>
-  </section>
+  <div id="reverseMessage" class="notice warn" aria-live="polite">
+    Enter a required SWL to find the next available reference rating.
+  </div>
 
-  <section class="panel">
-    <h2>03 — Angle capacity table</h2>
-    <p class="hint">
-      Enter the manufacturer's approved capacity factor for each loading condition.
-      A factor of 100% means no reduction from the stated WLL; 75% means 75% of WLL.
-      Leave a factor blank if the manufacturer does not approve or specify that condition.
-    </p>
-
-    <div class="factor-grid" style="margin-top:16px">
-      <div class="field">
-        <label for="f0">Straight pull (%)</label>
-        <input id="f0" type="number" min="0" max="100" step="any" value="100">
-      </div>
-      <div class="field">
-        <label for="f30">30° factor (%)</label>
-        <input id="f30" type="number" min="0" max="100" step="any" placeholder="Verify">
-      </div>
-      <div class="field">
-        <label for="f45">45° factor (%)</label>
-        <input id="f45" type="number" min="0" max="100" step="any" placeholder="Verify">
-      </div>
-      <div class="field">
-        <label for="f60">60° factor (%)</label>
-        <input id="f60" type="number" min="0" max="100" step="any" placeholder="Verify">
-      </div>
-      <div class="field">
-        <label for="f90">90° factor (%)</label>
-        <input id="f90" type="number" min="0" max="100" step="any" placeholder="Verify">
-      </div>
-    </div>
-
-    <div class="table-wrap" style="margin-top:20px">
-      <table>
-        <thead>
-          <tr>
-            <th>Loading condition</th>
-            <th>Manufacturer factor</th>
-            <th>Calculated capacity</th>
-          </tr>
-        </thead>
-        <tbody id="angleRows">
-          <tr><td>Straight pull (0°)</td><td>100%</td><td>Enter WLL</td></tr>
-          <tr><td>30°</td><td>Not provided</td><td>Not calculated</td></tr>
-          <tr><td>45°</td><td>Not provided</td><td>Not calculated</td></tr>
-          <tr><td>60°</td><td>Not provided</td><td>Not calculated</td></tr>
-          <tr><td>90°</td><td>Not provided</td><td>Not calculated</td></tr>
-        </tbody>
-      </table>
-    </div>
-    <div class="warning">
-      <strong>Angle definition matters:</strong> these labels refer to the angle specified in
-      the applicable manufacturer's loading chart, not automatically to a sling-leg angle.
-      Do not apply these factors until you confirm that the angle convention matches the
-      manufacturer's instructions for this exact shackle.
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>04 — Standards and safety checks</h2>
-    <div class="info">
-      <strong>Compliance status: manufacturer verification required.</strong><br>
-      This calculator does not certify compliance with Saudi requirements, TÜV certification,
-      EN 13889, or any other standard. Verify the applicable project requirements, shackle
-      certificate, WLL marking, material, pin type, and manufacturer's approved loading
-      directions before use.
-    </div>
-    <div class="warning">
-      Never exceed the stamped WLL. Do not assume a shackle is safe for side loading,
-      multiple-leg loading, shock loading, or a particular angle based only on its diameter.
-      If a manufacturer does not permit a loading condition or provide a capacity for it,
-      treat that condition as unverified and do not use the calculated value for lift planning.
-    </div>
-    <div class="actions">
-      <button class="btn-primary" type="button" id="printBtn">Print / Save PDF</button>
-      <button class="btn btn-secondary" type="button" id="resetBtn">Reset calculator</button>
-    </div>
-  </section>
-</main>
-
-<footer>
-  Lifting & Rigging Study Tool · For reference only · Always follow approved lifting procedures
-</footer>
+  <div class="tablewrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Reference WLL (t)</th>
+          <th>Nominal bow diameter (mm)</th>
+          <th>Fractional inch equivalent</th>
+          <th>Pin diameter (mm)</th>
+        </tr>
+      </thead>
+      <tbody id="reverseRows"></tbody>
+    </table>
+  </div>
+</section>
 
 <script>
-(function(){
+(function () {
   const $ = id => document.getElementById(id);
-  let shackleType = "Bow / Anchor";
 
-  // Nominal size references only; these are not WLL ratings.
-  const sizesMM = [
-    6, 8, 10, 12, 13, 16, 19, 20, 22, 25, 28, 32, 35, 38,
-    40, 45, 50, 55, 60, 65, 70, 75
+  /*
+   * Reference dimensions from EN 13889 Grade 6 table.
+   * These are a reference only, not a universal TÜV-certified
+   * selection formula for every manufacturer or shackle model.
+   *
+   * Fields: WLL tonnes, nominal bow diameter mm, pin diameter mm.
+   */
+  const reference = [
+    {wll:0.50, diameter:6.5, pin:8},
+    {wll:0.75, diameter:8, pin:9.5},
+    {wll:1.00, diameter:10, pin:11},
+    {wll:1.50, diameter:11.2, pin:12.2},
+    {wll:2.00, diameter:13.5, pin:16},
+    {wll:3.25, diameter:16.5, pin:19},
+    {wll:4.75, diameter:20, pin:22},
+    {wll:6.50, diameter:23, pin:25},
+    {wll:8.50, diameter:25.5, pin:28},
+    {wll:9.50, diameter:29, pin:32},
+    {wll:12.0, diameter:33, pin:35},
+    {wll:13.5, diameter:36.5, pin:38},
+    {wll:17.0, diameter:39.5, pin:42},
+    {wll:25.0, diameter:46, pin:51}
   ];
-  const sizesIN = [
-    0.25, 0.3125, 0.375, 0.5, 0.625, 0.75, 0.875, 1,
-    1.125, 1.25, 1.375, 1.5, 1.75, 2, 2.25, 2.5, 3
+
+  const inchFractions = [
+    {mm:6.35, n:1, d:4},
+    {mm:7.9375, n:5, d:16},
+    {mm:9.525, n:3, d:8},
+    {mm:11.1125, n:7, d:16},
+    {mm:12.7, n:1, d:2},
+    {mm:14.2875, n:9, d:16},
+    {mm:15.875, n:5, d:8},
+    {mm:19.05, n:3, d:4},
+    {mm:22.225, n:7, d:8},
+    {mm:25.4, n:1, d:1},
+    {mm:28.575, n:9, d:8},
+    {mm:31.75, n:5, d:4},
+    {mm:34.925, n:11, d:8},
+    {mm:38.1, n:3, d:2},
+    {mm:41.275, n:13, d:8},
+    {mm:44.45, n:7, d:4},
+    {mm:50.8, n:2, d:1},
+    {mm:57.15, n:9, d:4},
+    {mm:63.5, n:5, d:2},
+    {mm:69.85, n:11, d:4},
+    {mm:76.2, n:3, d:1}
   ];
 
-  const factors = [
-    {id:"f0", label:"Straight pull (0°)"},
-    {id:"f30", label:"30°"},
-    {id:"f45", label:"45°"},
-    {id:"f60", label:"60°"},
-    {id:"f90", label:"90°"}
-  ];
+  function gcd(a,b) {
+    while (b) {
+      const t = b;
+      b = a % b;
+      a = t;
+    }
+    return a || 1;
+  }
 
-  function populateSizes(){
-    const unit = $("unit").value;
-    const select = $("diameter");
-    const previous = select.value;
-    const values = unit === "mm" ? sizesMM : sizesIN;
-    select.innerHTML = "";
+  function inchLabel(mm) {
+    const exact = inchFractions.find(x => Math.abs(x.mm - mm) < 0.03);
+    const inches = mm / 25.4;
 
-    values.forEach(value => {
-      const option = document.createElement("option");
-      option.value = String(value);
-      option.textContent = unit === "mm"
-        ? value + " mm"
-        : value + " in (" + (value * 25.4).toFixed(2) + " mm)";
-      select.appendChild(option);
+    if (!exact) return inches.toFixed(3) + '"';
+
+    let whole = Math.floor(exact.n / exact.d);
+    let numerator = exact.n % exact.d;
+    let denominator = exact.d;
+
+    if (numerator) {
+      const g = gcd(numerator, denominator);
+      numerator /= g;
+      denominator /= g;
+    }
+
+    if (whole && numerator) {
+      return $('inchFormat').value === 'mixed'
+        ? whole + ' ' + numerator + '/' + denominator + '"'
+        : (whole * denominator + numerator) + '/' + denominator + '"';
+    }
+
+    if (whole) return whole + '"';
+    return numerator + '/' + denominator + '"';
+  }
+
+  function displayNumber(n) {
+    return n.toLocaleString(undefined, {maximumFractionDigits:2});
+  }
+
+  function updateReverseLookup() {
+    const requested = Number($('requiredSWL').value);
+    const message = $('reverseMessage');
+    const rows = $('reverseRows');
+
+    rows.innerHTML = '';
+    $('reverseWll').textContent = '—';
+    $('reverseMM').textContent = '—';
+    $('reverseIN').textContent = '—';
+
+    if (!$('requiredSWL').value.trim() ||
+        !Number.isFinite(requested) || requested <= 0) {
+      message.textContent = 'Enter a positive SWL / WLL in tonnes.';
+      return;
+    }
+
+    /*
+     * Find the next listed reference rating equal to or above
+     * the requested load. Never interpolate between table rows.
+     */
+    const match = reference.find(item => item.wll >= requested);
+
+    if (!match) {
+      message.textContent =
+        'The required load exceeds this reference table. Consult the actual manufacturer catalogue.';
+      return;
+    }
+
+    $('reverseWll').textContent = displayNumber(match.wll);
+    $('reverseMM').textContent = displayNumber(match.diameter);
+    $('reverseIN').textContent = inchLabel(match.diameter);
+
+    message.textContent =
+      'Reference match only. Verify the actual model, shackle type, markings, pin dimensions and certificate before use.';
+
+    reference.forEach(item => {
+      const tr = document.createElement('tr');
+      [
+        displayNumber(item.wll),
+        displayNumber(item.diameter),
+        inchLabel(item.diameter),
+        displayNumber(item.pin)
+      ].forEach(value => {
+        const td = document.createElement('td');
+        td.textContent = value;
+        tr.appendChild(td);
+      });
+      rows.appendChild(tr);
     });
-
-    if (previous && values.includes(Number(previous))) select.value = previous;
-    update();
   }
 
-  function fmt(value, digits=2){
-    return Number(value).toLocaleString(undefined,{
-      maximumFractionDigits:digits,
-      minimumFractionDigits:0
-    });
-  }
-
-  function validWLL(){
-    const wll = Number($("wll").value);
-    return $("wll").value.trim() !== "" && Number.isFinite(wll) && wll > 0;
-  }
-
-  function update(){
-    const unit = $("unit").value;
-    const diameter = Number($("diameter").value);
-    const diameterMM = unit === "mm" ? diameter : diameter * 25.4;
-    const diameterIN = diameterMM / 25.4;
-    const wll = validWLL() ? Number($("wll").value) : null;
-
-    $("typeResult").textContent = shackleType;
-    $("sizeResult").textContent =
-      fmt(diameterMM,2) + " mm / " + fmt(diameterIN,3) + " in";
-    $("wllResult").textContent = wll === null ? "—" : fmt(wll) + " t";
-    $("kgResult").textContent = wll === null ? "—" : fmt(wll * 1000,0);
-
-    const tbody = $("angleRows");
-    tbody.innerHTML = "";
-
-    factors.forEach(item => {
-      const raw = $(item.id).value.trim();
-      const row = document.createElement("tr");
-      const angleCell = document.createElement("td");
-      const factorCell = document.createElement("td");
-      const capacityCell = document.createElement("td");
-
-      angleCell.textContent = item.label;
-
-      if(raw === ""){
-        factorCell.textContent = "Not provided";
-        capacityCell.textContent = "Not calculated";
-      } else {
-        const factor = Number(raw);
-        if(!Number.isFinite(factor) || factor < 0 || factor > 100){
-          factorCell.textContent = "Invalid factor";
-          capacityCell.textContent = "Use 0–100%";
-        } else {
-          factorCell.textContent = fmt(factor,2) + "%";
-          if(wll === null){
-            capacityCell.textContent = "Enter rated WLL";
-          } else {
-            const capacity = wll * factor / 100;
-            capacityCell.textContent =
-              fmt(capacity,3) + " t (" + fmt(capacity*1000,0) + " kg)";
-          }
-        }
-      }
-
-      row.append(angleCell,factorCell,capacityCell);
-      tbody.appendChild(row);
-    });
-  }
-
-  function setType(type){
-    shackleType = type;
-    const bow = type === "Bow / Anchor";
-    $("bowBtn").classList.toggle("active",bow);
-    $("deeBtn").classList.toggle("active",!bow);
-    $("bowBtn").setAttribute("aria-pressed",String(bow));
-    $("deeBtn").setAttribute("aria-pressed",String(!bow));
-    update();
-  }
-
-  $("bowBtn").addEventListener("click",()=>setType("Bow / Anchor"));
-  $("deeBtn").addEventListener("click",()=>setType("D-type / Dee"));
-  $("unit").addEventListener("change",populateSizes);
-  $("diameter").addEventListener("change",update);
-  $("wll").addEventListener("input",update);
-  $("manufacturer").addEventListener("input",update);
-  factors.forEach(item => $(item.id).addEventListener("input",update));
-  $("printBtn").addEventListener("click",()=>window.print());
-
-  $("resetBtn").addEventListener("click",()=>{
-    $("unit").value = "mm";
-    $("wll").value = "";
-    $("manufacturer").value = "";
-    $("f0").value = "100";
-    ["f30","f45","f60","f90"].forEach(id=>$(id).value="");
-    setType("Bow / Anchor");
-    populateSizes();
+  $('requiredSWL').addEventListener('input', updateReverseLookup);
+  $('inchFormat').addEventListener('change', updateReverseLookup);
+  $('reverseType').addEventListener('change', function () {
+    $('reverseMessage').textContent =
+      this.value === 'dee'
+        ? 'The displayed diameter is a reference only. Confirm D-type body dimensions and WLL in the selected manufacturer's catalogue.'
+        : 'The displayed diameter is a reference only. Confirm Bow-type body dimensions and WLL in the selected manufacturer's catalogue.';
+    updateReverseLookup();
   });
 
-  populateSizes();
+  updateReverseLookup();
 })();
 </script>
-</body>
-</html>
