@@ -2,686 +2,338 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Sling Length & Angle Calculator</title>
-
 <style>
-:root {
-  --navy:#101b35;
-  --blue:#1e66f5;
-  --cyan:#35d5e8;
-  --purple:#8158f5;
-  --green:#16a779;
-  --text:#eaf1ff;
-  --muted:#aebbd4;
-  --line:rgba(195,215,255,.19);
-  --panel:rgba(18,31,60,.88);
-}
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  padding:22px 13px;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
-  background:
-    radial-gradient(ellipse at 8% 8%,rgba(53,213,232,.18),transparent 35%),
-    radial-gradient(ellipse at 90% 22%,rgba(129,88,245,.22),transparent 38%),
-    linear-gradient(140deg,#08101f,#111e3c 55%,#102d42);
-  min-height:100vh;
-}
-.container { max-width:1080px; margin:auto; }
-.hero {
-  position:relative;
-  overflow:hidden;
-  border:1px solid var(--line);
-  border-radius:24px;
-  padding:27px;
-  margin-bottom:19px;
-  background:linear-gradient(120deg,rgba(30,102,245,.22),rgba(53,213,232,.08));
-}
-.hero:after {
-  content:"";
-  position:absolute;
-  width:180px;height:180px;
-  right:-60px;top:-75px;
-  border:25px solid rgba(53,213,232,.09);
-  border-radius:50%;
-}
-.eyebrow {
-  display:inline-block;
-  color:#75e8f2;
-  font-size:11px;
-  font-weight:800;
-  letter-spacing:2px;
-  margin-bottom:10px;
-}
-h1 { margin:0 0 10px; font-size:clamp(25px,5vw,37px); line-height:1.15; }
-.hero p { color:#c2d1ed; line-height:1.6; margin:0; max-width:720px; }
-.mode-tabs {
-  display:grid;
-  grid-template-columns:1fr 1fr;
-  gap:14px;
-  margin-bottom:19px;
-}
-.mode-button {
-  text-align:left;
-  min-height:100px;
-  border-radius:17px;
-  border:1px solid var(--line);
-  padding:17px;
-  cursor:pointer;
-  color:var(--text);
-  background:rgba(255,255,255,.045);
-  transition:transform .15s,border-color .15s;
-}
-.mode-button:hover { transform:translateY(-2px); }
-.mode-button.active.length-mode {
-  border-color:#35d5e8;
-  background:linear-gradient(120deg,rgba(53,213,232,.18),rgba(53,213,232,.04));
-}
-.mode-button.active.angle-mode {
-  border-color:#ad91ff;
-  background:linear-gradient(120deg,rgba(129,88,245,.22),rgba(129,88,245,.05));
-}
-.mode-button strong { display:block; font-size:17px; margin-bottom:7px; }
-.mode-button span { display:block; color:var(--muted); font-size:13px; line-height:1.5; }
-.mode-icon { font-size:23px; margin-bottom:8px; display:block; }
-.panel {
-  border:1px solid var(--line);
-  border-radius:19px;
-  background:var(--panel);
-  padding:22px;
-  margin-bottom:18px;
-  box-shadow:0 12px 35px rgba(0,0,0,.15);
-}
-.length-panel { border-top:3px solid var(--cyan); }
-.angle-panel { border-top:3px solid var(--purple); }
-.panel h2 { font-size:20px; margin:0 0 8px; }
-.subtext { color:var(--muted); font-size:13px; line-height:1.6; margin:0 0 19px; }
-.section-title {
-  margin:23px 0 13px;
-  font-size:12px;
-  font-weight:800;
-  letter-spacing:1.2px;
-  color:#82e6ef;
-  text-transform:uppercase;
-}
-.angle-panel .section-title { color:#c1adff; }
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:15px;
-}
-.field { min-width:0; }
-.full { grid-column:1/-1; }
-label { display:block; font-size:13px; font-weight:700; margin-bottom:7px; }
-input,select {
-  width:100%;
-  min-height:45px;
-  padding:11px 12px;
-  border-radius:9px;
-  border:1px solid rgba(195,215,255,.25);
-  background:#101b35;
-  color:#f3f7ff;
-  font-size:16px;
-}
-input:focus,select:focus { outline:2px solid rgba(53,213,232,.55); border-color:var(--cyan); }
-.help { color:var(--muted); font-size:11px; line-height:1.5; margin-top:6px; }
-.point-grid {
-  display:grid;
-  grid-template-columns:repeat(3,minmax(0,1fr));
-  gap:12px;
-}
-.point-card {
-  padding:13px;
-  border:1px solid var(--line);
-  border-radius:12px;
-  background:rgba(255,255,255,.035);
-}
-.point-card h3 { font-size:14px; margin:0 0 12px; }
-.point-card label { font-size:12px; }
-.point-card input { margin-bottom:12px; }
-.point-card input:last-child { margin-bottom:0; }
-.formula {
-  margin-top:18px;
-  border:1px solid var(--line);
-  border-radius:11px;
-  background:rgba(255,255,255,.04);
-  padding:14px;
-  line-height:1.8;
-  font-size:13px;
-  overflow-wrap:anywhere;
-}
-.formula strong { color:#8debf3; }
-.angle-panel .formula strong { color:#c1adff; }
-.results-title { margin:0 0 13px; font-size:18px; }
-.results-grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:13px;
-}
-.result {
-  padding:17px;
-  border:1px solid var(--line);
-  border-radius:13px;
-  background:rgba(255,255,255,.045);
-  min-width:0;
-}
-.result.highlight {
-  background:linear-gradient(130deg,rgba(53,213,232,.13),rgba(53,213,232,.035));
-  border-color:rgba(53,213,232,.4);
-}
-.angle-panel .result.highlight {
-  background:linear-gradient(130deg,rgba(129,88,245,.2),rgba(129,88,245,.04));
-  border-color:rgba(173,145,255,.45);
-}
-.result-label { color:var(--muted); font-size:12px; line-height:1.5; font-weight:700; }
-.result-value { font-size:clamp(23px,4vw,32px); font-weight:800; margin-top:9px; overflow-wrap:anywhere; }
-.length-panel .result.highlight .result-value { color:#75e8f2; }
-.angle-panel .result.highlight .result-value { color:#c1adff; }
-.result-unit { font-size:13px; font-weight:700; }
-.leg-results { margin-top:15px; display:grid; gap:9px; }
-.leg-row {
-  display:flex; justify-content:space-between; align-items:center; gap:12px;
-  border-bottom:1px solid var(--line); padding:11px 0;
-  font-size:13px;
-}
-.leg-row:last-child { border-bottom:0; }
-.leg-row strong { text-align:right; overflow-wrap:anywhere; }
-.notice {
-  border:1px solid rgba(255,190,92,.35);
-  background:rgba(255,174,60,.08);
-  color:#ffe0ac;
-  padding:14px;
-  border-radius:11px;
-  font-size:12px;
-  line-height:1.65;
-  margin-top:17px;
-}
-.notice strong { color:#ffd08a; }
-.actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:18px; }
-button.action, a.back {
-  display:inline-flex; justify-content:center; align-items:center;
-  min-height:44px; padding:12px 16px; border:0; border-radius:9px;
-  color:white; font-size:13px; font-weight:800; cursor:pointer; text-decoration:none;
-}
-.length-panel button.action { background:linear-gradient(110deg,#167fae,#1dbac8); }
-.angle-panel button.action { background:linear-gradient(110deg,#6741d9,#9876ff); }
-button.secondary { background:#344663; }
-a.back { background:#253958; border:1px solid var(--line); }
-.hidden { display:none!important; }
-.error { color:#ffb5b5; font-size:12px; margin-top:12px; }
-.footer { color:#9eacc7; text-align:center; font-size:11px; line-height:1.7; padding:5px 8px 20px; }
-
-@media(max-width:700px) {
-  body { padding:12px 9px; }
-  .hero,.panel { padding:17px; border-radius:15px; }
-  .mode-tabs { gap:9px; }
-  .mode-button { padding:13px; }
-  .point-grid { grid-template-columns:1fr; }
-}
-@media(max-width:480px) {
-  .grid,.results-grid,.mode-tabs { grid-template-columns:1fr; }
-  .mode-button { min-height:auto; }
-  .leg-row { align-items:flex-start; }
-}
-@media print {
-  body { background:white!important; color:#172238; padding:0; }
-  .hero,.panel { background:white!important; color:#172238; box-shadow:none; border:1px solid #bbb; break-inside:avoid; }
-  .hero p,.subtext,.help,.result-label,.footer,.mode-button span { color:#444!important; }
-  .mode-tabs,.actions,.notice { display:none!important; }
-  input,select { background:white!important; color:#111!important; border:1px solid #aaa; }
-  .result,.formula,.point-card { background:white!important; color:#111!important; border:1px solid #bbb; }
-  .result-value,.leg-row strong,.panel h2,.section-title,.formula strong { color:#111!important; }
-  .hidden { display:none!important; }
-}
+:root{--cyan:#35d5e8;--purple:#a58bff;--text:#eaf1ff;--muted:#aebbd4;--line:rgba(195,215,255,.2)}
+*{box-sizing:border-box}
+body{margin:0;padding:18px 12px;font-family:Arial,sans-serif;color:var(--text);background:radial-gradient(ellipse at 8% 8%,#164c60,transparent 36%),radial-gradient(ellipse at 90% 20%,#38245f,transparent 38%),linear-gradient(140deg,#08101f,#111e3c 55%,#102d42)}
+.container{max-width:1050px;margin:auto}
+.hero,.panel{border:1px solid var(--line);border-radius:18px;padding:22px;margin-bottom:18px;background:rgba(18,31,60,.92)}
+.hero{background:linear-gradient(120deg,rgba(30,102,245,.25),rgba(53,213,232,.08))}
+.eyebrow{color:#75e8f2;font-size:11px;font-weight:bold;letter-spacing:2px}
+h1{font-size:clamp(25px,5vw,36px);margin:10px 0}
+h2{font-size:20px;margin:0 0 10px}
+p{line-height:1.6}
+.subtext,.help{color:var(--muted);font-size:13px;line-height:1.5}
+.mode-tabs,.grid,.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:13px}
+.mode-tabs{margin-bottom:18px}
+.mode-button{padding:16px;border-radius:13px;border:1px solid var(--line);background:#16213e;color:var(--text);text-align:left;cursor:pointer;min-height:95px}
+.mode-button strong,.mode-button span{display:block;margin-bottom:6px}
+.mode-button span{font-size:12px;color:var(--muted);line-height:1.5}
+.mode-button.active.length{border-color:var(--cyan);background:#123447}
+.mode-button.active.angle{border-color:var(--purple);background:#292044}
+.length-panel{border-top:3px solid var(--cyan)}
+.angle-panel{border-top:3px solid var(--purple)}
+.field{min-width:0}
+.full{grid-column:1/-1}
+label{display:block;font-size:13px;font-weight:bold;margin:0 0 7px}
+input,select{width:100%;min-height:44px;padding:10px;border:1px solid #52617e;border-radius:8px;background:#101b35;color:white;font-size:16px}
+input:focus,select:focus{outline:2px solid var(--cyan)}
+.help{font-size:11px;margin-top:5px}
+.section-title{margin:22px 0 12px;font-size:12px;font-weight:bold;letter-spacing:1px;color:var(--cyan)}
+.angle-panel .section-title{color:var(--purple)}
+.point-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.point-card{padding:13px;border:1px solid var(--line);border-radius:12px;background:#ffffff08;min-width:0}
+.point-card h3{font-size:14px;margin:0 0 12px}
+.point-card label{font-size:12px}
+.point-card input,.point-card select{margin-bottom:12px}
+.formula{margin-top:16px;padding:14px;border:1px solid var(--line);border-radius:10px;background:#ffffff08;font-size:13px;line-height:1.8}
+.formula strong{color:#8debf3}
+.angle-panel .formula strong{color:var(--purple)}
+.results{margin-top:16px}
+.result{padding:16px;border:1px solid var(--line);border-radius:12px;background:#ffffff08;min-width:0}
+.result.highlight{border-color:#35d5e877;background:#35d5e812}
+.angle-panel .result.highlight{border-color:#a58bff88;background:#a58bff16}
+.result-label{font-size:12px;color:var(--muted);line-height:1.5}
+.result-value{font-size:clamp(23px,4vw,31px);font-weight:bold;margin-top:8px;overflow-wrap:anywhere}
+.result-unit{font-size:13px}
+.length-panel .highlight .result-value{color:#75e8f2}
+.angle-panel .highlight .result-value{color:#c1adff}
+.leg-results{margin-top:12px}
+.leg-row{display:flex;justify-content:space-between;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);font-size:13px;line-height:1.7}
+.leg-row strong:last-child{text-align:right}
+.error{color:#ffb6b6;font-size:12px;line-height:1.6;margin-top:10px}
+.notice{margin-top:16px;padding:14px;border-radius:10px;border:1px solid #e4ac5b66;background:#ffb13a0c;color:#ffe0ac;font-size:12px;line-height:1.65}
+.actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:17px}
+button.action,.back{display:inline-flex;align-items:center;justify-content:center;min-height:43px;padding:11px 15px;border:0;border-radius:8px;color:white;font-weight:bold;font-size:13px;text-decoration:none;cursor:pointer}
+.length-panel button.action{background:linear-gradient(110deg,#167fae,#1dbac8)}
+.angle-panel button.action{background:linear-gradient(110deg,#6741d9,#9876ff)}
+button.secondary,.back{background:#344663}
+.hidden{display:none!important}
+.footer{text-align:center;color:#9eacc7;font-size:11px;line-height:1.7;padding:8px}
+@media(max-width:700px){.point-grid{grid-template-columns:1fr}.hero,.panel{padding:16px}}
+@media(max-width:480px){.mode-tabs,.grid,.results{grid-template-columns:1fr}.full{grid-column:auto}.leg-row{align-items:flex-start}}
+@media print{body{background:white;color:#111;padding:0}.hero,.panel{background:white;color:#111;box-shadow:none;break-inside:avoid}.mode-tabs,.actions,.notice{display:none!important}.subtext,.help,.result-label,.footer{color:#444}.result,.formula,.point-card{background:white;color:#111;border:1px solid #bbb}.result-value,.formula strong,.section-title{color:#111!important}input,select{background:white;color:#111}.hidden{display:none!important}}
 </style>
 </head>
-
 <body>
 <main class="container">
-
 <header class="hero">
-  <div class="eyebrow">RIGGING • LIFTING GEOMETRY</div>
-  <h1>Sling Length &amp; Angle Calculator</h1>
-  <p>Calculate individual sling-leg lengths for uneven lifting points, estimate sling length from load dimensions, or determine sling angle from the load span and sling-leg length.</p>
+<div class="eyebrow">RIGGING • LIFTING GEOMETRY</div>
+<h1>Sling Length &amp; Angle Calculator</h1>
+<p>Calculate individual sling lengths for uneven lifting points, choose a specific angle for each leg, or calculate sling angle from load span and sling length.</p>
 </header>
 
-<div class="mode-tabs" aria-label="Select calculator">
-  <button type="button" class="mode-button length-mode active" id="tabLength" aria-pressed="true">
-    <span class="mode-icon">📐</span>
-    <strong>Option 1 — Sling Length</strong>
-    <span>Uneven lifting points or a simple load with a selected angle.</span>
-  </button>
-  <button type="button" class="mode-button angle-mode" id="tabAngle" aria-pressed="false">
-    <span class="mode-icon">📏</span>
-    <strong>Option 2 — Sling Angle</strong>
-    <span>Calculate angle from load span and sling-leg length.</span>
-  </button>
+<div class="mode-tabs">
+<button type="button" id="tabLength" class="mode-button active length" aria-pressed="true">
+<strong>📐 Option 1 — Sling Length</strong>
+<span>Uneven lifting points or a simple load with a selected angle.</span>
+</button>
+<button type="button" id="tabAngle" class="mode-button angle" aria-pressed="false">
+<strong>📏 Option 2 — Sling Angle</strong>
+<span>Find the angle from lifting-point span and sling-leg length.</span>
+</button>
 </div>
 
-<!-- OPTION 1 -->
 <section class="panel length-panel" id="lengthPanel">
-  <h2>Option 1 — Sling Length Calculator</h2>
-  <p class="subtext">Choose a calculation method. The uneven-point method calculates each leg independently from its lifting-point height and horizontal offset.</p>
+<h2>Option 1 — Sling Length Calculator</h2>
+<p class="subtext">Choose a method. For each uneven lifting point, select an angle or use its horizontal offset. If both are provided, they must agree with the geometry.</p>
 
-  <div class="grid">
-    <div class="field full">
-      <label for="lengthMethod">Sling length method</label>
-      <select id="lengthMethod">
-        <option value="uneven">Uneven shape — individual lifting points</option>
-        <option value="simple">Simple load — dimension and selected angle</option>
-      </select>
-    </div>
-  </div>
-
-  <div id="unevenSection">
-    <div class="section-title">Common hook / master link</div>
-    <div class="grid">
-      <div class="field">
-        <label for="baseHookHeight">Hook height above base datum (m)</label>
-        <input id="baseHookHeight" type="number" min="0" step="any" value="5">
-        <div class="help">Height of the common hook/master link measured from the same base datum as the lifting points.</div>
-      </div>
-      <div class="field">
-        <label for="pointCount">Number of lifting points</label>
-        <select id="pointCount">
-          <option value="2">2 points</option>
-          <option value="3" selected>3 points</option>
-        </select>
-      </div>
-    </div>
-
-    <div class="section-title">Lifting-point measurements</div>
-    <p class="subtext">Enter each lifting point's height above the base datum and its horizontal distance from the vertical projection of the common hook.</p>
-
-    <div class="point-grid">
-      <div class="point-card">
-        <h3>Lifting point 1</h3>
-        <label for="height1">Height from base (m)</label>
-        <input id="height1" type="number" step="any" value="1.0">
-        <label for="offset1">Horizontal offset (m)</label>
-        <input id="offset1" type="number" min="0" step="any" value="2.0">
-      </div>
-      <div class="point-card">
-        <h3>Lifting point 2</h3>
-        <label for="height2">Height from base (m)</label>
-        <input id="height2" type="number" step="any" value="1.5">
-        <label for="offset2">Horizontal offset (m)</label>
-        <input id="offset2" type="number" min="0" step="any" value="2.0">
-      </div>
-      <div class="point-card" id="point3Card">
-        <h3>Lifting point 3</h3>
-        <label for="height3">Height from base (m)</label>
-        <input id="height3" type="number" step="any" value="0.8">
-        <label for="offset3">Horizontal offset (m)</label>
-        <input id="offset3" type="number" min="0" step="any" value="1.5">
-      </div>
-    </div>
-
-    <div class="formula">
-      <strong>Geometry used for each leg</strong><br>
-      Vertical rise = Hook height − Lifting-point height<br>
-      Sling-leg length = √(Vertical rise² + Horizontal offset²)<br>
-      Angle from horizontal = arctan(Vertical rise ÷ Horizontal offset)
-    </div>
-
-    <div class="results-grid" style="margin-top:16px">
-      <div class="result highlight">
-        <div class="result-label">Longest calculated sling leg</div>
-        <div class="result-value"><span id="longestLeg">—</span> <span class="result-unit">m</span></div>
-      </div>
-      <div class="result">
-        <div class="result-label">Shortest calculated sling leg</div>
-        <div class="result-value"><span id="shortestLeg">—</span> <span class="result-unit">m</span></div>
-      </div>
-    </div>
-    <div id="unevenResults" class="leg-results"></div>
-    <div id="unevenError" class="error" aria-live="polite"></div>
-  </div>
-
-  <div id="simpleSection" class="hidden">
-    <div class="section-title">Load dimensions and angle</div>
-    <div class="grid">
-      <div class="field">
-        <label for="loadSpan">Distance between two lifting points (m)</label>
-        <input id="loadSpan" type="number" min="0.0001" step="any" value="4">
-        <div class="help">Use the horizontal distance between the two lifting points, not necessarily the overall load length.</div>
-      </div>
-      <div class="field">
-        <label for="simpleAngle">Sling angle from horizontal (degrees)</label>
-        <select id="simpleAngle">
-          <option value="30">30°</option>
-          <option value="35">35°</option>
-          <option value="45" selected>45°</option>
-          <option value="50">50°</option>
-          <option value="55">55°</option>
-          <option value="60">60°</option>
-          <option value="65">65°</option>
-          <option value="70">70°</option>
-          <option value="75">75°</option>
-          <option value="80">80°</option>
-          <option value="90">90°</option>
-        </select>
-      </div>
-    </div>
-    <div class="formula">
-      <strong>Formula for a symmetric two-leg lift</strong><br>
-      Half-span = Distance between lifting points ÷ 2<br>
-      Sling-leg length = Half-span ÷ cos(angle from horizontal)<br>
-      Vertical rise = Half-span × tan(angle from horizontal)
-    </div>
-    <div class="results-grid" style="margin-top:16px">
-      <div class="result highlight">
-        <div class="result-label">Calculated length of each sling leg</div>
-        <div class="result-value"><span id="simpleLegLength">—</span> <span class="result-unit">m</span></div>
-      </div>
-      <div class="result">
-        <div class="result-label">Vertical rise to hook above lifting points</div>
-        <div class="result-value"><span id="simpleRise">—</span> <span class="result-unit">m</span></div>
-      </div>
-    </div>
-    <div id="simpleError" class="error" aria-live="polite"></div>
-  </div>
-
-  <div class="notice">
-    <strong>Geometric assumptions:</strong> In the uneven-point method, all heights use one common base datum and all legs meet at the entered hook/master-link point. Horizontal offsets are measured from the hook's vertical projection. The simple-load method assumes a symmetric two-leg arrangement and a sling angle measured from the horizontal. These calculations do not determine load sharing or certify lifting-point suitability.
-  </div>
-
-  <div class="actions">
-    <button type="button" class="action" id="calculateLength">Calculate sling length</button>
-    <button type="button" class="action secondary" id="printLength">Print / Save PDF</button>
-    <button type="button" class="action secondary" id="resetLength">Reset option</button>
-  </div>
-</section>
-
-<!-- OPTION 2 -->
-<section class="panel angle-panel hidden" id="anglePanel">
-  <h2>Option 2 — Sling Angle Calculator</h2>
-  <p class="subtext">Enter the horizontal distance between two lifting points and the measured length of one sling leg from lifting point to hook/master link.</p>
-
-  <div class="section-title">Measurements</div>
-  <div class="grid">
-    <div class="field">
-      <label for="angleSpan">Distance between lifting points (m)</label>
-      <input id="angleSpan" type="number" min="0.0001" step="any" value="4">
-      <div class="help">Horizontal span between the two lifting points.</div>
-    </div>
-    <div class="field">
-      <label for="legLength">Sling-leg length (m)</label>
-      <input id="legLength" type="number" min="0.0001" step="any" value="3.0">
-      <div class="help">Length of one leg from the lifting point to the common hook/master link.</div>
-    </div>
-  </div>
-
-  <div class="formula">
-    <strong>Formula for a symmetric two-leg lift</strong><br>
-    Half-span = Distance between lifting points ÷ 2<br>
-    Angle from horizontal = arccos(Half-span ÷ Sling-leg length)<br>
-    Vertical rise = √(Sling-leg length² − Half-span²)
-  </div>
-
-  <div class="results-grid" style="margin-top:17px">
-    <div class="result highlight">
-      <div class="result-label">Sling angle from horizontal</div>
-      <div class="result-value"><span id="angleHorizontal">—</span><span class="result-unit">°</span></div>
-    </div>
-    <div class="result">
-      <div class="result-label">Included angle between the two sling legs</div>
-      <div class="result-value"><span id="includedAngle">—</span><span class="result-unit">°</span></div>
-    </div>
-    <div class="result">
-      <div class="result-label">Vertical rise to the hook</div>
-      <div class="result-value"><span id="angleRise">—</span> <span class="result-unit">m</span></div>
-    </div>
-    <div class="result">
-      <div class="result-label">Half-span used in calculation</div>
-      <div class="result-value"><span id="halfSpan">—</span> <span class="result-unit">m</span></div>
-    </div>
-  </div>
-  <div id="angleError" class="error" aria-live="polite"></div>
-
-  <div class="notice">
-    <strong>Geometry and safety:</strong> This option assumes a symmetric two-leg arrangement with the hook directly above the midpoint between lifting points. For unequal spans, unequal leg lengths, or multi-leg slings, calculate each leg's geometry separately. The angle result alone does not establish the safe working load.
-  </div>
-
-  <div class="actions">
-    <button type="button" class="action" id="calculateAngle">Calculate sling angle</button>
-    <button type="button" class="action secondary" id="printAngle">Print / Save PDF</button>
-    <button type="button" class="action secondary" id="resetAngle">Reset option</button>
-  </div>
-</section>
-
-<div class="actions">
-  <a class="back" href="../calculation.html">← Back to Calculators</a>
+<div class="grid">
+<div class="field full">
+<label for="lengthMethod">Sling length method</label>
+<select id="lengthMethod">
+<option value="uneven">Uneven shape — individual lifting points</option>
+<option value="simple">Simple load — span and selected angle</option>
+</select>
+</div>
 </div>
 
-<footer class="footer">
-  Rigging geometry aid • Confirm the governing procedure, approved lifting plan, and manufacturer requirements before lifting.
-  <br>Not a substitute for an approved TÜV Saudi Arabia / TÜV SHADI lifting calculation or competent-person review.
-</footer>
+<div id="unevenSection">
+<div class="section-title">Common hook / master link</div>
+<div class="grid">
+<div class="field">
+<label for="baseHookHeight">Hook height above base datum (m)</label>
+<input id="baseHookHeight" type="number" min="0" step="any" value="5">
+<div class="help">Use the same base datum for the hook and every lifting point.</div>
+</div>
+<div class="field">
+<label for="pointCount">Number of lifting points</label>
+<select id="pointCount"><option value="2">2 points</option><option value="3" selected>3 points</option></select>
+</div>
+</div>
 
+<div class="section-title">Lifting-point measurements</div>
+<p class="subtext">Enter each lifting point height, horizontal offset, and optional desired sling angle measured from horizontal.</p>
+
+<div class="point-grid">
+<div class="point-card">
+<h3>Lifting point 1</h3>
+<label for="height1">Height from base (m)</label><input id="height1" type="number" step="any" value="1">
+<label for="offset1">Horizontal offset (m)</label><input id="offset1" type="number" min="0" step="any" value="2">
+<label for="angle1">Desired angle from horizontal</label>
+<select id="angle1"><option value="">Use horizontal offset</option><option value="30">30°</option><option value="35">35°</option><option value="45">45°</option><option value="50">50°</option><option value="55">55°</option><option value="60">60°</option><option value="65">65°</option><option value="70">70°</option><option value="75">75°</option><option value="80">80°</option><option value="85">85°</option><option value="90">90°</option></select>
+</div>
+
+<div class="point-card">
+<h3>Lifting point 2</h3>
+<label for="height2">Height from base (m)</label><input id="height2" type="number" step="any" value="1.5">
+<label for="offset2">Horizontal offset (m)</label><input id="offset2" type="number" min="0" step="any" value="2">
+<label for="angle2">Desired angle from horizontal</label>
+<select id="angle2"><option value="">Use horizontal offset</option><option value="30">30°</option><option value="35">35°</option><option value="45">45°</option><option value="50">50°</option><option value="55">55°</option><option value="60">60°</option><option value="65">65°</option><option value="70">70°</option><option value="75">75°</option><option value="80">80°</option><option value="85">85°</option><option value="90">90°</option></select>
+</div>
+
+<div class="point-card" id="point3Card">
+<h3>Lifting point 3</h3>
+<label for="height3">Height from base (m)</label><input id="height3" type="number" step="any" value=".8">
+<label for="offset3">Horizontal offset (m)</label><input id="offset3" type="number" min="0" step="any" value="1.5">
+<label for="angle3">Desired angle from horizontal</label>
+<select id="angle3"><option value="">Use horizontal offset</option><option value="30">30°</option><option value="35">35°</option><option value="45">45°</option><option value="50">50°</option><option value="55">55°</option><option value="60">60°</option><option value="65">65°</option><option value="70">70°</option><option value="75">75°</option><option value="80">80°</option><option value="85">85°</option><option value="90">90°</option></select>
+</div>
+</div>
+
+<div class="formula"><strong>Uneven-point geometry</strong><br>
+Vertical rise = Hook height − Lifting-point height<br>
+If angle selected: Leg length = Vertical rise ÷ sin(angle)<br>
+Implied horizontal offset = Vertical rise ÷ tan(angle)<br>
+If no angle selected: Leg length = √(Vertical rise² + Horizontal offset²)<br>
+Angle from horizontal = arctan(Vertical rise ÷ Horizontal offset)
+</div>
+
+<div class="results">
+<div class="result highlight"><div class="result-label">Longest calculated sling leg</div><div class="result-value"><span id="longestLeg">—</span> <span class="result-unit">m</span></div></div>
+<div class="result"><div class="result-label">Shortest calculated sling leg</div><div class="result-value"><span id="shortestLeg">—</span> <span class="result-unit">m</span></div></div>
+</div>
+<div id="unevenResults" class="leg-results"></div>
+<div id="unevenError" class="error" aria-live="polite"></div>
+</div>
+
+<div id="simpleSection" class="hidden">
+<div class="section-title">Load dimensions and angle</div>
+<div class="grid">
+<div class="field"><label for="loadSpan">Distance between lifting points (m)</label><input id="loadSpan" type="number" min=".0001" step="any" value="4"><div class="help">Enter horizontal distance between the two lifting points.</div></div>
+<div class="field"><label for="simpleAngle">Sling angle from horizontal</label><select id="simpleAngle"><option value="30">30°</option><option value="35">35°</option><option value="45" selected>45°</option><option value="50">50°</option><option value="55">55°</option><option value="60">60°</option><option value="65">65°</option><option value="70">70°</option><option value="75">75°</option><option value="80">80°</option><option value="85">85°</option></select></div>
+</div>
+<div class="formula"><strong>Symmetric two-leg geometry</strong><br>Half-span = Span ÷ 2<br>Leg length = Half-span ÷ cos(angle)<br>Vertical rise = Half-span × tan(angle)</div>
+<div class="results">
+<div class="result highlight"><div class="result-label">Length of each sling leg</div><div class="result-value"><span id="simpleLegLength">—</span> <span class="result-unit">m</span></div></div>
+<div class="result"><div class="result-label">Vertical rise to hook</div><div class="result-value"><span id="simpleRise">—</span> <span class="result-unit">m</span></div></div>
+</div>
+<div id="simpleError" class="error" aria-live="polite"></div>
+</div>
+
+<div class="notice"><strong>Safety note:</strong> These are geometric calculations, not a certified lifting plan. The angle is measured from horizontal. When an angle is selected, the implied horizontal offset must agree with the entered offset. Confirm the real rigging arrangement and approved procedure before lifting.</div>
+<div class="actions"><button class="action" type="button" id="calculateLength">Calculate sling length</button><button class="action secondary" type="button" id="printLength">Print / Save PDF</button><button class="action secondary" type="button" id="resetLength">Reset option</button></div>
+</section>
+
+<section class="panel angle-panel hidden" id="anglePanel">
+<h2>Option 2 — Sling Angle Calculator</h2>
+<p class="subtext">Enter the horizontal span between two lifting points and the measured length of one sling leg from lifting point to hook/master link.</p>
+<div class="section-title">Measurements</div>
+<div class="grid">
+<div class="field"><label for="angleSpan">Distance between lifting points (m)</label><input id="angleSpan" type="number" min=".0001" step="any" value="4"></div>
+<div class="field"><label for="legLength">Sling-leg length (m)</label><input id="legLength" type="number" min=".0001" step="any" value="3"></div>
+</div>
+<div class="formula"><strong>Symmetric two-leg geometry</strong><br>Half-span = Span ÷ 2<br>Angle from horizontal = arccos(Half-span ÷ Sling-leg length)<br>Vertical rise = √(Sling-leg length² − Half-span²)</div>
+<div class="results">
+<div class="result highlight"><div class="result-label">Sling angle from horizontal</div><div class="result-value"><span id="angleHorizontal">—</span><span class="result-unit">°</span></div></div>
+<div class="result"><div class="result-label">Included angle between sling legs</div><div class="result-value"><span id="includedAngle">—</span><span class="result-unit">°</span></div></div>
+<div class="result"><div class="result-label">Vertical rise to hook</div><div class="result-value"><span id="angleRise">—</span> <span class="result-unit">m</span></div></div>
+<div class="result"><div class="result-label">Half-span</div><div class="result-value"><span id="halfSpan">—</span> <span class="result-unit">m</span></div></div>
+</div>
+<div id="angleError" class="error" aria-live="polite"></div>
+<div class="notice"><strong>Geometry and safety:</strong> This assumes a symmetric two-leg arrangement with the hook directly above the midpoint. Unequal spans or multi-leg arrangements need separate geometry checks. Angle alone does not establish safe working load.</div>
+<div class="actions"><button class="action" type="button" id="calculateAngle">Calculate sling angle</button><button class="action secondary" type="button" id="printAngle">Print / Save PDF</button><button class="action secondary" type="button" id="resetAngle">Reset option</button></div>
+</section>
+
+<div class="actions"><a class="back" href="../calculation.html">← Back to Calculators</a></div>
+<footer class="footer">Rigging geometry aid. Confirm the governing procedure, approved lifting plan and manufacturer requirements before lifting.<br>Not a substitute for an approved TÜV Saudi Arabia / TÜV SHADI calculation or competent-person review.</footer>
 </main>
 
 <script>
-const $ = id => document.getElementById(id);
+const $=id=>document.getElementById(id);
+const num=id=>Number($(id).value);
+function fmt(v,d=3){return Number.isFinite(v)?v.toLocaleString("en-US",{minimumFractionDigits:2,maximumFractionDigits:d}):"—"}
 
-function number(id) {
-  return Number($(id).value);
+function showMode(mode){
+ const length=mode==="length";
+ $("lengthPanel").classList.toggle("hidden",!length);
+ $("anglePanel").classList.toggle("hidden",length);
+ $("tabLength").classList.toggle("active",length);
+ $("tabAngle").classList.toggle("active",!length);
+ $("tabLength").setAttribute("aria-pressed",String(length));
+ $("tabAngle").setAttribute("aria-pressed",String(!length));
+}
+$("tabLength").addEventListener("click",()=>showMode("length"));
+$("tabAngle").addEventListener("click",()=>showMode("angle"));
+
+function updateMethod(){
+ const uneven=$("lengthMethod").value==="uneven";
+ $("unevenSection").classList.toggle("hidden",!uneven);
+ $("simpleSection").classList.toggle("hidden",uneven);
+ calculateLength();
+}
+$("lengthMethod").addEventListener("change",updateMethod);
+function updatePointCount(){
+ $("point3Card").classList.toggle("hidden",$("pointCount").value!=="3");
+ calculateLength();
+}
+$("pointCount").addEventListener("change",updatePointCount);
+
+function calculateLength(){
+ if($("lengthMethod").value==="simple") calculateSimple();
+ else calculateUneven();
 }
 
-function fmt(value, decimals = 3) {
-  if (!Number.isFinite(value)) return "—";
-  return value.toLocaleString("en-US", {
-    minimumFractionDigits: 2,
-    maximumFractionDigits: decimals
-  });
-}
-
-function showMode(mode) {
-  const length = mode === "length";
-  $("lengthPanel").classList.toggle("hidden", !length);
-  $("anglePanel").classList.toggle("hidden", length);
-  $("tabLength").classList.toggle("active", length);
-  $("tabAngle").classList.toggle("active", !length);
-  $("tabLength").setAttribute("aria-pressed", String(length));
-  $("tabAngle").setAttribute("aria-pressed", String(!length));
-}
-
-$("tabLength").addEventListener("click", () => showMode("length"));
-$("tabAngle").addEventListener("click", () => showMode("angle"));
-
-function updateLengthMethod() {
-  const uneven = $("lengthMethod").value === "uneven";
-  $("unevenSection").classList.toggle("hidden", !uneven);
-  $("simpleSection").classList.toggle("hidden", uneven);
-  calculateLength();
-}
-
-$("lengthMethod").addEventListener("change", updateLengthMethod);
-
-function updatePointCount() {
-  $("point3Card").classList.toggle("hidden", $("pointCount").value !== "3");
-  calculateLength();
-}
-
-$("pointCount").addEventListener("change", updatePointCount);
-
-function calculateLength() {
-  if ($("lengthMethod").value === "simple") {
-    calculateSimpleLength();
-  } else {
-    calculateUnevenLength();
+function calculateUneven(){
+ const hook=num("baseHookHeight"),count=Number($("pointCount").value);
+ const error=$("unevenError");
+ error.textContent=""; $("unevenResults").innerHTML="";
+ $("longestLeg").textContent="—"; $("shortestLeg").textContent="—";
+ if(!Number.isFinite(hook)||hook<0){error.textContent="Enter a valid non-negative hook height.";return}
+ const legs=[];
+ for(let i=1;i<=count;i++){
+  const height=num("height"+i),offset=num("offset"+i);
+  const angleText=$("angle"+i).value;
+  const angle=angleText===""?null:Number(angleText);
+  if(!Number.isFinite(height)||height<0||!Number.isFinite(offset)||offset<0){
+   error.textContent="Enter valid non-negative heights and offsets for all lifting points.";return;
   }
-}
-
-function calculateUnevenLength() {
-  const hookHeight = number("baseHookHeight");
-  const count = Number($("pointCount").value);
-  const error = $("unevenError");
-  error.textContent = "";
-  $("unevenResults").innerHTML = "";
-  $("longestLeg").textContent = "—";
-  $("shortestLeg").textContent = "—";
-
-  if (!Number.isFinite(hookHeight) || hookHeight < 0) {
-    error.textContent = "Enter a valid hook height above the base datum.";
+  const rise=hook-height;
+  if(rise<0){error.textContent="Hook height must be at or above every lifting point.";return}
+  let length,horizontal,actualAngle;
+  if(angle!==null){
+   if(!Number.isFinite(angle)||angle<=0||angle>90){error.textContent="Selected angle must be greater than 0° and no more than 90°.";return}
+   if(rise===0){error.textContent="Point "+i+": the vertical rise is zero, so a positive selected angle cannot be used.";return}
+   const rad=angle*Math.PI/180;
+   length=rise/Math.sin(rad);
+   horizontal=rise/Math.tan(rad);
+   actualAngle=angle;
+   if(Math.abs(horizontal-offset)>0.02){
+    error.textContent="Point "+i+": selected angle implies an offset of "+fmt(horizontal)+" m, but the entered offset is "+fmt(offset)+" m. Adjust the offset or select “Use horizontal offset”.";
     return;
+   }
+  }else{
+   if(rise===0&&offset===0){error.textContent="Point "+i+": vertical rise and horizontal offset cannot both be zero.";return}
+   length=Math.hypot(rise,offset);
+   horizontal=offset;
+   actualAngle=Math.atan2(rise,offset)*180/Math.PI;
   }
-
-  const legs = [];
-
-  for (let i = 1; i <= count; i++) {
-    const height = number("height" + i);
-    const offset = number("offset" + i);
-
-    if (!Number.isFinite(height) || height < 0 ||
-        !Number.isFinite(offset) || offset < 0) {
-      error.textContent = "Enter valid non-negative heights and horizontal offsets for every lifting point.";
-      return;
-    }
-
-    const rise = hookHeight - height;
-
-    if (rise < 0) {
-      error.textContent = "Hook height must be at or above every lifting-point height.";
-      return;
-    }
-
-    if (rise === 0 && offset === 0) {
-      error.textContent = "A leg cannot have both zero vertical rise and zero horizontal offset.";
-      return;
-    }
-
-    const length = Math.hypot(rise, offset);
-    const angle = Math.atan2(rise, offset) * 180 / Math.PI;
-
-    legs.push({ index:i, height, offset, rise, length, angle });
-  }
-
-  const lengths = legs.map(leg => leg.length);
-  $("longestLeg").textContent = fmt(Math.max(...lengths));
-  $("shortestLeg").textContent = fmt(Math.min(...lengths));
-
-  $("unevenResults").innerHTML = legs.map(leg => `
-    <div class="leg-row">
-      <span><strong>Lifting point ${leg.index}</strong><br>
-      Height ${fmt(leg.height)} m · Offset ${fmt(leg.offset)} m</span>
-      <strong>${fmt(leg.length)} m<br>
-      <span style="color:#8debf3;font-weight:600">${fmt(leg.angle,2)}° from horizontal</span></strong>
-    </div>
-  `).join("");
+  legs.push({i,height,offset:horizontal,rise,length,angle:actualAngle});
+ }
+ const ls=legs.map(x=>x.length);
+ $("longestLeg").textContent=fmt(Math.max(...ls));
+ $("shortestLeg").textContent=fmt(Math.min(...ls));
+ $("unevenResults").innerHTML=legs.map(x=>`
+ <div class="leg-row">
+ <span><strong>Lifting point ${x.i}</strong><br>Vertical rise: ${fmt(x.rise)} m<br>Horizontal offset: ${fmt(x.offset)} m</span>
+ <strong>${fmt(x.length)} m<br><span style="color:#8debf3">${fmt(x.angle,2)}° from horizontal</span></strong>
+ </div>`).join("");
 }
 
-function calculateSimpleLength() {
-  const span = number("loadSpan");
-  const angle = number("simpleAngle");
-  const error = $("simpleError");
-  error.textContent = "";
-  $("simpleLegLength").textContent = "—";
-  $("simpleRise").textContent = "—";
-
-  if (!Number.isFinite(span) || span <= 0 ||
-      !Number.isFinite(angle) || angle <= 0 || angle > 90) {
-    error.textContent = "Enter a valid positive lifting-point span and angle.";
-    return;
-  }
-
-  const halfSpan = span / 2;
-  const radians = angle * Math.PI / 180;
-  const cos = Math.cos(radians);
-
-  if (cos <= 0.0000001) {
-    error.textContent = "At 90°, this horizontal-span method cannot produce a finite sling length.";
-    return;
-  }
-
-  const length = halfSpan / cos;
-  const rise = halfSpan * Math.tan(radians);
-
-  $("simpleLegLength").textContent = fmt(length);
-  $("simpleRise").textContent = fmt(rise);
+function calculateSimple(){
+ const span=num("loadSpan"),angle=num("simpleAngle"),error=$("simpleError");
+ error.textContent="";$("simpleLegLength").textContent="—";$("simpleRise").textContent="—";
+ if(!Number.isFinite(span)||span<=0||!Number.isFinite(angle)||angle<=0||angle>=90){
+  error.textContent="Enter a positive span and an angle greater than 0° and less than 90°.";return;
+ }
+ const half=span/2,rad=angle*Math.PI/180;
+ $("simpleLegLength").textContent=fmt(half/Math.cos(rad));
+ $("simpleRise").textContent=fmt(half*Math.tan(rad));
 }
-
-function calculateAngle() {
-  const span = number("angleSpan");
-  const leg = number("legLength");
-  const error = $("angleError");
-  error.textContent = "";
-
-  ["angleHorizontal","includedAngle","angleRise","halfSpan"].forEach(id => {
-    $(id).textContent = "—";
-  });
-
-  if (!Number.isFinite(span) || span <= 0 ||
-      !Number.isFinite(leg) || leg <= 0) {
-    error.textContent = "Enter positive values for lifting-point span and sling-leg length.";
-    return;
-  }
-
-  const half = span / 2;
-
-  if (leg < half) {
-    error.textContent = "The sling-leg length must be at least half the lifting-point span.";
-    return;
-  }
-
-  const ratio = Math.max(-1, Math.min(1, half / leg));
-  const angle = Math.acos(ratio) * 180 / Math.PI;
-  const rise = Math.sqrt(Math.max(0, leg * leg - half * half));
-  const included = 180 - 2 * angle;
-
-  $("angleHorizontal").textContent = fmt(angle,2);
-  $("includedAngle").textContent = fmt(included,2);
-  $("angleRise").textContent = fmt(rise);
-  $("halfSpan").textContent = fmt(half);
+function calculateAngle(){
+ const span=num("angleSpan"),leg=num("legLength"),error=$("angleError");
+ error.textContent="";
+ ["angleHorizontal","includedAngle","angleRise","halfSpan"].forEach(id=>$(id).textContent="—");
+ if(!Number.isFinite(span)||span<=0||!Number.isFinite(leg)||leg<=0){
+  error.textContent="Enter positive values for span and sling-leg length.";return;
+ }
+ const half=span/2;
+ if(leg<half){error.textContent="Sling-leg length must be at least half the lifting-point span.";return}
+ const angle=Math.acos(Math.max(-1,Math.min(1,half/leg)))*180/Math.PI;
+ const rise=Math.sqrt(Math.max(0,leg*leg-half*half));
+ $("angleHorizontal").textContent=fmt(angle,2);
+ $("includedAngle").textContent=fmt(180-2*angle,2);
+ $("angleRise").textContent=fmt(rise);
+ $("halfSpan").textContent=fmt(half);
 }
-
-function resetLength() {
-  $("lengthMethod").value = "uneven";
-  $("baseHookHeight").value = "5";
-  $("pointCount").value = "3";
-  $("height1").value = "1.0";
-  $("offset1").value = "2.0";
-  $("height2").value = "1.5";
-  $("offset2").value = "2.0";
-  $("height3").value = "0.8";
-  $("offset3").value = "1.5";
-  $("loadSpan").value = "4";
-  $("simpleAngle").value = "45";
-  updatePointCount();
-  updateLengthMethod();
+function resetLength(){
+ $("lengthMethod").value="uneven";$("baseHookHeight").value="5";$("pointCount").value="3";
+ $("height1").value="1";$("offset1").value="2";$("angle1").value="";
+ $("height2").value="1.5";$("offset2").value="2";$("angle2").value="";
+ $("height3").value=".8";$("offset3").value="1.5";$("angle3").value="";
+ $("loadSpan").value="4";$("simpleAngle").value="45";
+ updatePointCount();updateMethod();
 }
+function resetAngle(){$("angleSpan").value="4";$("legLength").value="3";calculateAngle()}
 
-function resetAngle() {
-  $("angleSpan").value = "4";
-  $("legLength").value = "3.0";
-  calculateAngle();
-}
+$("calculateLength").addEventListener("click",calculateLength);
+$("calculateAngle").addEventListener("click",calculateAngle);
+$("resetLength").addEventListener("click",resetLength);
+$("resetAngle").addEventListener("click",resetAngle);
+$("printLength").addEventListener("click",()=>window.print());
+$("printAngle").addEventListener("click",()=>window.print());
 
-$("calculateLength").addEventListener("click", calculateLength);
-$("calculateAngle").addEventListener("click", calculateAngle);
-$("resetLength").addEventListener("click", resetLength);
-$("resetAngle").addEventListener("click", resetAngle);
-$("printLength").addEventListener("click", () => window.print());
-$("printAngle").addEventListener("click", () => window.print());
-
-[
-  "baseHookHeight","height1","offset1","height2","offset2","height3","offset3",
-  "loadSpan","simpleAngle"
-].forEach(id => {
-  $(id).addEventListener("input", calculateLength);
-  $(id).addEventListener("change", calculateLength);
+["baseHookHeight","height1","offset1","angle1","height2","offset2","angle2","height3","offset3","angle3","loadSpan","simpleAngle"].forEach(id=>{
+ $(id).addEventListener("input",calculateLength);
+ $(id).addEventListener("change",calculateLength);
 });
-
-["angleSpan","legLength"].forEach(id => {
-  $(id).addEventListener("input", calculateAngle);
-  $(id).addEventListener("change", calculateAngle);
+["angleSpan","legLength"].forEach(id=>{
+ $(id).addEventListener("input",calculateAngle);
+ $(id).addEventListener("change",calculateAngle);
 });
-
-updatePointCount();
-updateLengthMethod();
-calculateAngle();
+updatePointCount();updateMethod();calculateAngle();
 </script>
 </body>
 </html>
