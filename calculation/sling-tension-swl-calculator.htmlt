@@ -3,720 +3,475 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Sling Tension & WLL Calculator | Lifting & Rigging Study</title>
+<meta name="theme-color" content="#102a43">
+<title>Sling SWL Calculator</title>
 
 <style>
+:root {
+  --navy:#102a43;
+  --blue:#1769aa;
+  --cyan:#20c4d8;
+  --text:#17324d;
+  --muted:#60758a;
+  --border:#dce6ef;
+}
+* { box-sizing:border-box; }
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #e2e8f0;
+  margin:0;
+  padding:20px 12px 35px;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:linear-gradient(135deg,#dff5ff,#e9e4ff,#d8fff0);
 }
-
+.container { max-width:900px; margin:auto; }
 header {
-    background: #020617;
-    padding: 25px 20px;
-    text-align: center;
-    border-bottom: 2px solid #38bdf8;
+  padding:28px 20px;
+  color:white;
+  text-align:center;
+  border-radius:20px;
+  background:linear-gradient(120deg,#102a43,#1769aa,#16a6b8);
+  box-shadow:0 12px 28px #123b5b24;
 }
-
-header h1 {
-    margin: 0;
-    color: #38bdf8;
-}
-
-header p {
-    color: #cbd5e1;
-}
-
-.container {
-    max-width: 950px;
-    margin: auto;
-    padding: 25px 20px;
-}
-
-.card {
-    background: #1e293b;
-    padding: 25px;
-    margin-bottom: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.25);
-}
-
-.input-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 20px;
-}
-
-label {
-    display: block;
-    margin-bottom: 7px;
-    font-weight: bold;
-}
-
-input,
-select {
-    width: 100%;
-    box-sizing: border-box;
-    padding: 12px;
-    border-radius: 6px;
-    border: 1px solid #475569;
-    background: #0f172a;
-    color: white;
-    font-size: 16px;
-}
-
-button {
-    margin-top: 20px;
-    padding: 13px 22px;
-    border: none;
-    border-radius: 6px;
-    background: #0284c7;
-    color: white;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #0369a1;
-}
-
-.clear-button {
-    background: #475569;
-    margin-left: 8px;
-}
-
-.result {
-    margin-top: 25px;
-    padding: 20px;
-    background: #0f172a;
-    border-left: 4px solid #38bdf8;
-    border-radius: 6px;
-}
-
-.result table {
-    width: 100%;
-    border-collapse: collapse;
-}
-
-.result th,
-.result td {
-    padding: 12px;
-    border-bottom: 1px solid #334155;
-    text-align: left;
-}
-
-.formula {
-    background: #020617;
-    padding: 18px;
-    border-radius: 6px;
-    margin-top: 15px;
-    font-family: monospace;
-    line-height: 1.8;
-    color: #7dd3fc;
-}
-
-.warning {
-    margin-top: 20px;
-    padding: 15px;
-    background: #451a03;
-    border-left: 4px solid #f59e0b;
-    border-radius: 6px;
-    color: #fde68a;
-}
-
-.error {
-    color: #fecaca;
-    background: #450a0a;
-    padding: 15px;
-    border-radius: 6px;
-    border-left: 4px solid #ef4444;
-}
-
-.success {
-    color: #bbf7d0;
-    background: #052e16;
-    padding: 15px;
-    border-radius: 6px;
-    border-left: 4px solid #22c55e;
-}
-
+header h1 { margin:0 0 10px; font-size:clamp(26px,5vw,35px); }
+header p { margin:0; line-height:1.5; color:#e4f7ff; }
 .back {
-    display: inline-block;
-    margin-top: 10px;
-    color: #38bdf8;
-    text-decoration: none;
+  display:inline-block;
+  margin:18px 0;
+  padding:11px 15px;
+  color:white;
+  background:var(--navy);
+  border-radius:10px;
+  text-decoration:none;
+  font-weight:bold;
 }
-
-@media (max-width: 650px) {
-    .input-grid {
-        grid-template-columns: 1fr;
-    }
-
-    .clear-button {
-        margin-left: 0;
-    }
+.card {
+  background:white;
+  border:1px solid #fff;
+  border-radius:18px;
+  padding:22px;
+  margin-bottom:18px;
+  box-shadow:0 8px 24px #163b5b12;
+}
+h2 { margin:0 0 9px; color:var(--navy); font-size:23px; }
+.intro { color:var(--muted); line-height:1.6; margin:0 0 20px; }
+.grid {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:15px;
+}
+.field { display:flex; flex-direction:column; gap:7px; min-width:0; }
+label { font-size:14px; font-weight:bold; }
+input,select {
+  width:100%;
+  min-height:46px;
+  padding:11px 12px;
+  border:1px solid #cbd9e6;
+  border-radius:10px;
+  font-size:16px;
+  color:var(--text);
+  background:#fff;
+}
+input:focus,select:focus { outline:3px solid #20c4d833; border-color:var(--blue); }
+.hint { color:var(--muted); font-size:12px; line-height:1.45; }
+.formula {
+  margin-top:17px;
+  padding:15px;
+  background:#edf8ff;
+  border-left:4px solid var(--blue);
+  border-radius:10px;
+  line-height:1.9;
+  overflow-wrap:anywhere;
+}
+.results {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  margin-top:18px;
+}
+.result {
+  min-width:0;
+  padding:17px;
+  border:1px solid var(--border);
+  border-radius:13px;
+  background:linear-gradient(135deg,#f7fbff,#edfaff);
+}
+.result .label { font-size:13px; color:var(--muted); line-height:1.5; }
+.result .value {
+  margin-top:8px;
+  font-size:clamp(23px,4vw,31px);
+  font-weight:800;
+  color:var(--blue);
+  overflow-wrap:anywhere;
+}
+.result .unit { color:var(--muted); font-size:13px; margin-top:5px; }
+.full { grid-column:1/-1; }
+.buttons { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
+button {
+  min-height:45px;
+  padding:12px 17px;
+  border:0;
+  border-radius:10px;
+  font-size:15px;
+  font-weight:bold;
+  cursor:pointer;
+}
+.primary { color:white; background:linear-gradient(110deg,#1769aa,#16a6b8); }
+.secondary { color:var(--navy); background:#e9f0f6; }
+.warning {
+  padding:14px;
+  background:#fff8e9;
+  border-left:4px solid #e6a23c;
+  border-radius:9px;
+  color:#684c17;
+  font-size:13px;
+  line-height:1.7;
+}
+.error { display:none; color:#b42318; margin-top:14px; font-weight:bold; line-height:1.5; }
+footer { color:var(--muted); text-align:center; font-size:12px; line-height:1.6; padding:12px; }
+@media(max-width:600px) {
+  body { padding:12px 9px 25px; }
+  .card { padding:17px; }
+  .grid,.results { grid-template-columns:1fr; }
+  .full { grid-column:auto; }
+  header { padding:24px 15px; }
+}
+@media print {
+  body { background:white; padding:0; }
+  header,.back,.buttons,footer { display:none!important; }
+  .card { box-shadow:none; border:1px solid #bbb; break-inside:avoid; }
 }
 </style>
 </head>
 
 <body>
-
+<main class="container">
 <header>
-    <h1>Sling Tension & WLL Calculator</h1>
-    <p>Lifting & Rigging Study Tool</p>
+  <h1>Sling SWL Calculator</h1>
+  <p>Estimate sling capacity for webbing, wire rope and chain slings.</p>
 </header>
 
-<div class="container">
+<a class="back" href="../calculation.html">← Back to Calculators</a>
 
-    <div class="card">
+<section class="card">
+  <h2>1. Sling Details</h2>
+  <p class="intro">Select the sling type, hitch arrangement, and sling angle factor.</p>
 
-        <h2>Inputs</h2>
-
-        <p>
-            For a symmetrical multi-leg sling arrangement with equal
-            load sharing, enter the load, number of effective legs and
-            sling angle.
-        </p>
-
-        <div class="input-grid">
-
-            <div>
-                <label for="load">
-                    Load Weight (tonnes)
-                </label>
-
-                <input
-                    type="number"
-                    id="load"
-                    placeholder="Example: 10"
-                    step="0.001"
-                    min="0"
-                >
-            </div>
-
-            <div>
-                <label for="legs">
-                    Number of Effective Sling Legs
-                </label>
-
-                <select id="legs">
-                    <option value="2">2 legs</option>
-                    <option value="3">3 legs</option>
-                    <option value="4">4 legs</option>
-                </select>
-            </div>
-
-            <div>
-                <label for="angle">
-                    Sling Angle from Horizontal (degrees)
-                </label>
-
-                <input
-                    type="number"
-                    id="angle"
-                    placeholder="Example: 60"
-                    step="0.1"
-                    min="1"
-                    max="90"
-                >
-            </div>
-
-            <div>
-                <label for="ratedWLL">
-                    Sling Rated WLL per Leg (tonnes)
-                </label>
-
-                <input
-                    type="number"
-                    id="ratedWLL"
-                    placeholder="Optional"
-                    step="0.001"
-                    min="0"
-                >
-            </div>
-
-            <div>
-                <label for="designFactor">
-                    Study Design Factor
-                </label>
-
-                <input
-                    type="number"
-                    id="designFactor"
-                    placeholder="Example: 5"
-                    step="0.1"
-                    min="0"
-                >
-            </div>
-
-        </div>
-
-        <button onclick="calculate()">
-            Calculate
-        </button>
-
-        <button class="clear-button" onclick="clearAll()">
-            Clear
-        </button>
-
-        <div id="result"></div>
-
+  <div class="grid">
+    <div class="field">
+      <label for="slingType">Sling Type</label>
+      <select id="slingType">
+        <option value="web">Web Sling</option>
+        <option value="wire">Wire Rope Sling</option>
+        <option value="chain">Chain Sling</option>
+      </select>
     </div>
 
-
-    <div class="card">
-
-        <h2>Main Sling Tension Formula</h2>
-
-        <div class="formula">
-
-            T = W ÷ (N × sin θ)
-
-            <br><br>
-
-            Where:
-
-            <br>
-
-            T = tension in each effective sling leg
-
-            <br>
-
-            W = total load
-
-            <br>
-
-            N = number of effective legs
-
-            <br>
-
-            θ = sling angle measured from horizontal
-
-        </div>
-
-        <p>
-            As the sling angle becomes smaller, the tension in each
-            sling leg increases.
-        </p>
-
+    <div class="field">
+      <label for="baseSwl">Base Sling Capacity (SWL/WLL)</label>
+      <input id="baseSwl" type="number" min="0" step="any" placeholder="Enter capacity">
+      <span class="hint">Enter the manufacturer's rated capacity for the selected sling configuration and unit.</span>
     </div>
 
-
-    <div class="card">
-
-        <h2>Angle Factor</h2>
-
-        <div class="formula">
-
-            Angle Factor = 1 ÷ sin θ
-
-            <br><br>
-
-            Leg Tension =
-            (Load ÷ Number of Effective Legs)
-            × Angle Factor
-
-        </div>
-
-        <p>
-            The angle must be measured from the horizontal for these
-            formulas.
-        </p>
-
+    <div class="field">
+      <label for="hitch">Hitch Type</label>
+      <select id="hitch">
+        <option value="1">Vertical / Straight (1.0)</option>
+        <option value="0.8">Choker (example factor 0.8)</option>
+        <option value="2">Basket (example factor 2.0)</option>
+        <option value="custom">Custom hitch factor</option>
+      </select>
     </div>
 
-
-    <div class="card">
-
-        <h2>Required Sling WLL</h2>
-
-        <div class="formula">
-
-            Required WLL per effective leg
-            ≥ calculated leg tension
-
-        </div>
-
-        <p>
-            The selected sling must have a manufacturer-rated WLL
-            suitable for the actual hitch, configuration, angle and
-            conditions of use.
-        </p>
-
+    <div class="field" id="customHitchWrap" hidden>
+      <label for="customHitch">Custom Hitch Factor</label>
+      <input id="customHitch" type="number" min="0" step="any" placeholder="Enter approved factor">
     </div>
 
-
-    <div class="card">
-
-        <h2>Study Design Factor</h2>
-
-        <div class="formula">
-
-            Required Minimum Breaking Strength
-            =
-            Leg Tension × Design Factor
-
-        </div>
-
-        <p>
-            A design factor entered here is only a study calculation.
-            It does not determine the legally or technically applicable
-            sling WLL. The applicable standard, sling type, material,
-            hitch and manufacturer certification determine the actual
-            rating.
-        </p>
-
+    <div class="field">
+      <label for="angle">Sling Angle to Horizontal</label>
+      <select id="angle">
+        <option value="90">90°</option>
+        <option value="60">60°</option>
+        <option value="45">45°</option>
+        <option value="30">30°</option>
+        <option value="custom">Custom angle factor</option>
+      </select>
+      <span class="hint">Use the angle convention required by your sling manufacturer's chart.</span>
     </div>
 
-
-    <div class="card">
-
-        <h2>Important Sling Angle Reference</h2>
-
-        <table style="width:100%; border-collapse:collapse;">
-
-            <tr>
-                <th style="text-align:left; padding:10px;">
-                    Angle
-                </th>
-
-                <th style="text-align:left; padding:10px;">
-                    Angle Factor
-                </th>
-            </tr>
-
-            <tr>
-                <td style="padding:10px;">90°</td>
-                <td style="padding:10px;">1.000</td>
-            </tr>
-
-            <tr>
-                <td style="padding:10px;">60°</td>
-                <td style="padding:10px;">1.155</td>
-            </tr>
-
-            <tr>
-                <td style="padding:10px;">45°</td>
-                <td style="padding:10px;">1.414</td>
-            </tr>
-
-            <tr>
-                <td style="padding:10px;">30°</td>
-                <td style="padding:10px;">2.000</td>
-            </tr>
-
-            <tr>
-                <td style="padding:10px;">20°</td>
-                <td style="padding:10px;">2.924</td>
-            </tr>
-
-        </table>
-
+    <div class="field" id="customAngleWrap" hidden>
+      <label for="customAngle">Custom Angle Factor</label>
+      <input id="customAngle" type="number" min="0" step="any" placeholder="Enter approved factor">
     </div>
 
-
-    <div class="card">
-
-        <h2>Worked Example</h2>
-
-        <p>
-            Load = 10 tonnes
-        </p>
-
-        <p>
-            Two effective sling legs
-        </p>
-
-        <p>
-            Sling angle = 60° from horizontal
-        </p>
-
-        <div class="formula">
-
-            Angle Factor = 1 ÷ sin(60°)
-
-            <br>
-
-            Angle Factor ≈ 1.155
-
-            <br><br>
-
-            T = 10 ÷ (2 × sin(60°))
-
-            <br>
-
-            T ≈ 5.774 tonnes per leg
-
-        </div>
-
+    <div class="field">
+      <label for="capacityUnit">Capacity Unit</label>
+      <select id="capacityUnit">
+        <option value="kg">kg</option>
+        <option value="t">Metric tonnes (t)</option>
+        <option value="lb">lb</option>
+        <option value="kN">kN</option>
+      </select>
     </div>
 
+    <div class="field">
+      <label for="legs">Number of Load-Bearing Legs (reference)</label>
+      <select id="legs">
+        <option value="1">1 leg</option>
+        <option value="2">2 legs</option>
+        <option value="3">3 legs</option>
+        <option value="4">4 legs</option>
+      </select>
+      <span class="hint">The number of legs is informational here; do not assume every leg shares the load equally.</span>
+    </div>
+  </div>
 
-    <div class="card">
+  <div class="formula" id="formulaText">
+    <strong>General formula:</strong><br>
+    SWL = Base Sling Capacity × Angle Factor × Hitch Factor
+  </div>
 
-        <h2>Safety & Application Notes</h2>
+  <div id="error" class="error" role="alert"></div>
 
-        <p>
-            Actual sling capacity depends on sling type, material,
-            diameter or size, hitch configuration, angle, number of
-            effective legs, connection hardware, temperature, edge
-            conditions, wear, damage and manufacturer specifications.
-        </p>
+  <div class="results">
+    <div class="result">
+      <div class="label">Calculated Sling Capacity</div>
+      <div class="value" id="resultSwl">—</div>
+      <div class="unit" id="resultUnit">Enter valid values.</div>
+    </div>
+    <div class="result">
+      <div class="label">Combined Reference Capacity</div>
+      <div class="value" id="combinedSwl">—</div>
+      <div class="unit">Calculated capacity × selected number of legs, for reference only</div>
+    </div>
+  </div>
 
-        <p>
-            Do not assume that all legs of a multi-leg sling share the
-            load equally in real lifting operations. Rigging geometry,
-            COG, stiffness and connection conditions can produce unequal
-            loading.
-        </p>
+  <div class="buttons">
+    <button class="primary" id="calculate" type="button">Calculate SWL</button>
+    <button class="secondary" id="reset" type="button">Reset</button>
+    <button class="secondary" id="print" type="button">Print / Save PDF</button>
+  </div>
+</section>
 
-        <div class="warning">
+<section class="card">
+  <h2>2. Chain Sling Capacity</h2>
+  <p class="intro">
+    For chain slings, use the rated single-leg capacity and the applicable manufacturer-approved
+    angle and hitch factors. Do not calculate a certified WLL from chain diameter alone.
+  </p>
 
-            <strong>Safety Notice:</strong><br><br>
-
-            This calculator is for study and training purposes only.
-            It does not establish the certified SWL/WLL of a sling.
-            Always use the identification tag, certificate,
-            manufacturer tables and applicable requirements for the
-            actual lifting accessory.
-
-            <br><br>
-
-            Actual lifting operations require an approved lift plan
-            and competent-person verification.
-
-        </div>
-
+  <div class="grid">
+    <div class="field">
+      <label for="chainBase">Rated Single-Leg Capacity</label>
+      <input id="chainBase" type="number" min="0" step="any" placeholder="Enter manufacturer's rated capacity">
     </div>
 
+    <div class="field">
+      <label for="chainUnit">Capacity Unit</label>
+      <select id="chainUnit">
+        <option value="kg">kg</option>
+        <option value="t">Metric tonnes (t)</option>
+        <option value="lb">lb</option>
+        <option value="kN">kN</option>
+      </select>
+    </div>
 
-    <a class="back" href="../calculation.html">
-        ← Back to Calculations
-    </a>
+    <div class="field">
+      <label for="chainLegs">Number of Sling Legs</label>
+      <select id="chainLegs">
+        <option value="1">1 leg</option>
+        <option value="2">2 legs</option>
+        <option value="3">3 legs</option>
+        <option value="4">4 legs</option>
+      </select>
+    </div>
 
-</div>
+    <div class="field">
+      <label for="chainAngle">Manufacturer's Angle Factor</label>
+      <input id="chainAngle" type="number" min="0" step="any" placeholder="Enter rated factor">
+      <span class="hint">Use the factor from the applicable chain sling load chart.</span>
+    </div>
 
+    <div class="field">
+      <label for="chainHitch">Manufacturer's Hitch Factor</label>
+      <input id="chainHitch" type="number" min="0" step="any" value="1">
+      <span class="hint">Use the factor for the actual hitch arrangement.</span>
+    </div>
+  </div>
+
+  <div class="formula">
+    <strong>Chain sling capacity formula:</strong><br>
+    Chain Sling Capacity = Rated Single-Leg Capacity × Angle Factor × Hitch Factor<br><br>
+    For multiple legs, only apply a multi-leg rating or leg multiplier if it is explicitly
+    permitted by the manufacturer's rated capacity chart and applicable standard.
+  </div>
+
+  <div class="results">
+    <div class="result full">
+      <div class="label">Calculated Chain Sling Capacity</div>
+      <div class="value" id="chainResult">—</div>
+      <div class="unit" id="chainResultUnit">Enter valid values and calculate.</div>
+    </div>
+  </div>
+
+  <div class="buttons">
+    <button class="primary" id="calculateChain" type="button">Calculate Chain Capacity</button>
+  </div>
+</section>
+
+<section class="card">
+  <h2>Important Safety Information</h2>
+  <div class="warning">
+    <strong>Important:</strong> This is a planning aid, not a sling certification tool.
+    Actual SWL/WLL must be based on the sling's identification tag, manufacturer's load chart,
+    hitch arrangement, sling angle convention, number of effective load-bearing legs,
+    connection hardware, and applicable lifting standards. Factors shown as examples are
+    not universal. Verify all factors before using the result for a real lift.
+    Never exceed the manufacturer's rated capacity.
+  </div>
+</section>
+
+<footer>
+  Sling SWL Calculator · Always verify capacity against the manufacturer's rating and approved lift plan.
+</footer>
+</main>
 
 <script>
+const $ = id => document.getElementById(id);
 
-function calculate() {
-
-    const load = parseFloat(
-        document.getElementById("load").value
-    );
-
-    const legs = parseInt(
-        document.getElementById("legs").value
-    );
-
-    const angle = parseFloat(
-        document.getElementById("angle").value
-    );
-
-    const ratedWLL = parseFloat(
-        document.getElementById("ratedWLL").value
-    );
-
-    const designFactor = parseFloat(
-        document.getElementById("designFactor").value
-    );
-
-    const result = document.getElementById("result");
-
-    if (
-        isNaN(load) ||
-        load <= 0 ||
-        isNaN(angle)
-    ) {
-
-        result.innerHTML = `
-            <div class="error">
-                Please enter a valid load and sling angle.
-            </div>
-        `;
-
-        return;
-    }
-
-    if (angle <= 0 || angle > 90) {
-
-        result.innerHTML = `
-            <div class="error">
-                Sling angle must be greater than 0°
-                and not greater than 90°.
-            </div>
-        `;
-
-        return;
-    }
-
-    const radians = angle * Math.PI / 180;
-
-    const sinAngle = Math.sin(radians);
-
-    if (sinAngle <= 0) {
-
-        result.innerHTML = `
-            <div class="error">
-                Invalid sling angle.
-            </div>
-        `;
-
-        return;
-    }
-
-    const angleFactor = 1 / sinAngle;
-
-    const legTension =
-        load / (legs * sinAngle);
-
-    let output = `
-
-        <div class="result">
-
-            <h3>Calculation Results</h3>
-
-            <table>
-
-                <tr>
-                    <th>Parameter</th>
-                    <th>Result</th>
-                </tr>
-
-                <tr>
-                    <td>Total Load</td>
-                    <td>${load.toFixed(3)} tonnes</td>
-                </tr>
-
-                <tr>
-                    <td>Effective Legs</td>
-                    <td>${legs}</td>
-                </tr>
-
-                <tr>
-                    <td>Sling Angle</td>
-                    <td>${angle.toFixed(2)}°</td>
-                </tr>
-
-                <tr>
-                    <td>Angle Factor</td>
-                    <td>${angleFactor.toFixed(3)}</td>
-                </tr>
-
-                <tr>
-                    <td>Calculated Tension per Leg</td>
-                    <td>${legTension.toFixed(3)} tonnes</td>
-                </tr>
-
-                <tr>
-                    <td>Required Minimum WLL per Leg</td>
-                    <td>${legTension.toFixed(3)} tonnes</td>
-                </tr>
-
-    `;
-
-    if (
-        !isNaN(designFactor) &&
-        designFactor > 0
-    ) {
-
-        const requiredBreakingStrength =
-            legTension * designFactor;
-
-        output += `
-
-            <tr>
-                <td>Study Design Factor</td>
-                <td>${designFactor.toFixed(2)}</td>
-            </tr>
-
-            <tr>
-                <td>
-                    Study Minimum Breaking Strength
-                </td>
-
-                <td>
-                    ${requiredBreakingStrength.toFixed(3)} tonnes
-                </td>
-            </tr>
-
-        `;
-    }
-
-    output += `
-            </table>
-        </div>
-    `;
-
-    if (
-        !isNaN(ratedWLL) &&
-        ratedWLL > 0
-    ) {
-
-        const utilization =
-            (legTension / ratedWLL) * 100;
-
-        output += `
-
-            <div class="${
-                utilization <= 100
-                ? "success"
-                : "error"
-            }" style="margin-top:20px;">
-
-                <strong>Rated WLL Comparison</strong>
-
-                <br><br>
-
-                Manufacturer-rated WLL per leg:
-                ${ratedWLL.toFixed(3)} tonnes
-
-                <br>
-
-                Calculated leg tension:
-                ${legTension.toFixed(3)} tonnes
-
-                <br>
-
-                Calculated utilization:
-                ${utilization.toFixed(1)}%
-
-                <br><br>
-
-                ${
-                    utilization <= 100
-                    ? "The calculated tension is within the entered rated WLL for this simplified comparison."
-                    : "The calculated tension exceeds the entered rated WLL."
-                }
-
-            </div>
-
-        `;
-    }
-
-    result.innerHTML = output;
+function fmt(n) {
+  return n.toLocaleString(undefined, { maximumFractionDigits: 3 });
 }
 
-
-function clearAll() {
-
-    document.getElementById("load").value = "";
-
-    document.getElementById("legs").value = "2";
-
-    document.getElementById("angle").value = "";
-
-    document.getElementById("ratedWLL").value = "";
-
-    document.getElementById("designFactor").value = "";
-
-    document.getElementById("result").innerHTML = "";
+function capacityUnitLabel(unit) {
+  return unit === "t" ? "tonnes" : unit;
 }
 
+function positiveNumber(id) {
+  const raw = $(id).value.trim();
+  if (raw === "") return null;
+  const n = Number(raw);
+  return Number.isFinite(n) && n >= 0 ? n : null;
+}
+
+function getAngleFactor() {
+  const angle = $("angle").value;
+  if (angle === "custom") return positiveNumber("customAngle");
+
+  // Angle factor convention here is relative to a vertical sling.
+  // Use manufacturer-approved factors for the actual rigging system.
+  const degrees = Number(angle);
+  return Math.sin(degrees * Math.PI / 180);
+}
+
+function getHitchFactor() {
+  const hitch = $("hitch").value;
+  if (hitch === "custom") return positiveNumber("customHitch");
+  return Number(hitch);
+}
+
+function updateVisibility() {
+  $("customHitchWrap").hidden = $("hitch").value !== "custom";
+  $("customAngleWrap").hidden = $("angle").value !== "custom";
+
+  const type = $("slingType").value;
+  if (type === "web") {
+    $("formulaText").innerHTML =
+      "<strong>Web sling formula:</strong><br>" +
+      "SWL = Rated sling capacity × Angle Factor × Hitch Factor";
+  } else if (type === "wire") {
+    $("formulaText").innerHTML =
+      "<strong>Wire rope sling formula:</strong><br>" +
+      "SWL = Rated sling capacity × Angle Factor × Hitch Factor";
+  } else {
+    $("formulaText").innerHTML =
+      "<strong>Chain sling formula:</strong><br>" +
+      "SWL = Rated chain capacity × Angle Factor × Hitch Factor";
+  }
+}
+
+function calculateMain() {
+  const base = positiveNumber("baseSwl");
+  const angleFactor = getAngleFactor();
+  const hitchFactor = getHitchFactor();
+  const legs = Number($("legs").value);
+  const unit = $("capacityUnit").value;
+  const error = $("error");
+
+  error.style.display = "none";
+  error.textContent = "";
+
+  if (base === null || base <= 0 ||
+      angleFactor === null || angleFactor <= 0 ||
+      hitchFactor === null || hitchFactor <= 0) {
+    error.textContent =
+      "Enter a rated sling capacity greater than zero and valid positive angle and hitch factors.";
+    error.style.display = "block";
+    $("resultSwl").textContent = "—";
+    $("combinedSwl").textContent = "—";
+    $("resultUnit").textContent = "Correct the input values.";
+    return;
+  }
+
+  const swl = base * angleFactor * hitchFactor;
+  const combined = swl * legs;
+
+  $("resultSwl").textContent = fmt(swl);
+  $("resultUnit").textContent = capacityUnitLabel(unit);
+  $("combinedSwl").textContent = fmt(combined) + " " + capacityUnitLabel(unit);
+}
+
+function calculateChain() {
+  const base = positiveNumber("chainBase");
+  const angle = positiveNumber("chainAngle");
+  const hitch = positiveNumber("chainHitch");
+  const legs = Number($("chainLegs").value);
+  const unit = $("chainUnit").value;
+
+  if (base === null || base <= 0 ||
+      angle === null || angle <= 0 ||
+      hitch === null || hitch <= 0) {
+    $("chainResult").textContent = "—";
+    $("chainResultUnit").textContent =
+      "Enter a rated capacity and manufacturer-approved positive factors.";
+    return;
+  }
+
+  // This result applies the entered factors to one rated leg.
+  // Do not multiply by leg count without a rated multi-leg chart.
+  const capacity = base * angle * hitch;
+  $("chainResult").textContent = fmt(capacity);
+  $("chainResultUnit").textContent =
+    capacityUnitLabel(unit) + " (per-leg calculation; not a certified multi-leg WLL)";
+}
+
+$("slingType").addEventListener("change", updateVisibility);
+$("hitch").addEventListener("change", updateVisibility);
+$("angle").addEventListener("change", updateVisibility);
+$("calculate").addEventListener("click", calculateMain);
+$("calculateChain").addEventListener("click", calculateChain);
+$("print").addEventListener("click", () => window.print());
+
+$("reset").addEventListener("click", () => {
+  document.querySelectorAll("input").forEach(input => input.value = "");
+  $("hitch").value = "1";
+  $("angle").value = "90";
+  $("capacityUnit").value = "kg";
+  $("legs").value = "1";
+  $("chainUnit").value = "kg";
+  $("chainLegs").value = "1";
+  $("chainHitch").value = "1";
+
+  $("resultSwl").textContent = "—";
+  $("combinedSwl").textContent = "—";
+  $("resultUnit").textContent = "Enter valid values.";
+  $("chainResult").textContent = "—";
+  $("chainResultUnit").textContent = "Enter valid values and calculate.";
+  $("error").style.display = "none";
+  updateVisibility();
+});
+
+updateVisibility();
 </script>
-
 </body>
 </html>
