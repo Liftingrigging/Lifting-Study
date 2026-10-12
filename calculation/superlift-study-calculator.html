@@ -3,353 +3,446 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Superlift Study Calculator</title>
+<title>Superlift Counterweight Calculator</title>
 
 <style>
-body{
-    margin:0;
-    font-family:Arial,sans-serif;
-    background:#f1f5f9;
-    color:#0f172a;
+:root {
+  --bg: #07111f;
+  --panel: #101f33;
+  --panel2: #162941;
+  --text: #f0f6ff;
+  --muted: #a7b9cf;
+  --cyan: #42d9f5;
+  --border: #29415e;
+  --green: #63e6a7;
+  --red: #ff8585;
 }
 
-header{
-    background:#0f172a;
-    color:white;
-    text-align:center;
-    padding:25px;
-    border-bottom:4px solid #0284c7;
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  padding: 28px 16px;
+  color: var(--text);
+  font-family: Arial, Helvetica, sans-serif;
+  background:
+    linear-gradient(rgba(8, 20, 37, .94), rgba(5, 13, 25, .98)),
+    repeating-linear-gradient(0deg, transparent 0 39px, #28425d 40px),
+    repeating-linear-gradient(90deg, transparent 0 39px, #28425d 40px);
 }
 
-.container{
-    max-width:900px;
-    margin:30px auto;
-    padding:20px;
+.container {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
 }
 
-.card{
-    background:white;
-    padding:25px;
-    margin-bottom:20px;
-    border-radius:12px;
-    box-shadow:0 4px 15px rgba(0,0,0,0.08);
+header { margin-bottom: 24px; }
+
+.eyebrow {
+  color: var(--cyan);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  font-size: 12px;
+  font-weight: bold;
 }
 
-label{
-    display:block;
-    font-weight:bold;
-    margin-top:15px;
+h1 {
+  margin: 10px 0;
+  font-size: clamp(26px, 5vw, 40px);
 }
 
-input{
-    width:100%;
-    box-sizing:border-box;
-    padding:12px;
-    margin-top:6px;
-    border:1px solid #cbd5e1;
-    border-radius:6px;
-    font-size:16px;
+.subtitle {
+  color: var(--muted);
+  line-height: 1.6;
 }
 
-button{
-    margin-top:20px;
-    padding:13px 22px;
-    background:#0284c7;
-    color:white;
-    border:0;
-    border-radius:6px;
-    font-size:16px;
-    cursor:pointer;
+.panel {
+  padding: 22px;
+  margin-bottom: 18px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(16, 31, 51, .96);
 }
 
-button:hover{
-    background:#0369a1;
+h2 {
+  margin: 0 0 18px;
+  font-size: 19px;
 }
 
-.result{
-    margin-top:20px;
-    padding:20px;
-    background:#e0f2fe;
-    border-left:5px solid #0284c7;
-    border-radius:6px;
+.mode-buttons {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+  margin-bottom: 22px;
 }
 
-.formula{
-    background:#f8fafc;
-    padding:15px;
-    border-radius:6px;
-    font-family:monospace;
-    line-height:1.7;
+button {
+  min-height: 46px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  background: var(--panel2);
+  font-weight: bold;
+  cursor: pointer;
 }
 
-.warning{
-    background:#fff7ed;
-    border-left:5px solid #f97316;
-    padding:18px;
-    border-radius:6px;
+button.active {
+  border-color: var(--cyan);
+  background: #15384d;
+  color: var(--cyan);
 }
 
-.status{
-    font-size:20px;
-    font-weight:bold;
+.fields {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.field { min-width: 0; }
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.hint {
+  display: block;
+  color: var(--muted);
+  font-size: 12px;
+  line-height: 1.5;
+  margin-top: 6px;
+}
+
+input {
+  width: 100%;
+  min-height: 48px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: 9px;
+  background: #091727;
+  color: var(--text);
+  font-size: 16px;
+}
+
+input:focus {
+  outline: 2px solid var(--cyan);
+  outline-offset: 2px;
+}
+
+.primary {
+  width: 100%;
+  margin-top: 22px;
+  color: #061522;
+  background: var(--cyan);
+  border-color: var(--cyan);
+  font-size: 16px;
+}
+
+.result {
+  display: none;
+  border-color: #287d80;
+}
+
+.result.show { display: block; }
+
+.result-label {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.result-number {
+  margin: 12px 0;
+  color: var(--green);
+  font-size: clamp(32px, 7vw, 48px);
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.unit {
+  color: var(--text);
+  font-size: 17px;
+}
+
+.formula {
+  padding: 14px;
+  border-radius: 10px;
+  background: #091727;
+  color: var(--cyan);
+  line-height: 1.8;
+  overflow-wrap: anywhere;
+}
+
+.error {
+  display: none;
+  color: var(--red);
+  margin-top: 14px;
+  line-height: 1.5;
+}
+
+.error.show { display: block; }
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 12px;
+}
+
+th, td {
+  padding: 12px 8px;
+  border-bottom: 1px solid var(--border);
+  text-align: left;
+  font-size: 14px;
+}
+
+th { color: var(--muted); }
+
+.warning {
+  padding: 15px;
+  border: 1px solid #8d6931;
+  border-radius: 10px;
+  color: #ffe1a5;
+  background: rgba(99, 67, 21, .2);
+  line-height: 1.6;
+  font-size: 13px;
+}
+
+@media (max-width: 560px) {
+  .fields, .mode-buttons { grid-template-columns: 1fr; }
+  .panel { padding: 17px; }
+  th, td { font-size: 12px; }
 }
 </style>
 </head>
 
 <body>
+<main class="container">
 
 <header>
-    <h1>Superlift Study Calculator</h1>
-    <p>Lifting & Rigging Study Tool</p>
+  <div class="eyebrow">Lifting Engineering Tool</div>
+  <h1>Superlift Counterweight Calculator</h1>
+  <p class="subtitle">
+    Calculate the required superlift counterweight or estimate the load
+    radius for a specified superlift counterweight using the formula
+    shown in your reference image.
+  </p>
 </header>
 
-<div class="container">
+<section class="panel">
+  <h2>Choose calculation</h2>
 
-<div class="card">
+  <div class="mode-buttons">
+    <button id="modeCwt" class="active" type="button">
+      Required SL CWT
+    </button>
+    <button id="modeRadius" type="button">
+      Find load radius A
+    </button>
+  </div>
 
-<h2>Superlift / Crane Capacity Study</h2>
+  <form id="calculator">
+    <div class="fields">
+      <div class="field">
+        <label for="load">L — Load weight (tonnes)</label>
+        <input id="load" type="number" min="0.001" step="any"
+               placeholder="e.g. 100" required>
+        <span class="hint">The suspended load weight used in the calculation.</span>
+      </div>
 
-<p>
-Use this calculator to study the relationship between gross suspended
-load and the crane's rated capacity for a selected configuration.
-</p>
+      <div class="field">
+        <label for="radiusB">B — SL CWT radius (m)</label>
+        <input id="radiusB" type="number" min="0.001" step="any"
+               placeholder="e.g. 12" required>
+        <span class="hint">Distance from the crane reference point to the SL counterweight.</span>
+      </div>
 
-<label>Main Lifted Load (tonnes)</label>
-<input type="number" id="mainLoad" step="any" placeholder="Example: 40">
+      <div class="field" id="radiusAField">
+        <label for="radiusA">A — Load radius (m)</label>
+        <input id="radiusA" type="number" min="0" step="any"
+               placeholder="e.g. 20">
+        <span class="hint">Distance from the same reference point to the load.</span>
+      </div>
 
-<label>Rigging & Lifting Accessories (tonnes)</label>
-<input type="number" id="rigging" step="any" placeholder="Example: 2">
+      <div class="field" id="cwtField" hidden>
+        <label for="cwt">SL CWT available (tonnes)</label>
+        <input id="cwt" type="number" min="0.001" step="any"
+               placeholder="e.g. 80">
+        <span class="hint">The counterweight quantity you intend to use.</span>
+      </div>
+    </div>
 
-<label>Hook Block / Ball (tonnes)</label>
-<input type="number" id="hookBlock" step="any" placeholder="Example: 5">
+    <button class="primary" type="submit">Calculate</button>
+    <div id="error" class="error" role="alert"></div>
+  </form>
+</section>
 
-<label>Other Suspended Equipment (tonnes)</label>
-<input type="number" id="other" step="any" placeholder="Example: 1">
+<section id="result" class="panel result" aria-live="polite">
+  <div class="result-label" id="resultLabel">Required superlift counterweight</div>
+  <div class="result-number">
+    <span id="resultNumber">—</span>
+    <span class="unit" id="resultUnit">tonnes</span>
+  </div>
 
-<label>Crane Rated Capacity at Actual Configuration (tonnes)</label>
-<input type="number" id="capacity" step="any" placeholder="Example: 60">
+  <div class="formula">
+    <strong>Formula used</strong><br>
+    <span id="formulaText"></span>
+  </div>
 
-<button onclick="calculate()">Calculate</button>
+  <table>
+    <tbody>
+      <tr><th>Load weight (L)</th><td id="outLoad">—</td></tr>
+      <tr><th>Load radius (A)</th><td id="outA">—</td></tr>
+      <tr><th>SL CWT radius (B)</th><td id="outB">—</td></tr>
+      <tr><th>SL CWT used / calculated</th><td id="outCwt">—</td></tr>
+    </tbody>
+  </table>
+</section>
 
-<div id="result"></div>
+<section class="panel">
+  <h2>Formula reference</h2>
 
-</div>
+  <p class="formula">
+    <strong>Calculate required SL counterweight:</strong><br>
+    SL CWT = (L × A) ÷ B
+  </p>
 
-<div class="card">
+  <p class="formula">
+    <strong>Calculate load radius A:</strong><br>
+    A = (SL CWT × B) ÷ L
+  </p>
 
-<h2>Study Formulas</h2>
+  <div class="warning">
+    <strong>Important safety note:</strong> This calculator performs the
+    arithmetic from the supplied reference image. It does not establish
+    whether a crane or superlift configuration is safe for a lift. Verify
+    the result against the exact crane manufacturer's approved load charts,
+    superlift configuration, counterweight arrangement, reeving, and lift
+    plan. Confirm whether the load weight must include rigging and lifting
+    accessories. Do not use this result alone to authorize a lift.
+  </div>
+</section>
 
-<div class="formula">
-
-Gross Load =
-Main Load + Rigging + Hook Block + Other Suspended Equipment
-
-<br><br>
-
-Utilization (%) =
-(Gross Load ÷ Rated Capacity) × 100
-
-<br><br>
-
-Remaining Capacity =
-Rated Capacity − Gross Load
-
-</div>
-
-</div>
-
-<div class="card">
-
-<h2>Example</h2>
-
-<p>
-Main load = 40 t
-</p>
-
-<p>
-Rigging = 2 t
-</p>
-
-<p>
-Hook block = 5 t
-</p>
-
-<p>
-Other suspended equipment = 1 t
-</p>
-
-<p>
-Rated capacity = 60 t
-</p>
-
-<p>
-Gross load = 40 + 2 + 5 + 1 = <strong>48 t</strong>
-</p>
-
-<p>
-Utilization = 48 ÷ 60 × 100 =
-<strong>80%</strong>
-</p>
-
-<p>
-Remaining capacity = 60 − 48 =
-<strong>12 t</strong>
-</p>
-
-</div>
-
-<div class="card">
-
-<h2>Important Superlift Concept</h2>
-
-<p>
-A superlift system can increase the crane's lifting capability by
-changing the crane's operating configuration and counterweight
-arrangement.
-</p>
-
-<p>
-The actual benefit depends on the specific crane model, boom
-configuration, superlift system, counterweight, radius, boom angle,
-reeving and manufacturer load chart.
-</p>
-
-</div>
-
-<div class="warning">
-
-<strong>Critical Safety Notice</strong>
-
-<p>
-This calculator is for study and preliminary understanding only.
-It does <strong>not</strong> calculate or approve a crane's actual
-superlift capacity.
-</p>
-
-<p>
-Do not use the calculated percentage as permission to perform a lift.
-Actual capacity must be verified using the specific manufacturer's
-load chart and configuration data.
-</p>
-
-<p>
-Actual lifting operations require an approved lift plan, competent
-person verification, applicable standards, manufacturer requirements,
-site procedures and required inspections.
-</p>
-
-</div>
-
-</div>
+</main>
 
 <script>
+const modeCwt = document.getElementById("modeCwt");
+const modeRadius = document.getElementById("modeRadius");
+const radiusAField = document.getElementById("radiusAField");
+const cwtField = document.getElementById("cwtField");
+const radiusAInput = document.getElementById("radiusA");
+const cwtInput = document.getElementById("cwt");
+const form = document.getElementById("calculator");
+const error = document.getElementById("error");
+const result = document.getElementById("result");
 
-function calculate(){
+let mode = "cwt";
 
-    const mainLoad = parseFloat(
-        document.getElementById("mainLoad").value
-    );
+function setMode(nextMode) {
+  mode = nextMode;
 
-    const rigging = parseFloat(
-        document.getElementById("rigging").value
-    ) || 0;
+  modeCwt.classList.toggle("active", mode === "cwt");
+  modeRadius.classList.toggle("active", mode === "radius");
 
-    const hookBlock = parseFloat(
-        document.getElementById("hookBlock").value
-    ) || 0;
+  radiusAField.hidden = mode !== "cwt";
+  cwtField.hidden = mode !== "radius";
 
-    const other = parseFloat(
-        document.getElementById("other").value
-    ) || 0;
+  radiusAInput.required = mode === "cwt";
+  cwtInput.required = mode === "radius";
 
-    const capacity = parseFloat(
-        document.getElementById("capacity").value
-    );
-
-    if(
-        isNaN(mainLoad) ||
-        isNaN(capacity) ||
-        mainLoad < 0 ||
-        capacity <= 0
-    ){
-        document.getElementById("result").innerHTML =
-        '<div class="result"><strong>Please enter valid load and capacity values.</strong></div>';
-        return;
-    }
-
-    const grossLoad =
-        mainLoad +
-        rigging +
-        hookBlock +
-        other;
-
-    const utilization =
-        (grossLoad / capacity) * 100;
-
-    const remaining =
-        capacity - grossLoad;
-
-    let status;
-
-    if(utilization <= 75){
-
-        status =
-        "Study utilization: 75% or below";
-
-    }else if(utilization <= 85){
-
-        status =
-        "Study utilization: above 75% and up to 85%";
-
-    }else if(utilization <= 100){
-
-        status =
-        "Study utilization: above 85% and up to 100%";
-
-    }else{
-
-        status =
-        "Gross load exceeds entered rated capacity";
-
-    }
-
-    document.getElementById("result").innerHTML = `
-
-        <div class="result">
-
-        <h3>Calculation Result</h3>
-
-        <p>
-        <strong>Gross Suspended Load:</strong>
-        ${grossLoad.toFixed(3)} t
-        </p>
-
-        <p>
-        <strong>Rated Capacity:</strong>
-        ${capacity.toFixed(3)} t
-        </p>
-
-        <p>
-        <strong>Utilization:</strong>
-        ${utilization.toFixed(2)}%
-        </p>
-
-        <p>
-        <strong>Remaining Capacity:</strong>
-        ${remaining.toFixed(3)} t
-        </p>
-
-        <p class="status">
-        ${status}
-        </p>
-
-        </div>
-
-    `;
+  result.classList.remove("show");
+  error.classList.remove("show");
 }
 
-</script>
+modeCwt.addEventListener("click", () => setMode("cwt"));
+modeRadius.addEventListener("click", () => setMode("radius"));
 
+function format(value) {
+  return value.toLocaleString(undefined, {
+    maximumFractionDigits: 3
+  });
+}
+
+function showError(message) {
+  error.textContent = message;
+  error.classList.add("show");
+  result.classList.remove("show");
+}
+
+form.addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  error.classList.remove("show");
+
+  const L = Number(document.getElementById("load").value);
+  const B = Number(document.getElementById("radiusB").value);
+
+  if (!Number.isFinite(L) || L <= 0) {
+    showError("Enter a load weight greater than zero.");
+    return;
+  }
+
+  if (!Number.isFinite(B) || B <= 0) {
+    showError("Enter an SL CWT radius greater than zero.");
+    return;
+  }
+
+  let A;
+  let cwt;
+  let answer;
+  let formula;
+
+  if (mode === "cwt") {
+    A = Number(radiusAInput.value);
+
+    if (!Number.isFinite(A) || A < 0) {
+      showError("Enter a load radius of zero or greater.");
+      return;
+    }
+
+    cwt = (L * A) / B;
+    answer = cwt;
+    formula = `SL CWT = (${format(L)} × ${format(A)}) ÷ ${format(B)}
+             = ${format(cwt)} tonnes`;
+    
+    document.getElementById("resultLabel").textContent =
+      "Calculated required SL counterweight";
+    document.getElementById("resultUnit").textContent = "tonnes";
+  } else {
+    cwt = Number(cwtInput.value);
+
+    if (!Number.isFinite(cwt) || cwt <= 0) {
+      showError("Enter an SL counterweight greater than zero.");
+      return;
+    }
+
+    A = (cwt * B) / L;
+    answer = A;
+    formula = `A = (${format(cwt)} × ${format(B)}) ÷ ${format(L)}
+             = ${format(A)} metres`;
+
+    document.getElementById("resultLabel").textContent =
+      "Calculated load radius A";
+    document.getElementById("resultUnit").textContent = "metres";
+  }
+
+  if (!Number.isFinite(answer)) {
+    showError("The result is outside the supported numeric range.");
+    return;
+  }
+
+  document.getElementById("resultNumber").textContent = format(answer);
+  document.getElementById("formulaText").textContent = formula;
+  document.getElementById("outLoad").textContent = `${format(L)} tonnes`;
+  document.getElementById("outA").textContent = `${format(A)} m`;
+  document.getElementById("outB").textContent = `${format(B)} m`;
+  document.getElementById("outCwt").textContent = `${format(cwt)} tonnes`;
+
+  result.classList.add("show");
+});
+</script>
 </body>
 </html>
