@@ -1,413 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Tailing Crane Load Calculator</title>
+<style>
+  :root {
+    --bg: #0b1220;
+    --panel: #131f31;
+    --panel2: #1a2940;
+    --border: #30425b;
+    --text: #edf4ff;
+    --muted: #a6b7ce;
+    --blue: #56a6ff;
+    --orange: #ffad5c;
+    --green: #58d6a1;
+    --red: #ff7777;
+  }
 
-    <title>Ground Bearing Calculator</title>
+  * { box-sizing: border-box; }
 
-    <style>
-        body {
-            margin: 0;
-            font-family: Arial, sans-serif;
-            background: #0f172a;
-            color: #e2e8f0;
-            line-height: 1.6;
-        }
+  body {
+    margin: 0;
+    padding: 22px;
+    background: var(--bg);
+    color: var(--text);
+    font-family: Arial, Helvetica, sans-serif;
+  }
 
-        header {
-            background: #020617;
-            padding: 30px 20px;
-            text-align: center;
-            border-bottom: 2px solid #38bdf8;
-        }
+  .container {
+    max-width: 1050px;
+    margin: auto;
+  }
 
-        header h1 {
-            color: #38bdf8;
-            margin: 0;
-        }
+  h1 {
+    margin: 0 0 8px;
+    font-size: clamp(24px, 4vw, 34px);
+  }
 
-        nav {
-            background: #1e293b;
-            padding: 14px;
-            text-align: center;
-        }
+  .subtitle {
+    color: var(--muted);
+    line-height: 1.5;
+    margin-bottom: 22px;
+  }
 
-        nav a {
-            color: #e2e8f0;
-            text-decoration: none;
-            margin: 0 10px;
-            font-weight: bold;
-        }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+  }
 
-        nav a:hover {
-            color: #38bdf8;
-        }
+  .panel {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    padding: 18px;
+    min-width: 0;
+  }
 
-        main {
-            max-width: 850px;
-            margin: auto;
-            padding: 30px 20px;
-        }
+  .panel h2 {
+    font-size: 18px;
+    margin: 0 0 16px;
+  }
 
-        .calculator {
-            background: #1e293b;
-            padding: 30px;
-            border-radius: 14px;
-            border: 1px solid #334155;
-        }
+  .field { margin-bottom: 15px; }
 
-        label {
-            display: block;
-            margin-top: 18px;
-            margin-bottom: 6px;
-            font-weight: bold;
-            color: #7dd3fc;
-        }
+  label {
+    display: block;
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 7px;
+  }
 
-        input {
-            width: 100%;
-            box-sizing: border-box;
-            padding: 13px;
-            border-radius: 8px;
-            border: 1px solid #475569;
-            background: #020617;
-            color: white;
-            font-size: 16px;
-        }
+  input[type="number"] {
+    width: 100%;
+    min-height: 44px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid var(--border);
+    background: #0c1728;
+    color: var(--text);
+    font-size: 16px;
+  }
 
-        button {
-            margin-top: 25px;
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 8px;
-            background: #0284c7;
-            color: white;
-            font-size: 17px;
-            font-weight: bold;
-            cursor: pointer;
-        }
+  input[type="range"] {
+    width: 100%;
+    accent-color: var(--blue);
+    min-height: 32px;
+  }
 
-        button:hover {
-            background: #0369a1;
-        }
+  .angle-head {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+  }
 
-        .result {
-            margin-top: 25px;
-            padding: 20px;
-            background: #020617;
-            border-radius: 10px;
-            border-left: 5px solid #38bdf8;
-        }
+  .angle-value {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--green);
+  }
 
-        .formula {
-            background: #020617;
-            padding: 18px;
-            border-radius: 8px;
-            margin-top: 20px;
-            font-family: Consolas, monospace;
-            color: #7dd3fc;
-        }
+  .results {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 12px;
+    margin-top: 16px;
+  }
 
-        .info {
-            margin-top: 25px;
-            padding: 20px;
-            background: #172554;
-            border-left: 5px solid #60a5fa;
-            border-radius: 8px;
-        }
+  .result-card {
+    padding: 16px;
+    border-radius: 12px;
+    background: var(--panel2);
+    border: 1px solid var(--border);
+  }
 
-        .warning {
-            margin-top: 25px;
-            padding: 20px;
-            background: #451a03;
-            border-left: 5px solid #f59e0b;
-            border-radius: 8px;
-        }
+  .result-card.a { border-top: 4px solid var(--blue); }
+  .result-card.b { border-top: 4px solid var(--orange); }
 
-        .back {
-            display: inline-block;
-            margin-top: 25px;
-            color: #7dd3fc;
-            text-decoration: none;
-        }
+  .result-title {
+    color: var(--muted);
+    font-size: 14px;
+  }
 
-        footer {
-            text-align: center;
-            padding: 25px;
-            margin-top: 30px;
-            background: #020617;
-            color: #94a3b8;
-        }
-    </style>
+  .result-value {
+    font-size: clamp(24px, 4vw, 32px);
+    font-weight: 700;
+    margin: 9px 0;
+    overflow-wrap: anywhere;
+  }
+
+  .share {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .bar-label {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 17px 0 7px;
+    font-size: 14px;
+  }
+
+  .bar-track {
+    height: 14px;
+    background: #26354a;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    width: 0%;
+    transition: width .15s ease;
+  }
+
+  #barA { background: var(--blue); }
+  #barB { background: var(--orange); }
+
+  .diagram {
+    width: 100%;
+    display: block;
+    margin-top: 8px;
+    background: #0c1728;
+    border-radius: 10px;
+    border: 1px solid var(--border);
+  }
+
+  .note {
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #332719;
+    border: 1px solid #80603b;
+    color: #ffe0b9;
+    font-size: 13px;
+    line-height: 1.55;
+  }
+
+  .method {
+    margin-top: 16px;
+    padding: 14px;
+    border-radius: 10px;
+    background: #102a29;
+    border: 1px solid #2e6559;
+    color: #c7f7e5;
+    line-height: 1.55;
+    font-size: 13px;
+  }
+
+  .error {
+    display: none;
+    margin-top: 12px;
+    color: #ffd1d1;
+    background: #401f2a;
+    border: 1px solid #9c4757;
+    padding: 12px;
+    border-radius: 8px;
+  }
+
+  .footer {
+    margin-top: 18px;
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+
+  @media (max-width: 720px) {
+    body { padding: 12px; }
+    .grid { grid-template-columns: 1fr; }
+  }
+
+  @media (max-width: 420px) {
+    .results { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
-
 <body>
+<div class="container">
+  <h1>Tailing Crane Load Calculator</h1>
+  <div class="subtitle">
+    Crane A at the head end · Crane B at the tail end · Rotation from 0° to 90°
+  </div>
 
-<header>
-    <h1>🌍 Ground Bearing Calculator</h1>
-    <p>Crane & Outrigger Study Tool</p>
-</header>
+  <div class="grid">
+    <section class="panel">
+      <h2>Load and lifting geometry</h2>
 
-<nav>
-    <a href="../index.html">Home</a>
-    <a href="../rigging.html">Lifting Accessories</a>
-    <a href="../calculations.html">Calculations</a>
-    <a href="../cranes.html">Cranes</a>
-    <a href="../planning.html">Lift Planning</a>
-    <a href="../safety.html">Safety</a>
-    <a href="../study-notes.html">Study Notes</a>
-</nav>
+      <div class="field">
+        <label for="weight">Total load weight, including applicable rigging (tonnes)</label>
+        <input id="weight" type="number" min="0.001" step="any" value="100">
+      </div>
 
-<main>
+      <div class="field">
+        <label for="length">Distance between Crane A and Crane B lifting points (m)</label>
+        <input id="length" type="number" min="0.001" step="any" value="20">
+      </div>
 
-<div class="calculator">
+      <div class="field">
+        <label for="cgA">Distance from Crane A lifting point to centre of gravity (m)</label>
+        <input id="cgA" type="number" min="0" step="any" value="10">
+      </div>
 
-    <h2>Calculate Ground Bearing Pressure</h2>
+      <div class="field">
+        <label for="angle">Load rotation angle from horizontal</label>
+        <div class="angle-head">
+          <span>0° = horizontal</span>
+          <span class="angle-value" id="angleText">0°</span>
+        </div>
+        <input id="angle" type="range" min="0" max="90" step="1" value="0">
+        <div class="bar-label">
+          <span>Horizontal · 0°</span>
+          <span>Vertical · 90°</span>
+        </div>
+      </div>
 
-    <p>
-        Enter the applied force and supporting area to calculate
-        the average pressure on the ground.
-    </p>
+      <div class="field">
+        <label for="angleNumber">Enter angle directly (degrees)</label>
+        <input id="angleNumber" type="number" min="0" max="90" step="any" value="0">
+      </div>
 
-    <label for="force">
-        Applied Force (kN)
-    </label>
+      <div id="error" class="error" role="alert"></div>
 
-    <input
-        type="number"
-        id="force"
-        placeholder="Example: 500"
-        min="0"
-        step="any"
-    >
+      <div class="method">
+        <strong>Model used in this tool</strong><br>
+        Initial horizontal load share is calculated from the centre of gravity.
+        During rotation, the tail-crane share is estimated using a cosine reduction
+        and the head-crane share is the remaining load. At 90°, Crane A carries
+        100% and Crane B carries 0% in this simplified model.
+      </div>
+    </section>
 
-    <label for="area">
-        Support Area (m²)
-    </label>
+    <section class="panel">
+      <h2>Calculated crane loads</h2>
 
-    <input
-        type="number"
-        id="area"
-        placeholder="Example: 2"
-        min="0"
-        step="any"
-    >
+      <div class="results">
+        <div class="result-card a">
+          <div class="result-title">Crane A · Head</div>
+          <div class="result-value" id="loadA">50.00 t</div>
+          <div class="share" id="shareA">50.0% of total load</div>
+        </div>
 
-    <button onclick="calculatePressure()">
-        Calculate Ground Pressure
-    </button>
+        <div class="result-card b">
+          <div class="result-title">Crane B · Tail</div>
+          <div class="result-value" id="loadB">50.00 t</div>
+          <div class="share" id="shareB">50.0% of total load</div>
+        </div>
+      </div>
 
-    <div class="formula">
-        P = F ÷ A
-        <br><br>
-        P = Ground Pressure (kN/m²)
-        <br>
-        F = Applied Force (kN)
-        <br>
-        A = Supporting Area (m²)
-    </div>
+      <div class="bar-label">
+        <span>Crane A load share</span>
+        <strong id="barAText">50.0%</strong>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="barA"></div></div>
 
-    <div id="pressureResult" class="result">
-        Enter force and support area.
-    </div>
+      <div class="bar-label">
+        <span>Crane B load share</span>
+        <strong id="barBText">50.0%</strong>
+      </div>
+      <div class="bar-track"><div class="bar-fill" id="barB"></div></div>
 
+      <h2 style="margin-top:22px;">Rotation illustration</h2>
+      <svg id="diagram" class="diagram" viewBox="0 0 600 280"
+           role="img" aria-label="Illustration of the load rotating between the head and tail cranes">
+        <line x1="40" y1="235" x2="560" y2="235" stroke="#526780" stroke-width="2"/>
+        <g id="loadDrawing"></g>
+      </svg>
+      <div class="footer">
+        Schematic only; it is not to scale and does not represent actual crane hook paths.
+      </div>
+    </section>
+  </div>
+
+  <div class="note">
+    <strong>Important lifting safety note:</strong>
+    This is a preliminary illustrative calculator, not a certified lift-plan tool.
+    The cosine transfer model is an assumption, not a universal LEEA or TÜV NORD
+    formula. Actual tailing-crane loads must be calculated for the specific load,
+    lifting lugs, sling arrangement, hook trajectories, support conditions and
+    operating sequence. A competent lifting engineer must verify the calculations
+    and account for applicable dynamic effects and required capacity margins before
+    the lift is performed.
+  </div>
+
+  <div class="footer">
+    Use consistent units. The calculated values are load forces expressed as
+    equivalent tonnes, not crane-capacity ratings. This tool does not select cranes
+    or confirm that either crane is suitable for the operation.
+  </div>
 </div>
-
-
-<div class="calculator">
-
-    <h2>Calculate Required Support Area</h2>
-
-    <p>
-        Enter the applied force and allowable ground pressure
-        to estimate the minimum theoretical support area.
-    </p>
-
-    <label for="requiredForce">
-        Applied Force (kN)
-    </label>
-
-    <input
-        type="number"
-        id="requiredForce"
-        placeholder="Example: 500"
-        min="0"
-        step="any"
-    >
-
-    <label for="allowablePressure">
-        Allowable Ground Pressure (kN/m²)
-    </label>
-
-    <input
-        type="number"
-        id="allowablePressure"
-        placeholder="Example: 250"
-        min="0"
-        step="any"
-    >
-
-    <button onclick="calculateArea()">
-        Calculate Required Area
-    </button>
-
-    <div class="formula">
-        A = F ÷ Pallow
-        <br><br>
-        A = Required Support Area
-        <br>
-        F = Applied Force
-        <br>
-        Pallow = Allowable Ground Pressure
-    </div>
-
-    <div id="areaResult" class="result">
-        Enter force and allowable ground pressure.
-    </div>
-
-</div>
-
-
-<div class="info">
-
-    <strong>📚 Study Concept</strong>
-
-    <p>
-        Increasing the supporting area reduces the average pressure
-        applied to the ground, assuming the applied force remains constant.
-    </p>
-
-    <p>
-        For crane operations, actual outrigger reactions can vary
-        significantly depending on crane configuration, load radius,
-        boom configuration and operating conditions.
-    </p>
-
-</div>
-
-
-<div class="warning">
-
-    <strong>⚠️ Important Safety Notice</strong>
-
-    <p>
-        These calculations are simplified educational calculations.
-        They do not determine whether actual ground conditions are
-        suitable for a crane.
-    </p>
-
-    <p>
-        Actual crane setup requires verified outrigger reactions,
-        ground investigation, allowable bearing capacity, support
-        system design and competent engineering review.
-    </p>
-
-</div>
-
-<a class="back" href="../calculations.html">
-    ← Back to Calculations
-</a>
-
-</main>
-
-<footer>
-    Lifting & Rigging Study Hub
-    <br>
-    <small>Created by Jawad Wains — Lifting Engineer</small>
-</footer>
 
 <script>
+(function () {
+  const $ = id => document.getElementById(id);
 
-function calculatePressure() {
+  const weightInput = $("weight");
+  const lengthInput = $("length");
+  const cgInput = $("cgA");
+  const angleSlider = $("angle");
+  const angleNumber = $("angleNumber");
+  const errorBox = $("error");
 
-    const force = parseFloat(
-        document.getElementById("force").value
-    );
+  function fmt(value) {
+    return value.toLocaleString(undefined, {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    });
+  }
 
-    const area = parseFloat(
-        document.getElementById("area").value
-    );
+  function fmtPercent(value) {
+    return value.toLocaleString(undefined, {
+      minimumFractionDigits: 1,
+      maximumFractionDigits: 1
+    }) + "%";
+  }
 
-    const result = document.getElementById("pressureResult");
+  function drawLoad(angleDegrees) {
+    const group = $("loadDrawing");
+    const radians = angleDegrees * Math.PI / 180;
 
-    if (isNaN(force) || force <= 0) {
+    const ax = 105;
+    const ay = 55;
+    const lengthPx = 390;
+    const bx = ax + lengthPx * Math.cos(radians);
+    const by = ay + lengthPx * Math.sin(radians);
 
-        result.innerHTML =
-            "<strong>Please enter a valid applied force.</strong>";
+    const cgx = ax + lengthPx * 0.5 * Math.cos(radians);
+    const cgy = ay + lengthPx * 0.5 * Math.sin(radians);
 
-        return;
+    group.innerHTML = `
+      <line x1="${ax}" y1="22" x2="${ax}" y2="${ay}"
+            stroke="#56a6ff" stroke-width="3"/>
+      <line x1="${bx}" y1="22" x2="${bx}" y2="${by}"
+            stroke="#ffad5c" stroke-width="3"/>
+      <circle cx="${ax}" cy="22" r="7" fill="#56a6ff"/>
+      <circle cx="${bx}" cy="22" r="7" fill="#ffad5c"/>
+      <line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}"
+            stroke="#edf4ff" stroke-width="10" stroke-linecap="round"/>
+      <circle cx="${cgx}" cy="${cgy}" r="7" fill="#58d6a1"
+              stroke="#0c1728" stroke-width="2"/>
+      <text x="${ax}" y="13" fill="#56a6ff" text-anchor="middle"
+            font-size="14" font-weight="bold">Crane A</text>
+      <text x="${bx}" y="13" fill="#ffad5c" text-anchor="middle"
+            font-size="14" font-weight="bold">Crane B</text>
+      <text x="${cgx}" y="${cgy - 14}" fill="#58d6a1"
+            text-anchor="middle" font-size="12">COG</text>
+      <text x="300" y="265" fill="#a6b7ce" text-anchor="middle"
+            font-size="13">Rotation angle: ${angleDegrees.toFixed(1)}°</text>
+    `;
+  }
+
+  function calculate() {
+    const W = Number(weightInput.value);
+    const L = Number(lengthInput.value);
+    const dA = Number(cgInput.value);
+    const angle = Number(angleNumber.value);
+
+    errorBox.style.display = "none";
+
+    if (
+      !Number.isFinite(W) || W <= 0 ||
+      !Number.isFinite(L) || L <= 0 ||
+      !Number.isFinite(dA) || dA < 0 || dA > L ||
+      !Number.isFinite(angle) || angle < 0 || angle > 90
+    ) {
+      errorBox.textContent =
+        "Enter a positive total weight and lifting-point distance. " +
+        "The COG distance must be between 0 and the total distance, " +
+        "and the angle must be between 0° and 90°.";
+      errorBox.style.display = "block";
+      return;
     }
 
-    if (isNaN(area) || area <= 0) {
+    // Initial horizontal reactions for a two-support rigid load.
+    const baseB = W * dA / L;
+    const baseA = W - baseB;
 
-        result.innerHTML =
-            "<strong>Please enter a valid support area.</strong>";
+    // Simplified illustrative tailing-transfer model:
+    // Crane B reduces with cos(angle); Crane A carries the remainder.
+    const radians = angle * Math.PI / 180;
+    const loadB = baseB * Math.cos(radians);
+    const loadA = W - loadB;
 
-        return;
+    const shareA = loadA / W * 100;
+    const shareB = loadB / W * 100;
+
+    $("angleText").textContent = angle.toFixed(1) + "°";
+    $("loadA").textContent = fmt(loadA) + " t";
+    $("loadB").textContent = fmt(loadB) + " t";
+    $("shareA").textContent = fmtPercent(shareA) + " of total load";
+    $("shareB").textContent = fmtPercent(shareB) + " of total load";
+
+    $("barAText").textContent = fmtPercent(shareA);
+    $("barBText").textContent = fmtPercent(shareB);
+    $("barA").style.width = Math.max(0, Math.min(100, shareA)) + "%";
+    $("barB").style.width = Math.max(0, Math.min(100, shareB)) + "%";
+
+    drawLoad(angle);
+  }
+
+  angleSlider.addEventListener("input", () => {
+    angleNumber.value = angleSlider.value;
+    calculate();
+  });
+
+  angleNumber.addEventListener("input", () => {
+    const value = Number(angleNumber.value);
+    if (Number.isFinite(value)) {
+      angleSlider.value = Math.max(0, Math.min(90, value));
     }
+    calculate();
+  });
 
-    const pressure = force / area;
+  [weightInput, lengthInput, cgInput].forEach(input => {
+    input.addEventListener("input", calculate);
+  });
 
-    result.innerHTML =
-        "<strong>Result</strong><br><br>" +
-        "Applied Force = " +
-        force.toFixed(3) +
-        " kN<br>" +
-        "Support Area = " +
-        area.toFixed(3) +
-        " m²<br><br>" +
-        "Average Ground Pressure = <strong>" +
-        pressure.toFixed(3) +
-        " kN/m²</strong>";
-}
-
-
-function calculateArea() {
-
-    const force = parseFloat(
-        document.getElementById("requiredForce").value
-    );
-
-    const allowable = parseFloat(
-        document.getElementById("allowablePressure").value
-    );
-
-    const result = document.getElementById("areaResult");
-
-    if (isNaN(force) || force <= 0) {
-
-        result.innerHTML =
-            "<strong>Please enter a valid applied force.</strong>";
-
-        return;
-    }
-
-    if (isNaN(allowable) || allowable <= 0) {
-
-        result.innerHTML =
-            "<strong>Please enter a valid allowable ground pressure.</strong>";
-
-        return;
-    }
-
-    const area = force / allowable;
-
-    result.innerHTML =
-        "<strong>Result</strong><br><br>" +
-        "Applied Force = " +
-        force.toFixed(3) +
-        " kN<br>" +
-        "Allowable Pressure = " +
-        allowable.toFixed(3) +
-        " kN/m²<br><br>" +
-        "Theoretical Required Area = <strong>" +
-        area.toFixed(3) +
-        " m²</strong>";
-}
-
+  calculate();
+})();
 </script>
-
 </body>
 </html>
