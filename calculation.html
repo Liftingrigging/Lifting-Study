@@ -16,16 +16,11 @@
       --text: #edf5ff;
       --muted: #a8b8cf;
       --border: rgba(155, 190, 230, 0.17);
-      --card: rgba(17, 34, 59, 0.88);
     }
 
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
-    html {
-      scroll-behavior: smooth;
-    }
+    html { scroll-behavior: smooth; }
 
     body {
       margin: 0;
@@ -33,18 +28,14 @@
       color: var(--text);
       font-family: Arial, Helvetica, sans-serif;
       background:
-        radial-gradient(ellipse at 10% 8%,
-          rgba(36, 108, 210, 0.28), transparent 38%),
-        radial-gradient(ellipse at 92% 25%,
-          rgba(142, 77, 235, 0.19), transparent 35%),
-        radial-gradient(ellipse at 55% 90%,
-          rgba(27, 183, 203, 0.12), transparent 38%),
+        radial-gradient(ellipse at 10% 8%, rgba(36,108,210,.28), transparent 38%),
+        radial-gradient(ellipse at 92% 25%, rgba(142,77,235,.19), transparent 35%),
+        radial-gradient(ellipse at 55% 90%, rgba(27,183,203,.12), transparent 38%),
         linear-gradient(140deg, #07101f, #0c1b31 52%, #080f20);
       background-attachment: fixed;
       overflow-x: hidden;
     }
 
-    /* Decorative background graphics */
     body::before {
       content: "";
       position: fixed;
@@ -52,8 +43,8 @@
       pointer-events: none;
       z-index: -1;
       background-image:
-        linear-gradient(rgba(150, 190, 235, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(150, 190, 235, 0.035) 1px, transparent 1px);
+        linear-gradient(rgba(150,190,235,.035) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(150,190,235,.035) 1px, transparent 1px);
       background-size: 42px 42px;
       mask-image: linear-gradient(to bottom, black, transparent 90%);
     }
@@ -64,7 +55,7 @@
       height: 340px;
       border-radius: 50%;
       filter: blur(85px);
-      opacity: 0.18;
+      opacity: .18;
       pointer-events: none;
       z-index: -1;
     }
@@ -89,16 +80,16 @@
       border-bottom: 1px solid var(--border);
       background:
         linear-gradient(120deg,
-          rgba(17, 48, 84, 0.95),
-          rgba(12, 25, 49, 0.94) 55%,
-          rgba(53, 32, 88, 0.78));
+          rgba(17,48,84,.95),
+          rgba(12,25,49,.94) 55%,
+          rgba(53,32,88,.78));
     }
 
     header::before,
     header::after {
       content: "";
       position: absolute;
-      border: 1px solid rgba(120, 221, 255, 0.16);
+      border: 1px solid rgba(120,221,255,.16);
       border-radius: 50%;
       pointer-events: none;
     }
@@ -109,8 +100,8 @@
       top: -220px;
       left: -75px;
       box-shadow:
-        0 0 0 35px rgba(83, 181, 255, 0.035),
-        0 0 0 75px rgba(83, 181, 255, 0.025);
+        0 0 0 35px rgba(83,181,255,.035),
+        0 0 0 75px rgba(83,181,255,.025);
     }
 
     header::after {
@@ -119,8 +110,8 @@
       bottom: -335px;
       right: -70px;
       box-shadow:
-        0 0 0 35px rgba(177, 133, 255, 0.045),
-        0 0 0 75px rgba(177, 133, 255, 0.025);
+        0 0 0 35px rgba(177,133,255,.045),
+        0 0 0 75px rgba(177,133,255,.025);
     }
 
     .header-content {
@@ -136,9 +127,9 @@
       gap: 9px;
       margin-bottom: 18px;
       padding: 8px 13px;
-      border: 1px solid rgba(110, 220, 255, 0.23);
+      border: 1px solid rgba(110,220,255,.23);
       border-radius: 50px;
-      background: rgba(34, 115, 180, 0.16);
+      background: rgba(34,115,180,.16);
       color: #9cecf5;
       font-size: 12px;
       font-weight: bold;
@@ -159,7 +150,7 @@
       font-size: clamp(29px, 5vw, 49px);
       line-height: 1.15;
       letter-spacing: -1.5px;
-      background: linear-gradient(100deg, #ffffff 15%, #a8eaff 55%, #c5b2ff);
+      background: linear-gradient(100deg, #fff 15%, #a8eaff 55%, #c5b2ff);
       -webkit-background-clip: text;
       background-clip: text;
       color: transparent;
@@ -196,19 +187,19 @@
       min-height: 44px;
       border: 1px solid var(--border);
       border-radius: 10px;
-      background: rgba(18, 37, 63, 0.86);
+      background: rgba(18,37,63,.86);
       color: #e7f2ff;
       text-decoration: none;
       padding: 11px 16px;
       font-size: 14px;
       cursor: pointer;
-      transition: border-color 0.2s, background 0.2s, transform 0.2s;
+      transition: border-color .2s, background .2s, transform .2s;
     }
 
     .back-link:hover,
     .pdf-button:hover {
-      border-color: rgba(84, 227, 239, 0.65);
-      background: rgba(35, 67, 105, 0.95);
+      border-color: rgba(84,227,239,.65);
+      background: rgba(35,67,105,.95);
       transform: translateY(-2px);
     }
 
@@ -220,18 +211,16 @@
       font-size: 16px;
       color: var(--text);
       margin-bottom: 30px;
-      background: rgba(14, 29, 50, 0.91);
+      background: rgba(14,29,50,.91);
       outline: none;
-      transition: border-color 0.2s, box-shadow 0.2s;
+      transition: border-color .2s, box-shadow .2s;
     }
 
-    .search-box::placeholder {
-      color: #8296b2;
-    }
+    .search-box::placeholder { color: #8296b2; }
 
     .search-box:focus {
-      border-color: rgba(84, 227, 239, 0.8);
-      box-shadow: 0 0 0 3px rgba(84, 227, 239, 0.09);
+      border-color: rgba(84,227,239,.8);
+      box-shadow: 0 0 0 3px rgba(84,227,239,.09);
     }
 
     .category {
@@ -240,8 +229,8 @@
       gap: 12px;
       margin: 34px 0 15px;
       color: #e8f2ff;
-      font-size: clamp(19px, 3vw, 23px);
-      letter-spacing: -0.4px;
+      font-size: clamp(19px,3vw,23px);
+      letter-spacing: -.4px;
     }
 
     .category::before {
@@ -251,12 +240,12 @@
       height: 27px;
       border-radius: 5px;
       background: linear-gradient(to bottom, var(--cyan), var(--blue));
-      box-shadow: 0 0 13px rgba(84, 227, 239, 0.22);
+      box-shadow: 0 0 13px rgba(84,227,239,.22);
     }
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%, 255px), 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(min(100%,255px),1fr));
       gap: 16px;
     }
 
@@ -272,13 +261,13 @@
       border-radius: 15px;
       background:
         linear-gradient(145deg,
-          rgba(22, 43, 71, 0.96),
-          rgba(12, 26, 46, 0.94));
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.13);
+          rgba(22,43,71,.96),
+          rgba(12,26,46,.94));
+      box-shadow: 0 8px 24px rgba(0,0,0,.13);
       transition:
-        transform 0.22s ease,
-        border-color 0.22s ease,
-        box-shadow 0.22s ease;
+        transform .22s ease,
+        border-color .22s ease,
+        box-shadow .22s ease;
     }
 
     .card::before {
@@ -289,8 +278,8 @@
       right: 20px;
       height: 2px;
       border-radius: 0 0 5px 5px;
-      background: linear-gradient(90deg, var(--cyan), var(--blue), var(--purple));
-      opacity: 0.72;
+      background: linear-gradient(90deg,var(--cyan),var(--blue),var(--purple));
+      opacity: .72;
     }
 
     .card::after {
@@ -300,17 +289,17 @@
       height: 105px;
       top: -66px;
       right: -54px;
-      border: 1px solid rgba(125, 183, 255, 0.13);
+      border: 1px solid rgba(125,183,255,.13);
       border-radius: 50%;
-      box-shadow: 0 0 0 15px rgba(125, 183, 255, 0.025);
+      box-shadow: 0 0 0 15px rgba(125,183,255,.025);
       pointer-events: none;
     }
 
     .card:hover {
       transform: translateY(-5px);
-      border-color: rgba(84, 227, 239, 0.42);
-      box-shadow: 0 15px 34px rgba(0, 0, 0, 0.23),
-                  0 0 22px rgba(41, 151, 220, 0.06);
+      border-color: rgba(84,227,239,.42);
+      box-shadow: 0 15px 34px rgba(0,0,0,.23),
+                  0 0 22px rgba(41,151,220,.06);
     }
 
     .card h3 {
@@ -338,33 +327,28 @@
       text-align: center;
       min-height: 45px;
       padding: 12px;
-      background: linear-gradient(100deg, #1769aa, #287be0);
+      background: linear-gradient(100deg,#1769aa,#287be0);
       color: white;
-      border: 1px solid rgba(130, 199, 255, 0.2);
+      border: 1px solid rgba(130,199,255,.2);
       border-radius: 9px;
       text-decoration: none;
       font-size: 14px;
       font-weight: bold;
-      transition: filter 0.2s, transform 0.2s;
+      transition: filter .2s, transform .2s;
     }
 
     .open-link::after {
       content: "→";
       font-size: 17px;
-      transition: transform 0.2s;
+      transition: transform .2s;
     }
 
-    .open-link:hover {
-      filter: brightness(1.17);
-    }
-
-    .open-link:hover::after {
-      transform: translateX(3px);
-    }
+    .open-link:hover { filter: brightness(1.17); }
+    .open-link:hover::after { transform: translateX(3px); }
 
     #noResults {
       display: none;
-      background: rgba(18, 37, 63, 0.88);
+      background: rgba(18,37,63,.88);
       border: 1px solid var(--border);
       border-radius: 12px;
       padding: 24px;
@@ -379,51 +363,27 @@
       font-size: 13px;
       line-height: 1.8;
       border-top: 1px solid var(--border);
-      background: rgba(6, 15, 29, 0.4);
+      background: rgba(6,15,29,.4);
     }
 
     @media (max-width: 520px) {
-      header {
-        padding: 46px 17px 42px;
-      }
-
-      .container {
-        margin-top: 20px;
-      }
-
-      .top-actions {
-        align-items: stretch;
-      }
-
-      .back-link,
-      .pdf-button {
-        flex: 1;
-      }
-
-      .card {
-        min-height: 190px;
-      }
+      header { padding: 46px 17px 42px; }
+      .container { margin-top: 20px; }
+      .top-actions { align-items: stretch; }
+      .back-link, .pdf-button { flex: 1; }
+      .card { min-height: 190px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      *,
-      *::before,
-      *::after {
+      *, *::before, *::after {
         scroll-behavior: auto !important;
         transition: none !important;
       }
     }
 
     @media print {
-      body {
-        background: white;
-        color: black;
-      }
-
-      body::before,
-      .ambient {
-        display: none;
-      }
+      body { background: white; color: black; }
+      body::before, .ambient { display: none; }
 
       header {
         background: white;
@@ -432,27 +392,10 @@
         border-bottom: 1px solid #ccc;
       }
 
-      header h1 {
-        color: black;
-        background: none;
-      }
-
-      header p,
-      .card p,
-      footer {
-        color: #333;
-      }
-
-      .top-actions,
-      .search-box,
-      .open-link {
-        display: none !important;
-      }
-
-      .category,
-      .card h3 {
-        color: #111;
-      }
+      header h1 { color: black; background: none; }
+      header p, .card p, footer { color: #333; }
+      .top-actions, .search-box, .open-link { display: none !important; }
+      .category, .card h3 { color: #111; }
 
       .card {
         break-inside: avoid;
@@ -461,19 +404,9 @@
         border: 1px solid #bbb;
       }
 
-      .card::before,
-      .card::after,
-      .category::before {
-        display: none;
-      }
-
-      .calculator-section {
-        break-inside: avoid;
-      }
-
-      footer {
-        background: white;
-      }
+      .card::before, .card::after, .category::before { display: none; }
+      .calculator-section { break-inside: avoid; }
+      footer { background: white; }
     }
   </style>
 </head>
@@ -519,112 +452,86 @@
 
     <section class="calculator-section">
       <h2 class="category">Weight &amp; Load Study</h2>
-
       <div class="grid">
         <article class="card">
           <h3>Material Weight Calculator</h3>
           <p>Calculate material weight using selected material density and volume.</p>
-          <a class="open-link" href="calculation/material-weight-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/material-weight-calculator.html">Open Calculator</a>
         </article>
 
         <article class="card">
           <h3>Center of Gravity Calculator</h3>
           <p>Study the combined center of gravity of components.</p>
-          <a class="open-link" href="calculation/center-of-gravity-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/center-of-gravity-calculator.html">Open Calculator</a>
         </article>
       </div>
     </section>
 
     <section class="calculator-section">
       <h2 class="category">Sling, Shackle &amp; Wire Rope</h2>
-
       <div class="grid">
         <article class="card">
           <h3>Sling Length &amp; Angle Calculator</h3>
           <p>Study sling geometry using length, height, horizontal distance and angle inputs.</p>
-          <a class="open-link" href="calculation/sling-length-angle-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/sling-length-angle-calculator.html">Open Calculator</a>
         </article>
 
         <article class="card">
           <h3>Sling Tension / SWL Calculator</h3>
           <p>Calculate sling tension and study safe working load conditions.</p>
-          <a class="open-link" href="calculation/sling-tension-swl-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/sling-tension-swl-calculator.html">Open Calculator</a>
         </article>
 
         <article class="card">
           <h3>Shackle WLL Calculator</h3>
           <p>Study shackle working load limits for lifting configurations.</p>
-          <a class="open-link" href="calculation/shackle-wll-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/shackle-wll-calculator.html">Open Calculator</a>
         </article>
 
         <article class="card">
           <h3>D/d Ratio Calculator</h3>
           <p>Calculate the ratio of bend diameter to rope diameter.</p>
-          <a class="open-link" href="calculation/d-d-ratio-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/d-d-ratio-calculator.html">Open Calculator</a>
         </article>
       </div>
     </section>
 
     <section class="calculator-section">
       <h2 class="category">Crane &amp; Lift Planning</h2>
-
       <div class="grid">
         <article class="card">
           <h3>Crane Selection Calculator</h3>
           <p>Study crane selection for planned lifting operations.</p>
-          <a class="open-link" href="calculation/crane-selection-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/crane-selection-calculator.html">Open Calculator</a>
         </article>
 
         <article class="card">
           <h3>Critical Lift Planning Calculator</h3>
           <p>Review key details for critical lift planning.</p>
-          <a class="open-link" href="calculation/critical-lift-planning-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/critical-lift-planning-calculator.html">Open Calculator</a>
         </article>
 
         <article class="card">
           <h3>Superlift Study Calculator</h3>
           <p>Open the superlift study tool.</p>
-          <a class="open-link" href="calculation/superlift-study-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/superlift-study-calculator.html">Open Calculator</a>
         </article>
 
         <article class="card">
           <h3>Tailing Load Distribution Calculator</h3>
           <p>Study load distribution between cranes during tailing operations.</p>
-          <a class="open-link" href="calculation/tailing-load-distribution-calculator.html">
-            Open Calculator
-          </a>
+          <a class="open-link" href="calculation/tailing-load-distribution-calculator.html">Open Calculator</a>
         </article>
       </div>
     </section>
 
     <section class="calculator-section">
-      <h2 class="category">Ground, Outriggers &amp; Lifting Beams</h2>
-
+      <h2 class="category">Ground &amp; Outriggers</h2>
       <div class="grid">
         <article class="card">
           <h3>Ground Bearing Calculator</h3>
           <p>Study ground bearing pressure for lifting equipment and crane setups.</p>
-          <a class="open-link" href="calculation/ground-bearing-calculator.html">
-            Open Calculator
-      
+          <a class="open-link" href="calculation/ground-bearing-calculator.html">Open Calculator</a>
         </article>
       </div>
     </section>
@@ -648,10 +555,7 @@
       cards.forEach(function (card) {
         const matches = card.textContent.toLowerCase().includes(query);
         card.style.display = matches ? "" : "none";
-
-        if (matches) {
-          visibleCards++;
-        }
+        if (matches) visibleCards++;
       });
 
       sections.forEach(function (section) {
@@ -659,7 +563,6 @@
           .some(function (card) {
             return card.style.display !== "none";
           });
-
         section.style.display = hasVisibleCard ? "" : "none";
       });
 
