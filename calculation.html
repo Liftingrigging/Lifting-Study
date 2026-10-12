@@ -2,152 +2,303 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Lifting Calculations</title>
-
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#10263f">
+  <title>Lifting &amp; Rigging Calculators</title>
   <style>
+    :root {
+      --navy: #10263f;
+      --blue: #1769aa;
+      --light: #f3f6fa;
+      --border: #dce3eb;
+      --text: #203047;
+      --muted: #627187;
+    }
+    * { box-sizing: border-box; }
     body {
-      font-family: Arial, sans-serif;
-      background: #f4f6f9;
       margin: 0;
-      padding: 30px;
-      color: #1f2937;
+      background: var(--light);
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
     }
-
-    .container {
-      max-width: 800px;
-      margin: auto;
-    }
-
-    h1 {
-      color: #163a5f;
-    }
-
-    button {
-      cursor: pointer;
-      border: none;
-      border-radius: 6px;
-      padding: 12px 18px;
-      font-size: 15px;
-    }
-
-    .open-btn {
-      background: #163a5f;
+    header {
+      background: var(--navy);
       color: white;
+      padding: 32px 18px;
+      text-align: center;
     }
-
-    .folder {
-      margin-top: 20px;
-      padding: 20px;
+    header h1 {
+      margin: 0 0 10px;
+      font-size: clamp(25px, 5vw, 36px);
+    }
+    header p { margin: 0; color: #d6e3f0; line-height: 1.6; }
+    .container { width: min(1150px, 94%); margin: 24px auto 40px; }
+    .top-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .back-link, .pdf-button {
+      display: inline-block;
+      border: 1px solid var(--border);
+      border-radius: 8px;
       background: white;
-      border: 1px solid #d8e0e8;
-      border-radius: 10px;
+      color: var(--navy);
+      text-decoration: none;
+      padding: 11px 15px;
+      font-size: 14px;
+      cursor: pointer;
     }
-
-    .folder h2 {
-      font-size: 20px;
-      margin-top: 0;
-    }
-
-    .calculator-list {
-      display: grid;
-      gap: 12px;
-    }
-
-    .calculator-btn {
+    .search-box {
       width: 100%;
-      text-align: left;
-      background: #edf4fb;
-      color: #163a5f;
-      border: 1px solid #cbdced;
-    }
-
-    .calculator-btn:hover {
-      background: #dceafa;
-    }
-
-    #calculations {
-      display: none;
-    }
-
-    #calculator-content {
-      margin-top: 20px;
-      padding: 20px;
+      padding: 14px;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      font-size: 16px;
+      margin-bottom: 22px;
       background: white;
-      border-radius: 10px;
-      border: 1px solid #d8e0e8;
     }
-
-    .back-btn {
-      margin-top: 12px;
-      background: #e5e7eb;
-      color: #111827;
+    .category { margin: 26px 0 12px; font-size: 21px; color: var(--navy); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(min(100%, 245px), 1fr));
+      gap: 15px;
+    }
+    .card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      box-shadow: 0 2px 6px rgba(16, 38, 63, .04);
+    }
+    .card h3 { margin: 0 0 10px; font-size: 17px; line-height: 1.4; }
+    .card p {
+      margin: 0 0 18px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+      flex-grow: 1;
+    }
+    .open-link {
+      display: block;
+      text-align: center;
+      padding: 12px;
+      background: var(--blue);
+      color: white;
+      border-radius: 7px;
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .open-link:hover { background: #10548a; }
+    #noResults {
+      display: none;
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 20px;
+      text-align: center;
+      color: var(--muted);
+    }
+    footer {
+      text-align: center;
+      padding: 22px 15px;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+    @media print {
+      body { background: white; }
+      header { background: white; color: black; padding: 12px; }
+      header p { color: #333; }
+      .top-actions, .search-box, .open-link { display: none !important; }
+      .card { break-inside: avoid; box-shadow: none; }
+      .card p { color: #333; }
+      a { color: black; }
     }
   </style>
 </head>
-
 <body>
-  <div class="container">
-    <h1>Lifting Calculations</h1>
+<header>
+  <h1>Lifting &amp; Rigging Calculators</h1>
+  <p>Study tools for lifting calculations, crane planning and rigging operations.</p>
+</header>
 
-    <button class="open-btn" onclick="openCalculations()">
-      Open Calculations
-    </button>
-
-    <section id="calculations">
-      <div class="folder">
-        <h2>📁 Weight &amp; Load Study</h2>
-
-        <div class="calculator-list">
-          <button class="calculator-btn"
-                  onclick="openCalculator('material')">
-            ⚖️ Material Weight Calculator
-          </button>
-
-          <button class="calculator-btn"
-                  onclick="openCalculator('cog')">
-            📍 Center of Gravity Calculator
-          </button>
-        </div>
-      </div>
-
-      <div id="calculator-content" hidden>
-        <h2 id="calculator-title"></h2>
-        <p id="calculator-description"></p>
-        <button class="back-btn" onclick="closeCalculator()">
-          Back to Weight &amp; Load Study
-        </button>
-      </div>
-    </section>
+<main class="container">
+  <div class="top-actions">
+    <a class="back-link" href="../index.html">← Back to Home</a>
+    <button class="pdf-button" type="button" onclick="window.print()">Save as PDF</button>
   </div>
 
-  <script>
-    function openCalculations() {
-      document.getElementById("calculations").style.display = "block";
-    }
+  <input id="search" class="search-box" type="search"
+         placeholder="Search calculators by name..."
+         aria-label="Search calculators">
+  <p id="noResults">No calculators match your search.</p>
 
-    function openCalculator(type) {
-      const title = document.getElementById("calculator-title");
-      const description =
-        document.getElementById("calculator-description");
-      const content = document.getElementById("calculator-content");
+  <section class="calculator-section">
+    <h2 class="category">Weight &amp; Load Study</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Material Weight Calculator</h3>
+        <p>Calculate material weight using selected material density and volume.</p>
+        <a class="open-link" href="calculation/material-weight-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Center of Gravity Calculator</h3>
+        <p>Study the combined center of gravity of components.</p>
+        <a class="open-link" href="calculation/center-of-gravity-calculator.html">Open Calculator</a>
+      </article>
+    </div>
+  </section>
 
-      if (type === "material") {
-        title.textContent = "Material Weight Calculator";
-        description.textContent =
-          "Connect your existing material weight calculation form here.";
-      } else if (type === "cog") {
-        title.textContent = "Center of Gravity Calculator";
-        description.textContent =
-          "Connect your existing center of gravity calculation form here.";
-      }
+  <section class="calculator-section">
+    <h2 class="category">Sling, Shackle &amp; Wire Rope</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Chain Sling Capacity Calculator</h3>
+        <p>Open the chain sling capacity tool.</p>
+        <a class="open-link" href="calculation/chain-sling-capacity-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Sling Length &amp; Angle Calculator</h3>
+        <p>Study sling geometry using length and angle inputs.</p>
+        <a class="open-link" href="calculation/sling-length-angle-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Sling Tension / SWL Calculator</h3>
+        <p>Open the sling tension and safe working load tool.</p>
+        <a class="open-link" href="calculation/sling-tension-swl-calculator.htmlt">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Shackle WLL Calculator</h3>
+        <p>Open the shackle working load limit tool.</p>
+        <a class="open-link" href="calculation/shackle-wll-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>D/d Ratio Calculator</h3>
+        <p>Calculate the ratio of bend diameter to rope diameter.</p>
+        <a class="open-link" href="calculation/d-d-ratio-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Wire Rope Breaking Load Calculator</h3>
+        <p>Open the wire rope breaking load tool.</p>
+        <a class="open-link" href="calculation/wire-rope-breaking-load-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Snatch Block Reeving Calculator</h3>
+        <p>Open the reeving calculation tool.</p>
+        <a class="open-link" href="calculation/snatch-block-reeving-calculator.html">Open Calculator</a>
+      </article>
+    </div>
+  </section>
 
-      content.hidden = false;
-    }
+  <section class="calculator-section">
+    <h2 class="category">Crane &amp; Lift Planning</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Crane Selection Calculator</h3>
+        <p>Open the crane selection study tool.</p>
+        <a class="open-link" href="calculation/crane-selection-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Crane Utilization Calculator</h3>
+        <p>Calculate utilization from load and rated capacity inputs.</p>
+        <a class="open-link" href="calculation/crane-utilization-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Critical Lift Planning Calculator</h3>
+        <p>Open the critical lift planning tool.</p>
+        <a class="open-link" href="calculation/critical-lift-planning-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Radius Calculator</h3>
+        <p>Open the crane radius calculation tool.</p>
+        <a class="open-link" href="calculation/radius-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Boom Length Calculator</h3>
+        <p>Open the boom length calculation tool.</p>
+        <a class="open-link" href="calculation/boom-length-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Tip Height &amp; Clearance Calculator</h3>
+        <p>Open the tip height and clearance tool.</p>
+        <a class="open-link" href="calculation/tip-height-clearance-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Angle Calculator</h3>
+        <p>Calculate angles using the tool's inputs.</p>
+        <a class="open-link" href="calculation/angle-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Superlift Study Calculator</h3>
+        <p>Open the superlift study tool.</p>
+        <a class="open-link" href="calculation/superlift-study-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Tailing Load Distribution Calculator</h3>
+        <p>Open the tailing load distribution tool.</p>
+        <a class="open-link" href="calculation/tailing-load-distribution-calculator.html">Open Calculator</a>
+      </article>
+    </div>
+  </section>
 
-    function closeCalculator() {
-      document.getElementById("calculator-content").hidden = true;
-    }
-  </script>
+  <section class="calculator-section">
+    <h2 class="category">Ground, Outriggers &amp; Lifting Beams</h2>
+    <div class="grid">
+      <article class="card">
+        <h3>Ground Bearing Calculator</h3>
+        <p>Open the ground bearing pressure tool.</p>
+        <a class="open-link" href="calculation/ground-bearing-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Outrigger Reaction &amp; Mat Size Calculator</h3>
+        <p>Open the outrigger reaction and mat sizing tool.</p>
+        <a class="open-link" href="calculation/outriggers-reaction-mat-size-calculator.html">Open Calculator</a>
+      </article>
+      <article class="card">
+        <h3>Lifting Beam Reaction Calculator</h3>
+        <p>Open the lifting beam reaction tool.</p>
+        <a class="open-link" href="calculation/lifting-beam-reaction-calculator.html">Open Calculator</a>
+      </article>
+    </div>
+  </section>
+</main>
+
+<footer>
+  For study and planning support only. Verify calculations, equipment ratings,
+  lift plans and operating conditions with qualified personnel before use.
+</footer>
+
+<script>
+  const searchInput = document.getElementById("search");
+  const cards = Array.from(document.querySelectorAll(".card"));
+  const sections = Array.from(document.querySelectorAll(".calculator-section"));
+  const noResults = document.getElementById("noResults");
+
+  searchInput.addEventListener("input", function () {
+    const query = this.value.trim().toLowerCase();
+    let visibleCards = 0;
+
+    cards.forEach(function (card) {
+      const matches = card.textContent.toLowerCase().includes(query);
+      card.style.display = matches ? "" : "none";
+      if (matches) visibleCards++;
+    });
+
+    sections.forEach(function (section) {
+      const visible = Array.from(section.querySelectorAll(".card"))
+        .some(function (card) { return card.style.display !== "none"; });
+      section.style.display = visible ? "" : "none";
+    });
+
+    noResults.style.display = visibleCards === 0 ? "block" : "none";
+  });
+</script>
 </body>
 </html>
