@@ -2,461 +2,272 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tailing Crane Load Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Crane Ground Bearing Calculator</title>
 <style>
-  :root {
-    --bg: #0b1220;
-    --panel: #131f31;
-    --panel2: #1a2940;
-    --border: #30425b;
-    --text: #edf4ff;
-    --muted: #a6b7ce;
-    --blue: #56a6ff;
-    --orange: #ffad5c;
-    --green: #58d6a1;
-    --red: #ff7777;
-  }
-
-  * { box-sizing: border-box; }
-
-  body {
-    margin: 0;
-    padding: 22px;
-    background: var(--bg);
-    color: var(--text);
-    font-family: Arial, Helvetica, sans-serif;
-  }
-
-  .container {
-    max-width: 1050px;
-    margin: auto;
-  }
-
-  h1 {
-    margin: 0 0 8px;
-    font-size: clamp(24px, 4vw, 34px);
-  }
-
-  .subtitle {
-    color: var(--muted);
-    line-height: 1.5;
-    margin-bottom: 22px;
-  }
-
-  .grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 16px;
-  }
-
-  .panel {
-    background: var(--panel);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 18px;
-    min-width: 0;
-  }
-
-  .panel h2 {
-    font-size: 18px;
-    margin: 0 0 16px;
-  }
-
-  .field { margin-bottom: 15px; }
-
-  label {
-    display: block;
-    color: var(--muted);
-    font-size: 14px;
-    margin-bottom: 7px;
-  }
-
-  input[type="number"] {
-    width: 100%;
-    min-height: 44px;
-    padding: 10px 12px;
-    border-radius: 8px;
-    border: 1px solid var(--border);
-    background: #0c1728;
-    color: var(--text);
-    font-size: 16px;
-  }
-
-  input[type="range"] {
-    width: 100%;
-    accent-color: var(--blue);
-    min-height: 32px;
-  }
-
-  .angle-head {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    gap: 10px;
-  }
-
-  .angle-value {
-    font-size: 28px;
-    font-weight: 700;
-    color: var(--green);
-  }
-
-  .results {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 12px;
-    margin-top: 16px;
-  }
-
-  .result-card {
-    padding: 16px;
-    border-radius: 12px;
-    background: var(--panel2);
-    border: 1px solid var(--border);
-  }
-
-  .result-card.a { border-top: 4px solid var(--blue); }
-  .result-card.b { border-top: 4px solid var(--orange); }
-
-  .result-title {
-    color: var(--muted);
-    font-size: 14px;
-  }
-
-  .result-value {
-    font-size: clamp(24px, 4vw, 32px);
-    font-weight: 700;
-    margin: 9px 0;
-    overflow-wrap: anywhere;
-  }
-
-  .share {
-    font-size: 14px;
-    color: var(--muted);
-  }
-
-  .bar-label {
-    display: flex;
-    justify-content: space-between;
-    gap: 10px;
-    margin: 17px 0 7px;
-    font-size: 14px;
-  }
-
-  .bar-track {
-    height: 14px;
-    background: #26354a;
-    border-radius: 10px;
-    overflow: hidden;
-  }
-
-  .bar-fill {
-    height: 100%;
-    width: 0%;
-    transition: width .15s ease;
-  }
-
-  #barA { background: var(--blue); }
-  #barB { background: var(--orange); }
-
-  .diagram {
-    width: 100%;
-    display: block;
-    margin-top: 8px;
-    background: #0c1728;
-    border-radius: 10px;
-    border: 1px solid var(--border);
-  }
-
-  .note {
-    margin-top: 16px;
-    padding: 14px;
-    border-radius: 10px;
-    background: #332719;
-    border: 1px solid #80603b;
-    color: #ffe0b9;
-    font-size: 13px;
-    line-height: 1.55;
-  }
-
-  .method {
-    margin-top: 16px;
-    padding: 14px;
-    border-radius: 10px;
-    background: #102a29;
-    border: 1px solid #2e6559;
-    color: #c7f7e5;
-    line-height: 1.55;
-    font-size: 13px;
-  }
-
-  .error {
-    display: none;
-    margin-top: 12px;
-    color: #ffd1d1;
-    background: #401f2a;
-    border: 1px solid #9c4757;
-    padding: 12px;
-    border-radius: 8px;
-  }
-
-  .footer {
-    margin-top: 18px;
-    color: var(--muted);
-    font-size: 12px;
-    line-height: 1.5;
-  }
-
-  @media (max-width: 720px) {
-    body { padding: 12px; }
-    .grid { grid-template-columns: 1fr; }
-  }
-
-  @media (max-width: 420px) {
-    .results { grid-template-columns: 1fr; }
-  }
+:root {
+  --bg:#0b1220; --panel:#131f31; --panel2:#1b2b42;
+  --border:#30425b; --text:#edf4ff; --muted:#a6b7ce;
+  --blue:#56a6ff; --green:#58d6a1; --orange:#ffad5c; --red:#ff7777;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; padding:20px; background:var(--bg); color:var(--text);
+  font-family:Arial,Helvetica,sans-serif;
+}
+.container { max-width:1050px; margin:auto; }
+h1 { font-size:clamp(24px,4vw,34px); margin:0 0 8px; }
+h2 { font-size:18px; margin:0 0 16px; }
+.subtitle { color:var(--muted); line-height:1.5; margin-bottom:22px; }
+.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:16px; }
+.panel { background:var(--panel); border:1px solid var(--border); border-radius:14px; padding:18px; min-width:0; }
+.field { margin-bottom:15px; }
+label { display:block; color:var(--muted); font-size:14px; margin-bottom:7px; line-height:1.4; }
+input {
+  width:100%; min-height:44px; padding:10px 12px; border-radius:8px;
+  border:1px solid var(--border); background:#0c1728; color:var(--text); font-size:16px;
+}
+.help { color:var(--muted); font-size:12px; line-height:1.5; margin-top:5px; }
+.cards { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px; margin-top:12px; }
+.card { background:var(--panel2); border:1px solid var(--border); border-radius:12px; padding:15px; min-width:0; }
+.card h3 { color:var(--muted); font-size:14px; font-weight:normal; margin:0 0 10px; }
+.value { font-size:clamp(23px,3.5vw,32px); font-weight:bold; overflow-wrap:anywhere; }
+.unit { font-size:13px; color:var(--muted); margin-top:5px; }
+.status { display:block; font-size:13px; font-weight:bold; margin-top:10px; }
+.pass { color:var(--green); }
+.fail { color:var(--red); }
+.neutral { color:var(--orange); }
+.bar { height:12px; background:#29394e; border-radius:20px; overflow:hidden; margin-top:9px; }
+.fill { height:100%; width:0; background:var(--green); }
+.fill.warn { background:var(--orange); }
+.fill.fail { background:var(--red); }
+.result-row { display:flex; justify-content:space-between; gap:12px; padding:11px 0; border-bottom:1px solid var(--border); font-size:14px; }
+.result-row:last-child { border-bottom:0; }
+.result-row span:first-child { color:var(--muted); }
+.result-row strong { text-align:right; overflow-wrap:anywhere; }
+.warning,.note,.method { border-radius:10px; padding:14px; margin-top:16px; font-size:13px; line-height:1.6; }
+.warning { background:#3a2028; border:1px solid #8c4652; color:#ffd6dc; }
+.note { background:#332719; border:1px solid #80603b; color:#ffe0b9; }
+.method { background:#102a29; border:1px solid #2e6559; color:#c7f7e5; }
+button { min-height:44px; padding:10px 14px; border-radius:8px; border:1px solid var(--border); background:#203955; color:var(--text); font-size:15px; cursor:pointer; }
+button:hover { filter:brightness(1.15); }
+.actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:16px; }
+#error { display:none; margin-top:12px; color:#ffd1d1; background:#401f2a; border:1px solid #9c4757; padding:12px; border-radius:8px; }
+.footer { margin-top:18px; color:var(--muted); font-size:12px; line-height:1.6; }
+@media(max-width:720px) { body { padding:12px; } .grid { grid-template-columns:1fr; } }
+@media(max-width:400px) { .cards { grid-template-columns:1fr; } }
+@media print {
+  body { background:white; color:black; padding:0; }
+  .panel,.card { background:white; color:black; border:1px solid #aaa; }
+  label,.subtitle,.help,.unit,.result-row span:first-child,.footer { color:#444; }
+  input { color:black; background:white; border:1px solid #aaa; }
+  button,.actions { display:none; }
+  .warning,.note,.method { color:black; background:white; border:1px solid #777; }
+}
 </style>
 </head>
 <body>
 <div class="container">
-  <h1>Tailing Crane Load Calculator</h1>
+  <h1>Crane Ground Bearing Calculator</h1>
   <div class="subtitle">
-    Crane A at the head end · Crane B at the tail end · Rotation from 0° to 90°
+    Crane parking and outrigger mat assessment · SI units · Live calculation
   </div>
 
   <div class="grid">
     <section class="panel">
-      <h2>Load and lifting geometry</h2>
+      <h2>1. Crane and outrigger data</h2>
 
       <div class="field">
-        <label for="weight">Total load weight, including applicable rigging (tonnes)</label>
-        <input id="weight" type="number" min="0.001" step="any" value="100">
+        <label for="reaction">Maximum load on the most heavily loaded outrigger (tonnes)</label>
+        <input id="reaction" type="number" min="0.001" step="any" value="45">
+        <div class="help">Use the crane manufacturer's outrigger reaction data for the actual configuration. Do not assume the crane weight is divided equally by four.</div>
       </div>
 
       <div class="field">
-        <label for="length">Distance between Crane A and Crane B lifting points (m)</label>
-        <input id="length" type="number" min="0.001" step="any" value="20">
+        <label for="floatL">Outrigger float length or diameter (m)</label>
+        <input id="floatL" type="number" min="0.001" step="any" value="0.6">
       </div>
 
       <div class="field">
-        <label for="cgA">Distance from Crane A lifting point to centre of gravity (m)</label>
-        <input id="cgA" type="number" min="0" step="any" value="10">
+        <label for="floatW">Outrigger float width (m)</label>
+        <input id="floatW" type="number" min="0.001" step="any" value="0.6">
+        <div class="help">For a circular float, enter its diameter in both dimensions. The calculated area is rectangular and may overestimate the true circular contact area.</div>
+      </div>
+
+      <h2 style="margin-top:22px">2. Mat or pad dimensions</h2>
+
+      <div class="field">
+        <label for="matL">Mat length (m)</label>
+        <input id="matL" type="number" min="0.001" step="any" value="2">
       </div>
 
       <div class="field">
-        <label for="angle">Load rotation angle from horizontal</label>
-        <div class="angle-head">
-          <span>0° = horizontal</span>
-          <span class="angle-value" id="angleText">0°</span>
-        </div>
-        <input id="angle" type="range" min="0" max="90" step="1" value="0">
-        <div class="bar-label">
-          <span>Horizontal · 0°</span>
-          <span>Vertical · 90°</span>
-        </div>
+        <label for="matW">Mat width (m)</label>
+        <input id="matW" type="number" min="0.001" step="any" value="2">
       </div>
 
       <div class="field">
-        <label for="angleNumber">Enter angle directly (degrees)</label>
-        <input id="angleNumber" type="number" min="0" max="90" step="any" value="0">
+        <label for="capacity">Allowable ground bearing pressure from site assessment (kPa)</label>
+        <input id="capacity" type="number" min="0.001" step="any" value="150">
+        <div class="help">Enter the value accepted by the responsible geotechnical or temporary-works engineer. Do not use an assumed soil value as a site approval.</div>
       </div>
 
-      <div id="error" class="error" role="alert"></div>
-
-      <div class="method">
-        <strong>Model used in this tool</strong><br>
-        Initial horizontal load share is calculated from the centre of gravity.
-        During rotation, the tail-crane share is estimated using a cosine reduction
-        and the head-crane share is the remaining load. At 90°, Crane A carries
-        100% and Crane B carries 0% in this simplified model.
+      <div id="error" role="alert"></div>
+      <div class="actions">
+        <button id="reset" type="button">Reset values</button>
+        <button id="print" type="button">Print / Save PDF</button>
       </div>
     </section>
 
     <section class="panel">
-      <h2>Calculated crane loads</h2>
+      <h2>3. Ground bearing results</h2>
 
-      <div class="results">
-        <div class="result-card a">
-          <div class="result-title">Crane A · Head</div>
-          <div class="result-value" id="loadA">50.00 t</div>
-          <div class="share" id="shareA">50.0% of total load</div>
+      <div class="cards">
+        <div class="card">
+          <h3>Mat contact area</h3>
+          <div class="value" id="matArea">4.00</div>
+          <div class="unit">m²</div>
         </div>
-
-        <div class="result-card b">
-          <div class="result-title">Crane B · Tail</div>
-          <div class="result-value" id="loadB">50.00 t</div>
-          <div class="share" id="shareB">50.0% of total load</div>
+        <div class="card">
+          <h3>Minimum theoretical area required</h3>
+          <div class="value" id="requiredArea">2.94</div>
+          <div class="unit">m² at the entered allowable pressure</div>
+        </div>
+        <div class="card">
+          <h3>Pressure under mat on ground</h3>
+          <div class="value" id="groundPressure">110.33</div>
+          <div class="unit">kPa</div>
+          <span class="status" id="groundStatus">Checking…</span>
+          <div class="bar"><div class="fill" id="groundBar"></div></div>
+        </div>
+        <div class="card">
+          <h3>Pressure under float on mat</h3>
+          <div class="value" id="floatPressure">1226</div>
+          <div class="unit">kPa · simplified contact pressure</div>
+          <span class="status neutral">Mat structural check required</span>
         </div>
       </div>
 
-      <div class="bar-label">
-        <span>Crane A load share</span>
-        <strong id="barAText">50.0%</strong>
-      </div>
-      <div class="bar-track"><div class="bar-fill" id="barA"></div></div>
+      <h2 style="margin-top:24px">4. Calculation summary</h2>
+      <div class="result-row"><span>Outrigger reaction</span><strong id="reactionKN">441.30 kN</strong></div>
+      <div class="result-row"><span>Mat contact area</span><strong id="areaSummary">4.00 m²</strong></div>
+      <div class="result-row"><span>Ground allowable pressure</span><strong id="allowableSummary">150.00 kPa</strong></div>
+      <div class="result-row"><span>Ground pressure utilisation</span><strong id="utilisation">73.6%</strong></div>
+      <div class="result-row"><span>Minimum square mat side (theoretical)</span><strong id="squareSide">1.71 m</strong></div>
+      <div class="result-row"><span>Area margin above theoretical minimum</span><strong id="areaMargin">1.06 m²</strong></div>
 
-      <div class="bar-label">
-        <span>Crane B load share</span>
-        <strong id="barBText">50.0%</strong>
-      </div>
-      <div class="bar-track"><div class="bar-fill" id="barB"></div></div>
-
-      <h2 style="margin-top:22px;">Rotation illustration</h2>
-      <svg id="diagram" class="diagram" viewBox="0 0 600 280"
-           role="img" aria-label="Illustration of the load rotating between the head and tail cranes">
-        <line x1="40" y1="235" x2="560" y2="235" stroke="#526780" stroke-width="2"/>
-        <g id="loadDrawing"></g>
-      </svg>
-      <div class="footer">
-        Schematic only; it is not to scale and does not represent actual crane hook paths.
+      <div class="method">
+        <strong>Formulas used</strong><br>
+        Reaction force (kN) = outrigger reaction (tonnes) × 9.80665<br>
+        Mat area (m²) = mat length × mat width<br>
+        Ground pressure (kPa) = reaction force (kN) ÷ mat area (m²)<br>
+        Required area (m²) = reaction force (kN) ÷ allowable ground pressure (kPa)<br>
+        Float pressure (kPa) = reaction force (kN) ÷ float contact area (m²)
       </div>
     </section>
   </div>
 
+  <div class="warning">
+    <strong>Engineering limitations:</strong> This calculator checks average pressure using the entered reaction and assumed full rectangular mat contact area. It does not calculate the crane's outrigger reaction, mat bending or shear strength, load-spreading through the mat, ground settlement, slope stability, or failure near excavations and buried services. Passing this pressure check does not by itself approve crane parking or a lift.
+  </div>
+
   <div class="note">
-    <strong>Important lifting safety note:</strong>
-    This is a preliminary illustrative calculator, not a certified lift-plan tool.
-    The cosine transfer model is an assumption, not a universal LEEA or TÜV NORD
-    formula. Actual tailing-crane loads must be calculated for the specific load,
-    lifting lugs, sling arrangement, hook trajectories, support conditions and
-    operating sequence. A competent lifting engineer must verify the calculations
-    and account for applicable dynamic effects and required capacity margins before
-    the lift is performed.
+    <strong>Use of guidance:</strong> Use the manufacturer's maximum support reaction and a project-specific allowable ground pressure. The effective bearing area may be less than the mat's plan area if the mat is flexible, unevenly supported, damaged, or not fully in contact with the ground. Verify the mat and the supporting ground separately with a competent engineer.
   </div>
 
   <div class="footer">
-    Use consistent units. The calculated values are load forces expressed as
-    equivalent tonnes, not crane-capacity ratings. This tool does not select cranes
-    or confirm that either crane is suitable for the operation.
+    Preliminary calculation aid only. It is not an official TÜV NORD or LEEA calculator, certificate, or substitute for the applicable standards, manufacturer's instructions, ground investigation, or approved lift plan.
   </div>
 </div>
 
 <script>
-(function () {
+(() => {
+  const ids = ["reaction", "floatL", "floatW", "matL", "matW", "capacity"];
   const $ = id => document.getElementById(id);
+  const defaults = {
+    reaction: 45, floatL: 0.6, floatW: 0.6,
+    matL: 2, matW: 2, capacity: 150
+  };
 
-  const weightInput = $("weight");
-  const lengthInput = $("length");
-  const cgInput = $("cgA");
-  const angleSlider = $("angle");
-  const angleNumber = $("angleNumber");
-  const errorBox = $("error");
+  const fmt = (n, digits = 2) => n.toLocaleString(undefined, {
+    minimumFractionDigits: digits,
+    maximumFractionDigits: digits
+  });
 
-  function fmt(value) {
-    return value.toLocaleString(undefined, {
-      minimumFractionDigits: 2,
-      maximumFractionDigits: 2
-    });
-  }
-
-  function fmtPercent(value) {
-    return value.toLocaleString(undefined, {
-      minimumFractionDigits: 1,
-      maximumFractionDigits: 1
-    }) + "%";
-  }
-
-  function drawLoad(angleDegrees) {
-    const group = $("loadDrawing");
-    const radians = angleDegrees * Math.PI / 180;
-
-    const ax = 105;
-    const ay = 55;
-    const lengthPx = 390;
-    const bx = ax + lengthPx * Math.cos(radians);
-    const by = ay + lengthPx * Math.sin(radians);
-
-    const cgx = ax + lengthPx * 0.5 * Math.cos(radians);
-    const cgy = ay + lengthPx * 0.5 * Math.sin(radians);
-
-    group.innerHTML = `
-      <line x1="${ax}" y1="22" x2="${ax}" y2="${ay}"
-            stroke="#56a6ff" stroke-width="3"/>
-      <line x1="${bx}" y1="22" x2="${bx}" y2="${by}"
-            stroke="#ffad5c" stroke-width="3"/>
-      <circle cx="${ax}" cy="22" r="7" fill="#56a6ff"/>
-      <circle cx="${bx}" cy="22" r="7" fill="#ffad5c"/>
-      <line x1="${ax}" y1="${ay}" x2="${bx}" y2="${by}"
-            stroke="#edf4ff" stroke-width="10" stroke-linecap="round"/>
-      <circle cx="${cgx}" cy="${cgy}" r="7" fill="#58d6a1"
-              stroke="#0c1728" stroke-width="2"/>
-      <text x="${ax}" y="13" fill="#56a6ff" text-anchor="middle"
-            font-size="14" font-weight="bold">Crane A</text>
-      <text x="${bx}" y="13" fill="#ffad5c" text-anchor="middle"
-            font-size="14" font-weight="bold">Crane B</text>
-      <text x="${cgx}" y="${cgy - 14}" fill="#58d6a1"
-            text-anchor="middle" font-size="12">COG</text>
-      <text x="300" y="265" fill="#a6b7ce" text-anchor="middle"
-            font-size="13">Rotation angle: ${angleDegrees.toFixed(1)}°</text>
-    `;
+  function showError(message) {
+    $("error").textContent = message;
+    $("error").style.display = "block";
   }
 
   function calculate() {
-    const W = Number(weightInput.value);
-    const L = Number(lengthInput.value);
-    const dA = Number(cgInput.value);
-    const angle = Number(angleNumber.value);
+    const v = {};
+    for (const id of ids) v[id] = Number($(id).value);
 
-    errorBox.style.display = "none";
-
-    if (
-      !Number.isFinite(W) || W <= 0 ||
-      !Number.isFinite(L) || L <= 0 ||
-      !Number.isFinite(dA) || dA < 0 || dA > L ||
-      !Number.isFinite(angle) || angle < 0 || angle > 90
-    ) {
-      errorBox.textContent =
-        "Enter a positive total weight and lifting-point distance. " +
-        "The COG distance must be between 0 and the total distance, " +
-        "and the angle must be between 0° and 90°.";
-      errorBox.style.display = "block";
-      return;
+    for (const id of ids) {
+      if (!Number.isFinite(v[id]) || v[id] <= 0) {
+        showError("Please enter a valid positive number in every field.");
+        return;
+      }
     }
 
-    // Initial horizontal reactions for a two-support rigid load.
-    const baseB = W * dA / L;
-    const baseA = W - baseB;
+    $("error").style.display = "none";
 
-    // Simplified illustrative tailing-transfer model:
-    // Crane B reduces with cos(angle); Crane A carries the remainder.
-    const radians = angle * Math.PI / 180;
-    const loadB = baseB * Math.cos(radians);
-    const loadA = W - loadB;
+    const forceKN = v.reaction * 9.80665;
+    const floatArea = v.floatL * v.floatW;
+    const matArea = v.matL * v.matW;
 
-    const shareA = loadA / W * 100;
-    const shareB = loadB / W * 100;
+    const groundPressure = forceKN / matArea;
+    const floatPressure = forceKN / floatArea;
+    const requiredArea = forceKN / v.capacity;
+    const utilisation = groundPressure / v.capacity * 100;
+    const squareSide = Math.sqrt(requiredArea);
+    const areaMargin = matArea - requiredArea;
 
-    $("angleText").textContent = angle.toFixed(1) + "°";
-    $("loadA").textContent = fmt(loadA) + " t";
-    $("loadB").textContent = fmt(loadB) + " t";
-    $("shareA").textContent = fmtPercent(shareA) + " of total load";
-    $("shareB").textContent = fmtPercent(shareB) + " of total load";
+    $("matArea").textContent = fmt(matArea);
+    $("requiredArea").textContent = fmt(requiredArea);
+    $("groundPressure").textContent = fmt(groundPressure);
+    $("floatPressure").textContent = fmt(floatPressure);
 
-    $("barAText").textContent = fmtPercent(shareA);
-    $("barBText").textContent = fmtPercent(shareB);
-    $("barA").style.width = Math.max(0, Math.min(100, shareA)) + "%";
-    $("barB").style.width = Math.max(0, Math.min(100, shareB)) + "%";
+    $("reactionKN").textContent = fmt(forceKN) + " kN";
+    $("areaSummary").textContent = fmt(matArea) + " m²";
+    $("allowableSummary").textContent = fmt(v.capacity) + " kPa";
+    $("utilisation").textContent = fmt(utilisation, 1) + "%";
+    $("squareSide").textContent = fmt(squareSide) + " m";
+    $("areaMargin").textContent = fmt(areaMargin) + " m²";
 
-    drawLoad(angle);
+    const status = $("groundStatus");
+    const bar = $("groundBar");
+    bar.style.width = Math.min(utilisation, 100) + "%";
+    bar.className = "fill";
+
+    if (groundPressure <= v.capacity) {
+      status.textContent = "PASS — average pressure is within entered limit";
+      status.className = "status pass";
+    } else {
+      status.textContent = "FAIL — pressure exceeds entered limit";
+      status.className = "status fail";
+      bar.classList.add("fail");
+    }
+
+    if (utilisation > 85 && utilisation <= 100) {
+      bar.classList.add("warn");
+    }
+
+    if (areaMargin < 0) {
+      $("areaMargin").textContent = fmt(areaMargin) + " m² — additional area needed";
+    } else {
+      $("areaMargin").textContent = fmt(areaMargin) + " m²";
+    }
   }
 
-  angleSlider.addEventListener("input", () => {
-    angleNumber.value = angleSlider.value;
+  ids.forEach(id => $(id).addEventListener("input", calculate));
+
+  $("reset").addEventListener("click", () => {
+    ids.forEach(id => $(id).value = defaults[id]);
     calculate();
   });
 
-  angleNumber.addEventListener("input", () => {
-    const value = Number(angleNumber.value);
-    if (Number.isFinite(value)) {
-      angleSlider.value = Math.max(0, Math.min(90, value));
-    }
-    calculate();
-  });
-
-  [weightInput, lengthInput, cgInput].forEach(input => {
-    input.addEventListener("input", calculate);
-  });
+  $("print").addEventListener("click", () => window.print());
 
   calculate();
 })();
