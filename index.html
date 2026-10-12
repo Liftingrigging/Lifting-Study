@@ -92,7 +92,7 @@
       line-height: 1.2;
     }
 
-    header p {
+    header > p {
       margin: 0;
       font-size: 17px;
       line-height: 1.5;
@@ -185,44 +185,56 @@
       height: 6px;
     }
 
+    /* Blue — Lifting Accessories */
     .section-card:nth-child(6n + 1) {
       background: linear-gradient(135deg, #cceaff, #f5fbff);
     }
+
     .section-card:nth-child(6n + 1)::before {
       background: linear-gradient(90deg, #0878c9, #75d8ff);
     }
 
+    /* Green — Lifting Calculations */
     .section-card:nth-child(6n + 2) {
       background: linear-gradient(135deg, #d0f5df, #f7fff9);
     }
+
     .section-card:nth-child(6n + 2)::before {
       background: linear-gradient(90deg, #159b73, #9ae6bd);
     }
 
+    /* Purple — Cranes */
     .section-card:nth-child(6n + 3) {
       background: linear-gradient(135deg, #e4d9ff, #fcfaff);
     }
+
     .section-card:nth-child(6n + 3)::before {
       background: linear-gradient(90deg, #7454d8, #c2aaff);
     }
 
+    /* Gold — Lift Planning */
     .section-card:nth-child(6n + 4) {
       background: linear-gradient(135deg, #ffe5c2, #fffaf2);
     }
+
     .section-card:nth-child(6n + 4)::before {
       background: linear-gradient(90deg, #e58a27, #ffd18b);
     }
 
+    /* Rose — Lifting Safety */
     .section-card:nth-child(6n + 5) {
       background: linear-gradient(135deg, #ffdce7, #fff8fa);
     }
+
     .section-card:nth-child(6n + 5)::before {
       background: linear-gradient(90deg, #d94c78, #ffafc6);
     }
 
+    /* Teal — Study Notes */
     .section-card:nth-child(6n) {
       background: linear-gradient(135deg, #cef0ed, #f8fffe);
     }
+
     .section-card:nth-child(6n)::before {
       background: linear-gradient(90deg, #168f9a, #8ee0d9);
     }
@@ -396,7 +408,7 @@
   <header>
     <div class="header-actions">
       <button class="header-install" id="installHubBtn" type="button">
-        📲 Install Study Hub
+        📲 Install App
       </button>
 
       <button class="header-install calculator-install" id="installCalculatorBtn" type="button">
@@ -451,8 +463,6 @@
         </p>
         <div class="card-actions">
           <a class="button" href="calculation.html">Open Calculations</a>
-          <button class="button pdf-button" type="button"
-            onclick="savePageAsPDF('calculation.html')">↓ Save as PDF</button>
         </div>
       </article>
 
@@ -503,8 +513,6 @@
         </p>
         <div class="card-actions">
           <a class="button" href="study-notes.html">Open Study Notes</a>
-          <button class="button pdf-button" type="button"
-            onclick="savePageAsPDF('study-notes.html')">↓ Save as PDF</button>
         </div>
       </article>
     </section>
@@ -590,7 +598,7 @@
       deferredInstallPrompt = null;
     });
 
-    async function installWebsiteApp(appName) {
+    async function installWebsiteApp() {
       if (window.matchMedia("(display-mode: standalone)").matches) {
         installMsg.textContent = "The app is already installed.";
         return;
@@ -598,7 +606,7 @@
 
       if (!deferredInstallPrompt) {
         installMsg.textContent =
-          "Installation prompt unavailable. In your browser menu, look for Install app or Add to Home Screen.";
+          "Installation prompt unavailable. Open your browser menu and look for Install app or Add to Home Screen.";
         return;
       }
 
@@ -614,17 +622,10 @@
       deferredInstallPrompt = null;
     }
 
-    installHubBtn.addEventListener("click", () => {
-      installWebsiteApp("Study Hub");
-    });
+    installHubBtn.addEventListener("click", installWebsiteApp);
 
     installCalculatorBtn.addEventListener("click", () => {
-      /*
-       * The browser install prompt installs the PWA defined by the
-       * site's manifest. This button uses that same installation prompt.
-       * It does not create a separate calculator PWA by itself.
-       */
-      installWebsiteApp("Calculator App");
+      installWebsiteApp();
     });
 
     if ("serviceWorker" in navigator) {
