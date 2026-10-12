@@ -3,438 +3,344 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Tailing Load Distribution Calculator</title>
-
+<title>Tailing Load Distribution | Crane A & B</title>
 <style>
-:root {
-  --bg:#07111f;
-  --panel:#101f33;
-  --panel2:#162941;
-  --text:#f0f6ff;
-  --muted:#a7b9cf;
-  --cyan:#42d9f5;
-  --border:#29415e;
-  --green:#63e6a7;
-  --orange:#ffcb78;
-  --red:#ff8585;
+:root{
+  --bg:#07111f;--panel:#101f33;--field:#091727;
+  --text:#f0f6ff;--muted:#a7b9cf;--cyan:#42d9f5;
+  --purple:#b6a0ff;--green:#63e6a7;--orange:#ffcb78;
+  --red:#ff8585;--border:#29415e;
 }
-* { box-sizing:border-box; }
-body {
-  margin:0;
-  padding:24px 14px;
-  color:var(--text);
+*{box-sizing:border-box}
+body{
+  margin:0;padding:24px 14px;color:var(--text);
   font-family:Arial,Helvetica,sans-serif;
-  background:
-    linear-gradient(rgba(7,17,31,.96),rgba(7,17,31,.98)),
+  background:linear-gradient(#07111ff5,#07111ffa),
     repeating-linear-gradient(0deg,transparent 0 39px,#29415e 40px),
     repeating-linear-gradient(90deg,transparent 0 39px,#29415e 40px);
 }
-.container { max-width:1050px; margin:auto; }
-header { margin-bottom:22px; }
-.eyebrow {
-  color:var(--cyan); font-size:12px; font-weight:bold;
-  letter-spacing:2px; text-transform:uppercase;
+main{max-width:1080px;margin:auto}
+header{margin-bottom:22px}
+.eyebrow{font-size:12px;letter-spacing:2px;text-transform:uppercase;color:var(--cyan);font-weight:bold}
+h1{font-size:clamp(26px,5vw,40px);margin:10px 0}
+h2{font-size:19px;margin:0 0 16px}
+p{line-height:1.6}
+.muted{color:var(--muted)}
+.panel{padding:20px;margin-bottom:17px;background:var(--panel);border:1px solid var(--border);border-radius:15px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
+.field{min-width:0}
+label{display:block;font-weight:bold;font-size:14px;margin-bottom:7px}
+input,select{
+  width:100%;min-height:45px;padding:11px;border:1px solid var(--border);
+  border-radius:8px;background:var(--field);color:var(--text);font-size:16px
 }
-h1 { font-size:clamp(26px,5vw,40px); margin:10px 0; }
-h2 { font-size:19px; margin:0 0 16px; }
-p { line-height:1.6; }
-.muted { color:var(--muted); }
-.panel {
-  background:rgba(16,31,51,.97);
-  border:1px solid var(--border);
-  border-radius:15px;
-  padding:20px;
-  margin-bottom:17px;
-}
-.grid {
-  display:grid;
-  grid-template-columns:repeat(2,minmax(0,1fr));
-  gap:16px;
-}
-.field { min-width:0; }
-label { display:block; font-weight:bold; font-size:14px; margin-bottom:7px; }
-input,select {
-  width:100%; min-height:46px; padding:11px;
-  border:1px solid var(--border); border-radius:8px;
-  background:#091727; color:var(--text); font-size:16px;
-}
-input:focus,select:focus { outline:2px solid var(--cyan); }
-.hint { display:block; color:var(--muted); font-size:12px; line-height:1.5; margin-top:5px; }
-button {
-  min-height:45px; border-radius:9px; padding:11px 16px;
-  font-weight:bold; cursor:pointer; border:1px solid var(--border);
-}
-.primary { background:var(--cyan); color:#07111f; border-color:var(--cyan); }
-.secondary { background:var(--panel2); color:var(--text); }
-.actions { display:flex; flex-wrap:wrap; gap:10px; margin-top:20px; }
-.cranes {
-  display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:12px;
-  margin-bottom:16px;
-}
-.crane {
-  background:#0a192a; border:1px solid var(--border);
-  border-radius:12px; padding:16px;
-}
-.crane h3 { margin:0 0 12px; }
-.crane-a { color:#72dcff; }
-.crane-b { color:#b6a0ff; }
-.metrics {
-  display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px;
-}
-.metric {
-  padding:15px; border-radius:10px; background:#091727;
-  border:1px solid var(--border); min-width:0;
-}
-.metric .label { color:var(--muted); font-size:12px; }
-.metric .value { font-size:clamp(21px,4vw,30px); font-weight:bold; margin-top:8px; overflow-wrap:anywhere; }
-.cyan { color:var(--cyan); }
-.green { color:var(--green); }
-.orange { color:var(--orange); }
-.formula {
-  padding:14px; background:#091727; border-radius:9px;
-  color:var(--cyan); line-height:1.8; overflow-wrap:anywhere;
-}
-.warning {
-  padding:14px; border:1px solid #8d6931; border-radius:10px;
-  background:rgba(99,67,21,.2); color:#ffe1a5;
-  line-height:1.6; font-size:13px;
-}
-.error { display:none; color:var(--red); margin-top:14px; }
-.error.show { display:block; }
-table { width:100%; border-collapse:collapse; margin-top:12px; }
-th,td { padding:11px 8px; border-bottom:1px solid var(--border); text-align:right; font-size:13px; }
-th { color:var(--muted); }
-th:first-child,td:first-child { text-align:left; }
-.table-wrap { overflow-x:auto; }
-#results { display:none; }
-#results.show { display:block; }
-svg { display:block; width:100%; height:auto; }
-@media(max-width:600px) {
-  .grid,.cranes { grid-template-columns:1fr; }
-  .metrics { grid-template-columns:1fr; }
-  .panel { padding:15px; }
-  th,td { font-size:12px; padding:9px 6px; }
+input:focus,select:focus{outline:2px solid var(--cyan)}
+.hint{display:block;color:var(--muted);font-size:12px;line-height:1.5;margin-top:5px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:18px}
+button{min-height:44px;padding:11px 16px;border-radius:9px;font-weight:bold;cursor:pointer}
+.primary{background:var(--cyan);border:1px solid var(--cyan);color:#07111f}
+.secondary{background:#162941;border:1px solid var(--border);color:var(--text)}
+.cranes,.metrics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.crane,.metric{background:var(--field);border:1px solid var(--border);border-radius:10px;padding:15px;min-width:0}
+.crane h3{margin:0 0 12px}
+.a{color:var(--cyan)}.b{color:var(--purple)}
+.metrics{grid-template-columns:repeat(3,minmax(0,1fr))}
+.metric .label{font-size:12px;color:var(--muted)}
+.metric .value{font-size:clamp(22px,4vw,31px);font-weight:bold;margin-top:8px;overflow-wrap:anywhere}
+.formula{padding:14px;background:var(--field);border-radius:9px;line-height:1.8;overflow-wrap:anywhere;color:var(--cyan)}
+.warning{padding:14px;border:1px solid #8d6931;border-radius:10px;background:#63431530;color:#ffe1a5;line-height:1.6;font-size:13px}
+.status{padding:12px;border-radius:9px;background:var(--field);border:1px solid var(--border);line-height:1.5}
+.error{display:none;color:var(--red);margin-top:12px}.error.show{display:block}
+#results{display:none}#results.show{display:block}
+.tablewrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;margin-top:10px}
+th,td{padding:10px 8px;border-bottom:1px solid var(--border);font-size:13px;text-align:right;white-space:nowrap}
+th{color:var(--muted)}
+th:first-child,td:first-child{text-align:left}
+svg{width:100%;height:auto;display:block}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px}
+@media(max-width:620px){
+  .grid,.cranes{grid-template-columns:1fr}
+  .metrics{grid-template-columns:1fr}
+  .panel{padding:15px}
 }
 </style>
 </head>
-
 <body>
-<main class="container">
+<main>
 <header>
   <div class="eyebrow">Lifting Engineering Tool</div>
-  <h1>Tailing Load Distribution Calculator</h1>
-  <p class="muted">
-    Crane A — Main / Head Crane · Crane B — Tailing Crane.
-    Review load sharing over the rotation angle of a vessel, column, or similar item.
-  </p>
+  <h1>Tailing Load Distribution</h1>
+  <p class="muted">Crane A — head lift · Crane B — bottom tailing lift</p>
 </header>
 
 <section class="panel">
-  <h2>1. Load and lifting geometry</h2>
-  <div class="grid">
-    <div class="field">
-      <label for="weight">Total lifted weight (tonnes)</label>
-      <input id="weight" type="number" min="0.001" step="any" value="100">
-      <span class="hint">Include rigging and lifting accessories when required by your lift plan.</span>
-    </div>
-    <div class="field">
-      <label for="length">Distance between lifting points (m)</label>
-      <input id="length" type="number" min="0.001" step="any" value="20">
-      <span class="hint">Distance along the item from tailing point B to head point A.</span>
-    </div>
-    <div class="field">
-      <label for="cg">CG distance from tailing point B (m)</label>
-      <input id="cg" type="number" min="0" step="any" value="10">
-      <span class="hint">Measure along the item from lifting point B toward lifting point A.</span>
-    </div>
-    <div class="field">
-      <label for="startAngle">Starting angle (degrees)</label>
-      <input id="startAngle" type="number" min="0" max="90" step="any" value="0">
-    </div>
-    <div class="field">
-      <label for="endAngle">Ending angle (degrees)</label>
-      <input id="endAngle" type="number" min="0" max="90" step="any" value="90">
-    </div>
-    <div class="field">
-      <label for="stepAngle">Angle interval (degrees)</label>
-      <select id="stepAngle">
-        <option value="1">1°</option>
-        <option value="5" selected>5°</option>
-        <option value="10">10°</option>
-        <option value="15">15°</option>
-      </select>
-    </div>
+<h2>1. Load geometry</h2>
+<div class="grid">
+  <div class="field">
+    <label for="weight">Total lifted weight (tonnes)</label>
+    <input id="weight" type="number" min="0.001" step="any" value="100">
+    <span class="hint">Enter the total weight supported by the lifting system, including rigging where required.</span>
   </div>
+  <div class="field">
+    <label for="length">Distance B-to-A between lifting points (m)</label>
+    <input id="length" type="number" min="0.001" step="any" value="20">
+    <span class="hint">Measure along the load from tail lifting point B to head lifting point A.</span>
+  </div>
+  <div class="field">
+    <label for="cg">CG distance from tail point B (m)</label>
+    <input id="cg" type="number" min="0" step="any" value="10">
+    <span class="hint">Distance along the load to its centre of gravity.</span>
+  </div>
+  <div class="field">
+    <label for="start">Starting angle from horizontal (°)</label>
+    <input id="start" type="number" min="0" max="90" step="any" value="0">
+  </div>
+  <div class="field">
+    <label for="end">Ending angle from horizontal (°)</label>
+    <input id="end" type="number" min="0" max="90" step="any" value="90">
+  </div>
+  <div class="field">
+    <label for="step">Angle interval</label>
+    <select id="step"><option>1</option><option selected>5</option><option>10</option><option>15</option></select>
+  </div>
+</div>
 </section>
 
 <section class="panel">
-  <h2>2. Crane capacity checks</h2>
-  <p class="muted">
-    Enter the available chart capacity at the actual configuration and working
-    radius for each crane. Use the manufacturer's load chart, not a guessed value.
-  </p>
-  <div class="cranes">
-    <div class="crane">
-      <h3 class="crane-a">Crane A — Main / Head</h3>
-      <div class="field">
-        <label for="capacityA">Rated capacity (tonnes)</label>
-        <input id="capacityA" type="number" min="0" step="any" placeholder="Optional">
-      </div>
-    </div>
-    <div class="crane">
-      <h3 class="crane-b">Crane B — Tailing</h3>
-      <div class="field">
-        <label for="capacityB">Rated capacity (tonnes)</label>
-        <input id="capacityB" type="number" min="0" step="any" placeholder="Optional">
-      </div>
-    </div>
-  </div>
-  <div class="warning">
-    This version models an ideal rigid item supported by two vertical forces at
-    its two lifting points. Under these assumptions, the static reaction loads
-    do not change with angle: the horizontal moment arms both scale with cos(angle).
-    Real tailing lifts can have changing forces due to sling angles, lifting-point
-    geometry, crane motion, ground contact, reeving and other effects. This model
-    does not calculate those effects.
-  </div>
-  <div class="actions">
-    <button class="primary" id="calculate" type="button">Calculate distribution</button>
-    <button class="secondary" id="reset" type="button">Reset inputs</button>
-  </div>
-  <div id="error" class="error" role="alert"></div>
-</section>
-
-<section id="results">
-  <div class="panel">
-    <h2>3. Calculated crane loads</h2>
-    <div class="metrics">
-      <div class="metric">
-        <div class="label">Crane A load</div>
-        <div class="value cyan" id="loadA">—</div>
-        <div class="muted" id="shareA">—</div>
-      </div>
-      <div class="metric">
-        <div class="label">Crane B load</div>
-        <div class="value green" id="loadB">—</div>
-        <div class="muted" id="shareB">—</div>
-      </div>
-      <div class="metric">
-        <div class="label">Current angle</div>
-        <div class="value orange" id="angleDisplay">—</div>
-        <div class="muted">degrees from horizontal</div>
-      </div>
-    </div>
-    <p class="formula" id="formula"></p>
-  </div>
-
-  <div class="panel">
-    <h2>4. Angle-by-angle load distribution</h2>
+<h2>2. Crane configuration and capacity</h2>
+<div class="cranes">
+  <div class="crane">
+    <h3 class="a">Crane A — Head</h3>
     <div class="field">
-      <label for="selectedAngle">Select angle to inspect</label>
-      <input id="selectedAngle" type="range" min="0" max="90" step="1" value="0">
-      <div class="muted">Angle: <strong id="sliderValue">0°</strong></div>
-    </div>
-    <div style="margin-top:18px">
-      <svg id="diagram" viewBox="0 0 620 220" role="img" aria-label="Schematic of an item rotated between head crane A and tailing crane B">
-        <line x1="35" y1="185" x2="585" y2="185" stroke="#536b86" stroke-width="2"/>
-        <line x1="100" y1="185" x2="100" y2="115" stroke="#72dcff" stroke-width="4"/>
-        <line x1="520" y1="185" x2="520" y2="115" stroke="#b6a0ff" stroke-width="4"/>
-        <line x1="100" y1="115" x2="520" y2="115" stroke="#e8f2ff" stroke-width="10" stroke-linecap="round"/>
-        <circle cx="100" cy="115" r="8" fill="#72dcff"/>
-        <circle cx="520" cy="115" r="8" fill="#b6a0ff"/>
-        <circle cx="310" cy="115" r="7" fill="#ffcb78"/>
-        <text x="100" y="95" fill="#72dcff" font-size="15" text-anchor="middle">Crane A</text>
-        <text x="520" y="95" fill="#b6a0ff" font-size="15" text-anchor="middle">Crane B</text>
-        <text x="310" y="145" fill="#ffcb78" font-size="13" text-anchor="middle">CG</text>
-        <text x="310" y="210" fill="#a7b9cf" font-size="12" text-anchor="middle">Schematic — not to scale</text>
-      </svg>
-    </div>
-    <div class="table-wrap">
-      <table>
-        <thead>
-          <tr>
-            <th>Angle</th>
-            <th>Crane A (t)</th>
-            <th>A share</th>
-            <th>Crane B (t)</th>
-            <th>B share</th>
-            <th>Util. A</th>
-            <th>Util. B</th>
-          </tr>
-        </thead>
-        <tbody id="angleRows"></tbody>
-      </table>
+      <label for="capA">Available rated capacity (tonnes)</label>
+      <input id="capA" type="number" min="0" step="any" placeholder="Optional">
+      <span class="hint">From the correct manufacturer load chart at the actual radius and configuration.</span>
     </div>
   </div>
+  <div class="crane">
+    <h3 class="b">Crane B — Tailing</h3>
+    <div class="field">
+      <label for="capB">Available rated capacity (tonnes)</label>
+      <input id="capB" type="number" min="0" step="any" placeholder="Optional">
+      <span class="hint">From the correct manufacturer load chart at the actual radius and configuration.</span>
+    </div>
+  </div>
+</div>
+<div class="warning" style="margin-top:15px">
+<strong>Model assumptions:</strong> rigid load, static equilibrium, two vertical support forces at the head and tail lifting points, and no ground contact. The crane hook positions are not used as independent geometric constraints in this simplified model.
+</div>
+<div class="actions">
+  <button class="primary" id="calculate" type="button">Calculate</button>
+  <button class="secondary" id="reset" type="button">Reset</button>
+</div>
+<div id="error" class="error" role="alert"></div>
 </section>
 
 <section class="panel">
-  <h2>Calculation basis</h2>
-  <p class="formula">
-    Crane A reaction = W × x / L<br>
-    Crane B reaction = W × (L − x) / L
-  </p>
-  <p class="muted">
-    W = total lifted weight; L = distance between lifting points;
-    x = distance from tailing point B to the centre of gravity.
-    The two reactions add up to W.
-  </p>
-  <div class="warning">
-    <strong>Safety limitation:</strong> This is a simplified static-equilibrium
-    calculator, not a TÜV NORD or LEEA certified calculation. Before lifting,
-    a competent lifting engineer must verify the actual rigging geometry,
-    sling-force components, lifting points, crane movements, load-chart capacities,
-    ground conditions, dynamic effects and the approved lift plan. Do not use
-    this output alone to approve or execute a lift.
+<h2>3. Load distribution at selected angle</h2>
+<div class="field">
+<label for="angle">Rotation angle: <span id="angleLabel">0°</span></label>
+<input id="angle" type="range" min="0" max="90" step="1" value="0">
+</div>
+<div class="metrics" style="margin-top:16px">
+  <div class="metric">
+    <div class="label">Crane A head load</div>
+    <div id="loadA" class="value a">—</div>
+    <div id="shareA" class="muted">—</div>
+    <div id="utilA" class="muted">Capacity: not entered</div>
   </div>
+  <div class="metric">
+    <div class="label">Crane B tail load</div>
+    <div id="loadB" class="value b">—</div>
+    <div id="shareB" class="muted">—</div>
+    <div id="utilB" class="muted">Capacity: not entered</div>
+  </div>
+  <div class="metric">
+    <div class="label">Angle</div>
+    <div id="angleValue" class="value">—</div>
+    <div class="muted">From horizontal</div>
+  </div>
+</div>
+<p id="explanation" class="status" style="margin-top:14px"></p>
+<div class="formula" id="equations"></div>
+</section>
+
+<section class="panel">
+<h2>4. Rotation diagram</h2>
+<div class="legend">
+  <span><i class="dot" style="background:var(--cyan)"></i>Crane A head point</span>
+  <span><i class="dot" style="background:var(--purple)"></i>Crane B tail point</span>
+  <span><i class="dot" style="background:var(--orange)"></i>Centre of gravity</span>
+</div>
+<svg id="drawing" viewBox="0 0 620 260" role="img" aria-label="Schematic of rotating load and lifting points"></svg>
+<p class="muted">Schematic only — not to scale and not a crane movement or rigging drawing.</p>
+</section>
+
+<section class="panel">
+<h2>5. Load distribution by angle</h2>
+<div class="tablewrap">
+<table>
+<thead><tr>
+<th>Angle</th><th>Crane A (t)</th><th>A share</th>
+<th>Crane B (t)</th><th>B share</th><th>A utilisation</th><th>B utilisation</th>
+</tr></thead>
+<tbody id="rows"></tbody>
+</table>
+</div>
+</section>
+
+<section class="panel">
+<h2>Calculation basis and limits</h2>
+<div class="formula">
+R_A = W × x / L<br>
+R_B = W × (L − x) / L<br>
+R_A + R_B = W
+</div>
+<p class="muted">
+W = total lifted weight; L = distance between the two lifting points;
+x = distance from tail point B to the centre of gravity. For two vertical
+reactions, the horizontal moment arms contain the same cos(angle) factor,
+which cancels from the moment equation. Consequently, these reactions are
+constant in this model.
+</p>
+<div class="warning">
+<strong>Do not use this simplified model to authorize a lift.</strong>
+Actual tailing operations may have sling angles, non-vertical hoist lines,
+moving hook coordinates, ground reactions, load transfer during pick-up,
+and dynamic effects. These can change the force distribution. To calculate
+those loads, a competent lifting engineer must define the actual geometry
+at each stage and solve force and moment equilibrium for that configuration.
+Verify every stage against certified crane load charts and the approved lift plan.
+This calculator is not certified by TÜV NORD or LEEA.
+</div>
 </section>
 </main>
 
 <script>
 const $ = id => document.getElementById(id);
-let lastData = null;
+let model = null;
 
-function number(id) {
-  const value = $(id).value.trim();
-  if (value === "") return null;
-  const parsed = Number(value);
-  return Number.isFinite(parsed) ? parsed : null;
+function n(id) {
+  const raw = $(id).value.trim();
+  if (raw === "") return null;
+  const v = Number(raw);
+  return Number.isFinite(v) ? v : null;
 }
-
-function fmt(n) {
-  return n.toLocaleString(undefined, {maximumFractionDigits:3});
+function f(v) {
+  return v.toLocaleString(undefined,{maximumFractionDigits:3});
 }
-
-function errorMessage(message) {
+function fail(message) {
   $("error").textContent = message;
   $("error").classList.add("show");
-  $("results").classList.remove("show");
 }
-
-function utilisation(load, capacity) {
-  if (capacity === null || capacity === 0) return "—";
-  return fmt(load / capacity * 100) + "%";
+function utilisation(load,cap) {
+  if (cap === null) return {text:"Capacity: not entered",bad:false};
+  if (cap <= 0) return {text:"Invalid capacity",bad:true};
+  const pct=load/cap*100;
+  return {
+    text:"Utilisation: "+f(pct)+"%",
+    bad:pct>100
+  };
 }
-
-function drawItem(angle) {
-  const svg = $("diagram");
-  const rad = angle * Math.PI / 180;
-  const x1 = 310 - 210 * Math.cos(rad);
-  const y1 = 115 - 78 * Math.sin(rad);
-  const x2 = 310 + 210 * Math.cos(rad);
-  const y2 = 115 + 78 * Math.sin(rad);
-  const cgRatio = lastData ? lastData.x / lastData.L : 0.5;
-  const cx = x1 + (x2 - x1) * cgRatio;
-  const cy = y1 + (y2 - y1) * cgRatio;
-
-  svg.innerHTML = `
-    <line x1="35" y1="185" x2="585" y2="185" stroke="#536b86" stroke-width="2"/>
-    <line x1="${x1}" y1="${y1}" x2="${x1}" y2="185" stroke="#72dcff" stroke-width="2" stroke-dasharray="5 5"/>
-    <line x1="${x2}" y1="${y2}" x2="${x2}" y2="185" stroke="#b6a0ff" stroke-width="2" stroke-dasharray="5 5"/>
-    <line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#e8f2ff" stroke-width="10" stroke-linecap="round"/>
-    <circle cx="${x1}" cy="${y1}" r="8" fill="#72dcff"/>
-    <circle cx="${x2}" cy="${y2}" r="8" fill="#b6a0ff"/>
-    <circle cx="${cx}" cy="${cy}" r="7" fill="#ffcb78"/>
-    <text x="${x1}" y="${Math.max(20,y1-18)}" fill="#72dcff" font-size="14" text-anchor="middle">A</text>
-    <text x="${x2}" y="${Math.max(20,y2-18)}" fill="#b6a0ff" font-size="14" text-anchor="middle">B</text>
-    <text x="${cx}" y="${Math.max(18,cy-15)}" fill="#ffcb78" font-size="12" text-anchor="middle">CG</text>
-    <text x="310" y="210" fill="#a7b9cf" font-size="12" text-anchor="middle">Schematic — not to scale</text>`;
+function draw(angle) {
+  const L=model.L, x=model.x;
+  const rad=angle*Math.PI/180;
+  const scale=Math.min(400/L,16);
+  const cx=310, cy=132;
+  const dx=L*scale*Math.cos(rad);
+  const dy=L*scale*Math.sin(rad);
+  const bx=cx-dx/2, by=cy+dy/2;
+  const ax=cx+dx/2, ay=cy-dy/2;
+  const ratio=x/L;
+  const gx=bx+(ax-bx)*ratio;
+  const gy=by+(ay-by)*ratio;
+  $("drawing").innerHTML=`
+    <line x1="25" y1="220" x2="595" y2="220" stroke="#536b86" stroke-width="2"/>
+    <line x1="${ax}" y1="${ay}" x2="${ax}" y2="220" stroke="#42d9f5" stroke-dasharray="5 5"/>
+    <line x1="${bx}" y1="${by}" x2="${bx}" y2="220" stroke="#b6a0ff" stroke-dasharray="5 5"/>
+    <line x1="${bx}" y1="${by}" x2="${ax}" y2="${ay}" stroke="#e8f2ff" stroke-width="10" stroke-linecap="round"/>
+    <circle cx="${ax}" cy="${ay}" r="8" fill="#42d9f5"/>
+    <circle cx="${bx}" cy="${by}" r="8" fill="#b6a0ff"/>
+    <circle cx="${gx}" cy="${gy}" r="7" fill="#ffcb78"/>
+    <text x="${ax}" y="${Math.max(20,ay-16)}" fill="#42d9f5" font-size="14" text-anchor="middle">Crane A</text>
+    <text x="${bx}" y="${Math.max(20,by-16)}" fill="#b6a0ff" font-size="14" text-anchor="middle">Crane B</text>
+    <text x="${gx}" y="${Math.max(18,gy-14)}" fill="#ffcb78" font-size="12" text-anchor="middle">CG</text>
+    <text x="310" y="250" fill="#a7b9cf" font-size="12" text-anchor="middle">${f(angle)}° from horizontal · schematic only</text>`;
 }
-
-function inspectAngle(angle) {
-  if (!lastData) return;
-  const d = lastData;
-  $("sliderValue").textContent = angle + "°";
-  $("angleDisplay").textContent = angle + "°";
-  $("loadA").textContent = fmt(d.loadA) + " t";
-  $("loadB").textContent = fmt(d.loadB) + " t";
-  $("shareA").textContent = fmt(d.loadA / d.W * 100) + "% of total load";
-  $("shareB").textContent = fmt(d.loadB / d.W * 100) + "% of total load";
-  $("formula").textContent =
-    "A = " + fmt(d.W) + " × " + fmt(d.x) + " ÷ " + fmt(d.L) +
-    " = " + fmt(d.loadA) + " t; B = " + fmt(d.W) +
-    " × (" + fmt(d.L) + " − " + fmt(d.x) + ") ÷ " + fmt(d.L) +
-    " = " + fmt(d.loadB) + " t. Under this model, reactions are independent of angle.";
-  drawItem(angle);
+function inspect(angle) {
+  if (!model) return;
+  $("angleLabel").textContent=f(angle)+"°";
+  $("angleValue").textContent=f(angle)+"°";
+  $("loadA").textContent=f(model.RA)+" t";
+  $("loadB").textContent=f(model.RB)+" t";
+  $("shareA").textContent=f(model.RA/model.W*100)+"% of total";
+  $("shareB").textContent=f(model.RB/model.W*100)+"% of total";
+  const ua=utilisation(model.RA,model.capA);
+  const ub=utilisation(model.RB,model.capB);
+  $("utilA").textContent=ua.text;
+  $("utilB").textContent=ub.text;
+  $("utilA").style.color=ua.bad?"#ff8585":"#a7b9cf";
+  $("utilB").style.color=ub.bad?"#ff8585":"#a7b9cf";
+  $("explanation").textContent=
+    "At "+f(angle)+"°, this model predicts the same static reactions because both vertical-force moment arms scale with cos(angle). If your real lift changes load share, additional hook/sling geometry or ground-contact conditions must be modelled.";
+  $("equations").textContent=
+    "Crane A = "+f(model.W)+" × "+f(model.x)+" ÷ "+f(model.L)+" = "+f(model.RA)+" t. "+
+    "Crane B = "+f(model.W)+" × ("+f(model.L)+" − "+f(model.x)+") ÷ "+f(model.L)+" = "+f(model.RB)+" t.";
+  draw(angle);
 }
-
 function calculate() {
   $("error").classList.remove("show");
+  const W=n("weight"), L=n("length"), x=n("cg");
+  const start=n("start"), end=n("end"), step=n("step");
+  const capA=n("capA"), capB=n("capB");
+  if(W===null||W<=0) return fail("Enter a total lifted weight greater than zero.");
+  if(L===null||L<=0) return fail("Enter a lifting-point distance greater than zero.");
+  if(x===null||x<0||x>L) return fail("CG distance must be between zero and the lifting-point distance.");
+  if(start===null||end===null||start<0||end>90||start>end) return fail("Enter valid angles between 0° and 90°, with start no greater than end.");
+  if(![1,5,10,15].includes(step)) return fail("Choose a valid angle interval.");
+  if(capA!==null&&capA<=0) return fail("Crane A capacity must be greater than zero or left blank.");
+  if(capB!==null&&capB<=0) return fail("Crane B capacity must be greater than zero or left blank.");
 
-  const W = number("weight");
-  const L = number("length");
-  const x = number("cg");
-  const start = number("startAngle");
-  const end = number("endAngle");
-  const step = number("stepAngle");
-  const capA = number("capacityA");
-  const capB = number("capacityB");
+  const RA=W*x/L, RB=W*(L-x)/L;
+  model={W,L,x,RA,RB,capA,capB};
+  const angles=[];
+  for(let a=start;a<end-1e-9;a+=step) angles.push(a);
+  if(!angles.length||Math.abs(angles[angles.length-1]-end)>1e-9) angles.push(end);
 
-  if (W === null || W <= 0) return errorMessage("Enter a total load weight greater than zero.");
-  if (L === null || L <= 0) return errorMessage("Enter a lifting-point distance greater than zero.");
-  if (x === null || x < 0 || x > L) return errorMessage("The CG distance must be between 0 and the lifting-point distance.");
-  if (start === null || end === null || start < 0 || end > 90 || start > end)
-    return errorMessage("Enter angles from 0° to 90°, with the start angle not greater than the end angle.");
-  if (![1,5,10,15].includes(step)) return errorMessage("Choose a valid angle interval.");
-  if (capA !== null && capA < 0) return errorMessage("Crane A capacity cannot be negative.");
-  if (capB !== null && capB < 0) return errorMessage("Crane B capacity cannot be negative.");
-
-  const loadA = W * x / L;
-  const loadB = W * (L - x) / L;
-  lastData = {W,L,x,loadA,loadB};
-
-  const rows = [];
-  for (let angle = start; angle <= end + 1e-9; angle += step) {
-    rows.push(`
-      <tr>
-        <td>${fmt(angle)}°</td>
-        <td>${fmt(loadA)}</td>
-        <td>${fmt(loadA/W*100)}%</td>
-        <td>${fmt(loadB)}</td>
-        <td>${fmt(loadB/W*100)}%</td>
-        <td>${utilisation(loadA,capA)}</td>
-        <td>${utilisation(loadB,capB)}</td>
-      </tr>`);
-  }
-  if (Math.abs((end-start) % step) > 1e-9) {
-    rows.push(`
-      <tr>
-        <td>${fmt(end)}°</td>
-        <td>${fmt(loadA)}</td>
-        <td>${fmt(loadA/W*100)}%</td>
-        <td>${fmt(loadB)}</td>
-        <td>${fmt(loadB/W*100)}%</td>
-        <td>${utilisation(loadA,capA)}</td>
-        <td>${utilisation(loadB,capB)}</td>
-      </tr>`);
-  }
-
-  $("angleRows").innerHTML = rows.join("");
-  $("selectedAngle").min = start;
-  $("selectedAngle").max = end;
-  $("selectedAngle").step = 1;
-  $("selectedAngle").value = start;
+  $("rows").innerHTML=angles.map(a=>{
+    const ua=utilisation(RA,capA), ub=utilisation(RB,capB);
+    return `<tr>
+      <td>${f(a)}°</td>
+      <td>${f(RA)}</td><td>${f(RA/W*100)}%</td>
+      <td>${f(RB)}</td><td>${f(RB/W*100)}%</td>
+      <td style="color:${ua.bad?"#ff8585":"inherit"}">${ua.text.replace("Utilisation: ","")}</td>
+      <td style="color:${ub.bad?"#ff8585":"inherit"}">${ub.text.replace("Utilisation: ","")}</td>
+    </tr>`;
+  }).join("");
+  $("angle").min=start;
+  $("angle").max=end;
+  $("angle").value=start;
+  $("angleLabel").textContent=f(start)+"°";
   $("results").classList.add("show");
-  inspectAngle(start);
+  inspect(start);
 }
-
-$("calculate").addEventListener("click", calculate);
-$("selectedAngle").addEventListener("input", e => inspectAngle(Number(e.target.value)));
-
-$("reset").addEventListener("click", () => {
-  $("weight").value = 100;
-  $("length").value = 20;
-  $("cg").value = 10;
-  $("startAngle").value = 0;
-  $("endAngle").value = 90;
-  $("stepAngle").value = 5;
-  $("capacityA").value = "";
-  $("capacityB").value = "";
-  $("error").classList.remove("show");
+$("calculate").addEventListener("click",calculate);
+$("angle").addEventListener("input",e=>inspect(Number(e.target.value)));
+$("reset").addEventListener("click",()=>{
+  $("weight").value=100;
+  $("length").value=20;
+  $("cg").value=10;
+  $("start").value=0;
+  $("end").value=90;
+  $("step").value="5";
+  $("capA").value="";
+  $("capB").value="";
   $("results").classList.remove("show");
-  lastData = null;
+  $("error").classList.remove("show");
+  model=null;
 });
-
 calculate();
 </script>
 </body>
