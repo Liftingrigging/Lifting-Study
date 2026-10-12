@@ -2,341 +2,525 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Sling SWL & Load Calculator</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sling SWL Calculator</title>
+
 <style>
-:root{--navy:#14213d;--blue:#2563eb;--purple:#7c3aed;--text:#172554;--muted:#64748b;--border:#dbeafe}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:linear-gradient(135deg,#dbeafe,#ede9fe 48%,#cffafe);min-height:100vh}
-header{text-align:center;color:white;padding:30px 16px;background:linear-gradient(120deg,#14213d,#2563eb,#7c3aed)}
-header h1{font-size:clamp(25px,5vw,36px);margin:0 0 10px}
-header p{margin:0;color:#e0f2fe;line-height:1.5}
-main{max-width:950px;margin:22px auto;padding:0 12px 30px}
-.back{display:inline-block;margin-bottom:16px;color:#1d4ed8;font-weight:bold;text-decoration:none}
-.panel{background:rgba(255,255,255,.97);border:1px solid var(--border);border-radius:17px;padding:20px;margin-bottom:18px;box-shadow:0 9px 25px #1e3a8a12}
-h2{font-size:21px;margin:0 0 16px;color:#1e3a8a}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:15px}
-.field{min-width:0}
-label{display:block;font-weight:bold;font-size:14px;margin-bottom:7px}
-input,select{width:100%;min-height:46px;padding:11px;border:1px solid #cbd5e1;border-radius:9px;background:white;color:#172554;font-size:16px}
-input:focus,select:focus{outline:3px solid #bfdbfe;border-color:#2563eb}
-input[readonly]{background:#eff6ff;font-weight:bold}
-.help{font-size:12px;color:var(--muted);line-height:1.5;margin-top:5px}
-.modes{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.mode{border:2px solid #cbd5e1;border-radius:12px;padding:14px;background:#f8fafc;color:#172554;text-align:left;cursor:pointer;font-weight:bold;line-height:1.5;min-height:72px}
-.mode.active{border-color:#2563eb;background:#dbeafe;color:#1d4ed8}
-.mode small{display:block;font-weight:normal;color:#64748b;margin-top:4px}
-.results{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.result{padding:16px;border-radius:12px;background:linear-gradient(135deg,#eff6ff,#f5f3ff);border:1px solid #dbeafe}
-.result span{display:block;color:#64748b;font-size:13px;margin-bottom:9px}
-.result strong{display:block;color:#1e3a8a;font-size:clamp(22px,4vw,29px);overflow-wrap:anywhere}
-.result small{display:block;color:#64748b;font-size:12px;margin-top:6px;line-height:1.4}
-.notice{padding:14px;border-radius:10px;font-size:14px;line-height:1.6}
-.warning{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412}
-.info{background:#ecfeff;border:1px solid #a5f3fc;color:#155e75}
-.formula{line-height:1.9;overflow-wrap:anywhere}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:16px}
-button.action{min-height:45px;padding:12px 17px;border:0;border-radius:9px;font-weight:bold;font-size:15px;cursor:pointer}
-.primary{background:linear-gradient(100deg,#2563eb,#7c3aed);color:white}
-.secondary{background:#e2e8f0;color:#1e293b}
-.hidden{display:none!important}
-footer{text-align:center;color:#64748b;font-size:12px;padding:0 12px 26px}
-@media(max-width:580px){.grid,.results,.modes{grid-template-columns:1fr}.panel{padding:16px}}
-@media print{body{background:white}header{background:white;color:black}header p{color:#333}.back,.actions,.modes,footer{display:none}.panel{box-shadow:none;break-inside:avoid}}
+:root {
+  --navy: #12304a;
+  --blue: #1769aa;
+  --light: #eef6fc;
+  --border: #d4e0ea;
+  --text: #203344;
+  --muted: #627789;
+  --green: #147d50;
+  --orange: #fff3d8;
+}
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 22px 14px;
+  font-family: Arial, Helvetica, sans-serif;
+  color: var(--text);
+  background: linear-gradient(135deg, #e8f4ff, #f7faff 50%, #e7f5ef);
+}
+
+.container {
+  max-width: 900px;
+  margin: auto;
+}
+
+.header {
+  color: white;
+  background: linear-gradient(120deg, #12304a, #1769aa);
+  border-radius: 18px;
+  padding: 25px;
+  margin-bottom: 18px;
+}
+
+.header h1 { margin: 0 0 9px; font-size: 27px; }
+.header p { margin: 0; line-height: 1.5; opacity: .95; }
+
+.panel {
+  background: white;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 22px;
+  margin-bottom: 18px;
+  box-shadow: 0 5px 18px rgba(18, 48, 74, .06);
+}
+
+h2 { margin: 0 0 18px; font-size: 20px; color: var(--navy); }
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.field { min-width: 0; }
+.field.full { grid-column: 1 / -1; }
+
+label {
+  display: block;
+  margin-bottom: 7px;
+  font-weight: 700;
+  font-size: 14px;
+}
+
+input, select {
+  width: 100%;
+  min-height: 45px;
+  padding: 11px 12px;
+  border: 1px solid #bdccd9;
+  border-radius: 9px;
+  font-size: 16px;
+  background: #fff;
+  color: var(--text);
+}
+
+input:focus, select:focus {
+  outline: 2px solid #8ac4f2;
+  border-color: var(--blue);
+}
+
+.help {
+  margin-top: 6px;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.45;
+}
+
+.formula {
+  margin-top: 18px;
+  padding: 15px;
+  background: var(--light);
+  border-left: 4px solid var(--blue);
+  border-radius: 8px;
+  line-height: 1.7;
+  overflow-wrap: anywhere;
+}
+
+.results {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.result-card {
+  padding: 18px;
+  background: #f2f8fd;
+  border: 1px solid #d7e8f5;
+  border-radius: 12px;
+}
+
+.result-card.primary {
+  background: #e8f6ee;
+  border-color: #b9e1ca;
+}
+
+.result-label {
+  font-size: 13px;
+  color: var(--muted);
+  font-weight: 700;
+  line-height: 1.5;
+}
+
+.result-value {
+  font-size: 29px;
+  font-weight: 800;
+  color: var(--navy);
+  margin-top: 8px;
+  overflow-wrap: anywhere;
+}
+
+.result-card.primary .result-value { color: var(--green); }
+
+.unit { font-size: 15px; font-weight: 700; }
+
+.warning {
+  margin-top: 16px;
+  padding: 14px;
+  background: var(--orange);
+  border: 1px solid #f0d28d;
+  border-radius: 10px;
+  line-height: 1.55;
+  font-size: 13px;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 18px;
+}
+
+button, .back-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 43px;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 9px;
+  color: white;
+  background: var(--blue);
+  font-size: 14px;
+  font-weight: 700;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+button.secondary { background: #526b7d; }
+.back-link { background: var(--navy); }
+button:hover, .back-link:hover { opacity: .9; }
+
+.hidden { display: none !important; }
+
+.footer {
+  text-align: center;
+  font-size: 12px;
+  color: var(--muted);
+  line-height: 1.6;
+  padding: 8px 4px 20px;
+}
+
+@media (max-width: 600px) {
+  body { padding: 12px 9px; }
+  .header, .panel { padding: 17px; border-radius: 13px; }
+  .header h1 { font-size: 23px; }
+  .grid, .results { grid-template-columns: 1fr; }
+  .result-value { font-size: 26px; }
+}
+
+@media print {
+  body { background: white; padding: 0; }
+  .container { max-width: none; }
+  .header, .panel { box-shadow: none; break-inside: avoid; }
+  .actions, .back-link { display: none !important; }
+}
 </style>
 </head>
+
 <body>
-<header>
-<h1>Sling SWL & Load Calculator</h1>
-<p>Calculate required sling capacity or estimated liftable load</p>
-</header>
+<main class="container">
 
-<main>
-<a class="back" href="../calculation.html">← Back to Calculations</a>
+  <header class="header">
+    <h1>Sling SWL Calculator</h1>
+    <p>Calculate required sling capacity or estimate load capacity using the selected angle and hitch values.</p>
+  </header>
 
-<section class="panel">
-<h2>1. Choose calculation</h2>
-<div class="modes">
-<button class="mode active" id="modeRequired" type="button">
-Option 1 — Required SWL
-<small>Calculate required SWL from a known load.</small>
-</button>
-<button class="mode" id="modeLift" type="button">
-Option 2 — Liftable load
-<small>Calculate load capacity from the sling SWL.</small>
-</button>
-</div>
-</section>
+  <section class="panel">
+    <h2>Calculation settings</h2>
 
-<section class="panel">
-<h2>2. Sling details</h2>
-<div class="grid">
-<div class="field">
-<label for="slingType">Sling type</label>
-<select id="slingType">
-<option value="web">Webbing / round sling</option>
-<option value="wire">Wire-rope sling</option>
-<option value="chain">Chain sling</option>
-</select>
-</div>
+    <div class="grid">
+      <div class="field full">
+        <label for="mode">Calculation option</label>
+        <select id="mode">
+          <option value="required">Option 1 — Required SWL per sling</option>
+          <option value="capacity">Option 2 — Estimated liftable load</option>
+        </select>
+      </div>
 
-<div class="field hidden" id="gradeField">
-<label for="chainGrade">Chain grade</label>
-<select id="chainGrade">
-<option value="G80">Grade 80</option>
-<option value="G100">Grade 100</option>
-<option value="G120">Grade 120</option>
-<option value="other">Other / verify chart</option>
-</select>
-<div class="help">Use the manufacturer's WLL chart for the selected grade and chain assembly.</div>
-</div>
+      <div class="field">
+        <label for="slingType">Sling type</label>
+        <select id="slingType">
+          <option value="Webbing sling">Webbing sling</option>
+          <option value="Round sling">Round sling</option>
+          <option value="Wire rope sling">Wire rope sling</option>
+          <option value="Chain sling">Chain sling</option>
+        </select>
+      </div>
 
-<div class="field">
-<label for="numberSlings">Number of slings / load-bearing legs</label>
-<select id="numberSlings">
-<option value="1">1</option>
-<option value="2" selected>2</option>
-<option value="3">3</option>
-<option value="4">4</option>
-</select>
-</div>
+      <div class="field hidden" id="gradeField">
+        <label for="chainGrade">Chain grade</label>
+        <select id="chainGrade">
+          <option value="Grade 80">Grade 80</option>
+          <option value="Grade 100">Grade 100</option>
+          <option value="Grade 120">Grade 120</option>
+          <option value="Other / unspecified">Other / unspecified</option>
+        </select>
+        <div class="help">Grade selection does not determine sling capacity. Use the manufacturer's WLL chart.</div>
+      </div>
 
-<div class="field">
-<label for="angle">Sling angle above horizontal</label>
-<select id="angle">
-<option value="30">30°</option>
-<option value="45">45°</option>
-<option value="60" selected>60°</option>
-<option value="75">75°</option>
-<option value="90">90°</option>
-</select>
-</div>
+      <div class="field">
+        <label for="numberSlings">Number of slings / load-bearing legs</label>
+        <select id="numberSlings">
+          <option value="1">1</option>
+          <option value="2" selected>2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+        </select>
+        <div class="help">Option 1 assumes the total load is shared equally between the selected number.</div>
+      </div>
 
-<div class="field">
-<label for="angleFactor">Angle factor</label>
-<input id="angleFactor" type="number" min="0.001" step="any" value="1.155">
-<div class="help">Auto-filled from the illustrative table below; editable for your approved chart.</div>
-</div>
+      <div class="field">
+        <label for="angle">Sling angle from horizontal</label>
+        <select id="angle">
+          <option value="30">30°</option>
+          <option value="45">45°</option>
+          <option value="60" selected>60°</option>
+          <option value="75">75°</option>
+          <option value="90">90°</option>
+        </select>
+      </div>
 
-<div class="field">
-<label for="hitch">Hitch type</label>
-<select id="hitch">
-<option value="vertical">Vertical / straight</option>
-<option value="choker">Choker</option>
-<option value="basket">Basket</option>
-<option value="custom">Custom value</option>
-</select>
-</div>
+      <div class="field">
+        <label for="angleValue">Angle value / factor</label>
+        <input type="number" id="angleValue" min="0.0001" step="any" value="1.155">
+        <div class="help">Editable factor. Confirm its definition against your approved chart.</div>
+      </div>
 
-<div class="field">
-<label for="hitchValue">Hitch value</label>
-<input id="hitchValue" type="number" min="0.001" step="any" value="1">
-<div class="help">Auto-filled for the hitch selection; editable to match your approved chart.</div>
-</div>
+      <div class="field">
+        <label for="hitch">Hitch type</label>
+        <select id="hitch">
+          <option value="vertical">Vertical hitch</option>
+          <option value="choker">Choker hitch</option>
+          <option value="basket">Basket hitch</option>
+          <option value="custom">Custom hitch value</option>
+        </select>
+      </div>
 
-<div class="field" id="loadField">
-<label for="load">Load weight (kg)</label>
-<input id="load" type="number" min="0.01" step="any" value="2000">
-</div>
+      <div class="field">
+        <label for="hitchValue">Hitch value</label>
+        <input type="number" id="hitchValue" min="0.0001" step="any" value="1">
+        <div class="help">Illustrative defaults: vertical 1.00, choker 0.80, basket 2.00. Verify the correct value before use.</div>
+      </div>
 
-<div class="field" id="wllField">
-<label for="wll">Rated SWL per sling / leg (kg)</label>
-<input id="wll" type="number" min="0.01" step="any" value="1000">
-</div>
-</div>
-</section>
+      <div class="field full" id="loadField">
+        <label for="loadWeight">Total load weight (tonnes)</label>
+        <input type="number" id="loadWeight" min="0.0001" step="any" value="10">
+      </div>
 
-<section class="panel">
-<h2>3. Calculation results</h2>
-<div class="results">
-<div class="result">
-<span id="mainLabel">Required SWL per sling</span>
-<strong id="mainResult">—</strong>
-<small id="mainNote">Required capacity for the selected calculation</small>
-</div>
-<div class="result">
-<span id="totalLabel">Total rated SWL</span>
-<strong id="totalResult">—</strong>
-<small>Based on the selected number of slings</small>
-</div>
-<div class="result">
-<span>Angle factor</span>
-<strong id="angleOut">—</strong>
-</div>
-<div class="result">
-<span>Hitch value</span>
-<strong id="hitchOut">—</strong>
-</div>
-</div>
-<div id="status" class="notice info" style="margin-top:15px" role="status" aria-live="polite"></div>
-<div class="actions">
-<button class="action primary" id="printBtn" type="button">Print / Save PDF</button>
-<button class="action secondary" id="resetBtn" type="button">Reset</button>
-</div>
-</section>
+      <div class="field full hidden" id="wllField">
+        <label for="wll">Rated SWL / WLL per sling (tonnes)</label>
+        <input type="number" id="wll" min="0.0001" step="any" value="8">
+      </div>
+    </div>
 
-<section class="panel">
-<h2>4. Formulas used</h2>
-<div class="formula">
-<strong>Option 1 — Required SWL per sling</strong><br>
-SWL = Load Weight ÷ (Hitch Value × Angle Factor)<br><br>
-<strong>Option 2 — Estimated total liftable load</strong><br>
-Load Weight = SWL per sling × Number of Slings × Hitch Value × Angle Factor
-</div>
-<p class="help">Option 2 extends your formula to account for the selected number of slings, assuming equal load sharing.</p>
-</section>
+    <div class="formula" id="formulaText" aria-live="polite"></div>
 
-<section class="panel">
-<h2>5. Chain sling grade reference</h2>
-<div class="notice info">
-Selected grade: <strong id="gradeOutput">Grade 80</strong><br>
-The grade is for reference only. Enter the rated SWL/WLL from the manufacturer's chart for the actual chain diameter, leg count, hitch and angle. This calculator does not infer capacity from grade alone.
-</div>
-</section>
+    <div class="actions">
+      <button type="button" id="calculateBtn">Calculate</button>
+      <button type="button" class="secondary" id="printBtn">Print / Save PDF</button>
+      <button type="button" class="secondary" id="resetBtn">Reset</button>
+    </div>
+  </section>
 
-<section class="panel">
-<h2>Safety notice</h2>
-<div class="notice warning">
-The factor defaults are illustrative and are not verified TÜV SHADI values. The correct convention for angle and hitch factors must come from your approved chart. Use the manufacturer's rated WLL for the complete assembly, consider unequal load sharing and centre of gravity, and have the lift checked by a competent person. Do not use this calculator as the sole basis for a lifting operation.
-</div>
-</section>
+  <section class="panel">
+    <h2>Results</h2>
+    <div class="results">
+      <div class="result-card primary">
+        <div class="result-label" id="primaryLabel">Required SWL per sling</div>
+        <div class="result-value"><span id="primaryValue">—</span> <span class="unit">tonnes</span></div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-label" id="secondaryLabel">Total required sling capacity</div>
+        <div class="result-value"><span id="secondaryValue">—</span> <span class="unit">tonnes</span></div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-label">Load shared per sling (equal-sharing assumption)</div>
+        <div class="result-value"><span id="perSlingLoad">—</span> <span class="unit">tonnes</span></div>
+      </div>
+
+      <div class="result-card">
+        <div class="result-label">Selected factors</div>
+        <div class="result-value" style="font-size:20px">
+          Angle: <span id="shownAngle">—</span><br>
+          Hitch: <span id="shownHitch">—</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="warning">
+      <strong>Important lifting safety notice:</strong>
+      This is a calculation aid, not a certified lifting plan. Confirm the exact formula, factor direction, sling angles, hitch configuration, load-bearing legs, and allowable load sharing using the applicable TÜV SHADI procedure and the sling manufacturer's chart. Do not assume all legs share the load equally in a real lift. Chain grade alone is not enough to establish WLL.
+    </div>
+  </section>
+
+  <div class="actions">
+    <a class="back-link" href="../calculation.html">← Back to Calculators</a>
+  </div>
+
+  <footer class="footer">
+    Check all input factors against approved lifting documentation before lifting.
+  </footer>
 </main>
 
-<footer>Educational reference only · Verify all values against approved lifting documentation</footer>
-
 <script>
-(function(){
-const $=id=>document.getElementById(id);
-let mode="required";
+const $ = id => document.getElementById(id);
 
-// Illustrative factors only. Replace with values from the approved chart.
-const angleFactors={30:2.000,45:1.414,60:1.155,75:1.035,90:1.000};
-const hitchValues={vertical:1.00,choker:0.80,basket:2.00};
+const angleDefaults = {
+  "30": 2.000,
+  "45": 1.414,
+  "60": 1.155,
+  "75": 1.035,
+  "90": 1.000
+};
 
-function fmt(n,d=2){
-return Number(n).toLocaleString(undefined,{
-minimumFractionDigits:d,maximumFractionDigits:d
+const hitchDefaults = {
+  vertical: 1.00,
+  choker: 0.80,
+  basket: 2.00
+};
+
+function num(id) {
+  return Number($(id).value);
+}
+
+function fmt(value) {
+  if (!Number.isFinite(value)) return "—";
+  return value.toLocaleString("en-US", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 3
+  });
+}
+
+function updateAngleDefault() {
+  $("angleValue").value = angleDefaults[$("angle").value];
+  calculate();
+}
+
+function updateHitchDefault() {
+  const type = $("hitch").value;
+  if (type !== "custom") {
+    $("hitchValue").value = hitchDefaults[type];
+  }
+  calculate();
+}
+
+function updateMode() {
+  const required = $("mode").value === "required";
+
+  $("loadField").classList.toggle("hidden", !required);
+  $("wllField").classList.toggle("hidden", required);
+
+  $("primaryLabel").textContent = required
+    ? "Required SWL per sling"
+    : "Estimated total liftable load";
+
+  $("secondaryLabel").textContent = required
+    ? "Total required capacity across all selected slings"
+    : "Rated SWL per sling";
+
+  $("formulaText").innerHTML = required
+    ? "<strong>Option 1 formula</strong><br>" +
+      "Load per sling = Total load ÷ Number of slings<br>" +
+      "Required SWL per sling = (Load per sling × Angle value) ÷ Hitch value"
+    : "<strong>Option 2 formula</strong><br>" +
+      "Estimated total load = (SWL per sling × Number of slings × Hitch value) ÷ Angle value";
+
+  calculate();
+}
+
+function calculate() {
+  const mode = $("mode").value;
+  const count = num("numberSlings");
+  const angleValue = num("angleValue");
+  const hitchValue = num("hitchValue");
+
+  $("shownAngle").textContent =
+    $("angle").value + "° / " + fmt(angleValue);
+
+  $("shownHitch").textContent =
+    $("hitch").selectedOptions[0].text + " / " + fmt(hitchValue);
+
+  const validFactors =
+    Number.isFinite(count) && count >= 1 &&
+    Number.isFinite(angleValue) && angleValue > 0 &&
+    Number.isFinite(hitchValue) && hitchValue > 0;
+
+  if (!validFactors) {
+    showInvalid();
+    return;
+  }
+
+  if (mode === "required") {
+    const load = num("loadWeight");
+
+    if (!Number.isFinite(load) || load <= 0) {
+      showInvalid();
+      return;
+    }
+
+    // Corrected Option 1:
+    // Load per sling = total load / number of slings
+    // Required SWL = (load per sling * angle value) / hitch value
+    const loadPerSling = load / count;
+    const requiredSWL = (loadPerSling * angleValue) / hitchValue;
+    const totalCapacity = requiredSWL * count;
+
+    $("primaryValue").textContent = fmt(requiredSWL);
+    $("secondaryValue").textContent = fmt(totalCapacity);
+    $("perSlingLoad").textContent = fmt(loadPerSling);
+  } else {
+    const wll = num("wll");
+
+    if (!Number.isFinite(wll) || wll <= 0) {
+      showInvalid();
+      return;
+    }
+
+    // Inverse of the stated Option 1 formula, with equal load sharing.
+    const estimatedTotalLoad =
+      (wll * count * hitchValue) / angleValue;
+
+    $("primaryValue").textContent = fmt(estimatedTotalLoad);
+    $("secondaryValue").textContent = fmt(wll);
+    $("perSlingLoad").textContent = fmt(estimatedTotalLoad / count);
+  }
+}
+
+function showInvalid() {
+  $("primaryValue").textContent = "Check inputs";
+  $("secondaryValue").textContent = "—";
+  $("perSlingLoad").textContent = "—";
+}
+
+function resetForm() {
+  $("mode").value = "required";
+  $("slingType").value = "Webbing sling";
+  $("chainGrade").value = "Grade 80";
+  $("numberSlings").value = "2";
+  $("angle").value = "60";
+  $("angleValue").value = angleDefaults["60"];
+  $("hitch").value = "vertical";
+  $("hitchValue").value = hitchDefaults.vertical;
+  $("loadWeight").value = "10";
+  $("wll").value = "8";
+
+  updateSlingType();
+  updateMode();
+}
+
+function updateSlingType() {
+  $("gradeField").classList.toggle(
+    "hidden",
+    $("slingType").value !== "Chain sling"
+  );
+}
+
+$("mode").addEventListener("change", updateMode);
+$("angle").addEventListener("change", updateAngleDefault);
+$("hitch").addEventListener("change", updateHitchDefault);
+$("calculateBtn").addEventListener("click", calculate);
+$("printBtn").addEventListener("click", () => window.print());
+$("resetBtn").addEventListener("click", resetForm);
+$("slingType").addEventListener("change", updateSlingType);
+
+[
+  "angleValue", "hitchValue", "numberSlings",
+  "loadWeight", "wll", "chainGrade"
+].forEach(id => {
+  $(id).addEventListener("input", calculate);
+  $(id).addEventListener("change", calculate);
 });
-}
 
-function changeMode(next){
-mode=next;
-$("modeRequired").classList.toggle("active",mode==="required");
-$("modeLift").classList.toggle("active",mode==="lift");
-$("loadField").classList.toggle("hidden",mode!=="required");
-$("wllField").classList.toggle("hidden",mode!=="lift");
-
-if(mode==="required"){
-$("mainLabel").textContent="Required SWL per sling";
-$("mainNote").textContent="Required capacity based on the load and selected factors";
-$("totalLabel").textContent="Total required capacity";
-}else{
-$("mainLabel").textContent="Estimated total liftable load";
-$("mainNote").textContent="Estimated load supported by the selected sling count";
-$("totalLabel").textContent="Rated SWL per sling";
-}
-calculate();
-}
-
-function updateAngle(){
-const angle=Number($("angle").value);
-$("angleFactor").value=angleFactors[angle];
-calculate();
-}
-
-function updateHitch(){
-const hitch=$("hitch").value;
-if(hitch!=="custom")$("hitchValue").value=hitchValues[hitch];
-calculate();
-}
-
-function calculate(){
-const load=Number($("load").value);
-const wll=Number($("wll").value);
-const n=Number($("numberSlings").value);
-const angleFactor=Number($("angleFactor").value);
-const hitch=Number($("hitchValue").value);
-
-$("angleOut").textContent=Number.isFinite(angleFactor)&&angleFactor>0?fmt(angleFactor,3):"—";
-$("hitchOut").textContent=Number.isFinite(hitch)&&hitch>0?fmt(hitch,3):"—";
-$("gradeOutput").textContent=$("chainGrade").selectedOptions[0].text;
-
-if(!Number.isFinite(n)||n<1||!Number.isFinite(angleFactor)||angleFactor<=0||!Number.isFinite(hitch)||hitch<=0){
-invalid("Enter a valid number of slings, angle factor and hitch value.");return;
-}
-
-let primary,total;
-
-if(mode==="required"){
-if($("load").value.trim()===""||!Number.isFinite(load)||load<=0){
-invalid("Enter a load weight greater than zero.");return;
-}
-// User-specified formula:
-primary=load/(hitch*angleFactor);
-total=primary*n;
-$("mainResult").textContent=fmt(primary)+" kg";
-$("totalResult").textContent=fmt(total)+" kg";
-}else{
-if($("wll").value.trim()===""||!Number.isFinite(wll)||wll<=0){
-invalid("Enter the rated SWL/WLL per sling or leg.");return;
-}
-// User formula, extended for the selected number of slings:
-primary=wll*n*hitch*angleFactor;
-total=wll;
-$("mainResult").textContent=fmt(primary)+" kg";
-$("totalResult").textContent=fmt(total)+" kg";
-}
-
-$("status").textContent=mode==="required"
-?"Required SWL per sling = load weight ÷ (hitch value × angle factor). Total required capacity shown assumes equal load sharing."
-:"Estimated liftable load = rated SWL per sling × number of slings × hitch value × angle factor. This assumes equal load sharing.";
-
-if($("slingType").value==="chain"){
-$("status").textContent+=" Chain grade is for reference; use the manufacturer's grade-specific WLL chart.";
-}
-$("status").textContent+=" Verify all values and the complete assembly rating before lifting.";
-}
-
-function invalid(message){
-$("mainResult").textContent="Check inputs";
-$("totalResult").textContent="—";
-$("status").textContent=message;
-}
-
-$("modeRequired").addEventListener("click",()=>changeMode("required"));
-$("modeLift").addEventListener("click",()=>changeMode("lift"));
-$("angle").addEventListener("change",updateAngle);
-$("hitch").addEventListener("change",updateHitch);
-["load","wll","numberSlings","angleFactor","hitchValue"].forEach(id=>{
-$(id).addEventListener("input",calculate);
-$(id).addEventListener("change",calculate);
-});
-$("slingType").addEventListener("change",()=>{
-$("gradeField").classList.toggle("hidden",$("slingType").value!=="chain");
-calculate();
-});
-$("chainGrade").addEventListener("change",calculate);
-$("printBtn").addEventListener("click",()=>window.print());
-
-$("resetBtn").addEventListener("click",()=>{
-$("slingType").value="web";
-$("chainGrade").value="G80";
-$("gradeField").classList.add("hidden");
-$("numberSlings").value="2";
-$("angle").value="60";
-$("hitch").value="vertical";
-$("hitchValue").value="1";
-$("angleFactor").value="1.155";
-$("load").value="2000";
-$("wll").value="1000";
-changeMode("required");
-});
-
-updateAngle();
-updateHitch();
-$("gradeField").classList.add("hidden");
-changeMode("required");
-})();
+updateSlingType();
+updateMode();
 </script>
 </body>
 </html>
