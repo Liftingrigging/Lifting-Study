@@ -1,4 +1,4 @@
-const CACHE_NAME = "lifting-study-v1";
+const CACHE_NAME = "lifting-study-v2";
 const BASE_PATH = "/Lifting-Study/";
 
 const CORE_PAGES = [
@@ -16,17 +16,19 @@ self.addEventListener("install", (event) => {
   event.waitUntil((async () => {
     const cache = await caches.open(CACHE_NAME);
 
-    await Promise.all(CORE_PAGES.map(async (url) => {
-      try {
-        const response = await fetch(url, { cache: "reload" });
+    await Promise.all(
+      CORE_PAGES.map(async (url) => {
+        try {
+          const response = await fetch(url, { cache: "reload" });
 
-        if (response.ok) {
-          await cache.put(url, response);
+          if (response.ok) {
+            await cache.put(url, response);
+          }
+        } catch (error) {
+          // Continue if a page is unavailable during installation.
         }
-      } catch (error) {
-        // Skip pages that cannot be fetched during installation.
-      }
-    }));
+      })
+    );
 
     await self.skipWaiting();
   })());
@@ -73,22 +75,23 @@ self.addEventListener("fetch", (event) => {
 
         return response;
       } catch (error) {
-        const cached = await caches.match(request);
-
-        if (cached) return cached;
-
-        const path = url.pathname.endsWith("/")
-          ? url.pathname + "index.html"
-          : url.pathname;
-
-        return await caches.match(path) ||
-          new Response(
-            "This page is not available offline yet. Connect to the internet and open it once.",
-            {
-              status: 503,
-              headers: { "Content-Type": "text/plain; charset=utf-8" }
-            }
+        const cached =
+          await caches.match(request) ||
+          await caches.match(
+            url.pathname.endsWith("/")
+              ? url.pathname + "index.html"
+              : url.pathname
           );
+
+        return cached || new Response(
+          "This page is not available offline yet. Connect to the internet and open it once.",
+          {
+            status: 503,
+            headers: {
+              "Content-Type": "text/plain; charset=utf-8"
+            }
+          }
+        );
       }
     })());
 
@@ -97,6 +100,7 @@ self.addEventListener("fetch", (event) => {
 
   event.respondWith((async () => {
     const cached = await caches.match(request);
+
     if (cached) return cached;
 
     try {
@@ -111,7 +115,9 @@ self.addEventListener("fetch", (event) => {
     } catch (error) {
       return new Response("This resource is unavailable offline.", {
         status: 503,
-        headers: { "Content-Type": "text/plain; charset=utf-8" }
+        headers: {
+          "Content-Type": "text/plain; charset=utf-8"
+        }
       });
     }
   })());
