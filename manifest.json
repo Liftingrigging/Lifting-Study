@@ -1,22 +1,30 @@
 {
-  "name": "Lifting & Rigging Study",
-  "short_name": "Rigging Study",
-  "description": "Lifting and rigging study notes, MCQs and calculations",
-  "start_url": "/Lifting-Study/index.html",
+  "id": "/Lifting-Study/",
+  "name": "Lifting Study Hub",
+  "short_name": "Lifting Study",
+  "description": "Lifting, rigging, crane operations, lift planning, calculations, and safety study resources.",
+  "start_url": "/Lifting-Study/",
   "scope": "/Lifting-Study/",
   "display": "standalone",
-  "background_color": "#0b1220",
-  "theme_color": "#0b1220",
+  "orientation": "any",
+  "background_color": "#101827",
+  "theme_color": "#101827",
+  "categories": [
+    "education",
+    "productivity"
+  ],
   "icons": [
     {
       "src": "/Lifting-Study/icon-192.png",
       "sizes": "192x192",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/Lifting-Study/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
