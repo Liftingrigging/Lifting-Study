@@ -12,24 +12,18 @@
   --blue:#1769aa;
   --cyan:#00b4d8;
   --green:#16845b;
-  --orange:#f59e0b;
-  --red:#c0392b;
   --light:#f3f8fc;
   --border:#d9e5ef;
   --text:#203448;
 }
 *{box-sizing:border-box}
 body{
-  margin:0;
-  font-family:Arial,Helvetica,sans-serif;
-  color:var(--text);
+  margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);
   background:linear-gradient(135deg,#eaf5ff,#f7faff 50%,#e9f9f4);
   line-height:1.6;
 }
 header{
-  color:white;
-  padding:35px 18px;
-  text-align:center;
+  color:white;padding:35px 18px;text-align:center;
   background:linear-gradient(120deg,rgba(9,35,58,.94),rgba(23,105,170,.85)),
   url("gasplant.png") center/cover;
 }
@@ -40,16 +34,14 @@ nav{
   padding:12px;background:#102a43;
 }
 nav a{
-  color:white;text-decoration:none;padding:8px 12px;
-  border-radius:8px;font-size:.93rem;
+  color:white;text-decoration:none;padding:8px 12px;border-radius:8px;
 }
 nav a:hover{background:#1769aa}
 main{max-width:1100px;margin:auto;padding:20px 14px 45px}
 .intro{
-  padding:24px;border-radius:16px;color:white;
+  padding:24px;border-radius:16px;color:white;margin-bottom:20px;
   background:linear-gradient(120deg,rgba(16,42,67,.88),rgba(23,105,170,.78)),
   url("lifting.png") center/cover;
-  margin-bottom:20px;
 }
 .panel{
   background:white;border:1px solid var(--border);border-radius:16px;
@@ -65,7 +57,7 @@ input,select{
   border-radius:9px;background:white;color:var(--text);font:inherit;
 }
 input:focus,select:focus{outline:2px solid #80caff;border-color:var(--blue)}
-.help{font-size:.9rem;color:#52697c;margin:8px 0}
+.help,.small{font-size:.9rem;color:#52697c}
 .actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}
 button{
   border:0;border-radius:9px;padding:11px 16px;font-weight:700;
@@ -73,13 +65,10 @@ button{
 }
 button:hover{filter:brightness(.94)}
 button.secondary{background:#52697c}
-button.green{background:var(--green)}
-button.orange{background:#bd7100}
 .results{
   margin-top:16px;padding:16px;border-radius:12px;
   background:#f0f7ff;border:1px solid #cfe3f6;
 }
-.results h3{margin-top:0}
 .result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
 .result{
   background:white;border:1px solid var(--border);border-radius:10px;
@@ -105,11 +94,9 @@ button.orange{background:#bd7100}
   border:4px solid #d8edff;
 }
 footer{text-align:center;background:var(--navy);color:white;padding:22px}
-.small{font-size:.88rem;color:#617587}
 @media(max-width:650px){
   .grid,.result-grid{grid-template-columns:1fr}
-  .panel{padding:16px}
-  .intro{padding:18px}
+  .panel{padding:16px}.intro{padding:18px}
 }
 @media print{
   body{background:white;color:#111}
@@ -126,7 +113,7 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
 
 <body>
 <header>
-  <h1>Crane & Lifting Planning Tools</h1>
+  <h1>Crane &amp; Lifting Planning Tools</h1>
   <p>Practical geometry checks and lift planning preparation</p>
 </header>
 
@@ -143,7 +130,7 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
 <main>
 <section class="intro">
   <h2>Lift Planning Workspace</h2>
-  <p>Check simplified crane geometry, estimate the boom length needed to clear a building, and prepare your lift checklist.</p>
+  <p>Check crane geometry, calculate building clearances, and prepare your lift planning checklist.</p>
   <div class="actions no-print">
     <button onclick="savePDF()">Save / Print PDF</button>
   </div>
@@ -151,7 +138,7 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
 
 <section class="panel" id="craneGeometry">
   <h2>1. Crane Geometry Calculator</h2>
-  <p class="help">Enter any two values to calculate the third for an idealized straight boom. This does not replace a crane manufacturer's range diagram.</p>
+  <p class="help">Idealized straight-boom geometry. Verify actual crane dimensions and configuration using the manufacturer's documents.</p>
 
   <div class="grid">
     <div class="field">
@@ -167,6 +154,7 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
       <input id="geoAngle" type="number" min="0" max="90" step="any" placeholder="e.g. 45">
     </div>
   </div>
+
   <div class="actions no-print">
     <button onclick="calculateGeometry()">Calculate</button>
     <button class="secondary" onclick="resetGeometry()">Reset</button>
@@ -176,7 +164,7 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
 
 <section class="panel" id="obstacleClearance">
   <h2>2. Obstacle Clearance Calculator</h2>
-  <p class="help">Enter the building's near-edge distance, building length, roof height, and boom geometry. The results show only vertical and horizontal clearance. Positive horizontal clearance means the boom reaches the roof height before the building's near edge.</p>
+  <p class="help">Calculate vertical clearance above the roof and horizontal clearance from the building's near edge to the boom's roof-height crossing.</p>
 
   <div class="grid">
     <div class="field">
@@ -184,8 +172,8 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
       <input id="centerDistance" type="number" min="0" step="any" value="20">
     </div>
     <div class="field">
-      <label for="buildingWidth">Building length (m)</label>
-      <input id="buildingWidth" type="number" min="0" step="any" value="12">
+      <label for="buildingLength">Building length (m)</label>
+      <input id="buildingLength" type="number" min="0" step="any" value="12">
     </div>
     <div class="field">
       <label for="buildingHeight">Roof height above ground (m)</label>
@@ -217,44 +205,10 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
   <div id="clearanceResults" class="results hidden" aria-live="polite"></div>
 </section>
 
-<section class="panel" id="loadPlacement">
-  <h2>3. Load Placement Calculator</h2>
-  <p class="help">Estimate the straight-line boom length and angle required to reach beyond a building while keeping the boom centreline above its roof. The radius is measured horizontally from the crane's rotation centre to the building's near edge; building length extends from that edge to the far edge.</p>
-
-  <div class="grid">
-    <div class="field">
-      <label for="loadRadius">Crane radius to building near edge (m)</label>
-      <input id="loadRadius" type="number" min="0" step="any" value="20">
-    </div>
-    <div class="field">
-      <label for="loadBuildingLength">Building length (m)</label>
-      <input id="loadBuildingLength" type="number" min="0" step="any" value="12">
-    </div>
-    <div class="field">
-      <label for="loadRoofHeight">Roof height above ground (m)</label>
-      <input id="loadRoofHeight" type="number" min="0" step="any" value="15">
-    </div>
-    <div class="field">
-      <label for="loadClearance">Required clearance above roof (m)</label>
-      <input id="loadClearance" type="number" min="0" step="any" value="2">
-    </div>
-    <div class="field">
-      <label for="loadBaseHeight">Boom base height above ground (m)</label>
-      <input id="loadBaseHeight" type="number" min="0" step="any" value="2">
-    </div>
-  </div>
-
-  <div class="actions no-print">
-    <button onclick="calculateLoadPlacement()">Calculate Boom Requirement</button>
-    <button class="secondary" onclick="resetLoadPlacement()">Reset</button>
-  </div>
-
-  <div id="loadResults" class="results hidden" aria-live="polite"></div>
-</section>
-
 <section class="panel" id="liftChecklist">
-  <h2>4. Lift Planning Checklist</h2>
-  <p class="help">Use this checklist during planning. Tick items when they have been verified.</p>
+  <h2>3. Lift Planning Checklist</h2>
+  <p class="help">Tick items after verification by the responsible lifting team.</p>
+
   <div class="progress" aria-label="Checklist completion">
     <div class="progress-bar" id="progressBar"></div>
   </div>
@@ -262,9 +216,9 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
 
   <div class="checklist" id="checklistItems">
     <label><input type="checkbox"> Confirm load weight, dimensions, centre of gravity, and lifting points.</label>
-    <label><input type="checkbox"> Verify crane configuration and the manufacturer's load chart.</label>
-    <label><input type="checkbox"> Confirm operating radius for the complete lift path.</label>
-    <label><input type="checkbox"> Check boom length, boom angle, and any jib configuration.</label>
+    <label><input type="checkbox"> Verify crane configuration and manufacturer's load chart.</label>
+    <label><input type="checkbox"> Confirm operating radius throughout the complete lift path.</label>
+    <label><input type="checkbox"> Check boom length, boom angle, and jib configuration.</label>
     <label><input type="checkbox"> Verify building, structure, and overhead obstacle clearances.</label>
     <label><input type="checkbox"> Confirm ground bearing capacity and outrigger support.</label>
     <label><input type="checkbox"> Check rigging weight, sling angles, and lifting accessories.</label>
@@ -274,6 +228,7 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
     <label><input type="checkbox"> Review the lift sequence with the competent lifting team.</label>
     <label><input type="checkbox"> Obtain required permits, approvals, and pre-lift inspection.</label>
   </div>
+
   <div class="actions no-print">
     <button class="secondary" onclick="resetChecklist()">Reset Checklist</button>
   </div>
@@ -295,13 +250,13 @@ footer{text-align:center;background:var(--navy);color:white;padding:22px}
 
 <section class="panel">
   <h2>Important Safety Note</h2>
-  <p>These tools provide simplified geometric estimates only. The boom centreline is not the same as the full boom envelope, and actual boom configuration, deflection, jib arrangement, crane orientation, load movement, and manufacturer-specific geometry can change the required clearances.</p>
-  <p>Before lifting, verify the complete lift path, required clearance, crane capacity, and configuration against the manufacturer's documents and an approved lift plan reviewed by a competent lifting professional.</p>
+  <p>These tools provide simplified geometric estimates only. They do not establish crane capacity or prove that the complete boom envelope clears a building. Actual boom configuration, deflection, jib arrangement, crane orientation, and load movement may affect clearances.</p>
+  <p>Verify the full lift path, crane capacity, and configuration using the manufacturer's documents and an approved lift plan reviewed by a competent lifting professional.</p>
 </section>
 </main>
 
 <footer>
-  <p>Crane & Lifting Planning Tools</p>
+  <p>Crane &amp; Lifting Planning Tools</p>
   <p class="small" style="color:#d7e7f5">Plan carefully. Verify independently. Lift safely.</p>
 </footer>
 
@@ -331,79 +286,72 @@ function message(type, text) {
   return `<div class="status ${type}">${text}</div>`;
 }
 
+/* Crane Geometry Calculator */
 function calculateGeometry() {
-  const L = numberValue("geoLength");
-  const R = numberValue("geoRadius");
-  const A = numberValue("geoAngle");
-  const known = [Number.isFinite(L),Number.isFinite(R),Number.isFinite(A)].filter(Boolean).length;
+  const L=numberValue("geoLength");
+  const R=numberValue("geoRadius");
+  const A=numberValue("geoAngle");
+  const known=[Number.isFinite(L),Number.isFinite(R),Number.isFinite(A)].filter(Boolean).length;
 
-  if (known !== 2) {
+  if(known!==2){
     showResult("geoResults",message("warn","Enter exactly two values to calculate the missing value."));
     return;
   }
-  if ((Number.isFinite(L) && L <= 0) ||
-      (Number.isFinite(R) && R < 0) ||
-      (Number.isFinite(A) && (A < 0 || A > 90))) {
+  if((Number.isFinite(L)&&L<=0)||(Number.isFinite(R)&&R<0)||
+     (Number.isFinite(A)&&(A<0||A>90))){
     showResult("geoResults",message("bad","Enter a positive boom length, a non-negative radius, and an angle from 0° to 90°."));
     return;
   }
 
-  let length=L, radius=R, angle=A;
-  if (!Number.isFinite(L)) {
-    if (R > 0 && A === 90) {
-      length=R;
-    } else if (A === 0) {
-      showResult("geoResults",message("bad","At 0°, a horizontal boom has zero vertical rise; boom length cannot be found from radius and angle alone."));
+  if(!Number.isFinite(L)){
+    if(A===90){
+      showResult("geoResults",message("bad","At 90°, horizontal radius is zero. Enter a compatible geometry."));
       return;
-    } else {
-      length=R/Math.cos(A*Math.PI/180);
     }
+    const length=R/Math.cos(A*Math.PI/180);
     showResult("geoResults",resultCard("Required straight boom length",length));
-  } else if (!Number.isFinite(R)) {
-    if (A > 90) return;
-    radius=L*Math.cos(A*Math.PI/180);
+  }else if(!Number.isFinite(R)){
+    const radius=L*Math.cos(A*Math.PI/180);
     showResult("geoResults",resultCard("Horizontal radius",radius));
-  } else {
-    if (R > L) {
+  }else{
+    if(R>L){
       showResult("geoResults",message("bad","Horizontal radius cannot exceed straight boom length."));
       return;
     }
-    angle=Math.acos(Math.min(1,Math.max(-1,R/L)))*180/Math.PI;
+    const angle=Math.acos(Math.min(1,Math.max(-1,R/L)))*180/Math.PI;
     showResult("geoResults",resultCard("Boom angle above horizontal",angle,"°"));
   }
 }
-function resetGeometry() {
+function resetGeometry(){
   ["geoLength","geoRadius","geoAngle"].forEach(id=>document.getElementById(id).value="");
   hideResult("geoResults");
 }
 
-function calculateClearance() {
+/* Obstacle Clearance Calculator */
+function calculateClearance(){
   const D=numberValue("centerDistance");
-  const W=numberValue("buildingWidth");
+  const W=numberValue("buildingLength");
   const H=numberValue("buildingHeight");
   const L=numberValue("obstacleLength");
   const A=numberValue("obstacleAngle");
   const B=numberValue("craneBaseHeight");
   const C=numberValue("extraClearance");
 
-  if (![D,W,H,L,A,B,C].every(Number.isFinite) ||
-      D<0 || W<0 || H<0 || L<=0 || A<=0 || A>90 || B<0 || C<0) {
+  if(![D,W,H,L,A,B,C].every(Number.isFinite)||
+     D<0||W<0||H<0||L<=0||A<=0||A>90||B<0||C<0){
     showResult("clearanceResults",message("bad","Check all inputs. Distances and heights must be non-negative, boom length must be positive, and boom angle must be greater than 0° and no more than 90°."));
     return;
   }
 
   const rad=A*Math.PI/180;
   const horizontalReach=L*Math.cos(rad);
-  const verticalRise=L*Math.sin(rad);
   const near=D;
   const far=D+W;
-  const roofTarget=H+C;
-  const nearBoomHeight=B+near*Math.tan(rad);
-  const farBoomHeight=B+far*Math.tan(rad);
-  const verticalNear=nearBoomHeight-H;
-  const verticalFar=farBoomHeight-H;
-  const verticalClearance=Math.min(verticalNear,verticalFar);
-  const roofCrossX=(roofTarget-B)/Math.tan(rad);
+  const nearHeight=B+near*Math.tan(rad);
+  const farHeight=B+far*Math.tan(rad);
+  const verticalClearance=Math.min(nearHeight-H,farHeight-H);
+  const requiredRoofHeight=H+C;
+  const roofCrossX=(requiredRoofHeight-B)/Math.tan(rad);
   const horizontalClearance=D-roofCrossX;
 
   let html=`<h3>Clearance Results</h3>
@@ -412,90 +360,43 @@ function calculateClearance() {
       ${resultCard("Horizontal clearance",horizontalClearance)}
     </div>`;
 
-  if (far>horizontalReach+1e-8) {
+  if(far>horizontalReach+1e-8){
     html+=message("warn","The far building edge is beyond the boom's horizontal reach in this simplified model. The calculated values do not establish that the lift is feasible.");
-  } else if (verticalClearance<C) {
+  }else if(verticalClearance<C){
     html+=message("bad","The boom centreline does not provide the required clearance above the roof across the entered building length.");
-  } else if (horizontalClearance<0) {
-    html+=message("warn","The boom centreline reaches the roof-top clearance level over the building footprint. Review the geometry and the full boom envelope before proceeding.");
-  } else {
-    html+=message("good","The simplified centreline geometry meets the entered vertical clearance and places the roof-height crossing before the near edge. Verify the full boom envelope and actual crane configuration.");
+  }else if(horizontalClearance<0){
+    html+=message("warn","The boom centreline reaches the required roof-clearance height over the building footprint. Review the full boom envelope before proceeding.");
+  }else{
+    html+=message("good","The simplified geometry meets the entered vertical clearance and places the roof-height crossing before the near edge. Verify the full boom envelope and actual crane configuration.");
   }
 
   html+=`<p class="small">Vertical clearance is the minimum boom-centreline height above the roof at the near and far building edges. Horizontal clearance is the signed horizontal distance from the building near edge to the boom-centreline point at roof height plus required clearance. Positive means before the near edge; negative means over the footprint.</p>`;
   showResult("clearanceResults",html);
 }
-function resetClearance() {
+function resetClearance(){
   const defaults={
-    centerDistance:20,buildingWidth:12,buildingHeight:15,
+    centerDistance:20,buildingLength:12,buildingHeight:15,
     obstacleLength:40,obstacleAngle:50,craneBaseHeight:2,extraClearance:2
   };
   Object.entries(defaults).forEach(([id,value])=>document.getElementById(id).value=value);
   hideResult("clearanceResults");
 }
 
-function calculateLoadPlacement() {
-  const R=numberValue("loadRadius");
-  const W=numberValue("loadBuildingLength");
-  const H=numberValue("loadRoofHeight");
-  const C=numberValue("loadClearance");
-  const B=numberValue("loadBaseHeight");
-
-  if (![R,W,H,C,B].every(Number.isFinite) || R<0 || W<0 || H<0 || C<0 || B<0) {
-    showResult("loadResults",message("bad","Enter valid non-negative values for radius, building length, roof height, clearance, and boom base height."));
-    return;
-  }
-
-  const requiredRadius=R+W;
-  const requiredTipHeight=H+C;
-  const rise=requiredTipHeight-B;
-
-  if (rise<=0) {
-    showResult("loadResults",message("bad","The required boom-tip height must be above the boom base height. Check the roof height, clearance, and boom base height."));
-    return;
-  }
-
-  const boomLength=Math.hypot(requiredRadius,rise);
-  const boomAngle=Math.atan2(rise,requiredRadius)*180/Math.PI;
-
-  let html=`<h3>Estimated Boom Requirement</h3>
-    <div class="result-grid">
-      ${resultCard("Required straight-line boom length",boomLength)}
-      ${resultCard("Required boom angle above horizontal",boomAngle,"°")}
-    </div>
-    <p class="small">Calculation uses a target point above the far building edge: horizontal radius = near-edge radius + building length; target height = roof height + required clearance. Boom length is the straight-line distance from the assumed boom base to that target point.</p>
-    ${message("warn","This is geometric reach only. It does not confirm load capacity, rated radius, boom-section configuration, boom deflection, crane stability, or actual clearance of the complete boom. Verify the manufacturer's range diagram and load chart.")}`;
-  showResult("loadResults",html);
-}
-function resetLoadPlacement() {
-  const defaults={
-    loadRadius:20,loadBuildingLength:12,loadRoofHeight:15,
-    loadClearance:2,loadBaseHeight:2
-  };
-  Object.entries(defaults).forEach(([id,value])=>document.getElementById(id).value=value);
-  hideResult("loadResults");
-}
-
-function updateChecklist() {
+/* Checklist */
+function updateChecklist(){
   const boxes=[...document.querySelectorAll("#checklistItems input[type=checkbox]")];
   const checked=boxes.filter(box=>box.checked).length;
   document.getElementById("progressBar").style.width=(checked/boxes.length*100)+"%";
   document.getElementById("progressText").textContent=`${checked} of ${boxes.length} items complete`;
 }
-function resetChecklist() {
+function resetChecklist(){
   document.querySelectorAll("#checklistItems input[type=checkbox]").forEach(box=>box.checked=false);
   updateChecklist();
 }
 document.querySelectorAll("#checklistItems input[type=checkbox]").forEach(box=>box.addEventListener("change",updateChecklist));
 
-function savePDF() {
+function savePDF(){
   window.print();
-}
-function resetAll() {
-  resetGeometry();
-  resetClearance();
-  resetLoadPlacement();
-  resetChecklist();
 }
 </script>
 </body>
