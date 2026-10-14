@@ -1,395 +1,195 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#10213b">
-  <title>Material Weight Calculator | Lifting &amp; Rigging</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#10213b">
+<title>Material Weight & Volume Calculator | Lifting & Rigging</title>
 
-  <style>
-    :root {
-      --navy: #10213b;
-      --blue: #2563eb;
-      --cyan: #06b6d4;
-      --purple: #7c3aed;
-      --text: #17243b;
-      --muted: #65738b;
-      --border: #dce5f0;
-      --white: #ffffff;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(ellipse at 10% 10%, rgba(6, 182, 212, 0.32), transparent 35%),
-        radial-gradient(ellipse at 90% 15%, rgba(124, 58, 237, 0.28), transparent 35%),
-        radial-gradient(ellipse at 50% 95%, rgba(37, 99, 235, 0.25), transparent 40%),
-        linear-gradient(135deg, #eaf5ff 0%, #f3edff 50%, #e4fbfa 100%);
-      background-attachment: fixed;
-    }
-
-    header {
-      color: white;
-      text-align: center;
-      padding: 34px 18px 38px;
-      background: linear-gradient(120deg, #10213b, #174a83, #5530a8);
-      box-shadow: 0 8px 25px rgba(16, 33, 59, 0.18);
-    }
-
-    .header-label {
-      display: inline-block;
-      padding: 7px 13px;
-      margin-bottom: 13px;
-      border: 1px solid rgba(255,255,255,.35);
-      border-radius: 30px;
-      background: rgba(255,255,255,.1);
-      font-size: 12px;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-    }
-
-    header h1 {
-      margin: 0 0 10px;
-      font-size: clamp(27px, 5vw, 39px);
-    }
-
-    header p {
-      margin: 0 auto;
-      max-width: 620px;
-      color: #e3efff;
-      line-height: 1.6;
-    }
-
-    .container {
-      width: min(760px, 94%);
-      margin: 26px auto 40px;
-    }
-
-    .actions {
-      display: flex;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-bottom: 18px;
-    }
-
-    .action-button {
-      display: inline-block;
-      padding: 11px 15px;
-      border: 1px solid rgba(255,255,255,.8);
-      border-radius: 9px;
-      background: rgba(255,255,255,.88);
-      color: #17345b;
-      text-decoration: none;
-      font-size: 14px;
-      cursor: pointer;
-    }
-
-    .action-button:hover {
-      background: white;
-      border-color: var(--cyan);
-    }
-
-    .calculator {
-      overflow: hidden;
-      border: 1px solid rgba(255,255,255,.85);
-      border-radius: 20px;
-      background: rgba(255,255,255,.94);
-      box-shadow: 0 18px 50px rgba(38, 62, 110, .14);
-      backdrop-filter: blur(12px);
-    }
-
-    .calculator-heading {
-      padding: 23px 24px;
-      color: white;
-      background: linear-gradient(115deg, #17365d, #2563a6, #087e9c);
-    }
-
-    .calculator-heading h2 {
-      margin: 0 0 8px;
-      font-size: 23px;
-    }
-
-    .calculator-heading p {
-      margin: 0;
-      color: #e2f5ff;
-      font-size: 14px;
-      line-height: 1.6;
-    }
-
-    .calculator-body {
-      padding: clamp(18px, 4vw, 28px);
-    }
-
-    label {
-      display: block;
-      margin: 19px 0 8px;
-      color: #213552;
-      font-size: 14px;
-      font-weight: 700;
-    }
-
-    select,
-    input {
-      width: 100%;
-      min-height: 48px;
-      padding: 12px 13px;
-      border: 1px solid #cbd7e6;
-      border-radius: 10px;
-      outline: none;
-      background: #fbfdff;
-      color: var(--text);
-      font: inherit;
-      font-size: 16px;
-    }
-
-    select:focus,
-    input:focus {
-      border-color: var(--blue);
-      box-shadow: 0 0 0 3px rgba(37, 99, 235, .12);
-    }
-
-    input[readonly] {
-      background: #eef5ff;
-      color: #173e70;
-      font-weight: 700;
-    }
-
-    .field-hint {
-      margin: 7px 0 0;
-      color: var(--muted);
-      font-size: 12px;
-      line-height: 1.5;
-    }
-
-    .formula-card {
-      margin-top: 22px;
-      padding: 18px;
-      border: 1px solid #bfdbfe;
-      border-radius: 12px;
-      background: linear-gradient(115deg, #eff6ff, #f5f3ff, #ecfeff);
-    }
-
-    .formula-title {
-      margin: 0 0 8px;
-      color: #174a83;
-      font-size: 13px;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .6px;
-    }
-
-    .formula {
-      color: #172f52;
-      font-size: clamp(17px, 4vw, 22px);
-      font-weight: 800;
-      line-height: 1.5;
-    }
-
-    .formula-explanation {
-      margin: 8px 0 0;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.6;
-    }
-
-    .results-heading {
-      margin: 27px 0 13px;
-      font-size: 18px;
-      color: #17345b;
-    }
-
-    .results {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-
-    .result-card {
-      min-width: 0;
-      padding: 17px 10px;
-      border: 1px solid var(--border);
-      border-radius: 13px;
-      text-align: center;
-      background: linear-gradient(145deg, #ffffff, #f2f7ff);
-    }
-
-    .result-card:nth-child(2) {
-      background: linear-gradient(145deg, #ffffff, #f4f0ff);
-    }
-
-    .result-card:nth-child(3) {
-      background: linear-gradient(145deg, #ffffff, #eafafa);
-    }
-
-    .result-unit {
-      margin-bottom: 11px;
-      color: var(--muted);
-      font-size: 12px;
-      font-weight: 700;
-    }
-
-    .result-value {
-      display: block;
-      color: #17345b;
-      font-size: clamp(18px, 3.7vw, 25px);
-      font-weight: 800;
-      overflow-wrap: anywhere;
-    }
-
-    .result-symbol {
-      display: inline-block;
-      margin-top: 7px;
-      color: var(--muted);
-      font-size: 12px;
-    }
-
-    .error {
-      min-height: 20px;
-      margin: 12px 0 0;
-      color: #b42318;
-      font-size: 13px;
-      line-height: 1.5;
-    }
-
-    .reset-row {
-      margin-top: 20px;
-      display: flex;
-      justify-content: flex-end;
-    }
-
-    .reset-button {
-      border: 1px solid #cbd7e6;
-      border-radius: 9px;
-      padding: 11px 17px;
-      background: white;
-      color: #23446e;
-      font-weight: 700;
-      cursor: pointer;
-    }
-
-    .reset-button:hover {
-      background: #eef5ff;
-    }
-
-    .notice {
-      margin-top: 20px;
-      padding: 15px;
-      border-left: 4px solid #0e9ab5;
-      border-radius: 7px;
-      background: #eefaff;
-      color: #37536b;
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    footer {
-      padding: 20px 16px 30px;
-      color: #52637a;
-      text-align: center;
-      font-size: 12px;
-      line-height: 1.7;
-    }
-
-    @media (max-width: 480px) {
-      .results {
-        grid-template-columns: 1fr;
-      }
-
-      .result-card {
-        display: grid;
-        grid-template-columns: 1fr auto;
-        align-items: center;
-        gap: 8px;
-        text-align: left;
-        padding: 16px;
-      }
-
-      .result-unit {
-        margin: 0;
-      }
-
-      .result-value {
-        text-align: right;
-      }
-
-      .result-symbol {
-        display: none;
-      }
-    }
-
-    @media print {
-      body {
-        background: white;
-      }
-
-      header {
-        background: #17345b;
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-      }
-
-      .actions,
-      .reset-row {
-        display: none !important;
-      }
-
-      .container {
-        width: 100%;
-        margin: 10px auto;
-      }
-
-      .calculator {
-        box-shadow: none;
-        background: white;
-      }
-
-      .calculator-heading,
-      .formula-card,
-      .result-card {
-        print-color-adjust: exact;
-        -webkit-print-color-adjust: exact;
-      }
-    }
-  </style>
+<style>
+:root {
+  --navy:#10213b; --blue:#2563eb; --cyan:#06b6d4;
+  --purple:#7c3aed; --text:#17243b; --muted:#65738b;
+  --border:#dce5f0;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; min-height:100vh; font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(ellipse at 10% 10%,rgba(6,182,212,.32),transparent 35%),
+    radial-gradient(ellipse at 90% 15%,rgba(124,58,237,.28),transparent 35%),
+    radial-gradient(ellipse at 50% 95%,rgba(37,99,235,.25),transparent 40%),
+    linear-gradient(135deg,#eaf5ff,#f3edff 50%,#e4fbfa);
+  background-attachment:fixed;
+}
+header {
+  color:white;text-align:center;padding:34px 18px 38px;
+  background:linear-gradient(120deg,#10213b,#174a83,#5530a8);
+  box-shadow:0 8px 25px #10213b2e;
+}
+.header-label {
+  display:inline-block;padding:7px 13px;margin-bottom:13px;
+  border:1px solid #ffffff59;border-radius:30px;
+  background:#ffffff1a;font-size:12px;letter-spacing:1px;
+}
+header h1 { margin:0 0 10px;font-size:clamp(27px,5vw,39px); }
+header p { margin:auto;max-width:680px;color:#e3efff;line-height:1.6; }
+.container { width:min(860px,94%);margin:26px auto 40px; }
+.actions { display:flex;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-bottom:18px; }
+.action-button,.reset-button {
+  display:inline-block;padding:11px 15px;border:1px solid #cbd7e6;
+  border-radius:9px;background:#ffffffed;color:#17345b;
+  text-decoration:none;font-size:14px;cursor:pointer;font-weight:700;
+}
+.action-button:hover,.reset-button:hover { border-color:var(--cyan);background:#eefaff; }
+.calculator {
+  overflow:hidden;border:1px solid #ffffffd9;border-radius:20px;
+  background:#fffffff0;box-shadow:0 18px 50px #263e6e24;
+  backdrop-filter:blur(12px);margin-bottom:22px;
+}
+.calculator-heading {
+  padding:23px 24px;color:white;
+  background:linear-gradient(115deg,#17365d,#2563a6,#087e9c);
+}
+.calculator-heading h2 { margin:0 0 8px;font-size:23px; }
+.calculator-heading p { margin:0;color:#e2f5ff;font-size:14px;line-height:1.6; }
+.calculator-body { padding:clamp(18px,4vw,28px); }
+label { display:block;margin:19px 0 8px;color:#213552;font-size:14px;font-weight:700; }
+select,input {
+  width:100%;min-height:48px;padding:12px 13px;border:1px solid #cbd7e6;
+  border-radius:10px;outline:none;background:#fbfdff;color:var(--text);
+  font:inherit;font-size:16px;
+}
+select:focus,input:focus { border-color:var(--blue);box-shadow:0 0 0 3px #2563eb1f; }
+input[readonly] { background:#eef5ff;color:#173e70;font-weight:700; }
+.field-hint { margin:7px 0 0;color:var(--muted);font-size:12px;line-height:1.5; }
+.grid { display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 16px; }
+.full { grid-column:1/-1; }
+.formula-card {
+  margin-top:22px;padding:18px;border:1px solid #bfdbfe;border-radius:12px;
+  background:linear-gradient(115deg,#eff6ff,#f5f3ff,#ecfeff);
+}
+.formula-title { margin:0 0 8px;color:#174a83;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.6px; }
+.formula { color:#172f52;font-size:clamp(17px,4vw,22px);font-weight:800;line-height:1.5;overflow-wrap:anywhere; }
+.formula-explanation { margin:8px 0 0;color:var(--muted);font-size:13px;line-height:1.6; }
+.results-heading { margin:27px 0 13px;font-size:18px;color:#17345b; }
+.results { display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px; }
+.result-card {
+  min-width:0;padding:17px 10px;border:1px solid var(--border);
+  border-radius:13px;text-align:center;background:linear-gradient(145deg,#fff,#f2f7ff);
+}
+.result-card:nth-child(2) { background:linear-gradient(145deg,#fff,#f4f0ff); }
+.result-card:nth-child(3) { background:linear-gradient(145deg,#fff,#eafafa); }
+.result-unit { margin-bottom:11px;color:var(--muted);font-size:12px;font-weight:700; }
+.result-value { display:block;color:#17345b;font-size:clamp(18px,3.7vw,25px);font-weight:800;overflow-wrap:anywhere; }
+.result-symbol { display:inline-block;margin-top:7px;color:var(--muted);font-size:12px; }
+.error { min-height:20px;margin:12px 0 0;color:#b42318;font-size:13px;line-height:1.5; }
+.reset-row { margin-top:20px;display:flex;justify-content:flex-end; }
+.notice { margin-top:20px;padding:15px;border-left:4px solid #0e9ab5;border-radius:7px;background:#eefaff;color:#37536b;font-size:12px;line-height:1.7; }
+.shape-preview { margin-top:18px;padding:16px;border-radius:14px;background:linear-gradient(135deg,#10213b,#1c4d80,#4c2d8f);color:white; }
+.shape-preview strong { display:block;margin-bottom:6px; }
+.shape-preview p { margin:0;color:#e4efff;font-size:13px;line-height:1.6; }
+footer { padding:20px 16px 30px;color:#52637a;text-align:center;font-size:12px;line-height:1.7; }
+@media(max-width:600px) { .grid { grid-template-columns:1fr; } .full { grid-column:auto; } }
+@media(max-width:480px) {
+  .results { grid-template-columns:1fr; }
+  .result-card { display:grid;grid-template-columns:1fr auto;align-items:center;gap:8px;text-align:left;padding:16px; }
+  .result-unit { margin:0; } .result-value { text-align:right; } .result-symbol { display:none; }
+}
+@media print {
+  body { background:white; }
+  header { background:#17345b;print-color-adjust:exact;-webkit-print-color-adjust:exact; }
+  .actions,.reset-row { display:none!important; }
+  .container { width:100%;margin:10px auto; }
+  .calculator { box-shadow:none;background:white; }
+  .calculator-heading,.formula-card,.result-card { print-color-adjust:exact;-webkit-print-color-adjust:exact; }
+}
+</style>
 </head>
 
 <body>
-
 <header>
   <div class="header-label">Lifting &amp; Rigging Study Tools</div>
-  <h1>Material Weight Calculator</h1>
-  <p>
-    Select a material, enter its volume, and calculate weight in kilograms,
-    metric tonnes, and pounds.
-  </p>
+  <h1>Material Weight &amp; Shape Volume</h1>
+  <p>Calculate shape volume automatically, then use it to calculate material weight.</p>
 </header>
 
 <main class="container">
-
   <div class="actions">
     <a class="action-button" href="../calculation.html">← All Calculators</a>
-    <button class="action-button" type="button" onclick="window.print()">
-      Save as PDF
-    </button>
+    <button class="action-button" type="button" onclick="window.print()">Save as PDF</button>
   </div>
 
-  <section class="calculator">
-
+  <section class="calculator" id="volumeCalculator">
     <div class="calculator-heading">
-      <h2>Material Weight</h2>
-      <p>Density fills automatically when you choose a material.</p>
+      <h2>📐 Shape Volume Calculator</h2>
+      <p>Select a shape, choose your measurement unit, and enter its dimensions.</p>
     </div>
-
     <div class="calculator-body">
+      <div class="grid">
+        <div>
+          <label for="shape">Select Shape</label>
+          <select id="shape">
+            <option value="cuboid">Cuboid / Rectangular Block</option>
+            <option value="cube">Cube</option>
+            <option value="cylinder">Solid Cylinder</option>
+            <option value="hollowCylinder">Hollow Cylinder / Pipe</option>
+            <option value="sphere">Sphere</option>
+            <option value="hemisphere">Hemisphere</option>
+            <option value="cone">Cone</option>
+            <option value="frustum">Cone Frustum</option>
+            <option value="pyramid">Square Pyramid</option>
+            <option value="triangularPrism">Triangular Prism</option>
+            <option value="ellipsoid">Ellipsoid</option>
+            <option value="hollowBox">Hollow Rectangular Box</option>
+          </select>
+        </div>
+        <div>
+          <label for="dimensionUnit">Dimension Unit</label>
+          <select id="dimensionUnit">
+            <option value="m">Metres (m)</option>
+            <option value="cm">Centimetres (cm)</option>
+            <option value="mm" selected>Millimetres (mm)</option>
+            <option value="in">Inches (in)</option>
+            <option value="ft">Feet (ft)</option>
+          </select>
+        </div>
+        <div id="dimensionFields" class="full grid"></div>
+      </div>
 
+      <div class="shape-preview">
+        <strong id="shapeName">Cuboid / Rectangular Block</strong>
+        <p id="shapeDescription">Enter dimensions to calculate volume.</p>
+      </div>
+
+      <div class="formula-card">
+        <p class="formula-title">Shape Formula</p>
+        <div class="formula" id="shapeFormula">V = L × W × H</div>
+        <p class="formula-explanation" id="shapeFormulaHelp">All dimensions must use the same unit.</p>
+      </div>
+
+      <h3 class="results-heading">Volume Results</h3>
+      <div class="results" aria-live="polite">
+        <div class="result-card"><div><div class="result-unit">Cubic metres</div><span class="result-symbol">m³</span></div><output class="result-value" id="volumeM3">—</output></div>
+        <div class="result-card"><div><div class="result-unit">Litres</div><span class="result-symbol">L</span></div><output class="result-value" id="volumeL">—</output></div>
+        <div class="result-card"><div><div class="result-unit">Cubic feet</div><span class="result-symbol">ft³</span></div><output class="result-value" id="volumeFt3">—</output></div>
+      </div>
+      <p class="error" id="shapeError" role="alert"></p>
+      <div class="actions" style="margin-top:18px;margin-bottom:0">
+        <button class="action-button" type="button" id="useVolume">Use this volume in weight calculator ↓</button>
+        <button class="reset-button" type="button" id="resetShape">Reset Dimensions</button>
+      </div>
+      <div class="notice"><strong>Geometry note:</strong> Hollow shapes calculate material volume by subtracting the internal empty space. The hollow-box formula assumes uniform wall thickness on all six sides.</div>
+    </div>
+  </section>
+
+  <section class="calculator" id="materialWeightCalculator">
+    <div class="calculator-heading">
+      <h2>⚖️ Material Weight Calculator</h2>
+      <p>Your original material names and density values are retained.</p>
+    </div>
+    <div class="calculator-body">
       <label for="material">Select Material</label>
       <select id="material">
         <option value="7850">Carbon Steel</option>
@@ -407,205 +207,156 @@
       </select>
 
       <label for="density">Density (kg/m³)</label>
-      <input
-        id="density"
-        type="number"
-        min="0.000001"
-        step="any"
-        value="7850"
-        readonly
-      >
-      <p class="field-hint" id="densityHint">
-        Typical reference density for carbon steel.
-      </p>
+      <input id="density" type="number" min="0.000001" step="any" value="7850" readonly>
+      <p class="field-hint" id="densityHint">Typical reference density for carbon steel.</p>
 
       <label for="volume">Volume (m³)</label>
-      <input
-        id="volume"
-        type="number"
-        min="0"
-        step="any"
-        inputmode="decimal"
-        placeholder="Enter volume in cubic metres"
-      >
-      <p class="field-hint">
-        Enter the volume in cubic metres (m³). No gravity input is required.
-      </p>
+      <input id="volume" type="number" min="0" step="any" inputmode="decimal" placeholder="Enter volume in cubic metres">
+      <p class="field-hint">Enter volume directly or transfer it from the shape calculator above.</p>
 
       <div class="formula-card">
         <p class="formula-title">Calculation Formula</p>
-        <div class="formula">Weight = Volume × Density</div>
-        <p class="formula-explanation">
-          Weight (kg) = Volume (m³) × Density (kg/m³)
-        </p>
+        <div class="formula">Mass = Volume × Density</div>
+        <p class="formula-explanation">Mass (kg) = Volume (m³) × Density (kg/m³). Tonnes = kg ÷ 1,000. Pounds = kg × 2.20462262185.</p>
       </div>
 
       <h3 class="results-heading">Calculated Results</h3>
-
       <div class="results" aria-live="polite">
-        <div class="result-card">
-          <div>
-            <div class="result-unit">Kilograms</div>
-            <span class="result-symbol">kg</span>
-          </div>
-          <output class="result-value" id="kgResult">—</output>
-        </div>
-
-        <div class="result-card">
-          <div>
-            <div class="result-unit">Metric Tonnes</div>
-            <span class="result-symbol">t</span>
-          </div>
-          <output class="result-value" id="tonResult">—</output>
-        </div>
-
-        <div class="result-card">
-          <div>
-            <div class="result-unit">Pounds</div>
-            <span class="result-symbol">lb</span>
-          </div>
-          <output class="result-value" id="lbResult">—</output>
-        </div>
+        <div class="result-card"><div><div class="result-unit">Kilograms</div><span class="result-symbol">kg</span></div><output class="result-value" id="kgResult">—</output></div>
+        <div class="result-card"><div><div class="result-unit">Metric Tonnes</div><span class="result-symbol">t</span></div><output class="result-value" id="tonResult">—</output></div>
+        <div class="result-card"><div><div class="result-unit">Pounds</div><span class="result-symbol">lb</span></div><output class="result-value" id="lbResult">—</output></div>
       </div>
 
       <p class="error" id="error" role="alert"></p>
-
-      <div class="reset-row">
-        <button class="reset-button" type="button" id="resetButton">
-          Reset Calculator
-        </button>
-      </div>
-
-      <div class="notice">
-        <strong>Important:</strong> Material densities are typical reference
-        values and may vary with grade, alloy, moisture, temperature, and
-        material condition. Confirm the actual density before using the result
-        in a lifting plan. This calculator does not include lifting accessories
-        or dynamic loads.
-      </div>
-
+      <div class="reset-row"><button class="reset-button" type="button" id="resetButton">Reset Weight Calculator</button></div>
+      <div class="notice"><strong>Important:</strong> Densities are typical reference values and may vary with material grade, alloy, moisture, temperature and condition. Verify actual material data and load weight before operational lifting. This calculator does not include rigging accessories or dynamic loads.</div>
     </div>
   </section>
 </main>
 
-<footer>
-  For study purposes only. Always verify material data and lifting calculations
-  before operational use.
-</footer>
+<footer>For study purposes only. Always verify material data and lifting calculations before operational use.</footer>
 
 <script>
-  const material = document.getElementById("material");
-  const density = document.getElementById("density");
-  const volume = document.getElementById("volume");
-  const densityHint = document.getElementById("densityHint");
-  const kgResult = document.getElementById("kgResult");
-  const tonResult = document.getElementById("tonResult");
-  const lbResult = document.getElementById("lbResult");
-  const error = document.getElementById("error");
-  const resetButton = document.getElementById("resetButton");
+(() => {
+  "use strict";
+  const $ = id => document.getElementById(id);
+  const shapeSelect = $("shape");
+  const unitSelect = $("dimensionUnit");
+  const fieldsHost = $("dimensionFields");
+  const factors = {m:1, cm:0.01, mm:0.001, in:0.0254, ft:0.3048};
 
-  const densityHints = {
-    "7850": "Typical reference density for carbon steel.",
-    "8000": "Typical reference density for stainless steel.",
-    "2700": "Typical reference density for aluminium.",
-    "8960": "Typical reference density for copper.",
-    "8500": "Typical reference density for brass.",
-    "7200": "Typical reference density for cast iron.",
-    "11340": "Typical reference density for lead.",
-    "2400": "Approximate concrete density; the mix and moisture affect it.",
-    "1000": "Approximate water density near 4°C.",
-    "600": "Illustrative timber density; species and moisture vary widely.",
-    "2500": "Approximate density for common glass.",
-    "custom": "Enter the verified density of your material."
+  const shapes = {
+    cuboid:{name:"Cuboid / Rectangular Block",desc:"A rectangular solid with three perpendicular dimensions.",formula:"V = L × W × H",help:"Length, width and height must use the selected unit.",fields:[["length","Length"],["width","Width"],["height","Height"]],calc:v=>v.length*v.width*v.height},
+    cube:{name:"Cube",desc:"All edges are equal.",formula:"V = a³",help:"Enter the length of one edge.",fields:[["side","Side length"]],calc:v=>v.side**3},
+    cylinder:{name:"Solid Cylinder",desc:"A solid round object with circular ends.",formula:"V = π × r² × h",help:"Enter radius, not diameter.",fields:[["radius","Radius"],["height","Height"]],calc:v=>Math.PI*v.radius**2*v.height},
+    hollowCylinder:{name:"Hollow Cylinder / Pipe",desc:"Pipe material volume excluding its hollow centre.",formula:"V = π × h × (R² − r²)",help:"Enter outside radius, inside radius and length.",fields:[["outerRadius","Outside radius"],["innerRadius","Inside radius"],["height","Length / height"]],calc:v=>Math.PI*v.height*(v.outerRadius**2-v.innerRadius**2),valid:v=>v.outerRadius>v.innerRadius||"Outside radius must be greater than inside radius."},
+    sphere:{name:"Sphere",desc:"A complete solid ball.",formula:"V = ⁴⁄₃ × π × r³",help:"Enter the sphere radius.",fields:[["radius","Radius"]],calc:v=>4/3*Math.PI*v.radius**3},
+    hemisphere:{name:"Hemisphere",desc:"Half of a solid sphere.",formula:"V = ⅔ × π × r³",help:"Enter the hemisphere radius.",fields:[["radius","Radius"]],calc:v=>2/3*Math.PI*v.radius**3},
+    cone:{name:"Cone",desc:"A circular base tapering to one point.",formula:"V = ⅓ × π × r² × h",help:"Enter base radius and perpendicular height.",fields:[["radius","Base radius"],["height","Perpendicular height"]],calc:v=>Math.PI*v.radius**2*v.height/3},
+    frustum:{name:"Cone Frustum",desc:"A cone with its tip cut off.",formula:"V = ⅓ × π × h × (R² + Rr + r²)",help:"R is the larger radius and r the smaller radius.",fields:[["largeRadius","Larger radius (R)"],["smallRadius","Smaller radius (r)"],["height","Height"]],calc:v=>Math.PI*v.height*(v.largeRadius**2+v.largeRadius*v.smallRadius+v.smallRadius**2)/3,valid:v=>v.largeRadius>=v.smallRadius||"Larger radius must be at least as large as smaller radius."},
+    pyramid:{name:"Square Pyramid",desc:"A pyramid with a square base.",formula:"V = ⅓ × a² × h",help:"Enter square base side and perpendicular height.",fields:[["side","Base side"],["height","Perpendicular height"]],calc:v=>v.side**2*v.height/3},
+    triangularPrism:{name:"Triangular Prism",desc:"A triangular cross-section extended along its length.",formula:"V = ½ × b × h × L",help:"Enter triangle base, its perpendicular height and prism length.",fields:[["base","Triangle base"],["triangleHeight","Triangle perpendicular height"],["length","Prism length"]],calc:v=>0.5*v.base*v.triangleHeight*v.length},
+    ellipsoid:{name:"Ellipsoid",desc:"An oval 3D shape with three semi-axes.",formula:"V = ⁴⁄₃ × π × a × b × c",help:"Enter the three semi-axis radii (half of each full axis).",fields:[["axisA","Semi-axis a"],["axisB","Semi-axis b"],["axisC","Semi-axis c"]],calc:v=>4/3*Math.PI*v.axisA*v.axisB*v.axisC},
+    hollowBox:{name:"Hollow Rectangular Box",desc:"A hollow rectangular section with uniform wall thickness.",formula:"V = LWH − (L−2t)(W−2t)(H−2t)",help:"Wall thickness is assumed uniform on all six sides.",fields:[["length","Outside length"],["width","Outside width"],["height","Outside height"],["thickness","Wall thickness"]],calc:v=>v.length*v.width*v.height-(v.length-2*v.thickness)*(v.width-2*v.thickness)*(v.height-2*v.thickness),valid:v=>v.length>2*v.thickness&&v.width>2*v.thickness&&v.height>2*v.thickness||"Wall thickness must be less than half of every outside dimension."}
   };
 
-  function formatNumber(value) {
-    return new Intl.NumberFormat("en-US", {
-      maximumFractionDigits: 4
-    }).format(value);
+  function fmt(n,max=6){return new Intl.NumberFormat("en-US",{maximumFractionDigits:max}).format(n)}
+  function clearShapeResults(){$("volumeM3").textContent="—";$("volumeL").textContent="—";$("volumeFt3").textContent="—"}
+
+  function renderFields(){
+    const c=shapes[shapeSelect.value];
+    $("shapeName").textContent=c.name;
+    $("shapeDescription").textContent=c.desc;
+    $("shapeFormula").textContent=c.formula;
+    $("shapeFormulaHelp").textContent=c.help+" All dimensions use "+unitSelect.options[unitSelect.selectedIndex].text+".";
+    fieldsHost.innerHTML="";
+    c.fields.forEach(([key,label],i)=>{
+      const wrap=document.createElement("div");
+      if(c.fields.length%2===1&&i===c.fields.length-1)wrap.className="full";
+      const id="dim_"+key;
+      const lab=document.createElement("label");lab.htmlFor=id;lab.textContent=label+" ("+unitSelect.value+")";
+      const input=document.createElement("input");input.id=id;input.type="number";input.min="0";input.step="any";input.inputMode="decimal";input.placeholder="Enter "+label.toLowerCase();
+      input.addEventListener("input",calculateShape);
+      wrap.append(lab,input);fieldsHost.append(wrap);
+    });
+    $("shapeError").textContent="";
+    clearShapeResults();
   }
 
-  function clearResults() {
-    kgResult.textContent = "—";
-    tonResult.textContent = "—";
-    lbResult.textContent = "—";
+  function calculateShape(){
+    const c=shapes[shapeSelect.value],v={};
+    $("shapeError").textContent="";
+    for(const [key] of c.fields){
+      const raw=$("dim_"+key).value.trim();
+      if(raw===""){clearShapeResults();return}
+      const n=Number(raw);
+      if(!Number.isFinite(n)||n<=0){clearShapeResults();$("shapeError").textContent="Enter a dimension greater than zero in every field.";return}
+      v[key]=n*factors[unitSelect.value];
+    }
+    if(c.valid){const check=c.valid(v);if(check!==true){clearShapeResults();$("shapeError").textContent=check;return}}
+    const m3=c.calc(v);
+    if(!Number.isFinite(m3)||m3<=0){clearShapeResults();$("shapeError").textContent="These dimensions do not produce a valid positive volume.";return}
+    $("volumeM3").textContent=fmt(m3,8);
+    $("volumeL").textContent=fmt(m3*1000,6);
+    $("volumeFt3").textContent=fmt(m3*35.3146667215,6);
   }
 
-  function updateDensity() {
-    if (material.value === "custom") {
-      density.readOnly = false;
-      density.value = "";
-      density.placeholder = "Enter density in kg/m³";
-    } else {
-      density.readOnly = true;
-      density.value = material.value;
-      density.placeholder = "";
-    }
-
-    densityHint.textContent =
-      densityHints[material.value] || "Check the selected material density.";
-
-    calculate();
-  }
-
-  function calculate() {
-    error.textContent = "";
-
-    const rawVolume = volume.value.trim();
-    const rawDensity = density.value.trim();
-
-    if (rawVolume === "") {
-      clearResults();
-      return;
-    }
-
-    const v = Number(rawVolume);
-    const d = Number(rawDensity);
-
-    if (!Number.isFinite(v) || v < 0) {
-      clearResults();
-      error.textContent = "Enter a valid volume of zero or greater.";
-      return;
-    }
-
-    if (rawDensity === "" || !Number.isFinite(d) || d <= 0) {
-      clearResults();
-      error.textContent = "Enter a valid density greater than zero.";
-      return;
-    }
-
-    const kg = v * d;
-    const tonnes = kg / 1000;
-    const pounds = kg * 2.20462262185;
-
-    if (![kg, tonnes, pounds].every(Number.isFinite)) {
-      clearResults();
-      error.textContent = "The result is too large to calculate.";
-      return;
-    }
-
-    kgResult.textContent = formatNumber(kg);
-    tonResult.textContent = formatNumber(tonnes);
-    lbResult.textContent = formatNumber(pounds);
-  }
-
-  material.addEventListener("change", updateDensity);
-  density.addEventListener("input", calculate);
-  volume.addEventListener("input", calculate);
-
-  resetButton.addEventListener("click", function () {
-    material.value = "7850";
-    density.value = "7850";
-    density.readOnly = true;
-    density.placeholder = "";
-    volume.value = "";
-    densityHint.textContent = densityHints["7850"];
-    error.textContent = "";
-    clearResults();
+  shapeSelect.addEventListener("change",renderFields);
+  unitSelect.addEventListener("change",renderFields);
+  $("resetShape").addEventListener("click",renderFields);
+  $("useVolume").addEventListener("click",()=>{
+    const value=$("volumeM3").textContent;
+    if(value==="—"){$("shapeError").textContent="Enter valid dimensions first.";return}
+    $("volume").value=String(Number(value.replace(/,/g,"")));
+    calculateWeight();
+    $("materialWeightCalculator").scrollIntoView({behavior:"smooth",block:"start"});
   });
 
+  const material=$("material"),density=$("density"),volume=$("volume");
+  const densityHint=$("densityHint"),error=$("error");
+  const kgResult=$("kgResult"),tonResult=$("tonResult"),lbResult=$("lbResult");
+  const hints={
+    "7850":"Typical reference density for carbon steel.",
+    "8000":"Typical reference density for stainless steel.",
+    "2700":"Typical reference density for aluminium.",
+    "8960":"Typical reference density for copper.",
+    "8500":"Typical reference density for brass.",
+    "7200":"Typical reference density for cast iron.",
+    "11340":"Typical reference density for lead.",
+    "2400":"Approximate concrete density; mix and moisture affect it.",
+    "1000":"Approximate water density near 4°C.",
+    "600":"Illustrative timber density; species and moisture vary.",
+    "2500":"Approximate density for common glass.",
+    "custom":"Enter the verified density of your material."
+  };
+  function clearWeightResults(){kgResult.textContent="—";tonResult.textContent="—";lbResult.textContent="—"}
+  function calculateWeight(){
+    error.textContent="";
+    const rawV=volume.value.trim(),rawD=density.value.trim();
+    if(rawV===""){clearWeightResults();return}
+    const v=Number(rawV),d=Number(rawD);
+    if(!Number.isFinite(v)||v<0){clearWeightResults();error.textContent="Enter a valid volume of zero or greater.";return}
+    if(rawD===""||!Number.isFinite(d)||d<=0){clearWeightResults();error.textContent="Enter a valid density greater than zero.";return}
+    const kg=v*d,tonnes=kg/1000,pounds=kg*2.20462262185;
+    if(![kg,tonnes,pounds].every(Number.isFinite)){clearWeightResults();error.textContent="The result is too large to calculate.";return}
+    kgResult.textContent=fmt(kg,4);tonResult.textContent=fmt(tonnes,4);lbResult.textContent=fmt(pounds,4);
+  }
+  function updateDensity(){
+    if(material.value==="custom"){density.readOnly=false;density.value="";density.placeholder="Enter density in kg/m³"}
+    else{density.readOnly=true;density.value=material.value;density.placeholder=""}
+    densityHint.textContent=hints[material.value]||"Check the selected material density.";
+    calculateWeight();
+  }
+  material.addEventListener("change",updateDensity);
+  density.addEventListener("input",calculateWeight);
+  volume.addEventListener("input",calculateWeight);
+  $("resetButton").addEventListener("click",()=>{
+    material.value="7850";density.value="7850";density.readOnly=true;density.placeholder="";
+    volume.value="";densityHint.textContent=hints["7850"];error.textContent="";clearWeightResults();
+  });
+  renderFields();
   updateDensity();
+})();
 </script>
-
 </body>
 </html>
