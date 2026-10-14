@@ -2,19 +2,20 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <title>Lifting &amp; Rigging Study Hub</title>
   <meta name="description" content="Lifting and rigging study notes, calculations, cranes, lift planning and safety.">
-  <meta name="theme-color" content="#0b1220">
+  <meta name="theme-color" content="#10152f">
 
   <link rel="manifest" href="/Lifting-Study/manifest.json">
 
   <style>
     :root {
-      --navy: #0b1220;
-      --text: #f8fafc;
-      --muted: #cbd5e1;
+      --ink: #f8fafc;
+      --muted: #d7e2f3;
+      --glass: rgba(255, 255, 255, 0.09);
+      --glass-border: rgba(255, 255, 255, 0.19);
     }
 
     * {
@@ -27,12 +28,16 @@
 
     body {
       margin: 0;
-      font-family: Arial, Helvetica, sans-serif;
-      color: var(--text);
-      background:
-        radial-gradient(circle at top left, #164e63, transparent 35%),
-        linear-gradient(135deg, #07111f, #172554 55%, #312e81);
       min-height: 100vh;
+      color: var(--ink);
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(34, 211, 238, .25), transparent 24rem),
+        radial-gradient(circle at 92% 20%, rgba(168, 85, 247, .25), transparent 26rem),
+        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, .13), transparent 28rem),
+        linear-gradient(135deg, #071426 0%, #142653 48%, #34205c 100%);
+      background-attachment: fixed;
+      overflow-x: hidden;
     }
 
     a {
@@ -40,249 +45,407 @@
       text-decoration: none;
     }
 
-    .container {
-      width: min(1150px, 92%);
-      margin: 0 auto;
+    button {
+      font: inherit;
     }
 
+    .container {
+      width: min(1160px, 92%);
+      margin-inline: auto;
+    }
+
+    /* Soft decorative circles */
+    .background-art {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: -1;
+    }
+
+    .orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(2px);
+      opacity: .45;
+    }
+
+    .orb-one {
+      width: 250px;
+      height: 250px;
+      background: radial-gradient(circle at 30% 30%, #67e8f9, #2563eb 70%, transparent);
+      top: 20%;
+      left: -100px;
+      opacity: .19;
+    }
+
+    .orb-two {
+      width: 340px;
+      height: 340px;
+      background: radial-gradient(circle at 35% 35%, #f0abfc, #7c3aed 68%, transparent);
+      top: 48%;
+      right: -170px;
+      opacity: .17;
+    }
+
+    .orb-three {
+      width: 180px;
+      height: 180px;
+      background: radial-gradient(circle at 35% 35%, #a7f3d0, #059669 70%, transparent);
+      bottom: 3%;
+      left: 18%;
+      opacity: .13;
+    }
+
+    /* Header */
     header {
       background:
-        linear-gradient(rgba(3, 10, 25, .65), rgba(3, 10, 25, .82)),
+        linear-gradient(100deg, rgba(4, 13, 30, .89), rgba(15, 35, 67, .72)),
         url("gasplant.png") center/cover no-repeat;
-      border-bottom: 1px solid rgba(255,255,255,.14);
+      border-bottom: 1px solid var(--glass-border);
+      box-shadow: 0 12px 35px rgba(0, 0, 0, .17);
     }
 
     .header-inner {
-      min-height: 105px;
+      min-height: 115px;
+      padding: 20px 0;
       display: flex;
       justify-content: space-between;
       align-items: center;
       gap: 20px;
-      padding: 18px 0;
       flex-wrap: wrap;
     }
 
     .brand h1 {
-      font-size: clamp(1.45rem, 4vw, 2.2rem);
-      margin: 0 0 8px;
+      margin: 0 0 9px;
+      font-size: clamp(1.5rem, 4vw, 2.25rem);
+      letter-spacing: -.04em;
     }
 
     .brand p {
       margin: 0;
       color: #dbeafe;
-      line-height: 1.5;
+      line-height: 1.6;
     }
 
-    .header-install {
-      border: 0;
-      border-radius: 10px;
-      background: #facc15;
+    .install-button {
+      min-height: 46px;
+      padding: 12px 18px;
+      border: 1px solid rgba(255,255,255,.35);
+      border-radius: 12px;
       color: #172033;
-      padding: 12px 17px;
+      background: linear-gradient(135deg, #fde68a, #facc15);
+      box-shadow: 0 8px 20px rgba(250, 204, 21, .17);
       font-weight: 800;
       cursor: pointer;
-      min-height: 44px;
+      transition: transform .2s, box-shadow .2s;
     }
 
-    .header-install:hover {
-      background: #fde047;
+    .install-button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 11px 25px rgba(250, 204, 21, .25);
     }
 
     nav {
-      background: rgba(3, 10, 25, .82);
+      background: rgba(4, 12, 29, .76);
       border-top: 1px solid rgba(255,255,255,.08);
     }
 
     .nav-links {
       display: flex;
+      gap: 7px;
       align-items: center;
-      gap: 8px;
-      padding: 10px 0;
       overflow-x: auto;
+      padding: 10px 0;
     }
 
     .nav-links a {
-      white-space: nowrap;
-      padding: 10px 13px;
-      border-radius: 8px;
-      color: #e2e8f0;
+      flex-shrink: 0;
+      padding: 11px 13px;
+      border-radius: 9px;
+      color: #e5edf9;
       font-size: .94rem;
+      transition: background .2s, color .2s;
     }
 
-    .nav-links a:hover {
-      background: rgba(56,189,248,.2);
+    .nav-links a:hover,
+    .nav-links a:focus-visible {
+      background: rgba(56, 189, 248, .19);
+      color: white;
+      outline: none;
     }
 
-    /* Welcome box */
+    /* Welcome panel */
     .welcome {
-      margin: 28px auto;
-      padding: clamp(24px, 5vw, 48px);
+      position: relative;
+      isolation: isolate;
+      overflow: hidden;
+      margin: 30px auto;
+      padding: clamp(28px, 5vw, 56px) 22px;
       text-align: center;
-      border: 1px solid rgba(255,255,255,.2);
-      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 25px;
       background:
-        linear-gradient(rgba(4, 24, 48, .68), rgba(4, 24, 48, .72)),
+        linear-gradient(120deg, rgba(4, 24, 50, .82), rgba(30, 41, 96, .76)),
         url("lifting.png") center/cover no-repeat;
-      box-shadow: 0 16px 42px rgba(0,0,0,.2);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, .23);
+    }
+
+    .welcome::before,
+    .welcome::after {
+      content: "";
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .welcome::before {
+      width: 230px;
+      height: 230px;
+      top: -115px;
+      right: -45px;
+      border: 1px solid rgba(125, 211, 252, .45);
+      box-shadow:
+        0 0 0 22px rgba(125, 211, 252, .045),
+        0 0 0 48px rgba(125, 211, 252, .035);
+    }
+
+    .welcome::after {
+      width: 160px;
+      height: 160px;
+      bottom: -100px;
+      left: -45px;
+      background: rgba(167, 139, 250, .18);
+      box-shadow: 0 0 0 24px rgba(167, 139, 250, .05);
+    }
+
+    .welcome-label {
+      display: inline-block;
+      padding: 8px 13px;
+      margin-bottom: 8px;
+      border: 1px solid rgba(186, 230, 253, .35);
+      border-radius: 100px;
+      background: rgba(14, 165, 233, .15);
+      color: #bae6fd;
+      font-size: .78rem;
+      font-weight: 800;
+      letter-spacing: .12em;
+      text-transform: uppercase;
     }
 
     .welcome h2 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      line-height: 1.15;
-      margin: 8px 0 14px;
+      margin: 10px 0 15px;
+      font-size: clamp(2rem, 5.2vw, 3.3rem);
+      line-height: 1.13;
+      letter-spacing: -.04em;
+      text-shadow: 0 3px 20px rgba(0,0,0,.2);
     }
 
-    .welcome p {
-      max-width: 760px;
+    .welcome > p {
+      max-width: 790px;
       margin: 0 auto;
-      color: #f1f5f9;
-      font-size: 1.03rem;
-      line-height: 1.8;
+      color: #e3edff;
+      font-size: clamp(.98rem, 2vw, 1.08rem);
+      line-height: 1.85;
     }
 
     .welcome-buttons {
       display: flex;
       justify-content: center;
       align-items: center;
-      gap: 12px;
       flex-wrap: wrap;
-      margin-top: 22px;
+      gap: 13px;
+      margin-top: 24px;
     }
 
     .welcome-btn {
       display: inline-flex;
-      justify-content: center;
       align-items: center;
-      min-height: 44px;
-      padding: 12px 18px;
-      border-radius: 8px;
-      background: #168bd2;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 20px;
+      border: 1px solid rgba(255,255,255,.26);
+      border-radius: 11px;
+      background: linear-gradient(135deg, #38bdf8, #2563eb);
       color: white;
-      font-weight: bold;
-      transition: background .2s, transform .2s;
+      font-weight: 800;
+      box-shadow: 0 8px 20px rgba(37, 99, 235, .25);
+      transition: transform .2s, filter .2s;
     }
 
     .welcome-btn:hover {
-      background: #0874b8;
       transform: translateY(-2px);
+      filter: brightness(1.12);
     }
 
     .calculation-btn {
-      background: #15803d;
-    }
-
-    .calculation-btn:hover {
-      background: #166534;
+      background: linear-gradient(135deg, #34d399, #059669 55%, #047857);
+      box-shadow: 0 8px 20px rgba(5, 150, 105, .22);
     }
 
     #installAppMessage {
       min-height: 1.4em;
-      margin-top: 12px;
+      margin: 14px 0 0;
       color: #fde68a;
       font-size: .92rem;
     }
 
-    /* Study boxes */
+    /* Section heading */
     .section-heading {
-      margin: 38px 0 18px;
+      margin: 40px 0 19px;
     }
 
     .section-heading h2 {
-      font-size: clamp(1.5rem, 4vw, 2rem);
-      margin: 0 0 8px;
+      margin: 0 0 9px;
+      font-size: clamp(1.6rem, 4vw, 2.15rem);
+      letter-spacing: -.025em;
     }
 
     .section-heading p {
-      color: var(--muted);
       margin: 0;
-      line-height: 1.6;
+      color: var(--muted);
+      line-height: 1.7;
     }
 
+    /* Mixed-colour study cards */
     .study-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-      margin-bottom: 42px;
+      gap: 20px;
+      margin-bottom: 45px;
     }
 
     .study-card {
+      --card-a: #0e7490;
+      --card-b: #2563eb;
+      position: relative;
+      isolation: isolate;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
       min-width: 0;
-      min-height: 205px;
-      padding: 24px;
-      border-radius: 16px;
-      border: 1px solid rgba(255,255,255,.22);
-      box-shadow: 0 10px 25px rgba(0,0,0,.16);
-      transition: transform .2s;
+      min-height: 220px;
+      padding: 25px;
+      overflow: hidden;
+      border-radius: 20px;
+      border: 1px solid rgba(255,255,255,.27);
+      background:
+        radial-gradient(circle at 100% 0%, rgba(255,255,255,.24), transparent 45%),
+        linear-gradient(135deg, var(--card-a), var(--card-b));
+      box-shadow: 0 13px 32px rgba(0,0,0,.19);
+      transition: transform .23s, box-shadow .23s;
+    }
+
+    .study-card::before {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 175px;
+      height: 175px;
+      top: -85px;
+      right: -48px;
+      border: 1px solid rgba(255,255,255,.25);
+      border-radius: 50%;
+      box-shadow:
+        0 0 0 17px rgba(255,255,255,.055),
+        0 0 0 36px rgba(255,255,255,.04);
+    }
+
+    .study-card::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 85px;
+      height: 85px;
+      right: 27px;
+      bottom: -52px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.11);
     }
 
     .study-card:hover {
-      transform: translateY(-3px);
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,.25);
+    }
+
+    .accessories {
+      --card-a: #0891b2;
+      --card-b: #1d4ed8;
+    }
+
+    .cranes {
+      --card-a: #f97316;
+      --card-b: #be123c;
+    }
+
+    .planning {
+      --card-a: #10b981;
+      --card-b: #166534;
+    }
+
+    .safety {
+      --card-a: #e11d48;
+      --card-b: #6d28d9;
     }
 
     .card-icon {
-      font-size: 2rem;
-      margin-bottom: 12px;
+      display: grid;
+      place-items: center;
+      width: 52px;
+      height: 52px;
+      margin-bottom: 15px;
+      border-radius: 15px;
+      border: 1px solid rgba(255,255,255,.28);
+      background: rgba(255,255,255,.16);
+      box-shadow: inset 0 1px rgba(255,255,255,.12);
+      font-size: 1.7rem;
     }
 
     .study-card h3 {
-      font-size: 1.3rem;
       margin: 0 0 10px;
+      font-size: 1.35rem;
     }
 
     .study-card p {
-      color: #f8fafc;
-      line-height: 1.65;
-      margin: 0 0 20px;
+      margin: 0 0 22px;
+      color: rgba(255,255,255,.92);
+      line-height: 1.75;
     }
 
     .card-link {
       display: inline-flex;
       align-items: center;
+      justify-content: center;
+      gap: 7px;
+      min-height: 42px;
       margin-top: auto;
       padding: 10px 14px;
-      border-radius: 8px;
-      background: rgba(15,23,42,.3);
-      border: 1px solid rgba(255,255,255,.4);
-      font-weight: bold;
+      border-radius: 10px;
+      border: 1px solid rgba(255,255,255,.38);
+      background: rgba(8, 15, 35, .24);
+      color: white;
+      font-weight: 800;
+      transition: background .2s;
     }
 
     .card-link:hover {
-      background: rgba(15,23,42,.55);
+      background: rgba(8, 15, 35, .45);
     }
 
-    .accessories {
-      background: linear-gradient(135deg, #0e7490, #155e75);
-    }
-
-    .cranes {
-      background: linear-gradient(135deg, #ea580c, #9a3412);
-    }
-
-    .planning {
-      background: linear-gradient(135deg, #15803d, #14532d);
-    }
-
-    .safety {
-      background: linear-gradient(135deg, #be123c, #881337);
-    }
-
-    .notes {
-      background: linear-gradient(135deg, #0369a1, #1e40af);
-    }
-
-    /* Creator section */
+    /* Creator box: keeps original name, image and text */
     .creator {
       display: flex;
       align-items: center;
       gap: 24px;
       padding: 25px;
-      margin: 10px 0 42px;
-      border: 1px solid rgba(255,255,255,.16);
-      background: rgba(8,15,30,.58);
-      border-radius: 18px;
+      margin: 10px 0 44px;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 20px;
+      background:
+        radial-gradient(circle at 100% 0%, rgba(56,189,248,.13), transparent 45%),
+        linear-gradient(135deg, rgba(15,23,42,.86), rgba(30,41,80,.82));
+      box-shadow: 0 13px 32px rgba(0,0,0,.17);
     }
 
     .creator img {
@@ -292,23 +455,24 @@
       object-fit: cover;
       border-radius: 50%;
       border: 3px solid #38bdf8;
+      box-shadow: 0 0 0 6px rgba(56,189,248,.1);
     }
 
     .creator h2 {
-      margin: 0 0 8px;
+      margin: 0 0 9px;
     }
 
     .creator p {
-      color: var(--muted);
-      line-height: 1.7;
       margin: 0;
+      color: var(--muted);
+      line-height: 1.8;
     }
 
     footer {
-      padding: 24px 0;
+      padding: 25px 0;
       text-align: center;
       color: #cbd5e1;
-      background: rgba(3,10,25,.65);
+      background: rgba(4, 12, 29, .7);
       border-top: 1px solid rgba(255,255,255,.12);
       line-height: 1.7;
     }
@@ -326,19 +490,42 @@
         align-items: flex-start;
       }
 
+      .welcome {
+        margin-top: 20px;
+        border-radius: 19px;
+      }
+
       .creator {
         flex-direction: column;
         align-items: flex-start;
       }
 
-      .welcome {
-        margin-top: 18px;
+      .study-card {
+        min-height: 205px;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+
+      *,
+      *::before,
+      *::after {
+        transition-duration: .01ms !important;
       }
     }
   </style>
 </head>
 
 <body>
+  <div class="background-art" aria-hidden="true">
+    <div class="orb orb-one"></div>
+    <div class="orb orb-two"></div>
+    <div class="orb orb-three"></div>
+  </div>
+
   <header>
     <div class="container header-inner">
       <div class="brand">
@@ -346,7 +533,7 @@
         <p>Knowledge, Calculations, Safety and Lift Planning</p>
       </div>
 
-      <button class="header-install" id="installHubBtn" type="button">
+      <button class="install-button" id="installHubBtn" type="button">
         📲 Install App
       </button>
     </div>
@@ -365,8 +552,9 @@
   </header>
 
   <main class="container">
-    <!-- Welcome box: both buttons are here -->
     <section class="welcome">
+      <div class="welcome-label">Learn • Practice • Improve</div>
+
       <h2>Welcome to Lifting &amp; Rigging Study Hub</h2>
 
       <p>
@@ -376,27 +564,26 @@
 
       <div class="welcome-buttons">
         <a href="study-notes.html" class="welcome-btn">
-          Explore Study Notes
+          📚 Explore Study Notes
         </a>
 
         <a href="calculation.html" class="welcome-btn calculation-btn">
-          Open Calculations
+          🧮 Open Calculations
         </a>
       </div>
 
       <p id="installAppMessage" role="status" aria-live="polite"></p>
     </section>
 
-    <!-- Study boxes: no separate Lifting Calculations box -->
     <section id="study-topics">
       <div class="section-heading">
         <h2>📘 Explore Study Topics</h2>
-        <p>Choose a study topic to open its learning materials.</p>
+        <p>Select a topic to open its learning materials.</p>
       </div>
 
       <div class="study-grid">
         <article class="study-card accessories">
-          <div class="card-icon">🪝</div>
+          <div class="card-icon" aria-hidden="true">🪝</div>
           <h3>Lifting Accessories</h3>
           <p>
             Learn about slings, shackles, hooks, master links, lifting beams,
@@ -408,7 +595,7 @@
         </article>
 
         <article class="study-card cranes">
-          <div class="card-icon">🏗️</div>
+          <div class="card-icon" aria-hidden="true">🏗️</div>
           <h3>Cranes</h3>
           <p>
             Learn crane types, components, load charts, working radius,
@@ -420,7 +607,7 @@
         </article>
 
         <article class="study-card planning">
-          <div class="card-icon">📋</div>
+          <div class="card-icon" aria-hidden="true">📋</div>
           <h3>Lift Planning</h3>
           <p>
             Review lifting plans, risk assessments, ground conditions,
@@ -432,7 +619,7 @@
         </article>
 
         <article class="study-card safety">
-          <div class="card-icon">🦺</div>
+          <div class="card-icon" aria-hidden="true">🦺</div>
           <h3>Lifting Safety</h3>
           <p>
             Study safe lifting practices, hazards, exclusion zones,
@@ -442,21 +629,11 @@
             Explore Safety →
           </a>
         </article>
-
-        <article class="study-card notes">
-          <div class="card-icon">📚</div>
-          <h3>Study Notes</h3>
-          <p>
-            Open your study notes, MCQs, questions, answers and practice materials.
-          </p>
-          <a class="card-link" href="study-notes.html">
-            Explore Study Notes →
-          </a>
-        </article>
       </div>
     </section>
 
-    <section class="creator" aria-label="About this website">
+    <!-- Creator section retained with the existing name and image -->
+    <section class="creator" aria-label="About the creator">
       <img
         src="jawad.jpeg"
         alt="Website creator"
