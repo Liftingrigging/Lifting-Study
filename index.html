@@ -9,11 +9,7 @@
   <title>Lifting &amp; Rigging Study Hub</title>
 
   <style>
-    * {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
     body {
       font-family: Arial, Helvetica, sans-serif;
@@ -39,9 +35,7 @@
       margin-bottom: 8px;
     }
 
-    header p {
-      margin-bottom: 18px;
-    }
+    header p { margin-bottom: 18px; }
 
     .install-btn {
       display: inline-block;
@@ -56,9 +50,7 @@
       box-shadow: 0 5px 14px rgba(0,0,0,.18);
     }
 
-    .install-btn:hover {
-      transform: translateY(-2px);
-    }
+    .install-btn:hover { transform: translateY(-2px); }
 
     nav {
       display: flex;
@@ -81,14 +73,9 @@
       transition: background .2s;
     }
 
-    nav a:hover {
-      background: #334155;
-    }
+    nav a:hover { background: #334155; }
 
-    main {
-      width: min(1100px, 92%);
-      margin: 30px auto;
-    }
+    main { width: min(1100px, 92%); margin: 30px auto; }
 
     .welcome {
       color: white;
@@ -107,16 +94,9 @@
       margin-bottom: 12px;
     }
 
-    .welcome p {
-      max-width: 720px;
-      margin-bottom: 22px;
-    }
+    .welcome p { max-width: 720px; margin-bottom: 22px; }
 
-    .welcome-buttons {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-    }
+    .welcome-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
 
     .btn {
       display: inline-flex;
@@ -131,10 +111,7 @@
       transition: transform .2s, opacity .2s;
     }
 
-    .btn:hover {
-      transform: translateY(-2px);
-      opacity: .92;
-    }
+    .btn:hover { transform: translateY(-2px); opacity: .92; }
 
     .btn-primary {
       color: #172033;
@@ -194,14 +171,8 @@
       margin-bottom: 12px;
     }
 
-    .card h3 {
-      font-size: 1.35rem;
-      margin-bottom: 7px;
-    }
-
-    .card p {
-      margin-bottom: 19px;
-    }
+    .card h3 { font-size: 1.35rem; margin-bottom: 7px; }
+    .card p { margin-bottom: 19px; }
 
     .card a {
       display: inline-flex;
@@ -215,25 +186,12 @@
       text-decoration: none;
     }
 
-    .card a:hover {
-      background: #e2e8f0;
-    }
+    .card a:hover { background: #e2e8f0; }
 
-    .card-accessories {
-      background: linear-gradient(135deg, #0f766e, #2dd4bf);
-    }
-
-    .card-cranes {
-      background: linear-gradient(135deg, #6d28d9, #c084fc);
-    }
-
-    .card-planning {
-      background: linear-gradient(135deg, #c2410c, #fb923c);
-    }
-
-    .card-safety {
-      background: linear-gradient(135deg, #be123c, #fb7185);
-    }
+    .card-accessories { background: linear-gradient(135deg, #0f766e, #2dd4bf); }
+    .card-cranes { background: linear-gradient(135deg, #6d28d9, #c084fc); }
+    .card-planning { background: linear-gradient(135deg, #c2410c, #fb923c); }
+    .card-safety { background: linear-gradient(135deg, #be123c, #fb7185); }
 
     /* ABOUT CREATOR */
     .creator {
@@ -274,21 +232,9 @@
       box-shadow: 0 6px 18px rgba(0,0,0,.22);
     }
 
-    .creator-info {
-      position: relative;
-      z-index: 1;
-      min-width: 0;
-    }
-
-    .creator-info h2 {
-      font-size: 1.7rem;
-      margin-bottom: 5px;
-    }
-
-    .creator-info h3 {
-      font-size: 1.4rem;
-      margin-bottom: 3px;
-    }
+    .creator-info { position: relative; z-index: 1; min-width: 0; }
+    .creator-info h2 { font-size: 1.7rem; margin-bottom: 5px; }
+    .creator-info h3 { font-size: 1.4rem; margin-bottom: 3px; }
 
     .creator-info p {
       margin: 5px 0;
@@ -296,10 +242,7 @@
       overflow-wrap: anywhere;
     }
 
-    .creator-role {
-      font-weight: bold;
-      color: #fef08a !important;
-    }
+    .creator-role { font-weight: bold; color: #fef08a !important; }
 
     .instagram-link {
       display: inline-flex;
@@ -317,9 +260,7 @@
       transition: transform .2s;
     }
 
-    .instagram-link:hover {
-      transform: translateY(-2px);
-    }
+    .instagram-link:hover { transform: translateY(-2px); }
 
     footer {
       text-align: center;
@@ -336,32 +277,12 @@
     }
 
     @media (max-width: 650px) {
-      .cards {
-        grid-template-columns: 1fr;
-      }
-
-      .welcome {
-        padding: 29px 20px;
-      }
-
-      .welcome-buttons {
-        flex-direction: column;
-      }
-
-      .welcome-buttons .btn {
-        width: 100%;
-      }
-
-      .creator {
-        flex-direction: column;
-        text-align: center;
-        padding: 25px 18px;
-      }
-
-      .creator img {
-        width: 140px;
-        height: 140px;
-      }
+      .cards { grid-template-columns: 1fr; }
+      .welcome { padding: 29px 20px; }
+      .welcome-buttons { flex-direction: column; }
+      .welcome-buttons .btn { width: 100%; }
+      .creator { flex-direction: column; text-align: center; padding: 25px 18px; }
+      .creator img { width: 140px; height: 140px; }
     }
   </style>
 </head>
@@ -375,7 +296,7 @@
       📲 Install App
     </button>
 
-    <p id="install-message" role="status" hidden></p>
+    <p id="install-message" role="status" aria-live="polite" hidden></p>
   </header>
 
   <nav aria-label="Main navigation">
@@ -403,8 +324,9 @@
           📚 Explore Study Notes →
         </a>
 
-        <a class="btn btn-secondary" href="calculation.html">
-          🧮 Open Calculations →
+        <!-- Opens the page containing all calculators -->
+        <a class="btn btn-secondary" href="/Lifting-Study/calculation.html">
+          🧮 Open Calculation →
         </a>
       </div>
     </section>
@@ -443,7 +365,8 @@
 
     <!-- ABOUT CREATOR BOX -->
     <section class="creator" aria-label="About Creator">
-      <img src="jawad.jpeg" alt="Jawad Hussain">
+      <img src="jawad-new.png" alt="Jawad Hussain"
+           onerror="this.alt='Creator photo not found'; this.style.background='#ffffff33';">
 
       <div class="creator-info">
         <h2>👨‍🔧 About Creator</h2>
@@ -470,7 +393,7 @@
   </footer>
 
   <script>
-    // PWA installation
+    // Cross-browser install support
     let deferredInstallPrompt = null;
 
     const installButton = document.getElementById("install-app");
@@ -481,48 +404,91 @@
       installMessage.hidden = false;
     }
 
+    function isInstalled() {
+      return window.matchMedia("(display-mode: standalone)").matches ||
+        window.matchMedia("(display-mode: fullscreen)").matches ||
+        window.navigator.standalone === true;
+    }
+
+    if (isInstalled()) {
+      installButton.textContent = "✓ App Installed";
+    }
+
     window.addEventListener("beforeinstallprompt", (event) => {
       event.preventDefault();
       deferredInstallPrompt = event;
-      installButton.hidden = false;
+      installButton.textContent = "📲 Install App";
     });
 
     installButton.addEventListener("click", async () => {
-      if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-
-        const result = await deferredInstallPrompt.userChoice;
-        deferredInstallPrompt = null;
-
-        if (result.outcome === "accepted") {
-          showInstallMessage("Installation accepted. Follow any prompts on your device.");
-        } else {
-          showInstallMessage("Installation cancelled. You can try again later.");
-        }
+      if (isInstalled()) {
+        showInstallMessage("The app is already installed on this device.");
         return;
       }
 
-      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
-      const isStandalone =
-        window.matchMedia("(display-mode: standalone)").matches ||
-        window.navigator.standalone === true;
+      // Supported browsers can show their native installation prompt.
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
 
-      if (isStandalone) {
-        showInstallMessage("The app is already installed.");
-      } else if (isIOS) {
-        showInstallMessage("To install: tap Share in Safari, then Add to Home Screen.");
+        try {
+          const result = await deferredInstallPrompt.userChoice;
+          if (result && result.outcome === "accepted") {
+            showInstallMessage("Installation accepted. Follow any remaining prompts.");
+          } else {
+            showInstallMessage("Installation was cancelled. You can try again later.");
+          }
+        } catch (error) {
+          showInstallMessage("Use your browser menu to install or add this site to your home screen.");
+        }
+
+        deferredInstallPrompt = null;
+        return;
+      }
+
+      // Browsers without a native prompt need manual installation.
+      const ua = navigator.userAgent || "";
+      const isIOS = /iphone|ipad|ipod/i.test(ua) ||
+        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+      const isSamsung = /samsungbrowser/i.test(ua);
+      const isFirefox = /firefox/i.test(ua);
+      const isEdge = /edg/i.test(ua);
+      const isChrome = /chrome|crios/i.test(ua) && !isEdge && !isSamsung;
+      const isSafari = /safari/i.test(ua) && !isChrome && !isEdge && !isSamsung;
+
+      if (isIOS) {
+        showInstallMessage(
+          "On iPhone or iPad: open this site in Safari, tap Share, then choose Add to Home Screen."
+        );
+      } else if (isSamsung) {
+        showInstallMessage(
+          "In Samsung Internet, open the browser menu and choose Add page to → Home screen, or Install app if shown."
+        );
+      } else if (isFirefox) {
+        showInstallMessage(
+          "If installation is available, open the Firefox menu and choose Install or Add to Home screen. Menu options vary by device."
+        );
+      } else if (isChrome || isEdge) {
+        showInstallMessage(
+          "Open the browser menu (⋮), then choose Install app or Add to Home screen. If absent, check that the site is HTTPS and its manifest and service worker load correctly."
+        );
+      } else if (isSafari) {
+        showInstallMessage(
+          "Open the Share menu and look for Add to Home Screen. Installation availability depends on your device and browser version."
+        );
       } else {
-        showInstallMessage("If installation is available, open your browser menu and choose Install app or Add to Home screen.");
+        showInstallMessage(
+          "Open your browser menu and look for Install app or Add to Home screen. If unavailable, this browser may not support web-app installation."
+        );
       }
     });
 
     window.addEventListener("appinstalled", () => {
-      installButton.hidden = true;
+      installButton.textContent = "✓ App Installed";
       showInstallMessage("App installed successfully!");
     });
 
-    // Register the existing service worker for the GitHub Pages site.
-    if ("serviceWorker" in navigator) {
+    // Register the service worker under the GitHub Pages project path.
+    if ("serviceWorker" in navigator && window.isSecureContext) {
       window.addEventListener("load", () => {
         navigator.serviceWorker.register("/Lifting-Study/service-worker.js")
           .catch((error) => {
