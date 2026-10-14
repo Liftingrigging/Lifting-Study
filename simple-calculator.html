@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#091426">
+  <meta name="description" content="Simple calculator and shortcuts to lifting and rigging study calculators.">
+  <title>Simple Calculator | Lifting &amp; Rigging Study Hub</title>
+
+  <style>
+    :root {
+      --navy: #091426;
+      --panel: rgba(18, 37, 63, .94);
+      --blue: #287be0;
+      --cyan: #54e3ef;
+      --purple: #a78bfa;
+      --text: #edf5ff;
+      --muted: #a8b8cf;
+      --border: rgba(155, 190, 230, .2);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      color: var(--text);
+      font-family: Arial, Helvetica, sans-serif;
+      background:
+        radial-gradient(ellipse at 10% 8%, rgba(36,108,210,.28), transparent 38%),
+        radial-gradient(ellipse at 92% 25%, rgba(142,77,235,.19), transparent 35%),
+        linear-gradient(140deg, #07101f, #0c1b31 52%, #080f20);
+    }
+
+    a { color: inherit; }
+
+    header {
+      text-align: center;
+      padding: 34px 16px 25px;
+      border-bottom: 1px solid var(--border);
+      background: linear-gradient(120deg, rgba(17,48,84,.9), rgba(12,25,49,.94), rgba(53,32,88,.7));
+    }
+
+    .eyebrow {
+      color: #9cecf5;
+      font-size: 12px;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      margin: 12px 0;
+      font-size: clamp(27px, 5vw, 42px);
+      background: linear-gradient(100deg, #fff, #a8eaff 55%, #c5b2ff);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+    }
+
+    header p {
+      max-width: 620px;
+      margin: auto;
+      color: #bdcde2;
+      line-height: 1.7;
+    }
+
+    main {
+      width: min(1000px, 94%);
+      margin: 24px auto 42px;
+    }
+
+    .back {
+      display: inline-flex;
+      align-items: center;
+      min-height: 44px;
+      margin-bottom: 20px;
+      padding: 10px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--panel);
+      text-decoration: none;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 360px) minmax(0, 1fr);
+      gap: 20px;
+      align-items: start;
+    }
+
+    .panel {
+      min-width: 0;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      background: var(--panel);
+      box-shadow: 0 12px 32px rgba(0,0,0,.16);
+    }
+
+    h2 {
+      margin: 0 0 16px;
+      font-size: 21px;
+    }
+
+    .display {
+      width: 100%;
+      min-height: 82px;
+      margin-bottom: 14px;
+      padding: 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      background: #06101e;
+      color: white;
+      text-align: right;
+      font-size: clamp(26px, 5vw, 34px);
+      font-variant-numeric: tabular-nums;
+      overflow-wrap: anywhere;
+    }
+
+    .status {
+      min-height: 22px;
+      margin: -5px 0 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .keys {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 9px;
+    }
+
+    .keys button {
+      min-width: 0;
+      min-height: 52px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #172c48;
+      color: var(--text);
+      font-size: 19px;
+      cursor: pointer;
+      touch-action: manipulation;
+    }
+
+    .keys button:hover { filter: brightness(1.2); }
+
+    .keys .operator {
+      background: #1d4c7e;
+      border-color: rgba(84,227,239,.25);
+    }
+
+    .keys .utility { background: #29314d; }
+    .keys .equals {
+      background: linear-gradient(110deg, #1769aa, #287be0);
+      font-weight: bold;
+    }
+
+    .keys .zero { grid-column: span 2; }
+
+    .hint {
+      margin: 14px 0 0;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.6;
+    }
+
+    .search {
+      width: 100%;
+      min-height: 44px;
+      margin-bottom: 14px;
+      padding: 11px 13px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: #0b1a2d;
+      color: var(--text);
+      font-size: 16px;
+    }
+
+    .search::placeholder { color: #91a5c0; }
+
+    .links {
+      display: grid;
+      gap: 10px;
+    }
+
+    .calc-link {
+      display: block;
+      padding: 13px 14px;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: rgba(23,44,72,.8);
+      text-decoration: none;
+      transition: border-color .2s, background .2s;
+    }
+
+    .calc-link:hover {
+      border-color: rgba(84,227,239,.65);
+      background: #1b3555;
+    }
+
+    .calc-link strong {
+      display: block;
+      margin-bottom: 5px;
+      font-size: 15px;
+    }
+
+    .calc-link span {
+      display: block;
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.5;
+    }
+
+    #noLinks {
+      display: none;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    footer {
+      padding: 20px 16px;
+      border-top: 1px solid var(--border);
+      color: #91a6c0;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 760px) {
+      .layout { grid-template-columns: 1fr; }
+      .panel { padding: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition: none !important; }
+    }
+
+    @media print {
+      body { background: white; color: black; }
+      header, .panel, .calc-link, .back {
+        background: white;
+        color: black;
+        box-shadow: none;
+      }
+      header h1 { color: black; background: none; }
+      header p, .hint, .calc-link span, footer { color: #333; }
+      .back, .search, .keys, .status { display: none !important; }
+      .layout { display: block; }
+      .panel { margin-bottom: 16px; }
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="eyebrow">Lifting · Rigging · Engineering</div>
+    <h1>Simple Calculator</h1>
+    <p>Everyday arithmetic with quick access to your existing lifting and rigging calculators.</p>
+  </header>
+
+  <main>
+    <a class="back" href="index.html">← Back to Study Hub</a>
+
+    <div class="layout">
+      <section class="panel" aria-labelledby="calculatorHeading">
+        <h2 id="calculatorHeading">Standard Calculator</h2>
+
+        <div id="display" class="display" role="status" aria-live="polite">0</div>
+        <p id="status" class="status" aria-live="polite">Ready</p>
+
+        <div class="keys" id="keys">
+          <button class="utility" data-action="clear" type="button">AC</button>
+          <button class="utility" data-action="backspace" type="button">⌫</button>
+          <button class="utility" data-action="sign" type="button">±</button>
+          <button class="operator" data-op="/" type="button">÷</button>
+
+          <button data-digit="7" type="button">7</button>
+          <button data-digit="8" type="button">8</button>
+          <button data-digit="9" type="button">9</button>
+          <button class="operator" data-op="*" type="button">×</button>
+
+          <button data-digit="4" type="button">4</button>
+          <button data-digit="5" type="button">5</button>
+          <button data-digit="6" type="button">6</button>
+          <button class="operator" data-op="-" type="button">−</button>
+
+          <button data-digit="1" type="button">1</button>
+          <button data-digit="2" type="button">2</button>
+          <button data-digit="3" type="button">3</button>
+          <button class="operator" data-op="+" type="button">+</button>
+
+          <button class="utility" data-action="percent" type="button">%</button>
+          <button class="zero" data-digit="0" type="button">0</button>
+          <button data-action="decimal" type="button">.</button>
+          <button class="equals" data-action="equals" type="button">=</button>
+        </div>
+
+        <p class="hint">Keyboard supported: numbers, +, −, *, /, Enter, Backspace and Escape.</p>
+      </section>
+
+      <section class="panel" aria-labelledby="linksHeading">
+        <h2 id="linksHeading">Lifting Calculator Shortcuts</h2>
+        <input id="search" class="search" type="search"
+          placeholder="Search lifting calculators..."
+          aria-label="Search lifting calculators">
+
+        <div id="links" class="links">
+          <a class="calc-link" href="calculation/material-weight-calculator.html">
+            <strong>Material Weight Calculator</strong>
+            <span>Material density and volume.</span>
+          </a>
+          <a class="calc-link" href="calculation/center-of-gravity-calculator.html">
+            <strong>Center of Gravity Calculator</strong>
+            <span>Combined center of gravity of components.</span>
+          </a>
+          <a class="calc-link" href="calculation/sling-length-angle-calculator.html">
+            <strong>Sling Length &amp; Angle Calculator</strong>
+            <span>Sling geometry, length, height and angle.</span>
+          </a>
+          <a class="calc-link" href="calculation/sling-tension-swl-calculator.html">
+            <strong>Sling Tension / SWL Calculator</strong>
+            <span>Sling tension and safe working load study.</span>
+          </a>
+          <a class="calc-link" href="calculation/shackle-wll-calculator.html">
+            <strong>Shackle WLL Calculator</strong>
+            <span>Shackle working load limit study.</span>
+          </a>
+          <a class="calc-link" href="calculation/d-d-ratio-calculator.html">
+            <strong>D/d Ratio Calculator</strong>
+            <span>Bend diameter compared with rope diameter.</span>
+          </a>
+          <a class="calc-link" href="calculation/crane-selection-calculator.html">
+            <strong>Crane Selection Calculator</strong>
+            <span>Crane selection for lifting operations.</span>
+          </a>
+          <a class="calc-link" href="calculation/critical-lift-planning-calculator.html">
+            <strong>Critical Lift Planning Calculator</strong>
+            <span>Key details for critical lift planning.</span>
+          </a>
+          <a class="calc-link" href="calculation/superlift-study-calculator.html">
+            <strong>Superlift Study Calculator</strong>
+            <span>Superlift study tool.</span>
+          </a>
+          <a class="calc-link" href="calculation/tailing-load-distribution-calculator.html">
+            <strong>Tailing Load Distribution Calculator</strong>
+            <span>Load distribution between cranes.</span>
+          </a>
+          <a class="calc-link" href="calculation/ground-bearing-calculator.html">
+            <strong>Ground Bearing Calculator</strong>
+            <span>Ground bearing pressure for crane setups.</span>
+          </a>
+        </div>
+
+        <p id="noLinks" role="status">No calculators match your search.</p>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    The standard calculator is for general arithmetic. Verify lifting calculations,
+    equipment ratings and lift plans with qualified personnel before use.
+  </footer>
+
+  <script>
+    (() => {
+      const display = document.getElementById("display");
+      const status = document.getElementById("status");
+      const keys = document.getElementById("keys");
+      const search = document.getElementById("search");
+      const noLinks = document.getElementById("noLinks");
+
+      let current = "0";
+      let stored = null;
+      let operator = null;
+      let replaceCurrent = false;
+      let justCalculated = false;
+
+      function render() {
+        display.textContent = current;
+      }
+
+      function showError(message) {
+        current = "Error";
+        status.textContent = message;
+        stored = null;
+        operator = null;
+        replaceCurrent = true;
+        justCalculated = false;
+        render();
+      }
+
+      function clearAll() {
+        current = "0";
+        stored = null;
+        operator = null;
+        replaceCurrent = false;
+        justCalculated = false;
+        status.textContent = "Ready";
+        render();
+      }
+
+      function enterDigit(digit) {
+        if (current === "Error" || replaceCurrent || justCalculated) {
+          current = digit;
+          replaceCurrent = false;
+          justCalculated = false;
+        } else if (current === "0") {
+          current = digit;
+        } else if (current.replace("-", "").length < 15) {
+          current += digit;
+        }
+        status.textContent = "Ready";
+        render();
+      }
+
+      function enterDecimal() {
+        if (current === "Error" || replaceCurrent || justCalculated) {
+          current = "0.";
+          replaceCurrent = false;
+          justCalculated = false;
+        } else if (!current.includes(".")) {
+          current += ".";
+        }
+        status.textContent = "Ready";
+        render();
+      }
+
+      function calculate(a, b, op) {
+        if (op === "+") return a + b;
+        if (op === "-") return a - b;
+        if (op === "*") return a * b;
+        if (op === "/") {
+          if (b === 0) throw new Error("Cannot divide by zero");
+          return a / b;
+        }
+        return b;
+      }
+
+      function formatResult(value) {
+        if (!Number.isFinite(value)) throw new Error("Result is out of range");
+        const rounded = Number(value.toPrecision(12));
+        return Object.is(rounded, -0) ? "0" : String(rounded);
+      }
+
+      function chooseOperator(nextOperator) {
+        if (current === "Error") clearAll();
+
+        const value = Number(current);
+        if (operator && !replaceCurrent) {
+          try {
+            current = formatResult(calculate(stored, value, operator));
+          } catch (error) {
+            showError(error.message);
+            return;
+          }
+          render();
+        } else {
+          current = formatResult(value);
+        }
+
+        stored = Number(current);
+        operator = nextOperator;
+        replaceCurrent = true;
+        justCalculated = false;
+        status.textContent = "Choose the next number";
+      }
+
+      function equals() {
+        if (!operator || stored === null || current === "Error") return;
+
+        const a = stored;
+        const b = Number(current);
+        const op = operator;
+
+        try {
+          current = formatResult(calculate(a, b, op));
+          stored = null;
+          operator = null;
+          replaceCurrent = true;
+          justCalculated = true;
+          status.textContent = "Result";
+          render();
+        } catch (error) {
+          showError(error.message);
+        }
+      }
+
+      function backspace() {
+        if (current === "Error" || replaceCurrent || justCalculated) {
+          current = "0";
+          replaceCurrent = false;
+          justCalculated = false;
+        } else {
+          current = current.length > 1 ? current.slice(0, -1) : "0";
+          if (current === "-") current = "0";
+        }
+        status.textContent = "Ready";
+        render();
+      }
+
+      function changeSign() {
+        if (current === "Error") return;
+        current = formatResult(-Number(current));
+        status.textContent = "Ready";
+        render();
+      }
+
+      function percent() {
+        if (current === "Error") return;
+        current = formatResult(Number(current) / 100);
+        status.textContent = "Percentage";
+        render();
+      }
+
+      keys.addEventListener("click", event => {
+        const button = event.target.closest("button");
+        if (!button) return;
+
+        if (button.dataset.digit !== undefined) enterDigit(button.dataset.digit);
+        else if (button.dataset.op) chooseOperator(button.dataset.op);
+        else {
+          switch (button.dataset.action) {
+            case "clear": clearAll(); break;
+            case "backspace": backspace(); break;
+            case "decimal": enterDecimal(); break;
+            case "sign": changeSign(); break;
+            case "percent": percent(); break;
+            case "equals": equals(); break;
+          }
+        }
+      });
+
+      document.addEventListener("keydown", event => {
+        if (event.target === search || event.target.isContentEditable) return;
+
+        if (/^[0-9]$/.test(event.key)) {
+          enterDigit(event.key);
+        } else if (event.key === ".") {
+          enterDecimal();
+        } else if (["+", "-", "*", "/"].includes(event.key)) {
+          chooseOperator(event.key);
+        } else if (event.key === "Enter" || event.key === "=") {
+          event.preventDefault();
+          equals();
+        } else if (event.key === "Backspace") {
+          backspace();
+        } else if (event.key === "Escape") {
+          clearAll();
+        } else {
+          return;
+        }
+        event.preventDefault();
+      });
+
+      search.addEventListener("input", () => {
+        const query = search.value.trim().toLowerCase();
+        let visible = 0;
+
+        document.querySelectorAll(".calc-link").forEach(link => {
+          const matches = link.textContent.toLowerCase().includes(query);
+          link.hidden = !matches;
+          if (matches) visible++;
+        });
+
+        noLinks.style.display = visible ? "none" : "block";
+      });
+
+      render();
+    })();
+  </script>
+</body>
+</html>
