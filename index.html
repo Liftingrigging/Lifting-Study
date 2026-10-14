@@ -661,52 +661,69 @@
 
     let deferredInstallPrompt = null;
 
-    const installHubBtn = document.getElementById("installHubBtn");
-    const installMsg = document.getElementById("installAppMessage");
+const installHubBtn = document.getElementById("installHubBtn");
+const installMsg = document.getElementById("installAppMessage");
 
-    window.addEventListener("beforeinstallprompt", (event) => {
-      event.preventDefault();
-      deferredInstallPrompt = event;
-    });
+function isAppInstalled() {
+  return window.matchMedia("(display-mode: standalone)").matches ||
+    window.navigator.standalone === true;
+}
 
-    window.addEventListener("appinstalled", () => {
-      installMsg.textContent = "App installed successfully!";
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  deferredInstallPrompt = event;
+  installHubBtn.disabled = false;
+  installHubBtn.textContent = "📲 Install App";
+  installMsg.textContent = "Ready to install.";
+});
+
+window.addEventListener("appinstalled", () => {
+  deferredInstallPrompt = null;
+  installHubBtn.textContent = "✅ App Installed";
+  installMsg.textContent = "Your app was installed successfully.";
+});
+
+installHubBtn.addEventListener("click", async () => {
+  if (isAppInstalled()) {
+    installMsg.textContent = "The app is already installed.";
+    return;
+  }
+
+  if (deferredInstallPrompt) {
+    try {
+      const promptEvent = deferredInstallPrompt;
       deferredInstallPrompt = null;
-    });
 
-    async function installWebsiteApp() {
-      if (window.matchMedia("(display-mode: standalone)").matches) {
-        installMsg.textContent = "The app is already installed.";
-        return;
-      }
+      await promptEvent.prompt();
+      const result = await promptEvent.userChoice;
 
-      if (!deferredInstallPrompt) {
+      if (result.outcome === "accepted") {
         installMsg.textContent =
-          "Installation prompt unavailable. Open your browser menu and look for Install app or Add to Home Screen.";
-        return;
+          "Installation accepted. Follow the browser prompts.";
+      } else {
+        installMsg.textContent =
+          "Installation cancelled. You can try again later.";
       }
-
-      deferredInstallPrompt.prompt();
-
-      const result = await deferredInstallPrompt.userChoice;
-
+    } catch (error) {
       installMsg.textContent =
-        result.outcome === "accepted"
-          ? "Installation accepted. Follow your browser's prompts."
-          : "Installation cancelled.";
-
-      deferredInstallPrompt = null;
+        "Could not open the installation prompt. Use your browser menu instead.";
     }
 
-    installHubBtn.addEventListener("click", installWebsiteApp);
+    return;
+  }
 
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register(
-          "/Lifting-Study/service-worker.js"
-        ).catch((error) => {
-          console.error("Service worker registration failed:", error);
-        });
+  const ua = navigator.userAgent || "";
+  const isIOS = /iPad|iPhone|iPod/.test(ua) ||
+    (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+
+  if (isIOS) {
+    installMsg.textContent =
+      "To install: open the Share menu in Safari, tap More if needed, then Add to Home Screen.";
+  } else {
+    installMsg.textContent =
+      "To install: open your browser menu (⋮ or Share) and choose Install app or Add to Home screen.";
+  }
+});
       });
     }
   </script>
