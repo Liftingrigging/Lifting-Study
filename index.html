@@ -2,500 +2,217 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#0b1220">
-  <meta name="description" content="Lifting and Rigging Study Hub">
-  <link rel="manifest" href="/Lifting-Study/manifest.json">
-  <title>Lifting &amp; Rigging Study Hub</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#102b46">
+  <meta name="description" content="Lifting engineering study, crane calculations, rigging, safety and lift planning tools.">
+  <title>Lifting Study | Home</title>
 
   <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; }
-
+    * { box-sizing: border-box; }
     body {
+      margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      color: #172033;
+      color: #183047;
+      background: #f1f5f9;
       line-height: 1.6;
-      min-height: 100vh;
-      background: linear-gradient(135deg, #dbeafe, #f5d0fe, #ffedd5, #ccfbf1);
-      overflow-x: hidden;
     }
-
     header {
-      text-align: center;
       color: white;
-      padding: 35px 20px;
-      background:
-        linear-gradient(120deg, rgba(11,18,32,.88), rgba(30,64,175,.72)),
-        url("gasplant.png") center/cover no-repeat;
+      padding: 34px 18px;
+      text-align: center;
+      background: linear-gradient(135deg, #102b46, #176b87);
     }
-
-    header h1 {
-      font-size: clamp(2rem, 5vw, 3rem);
-      line-height: 1.2;
-      margin-bottom: 8px;
-    }
-
-    header p { margin-bottom: 18px; }
-
-    .install-btn {
-      display: inline-block;
-      color: #172033;
-      background: linear-gradient(135deg, #fde047, #fb923c);
-      border: 0;
-      border-radius: 12px;
-      padding: 11px 19px;
-      font-size: 1rem;
-      font-weight: bold;
-      cursor: pointer;
-      box-shadow: 0 5px 14px rgba(0,0,0,.18);
-    }
-
-    .install-btn:hover { transform: translateY(-2px); }
-
+    header h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 42px); }
+    header p { margin: 0; }
     nav {
       display: flex;
       justify-content: center;
-      align-items: center;
       flex-wrap: wrap;
       gap: 8px;
-      padding: 14px;
-      background: #0b1220;
+      padding: 12px;
+      background: #0b2035;
     }
-
     nav a {
-      display: inline-flex;
-      align-items: center;
-      gap: 6px;
       color: white;
       text-decoration: none;
-      padding: 8px 12px;
-      border-radius: 20px;
-      transition: background .2s;
+      padding: 9px 13px;
+      border-radius: 7px;
+      font-size: 14px;
     }
-
-    nav a:hover { background: #334155; }
-
-    main { width: min(1100px, 92%); margin: 30px auto; }
-
+    nav a:hover, nav a:focus { background: #24506c; }
+    main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
     .welcome {
-      color: white;
-      padding: 38px 27px;
-      border-radius: 22px;
-      background:
-        linear-gradient(110deg, rgba(15,23,42,.91), rgba(37,99,235,.75)),
-        url("lifting.png") center/cover no-repeat;
-      box-shadow: 0 12px 30px rgba(15,23,42,.16);
-      margin-bottom: 32px;
-    }
-
-    .welcome h2 {
-      font-size: clamp(1.7rem, 4vw, 2.4rem);
-      line-height: 1.25;
-      margin-bottom: 12px;
-    }
-
-    .welcome p { max-width: 720px; margin-bottom: 22px; }
-
-    .welcome-buttons { display: flex; flex-wrap: wrap; gap: 12px; }
-
-    .btn {
-      display: inline-flex;
-      justify-content: center;
-      align-items: center;
-      gap: 8px;
-      padding: 12px 18px;
-      border-radius: 10px;
-      font-weight: bold;
-      text-align: center;
-      text-decoration: none;
-      transition: transform .2s, opacity .2s;
-    }
-
-    .btn:hover { transform: translateY(-2px); opacity: .92; }
-
-    .btn-primary {
-      color: #172033;
-      background: linear-gradient(135deg, #fde047, #facc15);
-    }
-
-    .btn-secondary {
-      color: #1e3a8a;
-      background: linear-gradient(135deg, #fff, #dbeafe);
-    }
-
-    .section-title {
-      font-size: 1.8rem;
-      text-align: center;
-      color: #172554;
-      margin: 32px 0 22px;
-    }
-
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 20px;
-    }
-
-    .card {
-      position: relative;
       overflow: hidden;
-      padding: 25px;
-      border-radius: 20px;
-      color: white;
-      min-height: 210px;
-      box-shadow: 0 9px 24px rgba(15,23,42,.14);
-      transition: transform .2s, box-shadow .2s;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 5px 22px #102b4612;
+      margin-bottom: 24px;
     }
-
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 15px 30px rgba(15,23,42,.19);
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      width: 145px;
-      height: 145px;
-      right: -42px;
-      top: -52px;
-      border: 20px solid rgba(255,255,255,.14);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .card-icon {
+    .welcome-image {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
       display: block;
-      font-size: 2.25rem;
-      line-height: 1.2;
-      margin-bottom: 12px;
+      background: #dce7ef;
     }
-
-    .card h3 { font-size: 1.35rem; margin-bottom: 7px; }
-    .card p { margin-bottom: 19px; }
-
-    .card a {
-      display: inline-flex;
-      align-items: center;
-      gap: 7px;
-      padding: 9px 14px;
-      border-radius: 9px;
-      background: rgba(255,255,255,.96);
-      color: #172033;
-      font-weight: bold;
+    .welcome-content { padding: 24px; text-align: center; }
+    h2 { color: #123c59; margin-top: 0; }
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 12px 18px;
       text-decoration: none;
+      border-radius: 8px;
+      font-weight: bold;
+      border: 0;
+      cursor: pointer;
     }
-
-    .card a:hover { background: #e2e8f0; }
-
-    .card-accessories { background: linear-gradient(135deg, #0f766e, #2dd4bf); }
-    .card-cranes { background: linear-gradient(135deg, #6d28d9, #c084fc); }
-    .card-planning { background: linear-gradient(135deg, #c2410c, #fb923c); }
-    .card-safety { background: linear-gradient(135deg, #be123c, #fb7185); }
-
-    /* ABOUT CREATOR */
+    .btn-primary { background: #126782; color: white; }
+    .btn-secondary { background: #e4edf4; color: #123c59; }
+    .btn:hover { filter: brightness(.95); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .card {
+      background: white;
+      padding: 21px;
+      border-radius: 12px;
+      box-shadow: 0 4px 16px #102b460d;
+    }
+    .card h3 { margin-top: 0; color: #126782; }
+    .card a { color: #126782; font-weight: bold; text-decoration: none; }
     .creator {
-      position: relative;
       display: flex;
       align-items: center;
-      gap: 25px;
-      margin: 40px 0;
-      padding: 30px;
-      overflow: hidden;
-      border-radius: 24px;
-      color: white;
-      background: linear-gradient(125deg, #1d4ed8, #7c3aed, #db2777, #ea580c);
-      background-size: 200% 200%;
-      box-shadow: 0 12px 30px rgba(76,29,149,.23);
+      gap: 22px;
+      background: white;
+      padding: 22px;
+      border-radius: 14px;
+      margin-top: 24px;
     }
-
-    .creator::after {
-      content: "";
-      position: absolute;
-      width: 220px;
-      height: 220px;
-      right: -65px;
-      bottom: -120px;
-      border: 25px solid rgba(255,255,255,.13);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    .creator img {
-      width: 155px;
-      height: 155px;
-      flex-shrink: 0;
+    .creator-photo {
+      width: 120px;
+      height: 120px;
       object-fit: cover;
-      object-position: center;
-      border: 5px solid rgba(255,255,255,.95);
       border-radius: 50%;
-      box-shadow: 0 6px 18px rgba(0,0,0,.22);
+      border: 3px solid #d9e7ef;
+      flex-shrink: 0;
     }
-
-    .creator-info { position: relative; z-index: 1; min-width: 0; }
-    .creator-info h2 { font-size: 1.7rem; margin-bottom: 5px; }
-    .creator-info h3 { font-size: 1.4rem; margin-bottom: 3px; }
-
-    .creator-info p {
-      margin: 5px 0;
-      color: #fff;
-      overflow-wrap: anywhere;
-    }
-
-    .creator-role { font-weight: bold; color: #fef08a !important; }
-
-    .instagram-link {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      margin-top: 15px;
-      padding: 11px 16px;
-      border-radius: 10px;
-      color: #fff;
-      background: linear-gradient(120deg, #833ab4, #e1306c, #f77737);
-      border: 1px solid rgba(255,255,255,.4);
-      text-decoration: none;
-      font-weight: bold;
-      box-shadow: 0 5px 13px rgba(0,0,0,.16);
-      transition: transform .2s;
-    }
-
-    .instagram-link:hover { transform: translateY(-2px); }
-
-    footer {
-      text-align: center;
-      padding: 22px 15px;
-      color: #cbd5e1;
-      background: #0b1220;
-      margin-top: 35px;
-    }
-
-    #install-message {
-      margin-top: 10px;
-      font-size: .9rem;
-      color: #fef3c7;
-    }
-
-    @media (max-width: 650px) {
-      .cards { grid-template-columns: 1fr; }
-      .welcome { padding: 29px 20px; }
-      .welcome-buttons { flex-direction: column; }
-      .welcome-buttons .btn { width: 100%; }
-      .creator { flex-direction: column; text-align: center; padding: 25px 18px; }
-      .creator img { width: 140px; height: 140px; }
+    .creator h2 { margin-bottom: 4px; }
+    footer { text-align: center; padding: 24px 16px; color: #607386; font-size: 13px; }
+    @media (max-width: 550px) {
+      .creator { flex-direction: column; text-align: center; }
+      .welcome-content { padding: 20px 16px; }
     }
   </style>
 </head>
-
 <body>
   <header>
-    <h1>🏗️ Lifting &amp; Rigging Study Hub</h1>
-    <p>Your learning resource for lifting operations, rigging, and safety</p>
-
-    <button type="button" class="install-btn" id="install-app">
-      📲 Install App
-    </button>
-
-    <p id="install-message" role="status" aria-live="polite" hidden></p>
+    <h1>Lifting Study</h1>
+    <p>Lifting Engineering • Crane Operations • Rigging • Safety</p>
   </header>
 
   <nav aria-label="Main navigation">
-    <a href="index.html">🏠 Home</a>
-    <a href="rigging.html">⛓️ Lifting Accessories</a>
-    <a href="calculation.html">🧮 Calculations</a>
-    <a href="cranes.html">🏗️ Cranes</a>
-    <a href="planning.html">📋 Lift Planning</a>
-    <a href="safety.html">🦺 Lifting Safety</a>
-    <a href="study-notes.html">📚 Study Notes</a>
+    <a href="index.html">Home</a>
+    <a href="rigging.html">Rigging</a>
+    <a href="calculation.html">Calculations</a>
+    <a href="cranes.html">Cranes</a>
+    <a href="planning.html">Lifting Planning</a>
+    <a href="safety.html">Safety</a>
+    <a href="study-notes.html">Study Notes</a>
   </nav>
 
   <main>
     <section class="welcome">
-      <h2>👋 Welcome to Lifting &amp; Rigging Study</h2>
+      <img class="welcome-image" src="lifting.png" alt="Lifting engineering and crane operations"
+           onerror="this.style.display='none'">
 
-      <p>
-        Explore lifting and rigging study notes, lifting accessories,
-        crane information, lift planning, safety topics, and practical
-        calculations to support your professional knowledge.
-      </p>
+      <div class="welcome-content">
+        <h2>Welcome to Lifting Study</h2>
+        <p>
+          A study resource for lifting engineers, riggers, crane operators
+          and lifting professionals. Explore calculation tools, rigging
+          principles, crane information, safety guidance and lift planning.
+        </p>
 
-      <div class="welcome-buttons">
-        <a class="btn btn-primary" href="study-notes.html">
-          📚 Explore Study Notes →
-        </a>
-
-        <!-- Opens the page containing all calculators -->
-        <a class="btn btn-secondary" href="/Lifting-Study/calculation.html">
-          🧮 Open Calculation →
-        </a>
+        <div class="buttons">
+          <a class="btn btn-primary" href="planning.html">📋 Open Lifting Planning</a>
+          <a class="btn btn-secondary" href="calculation.html">🧮 Open Calculator</a>
+          <a class="btn btn-secondary" href="rigging.html">🪝 Rigging Study</a>
+        </div>
       </div>
     </section>
 
-    <h2 class="section-title">✨ Explore Study Topics</h2>
-
-    <section class="cards" aria-label="Study topics">
-      <article class="card card-accessories">
-        <span class="card-icon" aria-hidden="true">⛓️</span>
-        <h3>Lifting Accessories</h3>
-        <p>Learn about slings, shackles, hooks, and other lifting gear.</p>
-        <a href="rigging.html">🔍 Explore Accessories →</a>
+    <section class="grid" aria-label="Study sections">
+      <article class="card">
+        <h3>🧮 Calculations</h3>
+        <p>Open the dedicated calculation page for its lifting calculation tools.</p>
+        <a href="calculation.html">Open Calculations →</a>
       </article>
 
-      <article class="card card-cranes">
-        <span class="card-icon" aria-hidden="true">🏗️</span>
-        <h3>Cranes</h3>
-        <p>Study crane types, components, capacity, and safe operations.</p>
-        <a href="cranes.html">🔍 Explore Cranes →</a>
+      <article class="card">
+        <h3>📋 Lifting Planning</h3>
+        <p>Use the planning page for planning calculations and the lift checklist.</p>
+        <a href="planning.html">Open Planning →</a>
       </article>
 
-      <article class="card card-planning">
-        <span class="card-icon" aria-hidden="true">📋</span>
-        <h3>Lift Planning</h3>
-        <p>Review lift plans, risk assessment, and lifting preparation.</p>
-        <a href="planning.html">🔍 Explore Planning →</a>
+      <article class="card">
+        <h3>🪝 Rigging</h3>
+        <p>Review rigging information and lifting accessories.</p>
+        <a href="rigging.html">Open Rigging →</a>
       </article>
 
-      <article class="card card-safety">
-        <span class="card-icon" aria-hidden="true">🦺</span>
-        <h3>Lifting Safety</h3>
-        <p>Learn safe lifting practices and how to prevent hazards.</p>
-        <a href="safety.html">🔍 Explore Safety →</a>
+      <article class="card">
+        <h3>🏗️ Cranes</h3>
+        <p>Study crane types, configurations and operational considerations.</p>
+        <a href="cranes.html">Open Cranes →</a>
+      </article>
+
+      <article class="card">
+        <h3>🦺 Safety</h3>
+        <p>Review lifting safety practices and risk controls.</p>
+        <a href="safety.html">Open Safety →</a>
+      </article>
+
+      <article class="card">
+        <h3>📚 Study Notes</h3>
+        <p>Explore lifting engineering notes and learning material.</p>
+        <a href="study-notes.html">Open Study Notes →</a>
       </article>
     </section>
 
-    <!-- ABOUT CREATOR BOX -->
-    <section class="creator" aria-label="About Creator">
-      <img src="jawad-new.png" alt="Jawad Hussain"
-           onerror="this.alt='Creator photo not found'; this.style.background='#ffffff33';">
+    <section class="creator">
+      <img class="creator-photo"
+           src="jawad-new.png"
+           alt="Jawad Hussain, Lifting Engineer"
+           onerror="this.onerror=null;this.src='jawad.jpeg';this.onerror=function(){this.style.display='none'}">
 
-      <div class="creator-info">
-        <h2>👨‍🔧 About Creator</h2>
-        <h3>Jawad Hussain</h3>
-        <p class="creator-role">Lifting Engineer</p>
-        <p>📍 Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
-        <p>🌐 Languages: Punjabi, Urdu, English</p>
-
-        <a
-          class="instagram-link"
-          href="https://www.instagram.com/jawad_wai9s/"
-          target="_blank"
-          rel="noopener noreferrer"
-          aria-label="Follow Jawad Hussain on Instagram"
-        >
-          📸 Follow me on Instagram ↗
-        </a>
+      <div>
+        <h2>About the Creator</h2>
+        <p><strong>Jawad Hussain</strong></p>
+        <p>Lifting Engineer</p>
+        <p>Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
+        <p>Languages: Punjabi, Urdu and English</p>
+        <p>
+          Instagram:
+          <a href="https://www.instagram.com/jawad_wai9s/"
+             target="_blank" rel="noopener noreferrer">@jawad_wai9s</a>
+        </p>
       </div>
     </section>
   </main>
 
   <footer>
-    <p>⚙️ &copy; 2026 Lifting &amp; Rigging Study Hub</p>
+    Lifting Study • Educational resource for lifting professionals.
+    Always follow approved lift plans, manufacturer instructions and site procedures.
   </footer>
-
-  <script>
-    // Cross-browser install support
-    let deferredInstallPrompt = null;
-
-    const installButton = document.getElementById("install-app");
-    const installMessage = document.getElementById("install-message");
-
-    function showInstallMessage(message) {
-      installMessage.textContent = message;
-      installMessage.hidden = false;
-    }
-
-    function isInstalled() {
-      return window.matchMedia("(display-mode: standalone)").matches ||
-        window.matchMedia("(display-mode: fullscreen)").matches ||
-        window.navigator.standalone === true;
-    }
-
-    if (isInstalled()) {
-      installButton.textContent = "✓ App Installed";
-    }
-
-    window.addEventListener("beforeinstallprompt", (event) => {
-      event.preventDefault();
-      deferredInstallPrompt = event;
-      installButton.textContent = "📲 Install App";
-    });
-
-    installButton.addEventListener("click", async () => {
-      if (isInstalled()) {
-        showInstallMessage("The app is already installed on this device.");
-        return;
-      }
-
-      // Supported browsers can show their native installation prompt.
-      if (deferredInstallPrompt) {
-        deferredInstallPrompt.prompt();
-
-        try {
-          const result = await deferredInstallPrompt.userChoice;
-          if (result && result.outcome === "accepted") {
-            showInstallMessage("Installation accepted. Follow any remaining prompts.");
-          } else {
-            showInstallMessage("Installation was cancelled. You can try again later.");
-          }
-        } catch (error) {
-          showInstallMessage("Use your browser menu to install or add this site to your home screen.");
-        }
-
-        deferredInstallPrompt = null;
-        return;
-      }
-
-      // Browsers without a native prompt need manual installation.
-      const ua = navigator.userAgent || "";
-      const isIOS = /iphone|ipad|ipod/i.test(ua) ||
-        (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
-      const isSamsung = /samsungbrowser/i.test(ua);
-      const isFirefox = /firefox/i.test(ua);
-      const isEdge = /edg/i.test(ua);
-      const isChrome = /chrome|crios/i.test(ua) && !isEdge && !isSamsung;
-      const isSafari = /safari/i.test(ua) && !isChrome && !isEdge && !isSamsung;
-
-      if (isIOS) {
-        showInstallMessage(
-          "On iPhone or iPad: open this site in Safari, tap Share, then choose Add to Home Screen."
-        );
-      } else if (isSamsung) {
-        showInstallMessage(
-          "In Samsung Internet, open the browser menu and choose Add page to → Home screen, or Install app if shown."
-        );
-      } else if (isFirefox) {
-        showInstallMessage(
-          "If installation is available, open the Firefox menu and choose Install or Add to Home screen. Menu options vary by device."
-        );
-      } else if (isChrome || isEdge) {
-        showInstallMessage(
-          "Open the browser menu (⋮), then choose Install app or Add to Home screen. If absent, check that the site is HTTPS and its manifest and service worker load correctly."
-        );
-      } else if (isSafari) {
-        showInstallMessage(
-          "Open the Share menu and look for Add to Home Screen. Installation availability depends on your device and browser version."
-        );
-      } else {
-        showInstallMessage(
-          "Open your browser menu and look for Install app or Add to Home screen. If unavailable, this browser may not support web-app installation."
-        );
-      }
-    });
-
-    window.addEventListener("appinstalled", () => {
-      installButton.textContent = "✓ App Installed";
-      showInstallMessage("App installed successfully!");
-    });
-
-    // Register the service worker under the GitHub Pages project path.
-    if ("serviceWorker" in navigator && window.isSecureContext) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("/Lifting-Study/service-worker.js")
-          .catch((error) => {
-            console.error("Service worker registration failed:", error);
-          });
-      });
-    }
-  </script>
 </body>
 </html>
