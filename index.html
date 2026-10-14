@@ -2,10 +2,10 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="theme-color" content="#0b1220">
-  <meta name="description" content="Lifting and Rigging Study Hub - study notes, lifting calculations, crane information, and safety.">
-
+  <meta name="description" content="Lifting and Rigging Study Hub">
+  <link rel="manifest" href="/Lifting-Study/manifest.json">
   <title>Lifting &amp; Rigging Study Hub</title>
 
   <style>
@@ -18,57 +18,46 @@
     body {
       font-family: Arial, Helvetica, sans-serif;
       color: #172033;
-      background: linear-gradient(135deg, #e0f2fe, #f5f3ff, #fff7ed);
       line-height: 1.6;
       min-height: 100vh;
+      background: linear-gradient(135deg, #dbeafe, #f5d0fe, #ffedd5, #ccfbf1);
       overflow-x: hidden;
-      position: relative;
-    }
-
-    body::before,
-    body::after {
-      content: "";
-      position: fixed;
-      border-radius: 50%;
-      z-index: -1;
-      pointer-events: none;
-      opacity: 0.35;
-      filter: blur(2px);
-    }
-
-    body::before {
-      width: 260px;
-      height: 260px;
-      background: #67e8f9;
-      top: 180px;
-      left: -120px;
-    }
-
-    body::after {
-      width: 300px;
-      height: 300px;
-      background: #c4b5fd;
-      right: -150px;
-      bottom: 60px;
     }
 
     header {
       text-align: center;
       color: white;
-      padding: 48px 20px;
+      padding: 35px 20px;
       background:
-        linear-gradient(120deg, rgba(11, 18, 32, 0.88), rgba(30, 64, 175, 0.72)),
+        linear-gradient(120deg, rgba(11,18,32,.88), rgba(30,64,175,.72)),
         url("gasplant.png") center/cover no-repeat;
     }
 
     header h1 {
       font-size: clamp(2rem, 5vw, 3rem);
       line-height: 1.2;
-      margin-bottom: 12px;
+      margin-bottom: 8px;
     }
 
     header p {
-      font-size: 1.05rem;
+      margin-bottom: 18px;
+    }
+
+    .install-btn {
+      display: inline-block;
+      color: #172033;
+      background: linear-gradient(135deg, #fde047, #fb923c);
+      border: 0;
+      border-radius: 12px;
+      padding: 11px 19px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 5px 14px rgba(0,0,0,.18);
+    }
+
+    .install-btn:hover {
+      transform: translateY(-2px);
     }
 
     nav {
@@ -82,12 +71,14 @@
     }
 
     nav a {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
       color: white;
       text-decoration: none;
-      padding: 8px 13px;
+      padding: 8px 12px;
       border-radius: 20px;
-      font-size: 0.94rem;
-      transition: background 0.2s;
+      transition: background .2s;
     }
 
     nav a:hover {
@@ -101,63 +92,65 @@
 
     .welcome {
       color: white;
-      padding: 40px 28px;
+      padding: 38px 27px;
       border-radius: 22px;
       background:
-        linear-gradient(110deg, rgba(15, 23, 42, 0.92), rgba(37, 99, 235, 0.72)),
+        linear-gradient(110deg, rgba(15,23,42,.91), rgba(37,99,235,.75)),
         url("lifting.png") center/cover no-repeat;
-      box-shadow: 0 12px 30px rgba(15, 23, 42, 0.15);
+      box-shadow: 0 12px 30px rgba(15,23,42,.16);
       margin-bottom: 32px;
     }
 
     .welcome h2 {
-      font-size: clamp(1.65rem, 4vw, 2.35rem);
+      font-size: clamp(1.7rem, 4vw, 2.4rem);
       line-height: 1.25;
       margin-bottom: 12px;
     }
 
     .welcome p {
       max-width: 720px;
-      margin-bottom: 24px;
+      margin-bottom: 22px;
     }
 
     .welcome-buttons {
       display: flex;
       flex-wrap: wrap;
-      align-items: center;
       gap: 12px;
     }
 
     .btn {
-      display: inline-block;
-      padding: 12px 19px;
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 18px;
       border-radius: 10px;
       font-weight: bold;
       text-align: center;
       text-decoration: none;
-      transition: transform 0.2s, opacity 0.2s;
+      transition: transform .2s, opacity .2s;
     }
 
     .btn:hover {
       transform: translateY(-2px);
-      opacity: 0.92;
+      opacity: .92;
     }
 
     .btn-primary {
-      background: #facc15;
       color: #172033;
+      background: linear-gradient(135deg, #fde047, #facc15);
     }
 
     .btn-secondary {
-      background: white;
-      color: #1d4ed8;
+      color: #1e3a8a;
+      background: linear-gradient(135deg, #fff, #dbeafe);
     }
 
     .section-title {
       font-size: 1.8rem;
       text-align: center;
+      color: #172554;
       margin: 32px 0 22px;
-      color: #0f172a;
     }
 
     .cards {
@@ -169,58 +162,61 @@
     .card {
       position: relative;
       overflow: hidden;
-      padding: 26px;
-      border-radius: 19px;
+      padding: 25px;
+      border-radius: 20px;
       color: white;
-      min-height: 195px;
-      box-shadow: 0 8px 22px rgba(15, 23, 42, 0.13);
-      transition: transform 0.2s, box-shadow 0.2s;
+      min-height: 210px;
+      box-shadow: 0 9px 24px rgba(15,23,42,.14);
+      transition: transform .2s, box-shadow .2s;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 15px 30px rgba(15,23,42,.19);
     }
 
     .card::after {
       content: "";
       position: absolute;
-      width: 130px;
-      height: 130px;
-      right: -35px;
-      top: -45px;
-      border: 20px solid rgba(255, 255, 255, 0.13);
+      width: 145px;
+      height: 145px;
+      right: -42px;
+      top: -52px;
+      border: 20px solid rgba(255,255,255,.14);
       border-radius: 50%;
       pointer-events: none;
     }
 
-    .card:hover {
-      transform: translateY(-4px);
-      box-shadow: 0 14px 28px rgba(15, 23, 42, 0.17);
+    .card-icon {
+      display: block;
+      font-size: 2.25rem;
+      line-height: 1.2;
+      margin-bottom: 12px;
     }
 
     .card h3 {
-      position: relative;
-      z-index: 1;
       font-size: 1.35rem;
-      margin-bottom: 9px;
+      margin-bottom: 7px;
     }
 
     .card p {
-      position: relative;
-      z-index: 1;
-      margin-bottom: 20px;
+      margin-bottom: 19px;
     }
 
     .card a {
-      position: relative;
-      z-index: 1;
-      display: inline-block;
-      color: #172033;
-      background: white;
-      text-decoration: none;
-      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
       padding: 9px 14px;
       border-radius: 9px;
+      background: rgba(255,255,255,.96);
+      color: #172033;
+      font-weight: bold;
+      text-decoration: none;
     }
 
     .card a:hover {
-      background: #f1f5f9;
+      background: #e2e8f0;
     }
 
     .card-accessories {
@@ -239,17 +235,32 @@
       background: linear-gradient(135deg, #be123c, #fb7185);
     }
 
-    /* ABOUT CREATOR BOX */
+    /* ABOUT CREATOR */
     .creator {
+      position: relative;
       display: flex;
       align-items: center;
       gap: 25px;
       margin: 40px 0;
-      padding: 28px;
-      border-radius: 22px;
-      background: linear-gradient(135deg, #ffffff, #eff6ff);
-      border: 1px solid #dbeafe;
-      box-shadow: 0 10px 28px rgba(15, 23, 42, 0.10);
+      padding: 30px;
+      overflow: hidden;
+      border-radius: 24px;
+      color: white;
+      background: linear-gradient(125deg, #1d4ed8, #7c3aed, #db2777, #ea580c);
+      background-size: 200% 200%;
+      box-shadow: 0 12px 30px rgba(76,29,149,.23);
+    }
+
+    .creator::after {
+      content: "";
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      right: -65px;
+      bottom: -120px;
+      border: 25px solid rgba(255,255,255,.13);
+      border-radius: 50%;
+      pointer-events: none;
     }
 
     .creator img {
@@ -258,52 +269,55 @@
       flex-shrink: 0;
       object-fit: cover;
       object-position: center;
+      border: 5px solid rgba(255,255,255,.95);
       border-radius: 50%;
-      border: 5px solid white;
-      box-shadow: 0 5px 16px rgba(15, 23, 42, 0.18);
+      box-shadow: 0 6px 18px rgba(0,0,0,.22);
     }
 
     .creator-info {
+      position: relative;
+      z-index: 1;
       min-width: 0;
     }
 
     .creator-info h2 {
-      color: #1d4ed8;
       font-size: 1.7rem;
       margin-bottom: 5px;
     }
 
     .creator-info h3 {
-      color: #0f172a;
-      font-size: 1.35rem;
-      margin-bottom: 4px;
+      font-size: 1.4rem;
+      margin-bottom: 3px;
     }
 
     .creator-info p {
       margin: 5px 0;
-      color: #475569;
+      color: #fff;
       overflow-wrap: anywhere;
     }
 
     .creator-role {
       font-weight: bold;
-      color: #0f766e !important;
+      color: #fef08a !important;
     }
 
     .instagram-link {
-      display: inline-block;
-      margin-top: 14px;
-      padding: 10px 16px;
-      border-radius: 9px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 15px;
+      padding: 11px 16px;
+      border-radius: 10px;
+      color: #fff;
       background: linear-gradient(120deg, #833ab4, #e1306c, #f77737);
-      color: white;
+      border: 1px solid rgba(255,255,255,.4);
       text-decoration: none;
       font-weight: bold;
-      transition: opacity 0.2s, transform 0.2s;
+      box-shadow: 0 5px 13px rgba(0,0,0,.16);
+      transition: transform .2s;
     }
 
     .instagram-link:hover {
-      opacity: 0.9;
       transform: translateY(-2px);
     }
 
@@ -315,22 +329,23 @@
       margin-top: 35px;
     }
 
-    @media (max-width: 650px) {
-      main {
-        width: 92%;
-      }
+    #install-message {
+      margin-top: 10px;
+      font-size: .9rem;
+      color: #fef3c7;
+    }
 
+    @media (max-width: 650px) {
       .cards {
         grid-template-columns: 1fr;
       }
 
       .welcome {
-        padding: 30px 21px;
+        padding: 29px 20px;
       }
 
       .welcome-buttons {
         flex-direction: column;
-        align-items: stretch;
       }
 
       .welcome-buttons .btn {
@@ -352,26 +367,30 @@
 </head>
 
 <body>
-
   <header>
-    <h1>Lifting &amp; Rigging Study Hub</h1>
+    <h1>🏗️ Lifting &amp; Rigging Study Hub</h1>
     <p>Your learning resource for lifting operations, rigging, and safety</p>
+
+    <button type="button" class="install-btn" id="install-app">
+      📲 Install App
+    </button>
+
+    <p id="install-message" role="status" hidden></p>
   </header>
 
   <nav aria-label="Main navigation">
-    <a href="index.html">Home</a>
-    <a href="rigging.html">Lifting Accessories</a>
-    <a href="calculation.html">Calculations</a>
-    <a href="cranes.html">Cranes</a>
-    <a href="planning.html">Lift Planning</a>
-    <a href="safety.html">Lifting Safety</a>
-    <a href="study-notes.html">Study Notes</a>
+    <a href="index.html">🏠 Home</a>
+    <a href="rigging.html">⛓️ Lifting Accessories</a>
+    <a href="calculation.html">🧮 Calculations</a>
+    <a href="cranes.html">🏗️ Cranes</a>
+    <a href="planning.html">📋 Lift Planning</a>
+    <a href="safety.html">🦺 Lifting Safety</a>
+    <a href="study-notes.html">📚 Study Notes</a>
   </nav>
 
   <main>
-
     <section class="welcome">
-      <h2>Welcome to Lifting &amp; Rigging Study</h2>
+      <h2>👋 Welcome to Lifting &amp; Rigging Study</h2>
 
       <p>
         Explore lifting and rigging study notes, lifting accessories,
@@ -381,68 +400,57 @@
 
       <div class="welcome-buttons">
         <a class="btn btn-primary" href="study-notes.html">
-          Explore Study Notes
+          📚 Explore Study Notes →
         </a>
 
         <a class="btn btn-secondary" href="calculation.html">
-          Open Calculations
+          🧮 Open Calculations →
         </a>
       </div>
     </section>
 
-    <h2 class="section-title">Explore Study Topics</h2>
+    <h2 class="section-title">✨ Explore Study Topics</h2>
 
     <section class="cards" aria-label="Study topics">
-
       <article class="card card-accessories">
+        <span class="card-icon" aria-hidden="true">⛓️</span>
         <h3>Lifting Accessories</h3>
-        <p>
-          Learn about slings, shackles, hooks, and other lifting gear.
-        </p>
-        <a href="rigging.html">Explore</a>
+        <p>Learn about slings, shackles, hooks, and other lifting gear.</p>
+        <a href="rigging.html">🔍 Explore Accessories →</a>
       </article>
 
       <article class="card card-cranes">
+        <span class="card-icon" aria-hidden="true">🏗️</span>
         <h3>Cranes</h3>
-        <p>
-          Study crane types, components, capacity, and safe operations.
-        </p>
-        <a href="cranes.html">Explore</a>
+        <p>Study crane types, components, capacity, and safe operations.</p>
+        <a href="cranes.html">🔍 Explore Cranes →</a>
       </article>
 
       <article class="card card-planning">
+        <span class="card-icon" aria-hidden="true">📋</span>
         <h3>Lift Planning</h3>
-        <p>
-          Review lift plans, risk assessment, and lifting preparation.
-        </p>
-        <a href="planning.html">Explore</a>
+        <p>Review lift plans, risk assessment, and lifting preparation.</p>
+        <a href="planning.html">🔍 Explore Planning →</a>
       </article>
 
       <article class="card card-safety">
+        <span class="card-icon" aria-hidden="true">🦺</span>
         <h3>Lifting Safety</h3>
-        <p>
-          Learn safe lifting practices and how to prevent hazards.
-        </p>
-        <a href="safety.html">Explore</a>
+        <p>Learn safe lifting practices and how to prevent hazards.</p>
+        <a href="safety.html">🔍 Explore Safety →</a>
       </article>
-
     </section>
 
     <!-- ABOUT CREATOR BOX -->
     <section class="creator" aria-label="About Creator">
-
       <img src="jawad.jpeg" alt="Jawad Hussain">
 
       <div class="creator-info">
-        <h2>About Creator</h2>
-
+        <h2>👨‍🔧 About Creator</h2>
         <h3>Jawad Hussain</h3>
-
         <p class="creator-role">Lifting Engineer</p>
-
-        <p>Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
-
-        <p>Languages: Punjabi, Urdu, English</p>
+        <p>📍 Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
+        <p>🌐 Languages: Punjabi, Urdu, English</p>
 
         <a
           class="instagram-link"
@@ -451,17 +459,77 @@
           rel="noopener noreferrer"
           aria-label="Follow Jawad Hussain on Instagram"
         >
-          📸 Follow me on Instagram
+          📸 Follow me on Instagram ↗
         </a>
       </div>
-
     </section>
-
   </main>
 
   <footer>
-    <p>&copy; 2026 Lifting &amp; Rigging Study Hub</p>
+    <p>⚙️ &copy; 2026 Lifting &amp; Rigging Study Hub</p>
   </footer>
 
+  <script>
+    // PWA installation
+    let deferredInstallPrompt = null;
+
+    const installButton = document.getElementById("install-app");
+    const installMessage = document.getElementById("install-message");
+
+    function showInstallMessage(message) {
+      installMessage.textContent = message;
+      installMessage.hidden = false;
+    }
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      installButton.hidden = false;
+    });
+
+    installButton.addEventListener("click", async () => {
+      if (deferredInstallPrompt) {
+        deferredInstallPrompt.prompt();
+
+        const result = await deferredInstallPrompt.userChoice;
+        deferredInstallPrompt = null;
+
+        if (result.outcome === "accepted") {
+          showInstallMessage("Installation accepted. Follow any prompts on your device.");
+        } else {
+          showInstallMessage("Installation cancelled. You can try again later.");
+        }
+        return;
+      }
+
+      const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent);
+      const isStandalone =
+        window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true;
+
+      if (isStandalone) {
+        showInstallMessage("The app is already installed.");
+      } else if (isIOS) {
+        showInstallMessage("To install: tap Share in Safari, then Add to Home Screen.");
+      } else {
+        showInstallMessage("If installation is available, open your browser menu and choose Install app or Add to Home screen.");
+      }
+    });
+
+    window.addEventListener("appinstalled", () => {
+      installButton.hidden = true;
+      showInstallMessage("App installed successfully!");
+    });
+
+    // Register the existing service worker for the GitHub Pages site.
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("/Lifting-Study/service-worker.js")
+          .catch((error) => {
+            console.error("Service worker registration failed:", error);
+          });
+      });
+    }
+  </script>
 </body>
 </html>
