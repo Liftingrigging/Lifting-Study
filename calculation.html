@@ -1,573 +1,404 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="theme-color" content="#091426">
-  <title>Lifting &amp; Rigging Calculators</title>
-
-  <style>
-    :root {
-      --navy: #091426;
-      --navy-light: #122541;
-      --blue: #287be0;
-      --cyan: #54e3ef;
-      --purple: #a78bfa;
-      --text: #edf5ff;
-      --muted: #a8b8cf;
-      --border: rgba(155, 190, 230, 0.17);
-    }
-
-    * { box-sizing: border-box; }
-
-    html { scroll-behavior: smooth; }
-
-    body {
-      margin: 0;
-      min-height: 100vh;
-      color: var(--text);
-      font-family: Arial, Helvetica, sans-serif;
-      background:
-        radial-gradient(ellipse at 10% 8%, rgba(36,108,210,.28), transparent 38%),
-        radial-gradient(ellipse at 92% 25%, rgba(142,77,235,.19), transparent 35%),
-        radial-gradient(ellipse at 55% 90%, rgba(27,183,203,.12), transparent 38%),
-        linear-gradient(140deg, #07101f, #0c1b31 52%, #080f20);
-      background-attachment: fixed;
-      overflow-x: hidden;
-    }
-
-    body::before {
-      content: "";
-      position: fixed;
-      inset: 0;
-      pointer-events: none;
-      z-index: -1;
-      background-image:
-        linear-gradient(rgba(150,190,235,.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(150,190,235,.035) 1px, transparent 1px);
-      background-size: 42px 42px;
-      mask-image: linear-gradient(to bottom, black, transparent 90%);
-    }
-
-    .ambient {
-      position: fixed;
-      width: 340px;
-      height: 340px;
-      border-radius: 50%;
-      filter: blur(85px);
-      opacity: .18;
-      pointer-events: none;
-      z-index: -1;
-    }
-
-    .ambient-one {
-      background: #1687ff;
-      top: 28%;
-      left: -220px;
-    }
-
-    .ambient-two {
-      background: #9b5cff;
-      top: 55%;
-      right: -230px;
-    }
-
-    header {
-      position: relative;
-      overflow: hidden;
-      text-align: center;
-      padding: 62px 18px 58px;
-      border-bottom: 1px solid var(--border);
-      background:
-        linear-gradient(120deg,
-          rgba(17,48,84,.95),
-          rgba(12,25,49,.94) 55%,
-          rgba(53,32,88,.78));
-    }
-
-    header::before,
-    header::after {
-      content: "";
-      position: absolute;
-      border: 1px solid rgba(120,221,255,.16);
-      border-radius: 50%;
-      pointer-events: none;
-    }
-
-    header::before {
-      width: 340px;
-      height: 340px;
-      top: -220px;
-      left: -75px;
-      box-shadow:
-        0 0 0 35px rgba(83,181,255,.035),
-        0 0 0 75px rgba(83,181,255,.025);
-    }
-
-    header::after {
-      width: 420px;
-      height: 420px;
-      bottom: -335px;
-      right: -70px;
-      box-shadow:
-        0 0 0 35px rgba(177,133,255,.045),
-        0 0 0 75px rgba(177,133,255,.025);
-    }
-
-    .header-content {
-      position: relative;
-      z-index: 1;
-      max-width: 850px;
-      margin: auto;
-    }
-
-    .eyebrow {
-      display: inline-flex;
-      align-items: center;
-      gap: 9px;
-      margin-bottom: 18px;
-      padding: 8px 13px;
-      border: 1px solid rgba(110,220,255,.23);
-      border-radius: 50px;
-      background: rgba(34,115,180,.16);
-      color: #9cecf5;
-      font-size: 12px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--cyan);
-      box-shadow: 0 0 12px var(--cyan);
-    }
-
-    header h1 {
-      margin: 0 0 16px;
-      font-size: clamp(29px, 5vw, 49px);
-      line-height: 1.15;
-      letter-spacing: -1.5px;
-      background: linear-gradient(100deg, #fff 15%, #a8eaff 55%, #c5b2ff);
-      -webkit-background-clip: text;
-      background-clip: text;
-      color: transparent;
-    }
-
-    header p {
-      max-width: 650px;
-      margin: 0 auto;
-      color: #bdcde2;
-      line-height: 1.8;
-      font-size: 16px;
-    }
-
-    .container {
-      width: min(1150px, 94%);
-      margin: 30px auto 48px;
-    }
-
-    .top-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 22px;
-    }
-
-    .back-link,
-    .pdf-button {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      gap: 8px;
-      min-height: 44px;
-      border: 1px solid var(--border);
-      border-radius: 10px;
-      background: rgba(18,37,63,.86);
-      color: #e7f2ff;
-      text-decoration: none;
-      padding: 11px 16px;
-      font-size: 14px;
-      cursor: pointer;
-      transition: border-color .2s, background .2s, transform .2s;
-    }
-
-    .back-link:hover,
-    .pdf-button:hover {
-      border-color: rgba(84,227,239,.65);
-      background: rgba(35,67,105,.95);
-      transform: translateY(-2px);
-    }
-
-    .search-box {
-      width: 100%;
-      padding: 15px 17px;
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      font-size: 16px;
-      color: var(--text);
-      margin-bottom: 30px;
-      background: rgba(14,29,50,.91);
-      outline: none;
-      transition: border-color .2s, box-shadow .2s;
-    }
-
-    .search-box::placeholder { color: #8296b2; }
-
-    .search-box:focus {
-      border-color: rgba(84,227,239,.8);
-      box-shadow: 0 0 0 3px rgba(84,227,239,.09);
-    }
-
-    .category {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-      margin: 34px 0 15px;
-      color: #e8f2ff;
-      font-size: clamp(19px,3vw,23px);
-      letter-spacing: -.4px;
-    }
-
-    .category::before {
-      content: "";
-      flex-shrink: 0;
-      width: 4px;
-      height: 27px;
-      border-radius: 5px;
-      background: linear-gradient(to bottom, var(--cyan), var(--blue));
-      box-shadow: 0 0 13px rgba(84,227,239,.22);
-    }
-
-    .grid {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(min(100%,255px),1fr));
-      gap: 16px;
-    }
-
-    .card {
-      position: relative;
-      overflow: hidden;
-      min-width: 0;
-      min-height: 205px;
-      padding: 21px;
-      display: flex;
-      flex-direction: column;
-      border: 1px solid var(--border);
-      border-radius: 15px;
-      background:
-        linear-gradient(145deg,
-          rgba(22,43,71,.96),
-          rgba(12,26,46,.94));
-      box-shadow: 0 8px 24px rgba(0,0,0,.13);
-      transition:
-        transform .22s ease,
-        border-color .22s ease,
-        box-shadow .22s ease;
-    }
-
-    .card::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: 20px;
-      right: 20px;
-      height: 2px;
-      border-radius: 0 0 5px 5px;
-      background: linear-gradient(90deg,var(--cyan),var(--blue),var(--purple));
-      opacity: .72;
-    }
-
-    .card::after {
-      content: "";
-      position: absolute;
-      width: 105px;
-      height: 105px;
-      top: -66px;
-      right: -54px;
-      border: 1px solid rgba(125,183,255,.13);
-      border-radius: 50%;
-      box-shadow: 0 0 0 15px rgba(125,183,255,.025);
-      pointer-events: none;
-    }
-
-    .card:hover {
-      transform: translateY(-5px);
-      border-color: rgba(84,227,239,.42);
-      box-shadow: 0 15px 34px rgba(0,0,0,.23),
-                  0 0 22px rgba(41,151,220,.06);
-    }
-
-    .card h3 {
-      margin: 3px 0 11px;
-      color: #edf5ff;
-      font-size: 17px;
-      line-height: 1.45;
-    }
-
-    .card p {
-      margin: 0 0 20px;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.65;
-      flex-grow: 1;
-    }
-
-    .open-link {
-      position: relative;
-      z-index: 1;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 9px;
-      text-align: center;
-      min-height: 45px;
-      padding: 12px;
-      background: linear-gradient(100deg,#1769aa,#287be0);
-      color: white;
-      border: 1px solid rgba(130,199,255,.2);
-      border-radius: 9px;
-      text-decoration: none;
-      font-size: 14px;
-      font-weight: bold;
-      transition: filter .2s, transform .2s;
-    }
-
-    .open-link::after {
-      content: "→";
-      font-size: 17px;
-      transition: transform .2s;
-    }
-
-    .open-link:hover { filter: brightness(1.17); }
-    .open-link:hover::after { transform: translateX(3px); }
-
-    #noResults {
-      display: none;
-      background: rgba(18,37,63,.88);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 24px;
-      text-align: center;
-      color: var(--muted);
-    }
-
-    footer {
-      text-align: center;
-      padding: 25px 18px;
-      color: #91a6c0;
-      font-size: 13px;
-      line-height: 1.8;
-      border-top: 1px solid var(--border);
-      background: rgba(6,15,29,.4);
-    }
-
-    @media (max-width: 520px) {
-      header { padding: 46px 17px 42px; }
-      .container { margin-top: 20px; }
-      .top-actions { align-items: stretch; }
-      .back-link, .pdf-button { flex: 1; }
-      .card { min-height: 190px; }
-    }
-
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after {
-        scroll-behavior: auto !important;
-        transition: none !important;
-      }
-    }
-
-    @media print {
-      body { background: white; color: black; }
-      body::before, .ambient { display: none; }
-
-      header {
-        background: white;
-        color: black;
-        padding: 18px;
-        border-bottom: 1px solid #ccc;
-      }
-
-      header h1 { color: black; background: none; }
-      header p, .card p, footer { color: #333; }
-      .top-actions, .search-box, .open-link { display: none !important; }
-      .category, .card h3 { color: #111; }
-
-      .card {
-        break-inside: avoid;
-        box-shadow: none;
-        background: white;
-        border: 1px solid #bbb;
-      }
-
-      .card::before, .card::after, .category::before { display: none; }
-      .calculator-section { break-inside: avoid; }
-      footer { background: white; }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#102a43">
+<title>Lifting Planning Tools</title>
+<style>
+:root{--navy:#102a43;--blue:#1769aa;--cyan:#00b4d8;--green:#16845b;--border:#d9e5ef;--text:#203448}
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:linear-gradient(135deg,#eaf5ff,#f7faff 50%,#e9f9f4);line-height:1.6}
+header{color:white;padding:35px 18px;text-align:center;background:linear-gradient(120deg,rgba(9,35,58,.94),rgba(23,105,170,.85)),url("gasplant.png") center/cover}
+header h1{margin:0;font-size:clamp(1.8rem,5vw,2.7rem)}
+header p{margin:8px 0 0}
+nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:#102a43}
+nav a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px}
+nav a:hover{background:#1769aa}
+main{max-width:1100px;margin:auto;padding:20px 14px 45px}
+.intro{padding:24px;border-radius:16px;color:white;margin-bottom:20px;background:linear-gradient(120deg,rgba(16,42,67,.88),rgba(23,105,170,.78)),url("lifting.png") center/cover}
+.panel{background:white;border:1px solid var(--border);border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 5px 20px rgba(16,42,67,.06)}
+.panel h2{margin-top:0;color:var(--navy)}
+.panel h3{color:var(--blue);margin-bottom:8px}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.field{min-width:0}
+label{display:block;font-weight:700;margin-bottom:5px}
+input,select{width:100%;min-width:0;padding:11px 12px;border:1px solid #bdcddd;border-radius:9px;background:white;color:var(--text);font:inherit}
+input:focus,select:focus{outline:2px solid #80caff;border-color:var(--blue)}
+.help,.small{font-size:.9rem;color:#52697c}
+.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}
+button{border:0;border-radius:9px;padding:11px 16px;font-weight:700;font-size:.95rem;cursor:pointer;background:var(--blue);color:white}
+button:hover{filter:brightness(.94)}
+button.secondary{background:#52697c}
+.results{margin-top:16px;padding:16px;border-radius:12px;background:#f0f7ff;border:1px solid #cfe3f6}
+.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+.result{background:white;border:1px solid var(--border);border-radius:10px;padding:15px;min-width:0}
+.result .name{font-size:.9rem;color:#52697c;font-weight:700}
+.result .value{font-size:1.45rem;font-weight:800;color:var(--navy);overflow-wrap:anywhere}
+.status{padding:10px 12px;border-radius:8px;margin-top:12px}
+.status.warn{background:#fff5df;color:#754600}
+.status.good{background:#e5f8ee;color:#155c3b}
+.status.bad{background:#ffeded;color:#8b2222}
+.hidden{display:none!important}
+.checklist label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #edf1f5;font-weight:400}
+.checklist input{width:18px;height:18px;margin-top:4px;flex:0 0 auto}
+.progress{height:10px;background:#e7eef5;border-radius:10px;overflow:hidden}
+.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#00b4d8,#16845b)}
+.creator{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
+.creator img{width:110px;height:110px;object-fit:cover;border-radius:50%;border:4px solid #d8edff}
+footer{text-align:center;background:var(--navy);color:white;padding:22px}
+@media(max-width:650px){.grid,.result-grid{grid-template-columns:1fr}.panel{padding:16px}.intro{padding:18px}}
+@media print{
+ body{background:white;color:#111}
+ header,nav,.actions,.no-print,footer{display:none!important}
+ main{max-width:none;padding:0}
+ .panel{box-shadow:none;border:1px solid #aaa;break-inside:avoid}
+ .intro{background:white;color:#111;border:1px solid #aaa}
+ .results{break-inside:avoid}
+}
+</style>
 </head>
-
 <body>
-  <div class="ambient ambient-one"></div>
-  <div class="ambient ambient-two"></div>
+<header>
+<h1>Crane &amp; Lifting Planning Tools</h1>
+<p>Practical geometry checks and lift planning preparation</p>
+</header>
 
-  <header>
-    <div class="header-content">
-      <div class="eyebrow">
-        <span class="status-dot"></span>
-        Lifting · Rigging · Engineering
-      </div>
+<nav>
+<a href="index.html">Home</a>
+<a href="rigging.html">Rigging</a>
+<a href="calculation.html">Calculations</a>
+<a href="cranes.html">Cranes</a>
+<a href="planning.html">Planning</a>
+<a href="safety.html">Safety</a>
+<a href="study-notes.html">Study Notes</a>
+</nav>
 
-      <h1>Lifting &amp; Rigging Calculators</h1>
-      <p>
-        Study tools for lifting calculations, crane planning and rigging
-        operations. Explore your tools in one organized workspace.
-      </p>
-    </div>
-  </header>
+<main>
+<section class="intro">
+<h2>Lift Planning Workspace</h2>
+<p>Calculate crane geometry, check building clearance, and prepare your lift planning checklist.</p>
+<div class="actions no-print">
+<button onclick="savePDF()">Save / Print PDF</button>
+</div>
+</section>
 
-  <main class="container">
-    <div class="top-actions">
-      <a class="back-link" href="../index.html">← Back to Home</a>
-      <button class="pdf-button" type="button" onclick="window.print()">
-        Save as PDF
-      </button>
-    </div>
+<!-- CRANE GEOMETRY CALCULATOR -->
+<section class="panel" id="craneGeometry">
+<h2>1. Crane Geometry Calculator</h2>
+<p class="help">Select the two values you know, enter them, then select the value you want to calculate.</p>
 
-    <input
-      id="search"
-      class="search-box"
-      type="search"
-      placeholder="⌕  Search calculators by name..."
-      aria-label="Search calculators"
-    >
+<div class="grid">
+<div class="field">
+<label for="knownOne">First known value</label>
+<select id="knownOne" onchange="updateGeometryForm()">
+<option value="length">Boom length</option>
+<option value="radius">Horizontal radius</option>
+<option value="angle">Boom angle</option>
+</select>
+</div>
+<div class="field">
+<label for="knownTwo">Second known value</label>
+<select id="knownTwo" onchange="updateGeometryForm()">
+<option value="radius">Horizontal radius</option>
+<option value="angle">Boom angle</option>
+<option value="length">Boom length</option>
+</select>
+</div>
+<div class="field">
+<label for="findValue">Calculate which value?</label>
+<select id="findValue" onchange="updateGeometryForm()">
+<option value="angle">Boom angle</option>
+<option value="length">Boom length</option>
+<option value="radius">Horizontal radius</option>
+</select>
+</div>
+</div>
 
-    <p id="noResults" role="status">
-      No calculators match your search. Try a different keyword.
-    </p>
+<div class="grid" style="margin-top:14px">
+<div class="field" id="knownOneField">
+<label id="knownOneLabel" for="knownOneInput">Boom length (m)</label>
+<input id="knownOneInput" type="number" min="0" step="any" placeholder="Enter value">
+</div>
+<div class="field" id="knownTwoField">
+<label id="knownTwoLabel" for="knownTwoInput">Horizontal radius (m)</label>
+<input id="knownTwoInput" type="number" min="0" step="any" placeholder="Enter value">
+</div>
+</div>
 
-    <section class="calculator-section">
-      <h2 class="category">Weight &amp; Load Study</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Material Weight Calculator</h3>
-          <p>Calculate material weight using selected material density and volume.</p>
-          <a class="open-link" href="calculation/material-weight-calculator.html">Open Calculator</a>
-        </article>
+<div class="actions no-print">
+<button onclick="calculateGeometry()">Calculate</button>
+<button class="secondary" onclick="resetGeometry()">Reset</button>
+</div>
+<div id="geoResults" class="results hidden" aria-live="polite"></div>
+</section>
 
-        <article class="card">
-          <h3>Center of Gravity Calculator</h3>
-          <p>Study the combined center of gravity of components.</p>
-          <a class="open-link" href="calculation/center-of-gravity-calculator.html">Open Calculator</a>
-        </article>
-      </div>
-    </section>
+<!-- OBSTACLE CLEARANCE CALCULATOR -->
+<section class="panel" id="obstacleClearance">
+<h2>2. Obstacle Clearance Calculator</h2>
+<p class="help">Calculate vertical clearance above the roof and horizontal clearance from the building's near edge to the boom's roof-height crossing.</p>
 
-    <section class="calculator-section">
-      <h2 class="category">Sling, Shackle &amp; Wire Rope</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Sling Length &amp; Angle Calculator</h3>
-          <p>Study sling geometry using length, height, horizontal distance and angle inputs.</p>
-          <a class="open-link" href="calculation/sling-length-angle-calculator.html">Open Calculator</a>
-        </article>
+<div class="grid">
+<div class="field">
+<label for="centerDistance">Crane centre to building near edge (m)</label>
+<input id="centerDistance" type="number" min="0" step="any" value="20">
+</div>
+<div class="field">
+<label for="buildingLength">Building length (m)</label>
+<input id="buildingLength" type="number" min="0" step="any" value="12">
+</div>
+<div class="field">
+<label for="buildingHeight">Roof height above ground (m)</label>
+<input id="buildingHeight" type="number" min="0" step="any" value="15">
+</div>
+<div class="field">
+<label for="obstacleLength">Boom length (m)</label>
+<input id="obstacleLength" type="number" min="0.01" step="any" value="40">
+</div>
+<div class="field">
+<label for="obstacleAngle">Boom angle above horizontal (°)</label>
+<input id="obstacleAngle" type="number" min="0.01" max="90" step="any" value="50">
+</div>
+<div class="field">
+<label for="craneBaseHeight">Boom base height above ground (m)</label>
+<input id="craneBaseHeight" type="number" min="0" step="any" value="2">
+</div>
+<div class="field">
+<label for="extraClearance">Required clearance above roof (m)</label>
+<input id="extraClearance" type="number" min="0" step="any" value="2">
+</div>
+</div>
 
-        <article class="card">
-          <h3>Sling Tension / SWL Calculator</h3>
-          <p>Calculate sling tension and study safe working load conditions.</p>
-          <a class="open-link" href="calculation/sling-tension-swl-calculator.html">Open Calculator</a>
-        </article>
+<div class="actions no-print">
+<button onclick="calculateClearance()">Calculate Clearance</button>
+<button class="secondary" onclick="resetClearance()">Reset</button>
+</div>
+<div id="clearanceResults" class="results hidden" aria-live="polite"></div>
+</section>
 
-        <article class="card">
-          <h3>Shackle WLL Calculator</h3>
-          <p>Study shackle working load limits for lifting configurations.</p>
-          <a class="open-link" href="calculation/shackle-wll-calculator.html">Open Calculator</a>
-        </article>
+<!-- LIFT PLANNING CHECKLIST -->
+<section class="panel" id="liftChecklist">
+<h2>3. Lift Planning Checklist</h2>
+<p class="help">Tick items after verification by the responsible lifting team.</p>
+<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
+<p id="progressText" class="small">0 of 12 items complete</p>
 
-        <article class="card">
-          <h3>D/d Ratio Calculator</h3>
-          <p>Calculate the ratio of bend diameter to rope diameter.</p>
-          <a class="open-link" href="calculation/d-d-ratio-calculator.html">Open Calculator</a>
-        </article>
-      </div>
-    </section>
+<div class="checklist" id="checklistItems">
+<label><input type="checkbox"> Confirm load weight, dimensions, centre of gravity, and lifting points.</label>
+<label><input type="checkbox"> Verify crane configuration and manufacturer's load chart.</label>
+<label><input type="checkbox"> Confirm operating radius throughout the complete lift path.</label>
+<label><input type="checkbox"> Check boom length, boom angle, and jib configuration.</label>
+<label><input type="checkbox"> Verify building, structure, and overhead obstacle clearances.</label>
+<label><input type="checkbox"> Confirm ground bearing capacity and outrigger support.</label>
+<label><input type="checkbox"> Check rigging weight, sling angles, and lifting accessories.</label>
+<label><input type="checkbox"> Confirm wind limits and expected weather conditions.</label>
+<label><input type="checkbox"> Establish exclusion zones and communication arrangements.</label>
+<label><input type="checkbox"> Confirm power-line and underground-service precautions.</label>
+<label><input type="checkbox"> Review the lift sequence with the competent lifting team.</label>
+<label><input type="checkbox"> Obtain required permits, approvals, and pre-lift inspection.</label>
+</div>
+<div class="actions no-print">
+<button class="secondary" onclick="resetChecklist()">Reset Checklist</button>
+</div>
+</section>
 
-    <section class="calculator-section">
-      <h2 class="category">Crane &amp; Lift Planning</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Crane Selection Calculator</h3>
-          <p>Study crane selection for planned lifting operations.</p>
-          <a class="open-link" href="calculation/crane-selection-calculator.html">Open Calculator</a>
-        </article>
+<section class="panel">
+<h2>About the Creator</h2>
+<div class="creator">
+<img src="jawad.jpeg" alt="Creator photo" onerror="this.style.display='none'">
+<div>
+<h3>Jawad Hussain</h3>
+<p><strong>Lifting Engineer</strong></p>
+<p>Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
+<p>Languages: Punjabi, Urdu, English</p>
+<p><a href="https://www.instagram.com/jawad_wai9s/" target="_blank" rel="noopener">Instagram: @jawad_wai9s</a></p>
+</div>
+</div>
+</section>
 
-        <article class="card">
-          <h3>Critical Lift Planning Calculator</h3>
-          <p>Review key details for critical lift planning.</p>
-          <a class="open-link" href="calculation/critical-lift-planning-calculator.html">Open Calculator</a>
-        </article>
+<section class="panel">
+<h2>Important Safety Note</h2>
+<p>These calculators provide simplified geometric estimates only. They do not establish crane capacity or prove that the complete boom envelope clears a building. Actual boom configuration, deflection, jib arrangement, crane orientation, and load movement may affect clearances.</p>
+<p>Verify the full lift path, crane capacity, and configuration using the manufacturer's documents and an approved lift plan reviewed by a competent lifting professional.</p>
+</section>
+</main>
 
-        <article class="card">
-          <h3>Superlift Study Calculator</h3>
-          <p>Open the superlift study tool.</p>
-          <a class="open-link" href="calculation/superlift-study-calculator.html">Open Calculator</a>
-        </article>
+<footer>
+<p>Crane &amp; Lifting Planning Tools</p>
+<p class="small" style="color:#d7e7f5">Plan carefully. Verify independently. Lift safely.</p>
+</footer>
 
-        <article class="card">
-          <h3>Tailing Load Distribution Calculator</h3>
-          <p>Study load distribution between cranes during tailing operations.</p>
-          <a class="open-link" href="calculation/tailing-load-distribution-calculator.html">Open Calculator</a>
-        </article>
-      </div>
-    </section>
+<script>
+const geometryInfo={
+ length:{label:"Boom length",unit:"m"},
+ radius:{label:"Horizontal radius",unit:"m"},
+ angle:{label:"Boom angle",unit:"°"}
+};
 
-    <section class="calculator-section">
-      <h2 class="category">Ground &amp; Outriggers</h2>
-      <div class="grid">
-        <article class="card">
-          <h3>Ground Bearing Calculator</h3>
-          <p>Study ground bearing pressure for lifting equipment and crane setups.</p>
-          <a class="open-link" href="calculation/ground-bearing-calculator.html">Open Calculator</a>
-        </article>
-      </div>
-    </section>
-  </main>
+function updateGeometryForm(){
+ const one=document.getElementById("knownOne");
+ const two=document.getElementById("knownTwo");
+ const find=document.getElementById("findValue");
 
-  <footer>
-    For study and planning support only. Verify calculations, equipment ratings,
-    lift plans and operating conditions with qualified personnel before use.
-  </footer>
+ // Keep all three selections unique.
+ if(one.value===two.value){
+   two.value=["length","radius","angle"].find(v=>v!==one.value&&v!==find.value)||["length","radius","angle"].find(v=>v!==one.value);
+ }
+ if(find.value===one.value){
+   find.value=["length","radius","angle"].find(v=>v!==one.value&&v!==two.value);
+ }
+ if(find.value===two.value){
+   find.value=["length","radius","angle"].find(v=>v!==one.value&&v!==two.value);
+ }
 
-  <script>
-    const searchInput = document.getElementById("search");
-    const cards = Array.from(document.querySelectorAll(".card"));
-    const sections = Array.from(document.querySelectorAll(".calculator-section"));
-    const noResults = document.getElementById("noResults");
+ document.getElementById("knownOneLabel").textContent=geometryInfo[one.value].label+" ("+geometryInfo[one.value].unit+")";
+ document.getElementById("knownTwoLabel").textContent=geometryInfo[two.value].label+" ("+geometryInfo[two.value].unit+")";
+ document.getElementById("knownOneInput").placeholder="Enter "+geometryInfo[one.value].label.toLowerCase();
+ document.getElementById("knownTwoInput").placeholder="Enter "+geometryInfo[two.value].label.toLowerCase();
+}
 
-    searchInput.addEventListener("input", function () {
-      const query = this.value.trim().toLowerCase();
-      let visibleCards = 0;
+function calculateGeometry(){
+ const one=document.getElementById("knownOne").value;
+ const two=document.getElementById("knownTwo").value;
+ const find=document.getElementById("findValue").value;
+ const v1=Number(document.getElementById("knownOneInput").value);
+ const v2=Number(document.getElementById("knownTwoInput").value);
 
-      cards.forEach(function (card) {
-        const matches = card.textContent.toLowerCase().includes(query);
-        card.style.display = matches ? "" : "none";
-        if (matches) visibleCards++;
-      });
+ if(one===two||find===one||find===two){
+   showResult("geoResults",message("bad","Select two different known values and a different value to calculate."));
+   return;
+ }
+ if(document.getElementById("knownOneInput").value.trim()===""||
+    document.getElementById("knownTwoInput").value.trim()===""||
+    !Number.isFinite(v1)||!Number.isFinite(v2)||v1<0||v2<0){
+   showResult("geoResults",message("bad","Enter valid non-negative values in both input fields."));
+   return;
+ }
 
-      sections.forEach(function (section) {
-        const hasVisibleCard = Array.from(section.querySelectorAll(".card"))
-          .some(function (card) {
-            return card.style.display !== "none";
-          });
-        section.style.display = hasVisibleCard ? "" : "none";
-      });
+ const values={};
+ values[one]=v1;
+ values[two]=v2;
+ let result;
 
-      noResults.style.display = visibleCards === 0 ? "block" : "none";
-    });
-  </script>
+ if(find==="angle"){
+   const L=values.length,R=values.radius;
+   if(!(L>0)||R>L){
+     showResult("geoResults",message("bad","Boom length must be greater than zero, and horizontal radius cannot exceed boom length."));
+     return;
+   }
+   result=Math.acos(Math.min(1,Math.max(-1,R/L)))*180/Math.PI;
+ }else if(find==="radius"){
+   const L=values.length,A=values.angle;
+   if(!(L>0)||A>90){
+     showResult("geoResults",message("bad","Enter a positive boom length and an angle between 0° and 90°."));
+     return;
+   }
+   result=L*Math.cos(A*Math.PI/180);
+ }else{
+   const R=values.radius,A=values.angle;
+   if(A>90|| (Math.abs(Math.cos(A*Math.PI/180))<1e-10&&R>1e-8)){
+     showResult("geoResults",message("bad","These values do not produce a valid straight-boom geometry."));
+     return;
+   }
+   result=R/Math.cos(A*Math.PI/180);
+ }
+ if(!Number.isFinite(result)){
+   showResult("geoResults",message("bad","Unable to calculate with these values. Check your inputs."));
+   return;
+ }
+ showResult("geoResults",`<h3>Calculated Result</h3><div class="result-grid">${resultCard(geometryInfo[find].label,result,geometryInfo[find].unit)}</div>`);
+}
+
+function resetGeometry(){
+ document.getElementById("knownOne").value="length";
+ document.getElementById("knownTwo").value="radius";
+ document.getElementById("findValue").value="angle";
+ document.getElementById("knownOneInput").value="";
+ document.getElementById("knownTwoInput").value="";
+ hideResult("geoResults");
+ updateGeometryForm();
+}
+
+function numberValue(id){
+ const el=document.getElementById(id);
+ if(!el||el.value.trim()==="")return NaN;
+ return Number(el.value);
+}
+function showResult(id,html){
+ const el=document.getElementById(id);
+ el.innerHTML=html;
+ el.classList.remove("hidden");
+}
+function hideResult(id){document.getElementById(id).classList.add("hidden")}
+function fmt(value){
+ return Number.isFinite(value)?value.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"Not available";
+}
+function resultCard(label,value,unit="m"){
+ return `<div class="result"><div class="name">${label}</div><div class="value">${fmt(value)} ${unit}</div></div>`;
+}
+function message(type,text){return `<div class="status ${type}">${text}</div>`}
+
+function calculateClearance(){
+ const D=numberValue("centerDistance");
+ const W=numberValue("buildingLength");
+ const H=numberValue("buildingHeight");
+ const L=numberValue("obstacleLength");
+ const A=numberValue("obstacleAngle");
+ const B=numberValue("craneBaseHeight");
+ const C=numberValue("extraClearance");
+
+ if(![D,W,H,L,A,B,C].every(Number.isFinite)||D<0||W<0||H<0||L<=0||A<=0||A>90||B<0||C<0){
+   showResult("clearanceResults",message("bad","Check all inputs. Distances and heights must be non-negative, boom length positive, and angle greater than 0° and no more than 90°."));
+   return;
+ }
+
+ const rad=A*Math.PI/180;
+ const horizontalReach=L*Math.cos(rad);
+ const near=D;
+ const far=D+W;
+ const nearHeight=B+near*Math.tan(rad);
+ const farHeight=B+far*Math.tan(rad);
+ const verticalClearance=Math.min(nearHeight-H,farHeight-H);
+ const requiredRoofHeight=H+C;
+ const roofCrossX=(requiredRoofHeight-B)/Math.tan(rad);
+ const horizontalClearance=D-roofCrossX;
+
+ let html=`<h3>Clearance Results</h3><div class="result-grid">
+ ${resultCard("Vertical clearance",verticalClearance)}
+ ${resultCard("Horizontal clearance",horizontalClearance)}
+ </div>`;
+
+ if(far>horizontalReach+1e-8){
+   html+=message("warn","The far building edge is beyond the boom's horizontal reach in this simplified model. These values do not establish that the lift is feasible.");
+ }else if(verticalClearance<C){
+   html+=message("bad","The boom centreline does not provide the required clearance above the roof across the entered building length.");
+ }else if(horizontalClearance<0){
+   html+=message("warn","The boom centreline reaches the required roof-clearance height over the building footprint. Review the full boom envelope before proceeding.");
+ }else{
+   html+=message("good","The simplified geometry meets the entered vertical clearance and places the roof-height crossing before the near edge. Verify the complete boom envelope and actual crane configuration.");
+ }
+ html+=`<p class="small">Vertical clearance is the minimum boom-centreline height above the roof at the near and far edges. Horizontal clearance is the signed distance from the near edge to the boom-centreline point at roof height plus required clearance. Positive means before the near edge; negative means over the building footprint.</p>`;
+ showResult("clearanceResults",html);
+}
+function resetClearance(){
+ const defaults={centerDistance:20,buildingLength:12,buildingHeight:15,obstacleLength:40,obstacleAngle:50,craneBaseHeight:2,extraClearance:2};
+ Object.entries(defaults).forEach(([id,value])=>document.getElementById(id).value=value);
+ hideResult("clearanceResults");
+}
+
+function updateChecklist(){
+ const boxes=[...document.querySelectorAll("#checklistItems input[type=checkbox]")];
+ const checked=boxes.filter(box=>box.checked).length;
+ document.getElementById("progressBar").style.width=(checked/boxes.length*100)+"%";
+ document.getElementById("progressText").textContent=`${checked} of ${boxes.length} items complete`;
+}
+function resetChecklist(){
+ document.querySelectorAll("#checklistItems input[type=checkbox]").forEach(box=>box.checked=false);
+ updateChecklist();
+}
+document.querySelectorAll("#checklistItems input[type=checkbox]").forEach(box=>box.addEventListener("change",updateChecklist));
+function savePDF(){window.print()}
+updateGeometryForm();
+</script>
 </body>
 </html>
