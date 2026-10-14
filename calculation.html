@@ -1,564 +1,556 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#102d46">
-<title>Lift Calculations | Lifting Study</title>
-<style>
-:root {
-  --navy:#102d46; --blue:#176b87; --cyan:#22b8cf;
-  --bg:#edf4f8; --card:#fff; --text:#193348;
-  --muted:#60778a; --line:#d8e4ec; --green:#157347;
-  --red:#b42318; --orange:#a45a00;
-}
-* { box-sizing:border-box; }
-body {
-  margin:0; font-family:Arial,Helvetica,sans-serif;
-  background:linear-gradient(145deg,#e8f4fa,#f8fbfd 55%,#e0edf4);
-  color:var(--text); line-height:1.55;
-}
-header {
-  color:white; padding:28px 18px;
-  background:linear-gradient(120deg,#102d46,#176b87,#1598ad);
-  text-align:center;
-}
-header h1 { margin:0 0 8px; font-size:clamp(26px,4vw,40px); }
-header p { margin:0; opacity:.92; }
-.banner {
-  display:block; width:100%; max-height:240px; object-fit:cover;
-}
-nav {
-  display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
-  padding:12px; background:#0c2338;
-}
-nav a {
-  color:white; text-decoration:none; padding:9px 13px;
-  border-radius:8px; font-size:14px;
-}
-nav a:hover,nav a.active { background:#176b87; }
-.container { max-width:1150px; margin:auto; padding:22px 14px 45px; }
-.intro,.panel {
-  background:var(--card); border:1px solid var(--line);
-  border-radius:15px; padding:20px; margin-bottom:18px;
-  box-shadow:0 5px 20px #1933480c;
-}
-.intro { display:grid; grid-template-columns:1.4fr 1fr; gap:20px; align-items:center; }
-.intro img { width:100%; max-height:230px; object-fit:cover; border-radius:10px; }
-h2 { margin:0 0 12px; color:var(--navy); }
-h3 { color:var(--blue); margin:20px 0 8px; }
-p { margin-top:6px; }
-.muted { color:var(--muted); font-size:14px; }
-.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
-.calc {
-  background:#fff; border:1px solid var(--line); border-radius:14px;
-  padding:18px; min-width:0;
-}
-.calc h3 { margin-top:0; }
-label { display:block; font-size:14px; font-weight:700; margin:12px 0 5px; }
-input,select {
-  width:100%; min-width:0; padding:11px 12px; border:1px solid #b8cbd8;
-  border-radius:8px; font-size:16px; color:var(--text); background:white;
-}
-input:focus,select:focus { outline:2px solid #22b8cf66; border-color:var(--blue); }
-button {
-  border:0; border-radius:8px; padding:11px 14px; font-size:14px;
-  font-weight:700; cursor:pointer; margin:10px 5px 0 0;
-}
-.primary { color:white; background:var(--blue); }
-.secondary { color:var(--navy); background:#e5eef4; }
-button:hover { filter:brightness(.96); }
-.result {
-  display:none; margin-top:15px; padding:14px; border-radius:10px;
-  background:#eef7fa; border:1px solid #c7e1eb; overflow-wrap:anywhere;
-}
-.result.error { background:#fff1f0; border-color:#f0b9b5; color:var(--red); }
-.result h4 { margin:0 0 8px; }
-.result table { width:100%; border-collapse:collapse; }
-.result td { padding:7px 5px; border-bottom:1px solid #d6e6ec; vertical-align:top; }
-.result td:last-child { text-align:right; font-weight:700; }
-.formula { font-size:13px; color:var(--muted); margin-top:10px; }
-.warning {
-  background:#fff7e8; border:1px solid #f1d39b; color:#704b08;
-  border-radius:10px; padding:13px; margin:14px 0;
-}
-.badge { display:inline-block; background:#e1f3f7; color:#12586a; padding:3px 8px; border-radius:99px; font-size:12px; }
-.full { grid-column:1/-1; }
-footer { text-align:center; padding:25px; color:#d9e9f1; background:#0c2338; }
-footer a { color:#6ee7f9; }
-@media(max-width:760px) {
-  .grid,.intro { grid-template-columns:1fr; }
-  .container { padding:14px 10px 30px; }
-  .panel,.calc,.intro { padding:15px; }
-  nav a { padding:8px 10px; }
-}
-@media print {
-  nav,button,.no-print { display:none!important; }
-  body { background:white; }
-  .panel,.calc,.intro { box-shadow:none; break-inside:avoid; }
-  .result { display:block!important; }
-}
-</style>
-</head>
-<body>
+<!DOCTYPE html>  <html lang="en">  
+<head>  
+  <meta charset="UTF-8">  
+  <meta name="viewport" content="width=device-width, initial-scale=1">  
+  <meta name="theme-color" content="#091426">  
+  <title>Lifting &amp; Rigging Calculators</title>    <style>  
+    :root {  
+      --navy: #091426;  
+      --navy-light: #122541;  
+      --blue: #287be0;  
+      --cyan: #54e3ef;  
+      --purple: #a78bfa;  
+      --text: #edf5ff;  
+      --muted: #a8b8cf;  
+      --border: rgba(155, 190, 230, 0.17);  
+    }  
+  
+    * { box-sizing: border-box; }  
+  
+    html { scroll-behavior: smooth; }  
+  
+    body {  
+      margin: 0;  
+      min-height: 100vh;  
+      color: var(--text);  
+      font-family: Arial, Helvetica, sans-serif;  
+      background:  
+        radial-gradient(ellipse at 10% 8%, rgba(36,108,210,.28), transparent 38%),  
+        radial-gradient(ellipse at 92% 25%, rgba(142,77,235,.19), transparent 35%),  
+        radial-gradient(ellipse at 55% 90%, rgba(27,183,203,.12), transparent 38%),  
+        linear-gradient(140deg, #07101f, #0c1b31 52%, #080f20);  
+      background-attachment: fixed;  
+      overflow-x: hidden;  
+    }  
+  
+    body::before {  
+      content: "";  
+      position: fixed;  
+      inset: 0;  
+      pointer-events: none;  
+      z-index: -1;  
+      background-image:  
+        linear-gradient(rgba(150,190,235,.035) 1px, transparent 1px),  
+        linear-gradient(90deg, rgba(150,190,235,.035) 1px, transparent 1px);  
+      background-size: 42px 42px;  
+      mask-image: linear-gradient(to bottom, black, transparent 90%);  
+    }  
+  
+    .ambient {  
+      position: fixed;  
+      width: 340px;  
+      height: 340px;  
+      border-radius: 50%;  
+      filter: blur(85px);  
+      opacity: .18;  
+      pointer-events: none;  
+      z-index: -1;  
+    }  
+  
+    .ambient-one {  
+      background: #1687ff;  
+      top: 28%;  
+      left: -220px;  
+    }  
+  
+    .ambient-two {  
+      background: #9b5cff;  
+      top: 55%;  
+      right: -230px;  
+    }  
+  
+    header {  
+      position: relative;  
+      overflow: hidden;  
+      text-align: center;  
+      padding: 62px 18px 58px;  
+      border-bottom: 1px solid var(--border);  
+      background:  
+        linear-gradient(120deg,  
+          rgba(17,48,84,.95),  
+          rgba(12,25,49,.94) 55%,  
+          rgba(53,32,88,.78));  
+    }  
+  
+    header::before,  
+    header::after {  
+      content: "";  
+      position: absolute;  
+      border: 1px solid rgba(120,221,255,.16);  
+      border-radius: 50%;  
+      pointer-events: none;  
+    }  
+  
+    header::before {  
+      width: 340px;  
+      height: 340px;  
+      top: -220px;  
+      left: -75px;  
+      box-shadow:  
+        0 0 0 35px rgba(83,181,255,.035),  
+        0 0 0 75px rgba(83,181,255,.025);  
+    }  
+  
+    header::after {  
+      width: 420px;  
+      height: 420px;  
+      bottom: -335px;  
+      right: -70px;  
+      box-shadow:  
+        0 0 0 35px rgba(177,133,255,.045),  
+        0 0 0 75px rgba(177,133,255,.025);  
+    }  
+  
+    .header-content {  
+      position: relative;  
+      z-index: 1;  
+      max-width: 850px;  
+      margin: auto;  
+    }  
+  
+    .eyebrow {  
+      display: inline-flex;  
+      align-items: center;  
+      gap: 9px;  
+      margin-bottom: 18px;  
+      padding: 8px 13px;  
+      border: 1px solid rgba(110,220,255,.23);  
+      border-radius: 50px;  
+      background: rgba(34,115,180,.16);  
+      color: #9cecf5;  
+      font-size: 12px;  
+      font-weight: bold;  
+      letter-spacing: 2px;  
+      text-transform: uppercase;  
+    }  
+  
+    .status-dot {  
+      width: 7px;  
+      height: 7px;  
+      border-radius: 50%;  
+      background: var(--cyan);  
+      box-shadow: 0 0 12px var(--cyan);  
+    }  
+  
+    header h1 {  
+      margin: 0 0 16px;  
+      font-size: clamp(29px, 5vw, 49px);  
+      line-height: 1.15;  
+      letter-spacing: -1.5px;  
+      background: linear-gradient(100deg, #fff 15%, #a8eaff 55%, #c5b2ff);  
+      -webkit-background-clip: text;  
+      background-clip: text;  
+      color: transparent;  
+    }  
+  
+    header p {  
+      max-width: 650px;  
+      margin: 0 auto;  
+      color: #bdcde2;  
+      line-height: 1.8;  
+      font-size: 16px;  
+    }  
+  
+    .container {  
+      width: min(1150px, 94%);  
+      margin: 30px auto 48px;  
+    }  
+  
+    .top-actions {  
+      display: flex;  
+      flex-wrap: wrap;  
+      gap: 12px;  
+      justify-content: space-between;  
+      align-items: center;  
+      margin-bottom: 22px;  
+    }  
+  
+    .back-link,  
+    .pdf-button {  
+      display: inline-flex;  
+      align-items: center;  
+      justify-content: center;  
+      gap: 8px;  
+      min-height: 44px;  
+      border: 1px solid var(--border);  
+      border-radius: 10px;  
+      background: rgba(18,37,63,.86);  
+      color: #e7f2ff;  
+      text-decoration: none;  
+      padding: 11px 16px;  
+      font-size: 14px;  
+      cursor: pointer;  
+      transition: border-color .2s, background .2s, transform .2s;  
+    }  
+  
+    .back-link:hover,  
+    .pdf-button:hover {  
+      border-color: rgba(84,227,239,.65);  
+      background: rgba(35,67,105,.95);  
+      transform: translateY(-2px);  
+    }  
+  
+    .search-box {  
+      width: 100%;  
+      padding: 15px 17px;  
+      border: 1px solid var(--border);  
+      border-radius: 12px;  
+      font-size: 16px;  
+      color: var(--text);  
+      margin-bottom: 30px;  
+      background: rgba(14,29,50,.91);  
+      outline: none;  
+      transition: border-color .2s, box-shadow .2s;  
+    }  
+  
+    .search-box::placeholder { color: #8296b2; }  
+  
+    .search-box:focus {  
+      border-color: rgba(84,227,239,.8);  
+      box-shadow: 0 0 0 3px rgba(84,227,239,.09);  
+    }  
+  
+    .category {  
+      display: flex;  
+      align-items: center;  
+      gap: 12px;  
+      margin: 34px 0 15px;  
+      color: #e8f2ff;  
+      font-size: clamp(19px,3vw,23px);  
+      letter-spacing: -.4px;  
+    }  
+  
+    .category::before {  
+      content: "";  
+      flex-shrink: 0;  
+      width: 4px;  
+      height: 27px;  
+      border-radius: 5px;  
+      background: linear-gradient(to bottom, var(--cyan), var(--blue));  
+      box-shadow: 0 0 13px rgba(84,227,239,.22);  
+    }  
+  
+    .grid {  
+      display: grid;  
+      grid-template-columns: repeat(auto-fit, minmax(min(100%,255px),1fr));  
+      gap: 16px;  
+    }  
+  
+    .card {  
+      position: relative;  
+      overflow: hidden;  
+      min-width: 0;  
+      min-height: 205px;  
+      padding: 21px;  
+      display: flex;  
+      flex-direction: column;  
+      border: 1px solid var(--border);  
+      border-radius: 15px;  
+      background:  
+        linear-gradient(145deg,  
+          rgba(22,43,71,.96),  
+          rgba(12,26,46,.94));  
+      box-shadow: 0 8px 24px rgba(0,0,0,.13);  
+      transition:  
+        transform .22s ease,  
+        border-color .22s ease,  
+        box-shadow .22s ease;  
+    }  
+  
+    .card::before {  
+      content: "";  
+      position: absolute;  
+      top: 0;  
+      left: 20px;  
+      right: 20px;  
+      height: 2px;  
+      border-radius: 0 0 5px 5px;  
+      background: linear-gradient(90deg,var(--cyan),var(--blue),var(--purple));  
+      opacity: .72;  
+    }  
+  
+    .card::after {  
+      content: "";  
+      position: absolute;  
+      width: 105px;  
+      height: 105px;  
+      top: -66px;  
+      right: -54px;  
+      border: 1px solid rgba(125,183,255,.13);  
+      border-radius: 50%;  
+      box-shadow: 0 0 0 15px rgba(125,183,255,.025);  
+      pointer-events: none;  
+    }  
+  
+    .card:hover {  
+      transform: translateY(-5px);  
+      border-color: rgba(84,227,239,.42);  
+      box-shadow: 0 15px 34px rgba(0,0,0,.23),  
+                  0 0 22px rgba(41,151,220,.06);  
+    }  
+  
+    .card h3 {  
+      margin: 3px 0 11px;  
+      color: #edf5ff;  
+      font-size: 17px;  
+      line-height: 1.45;  
+    }  
+  
+    .card p {  
+      margin: 0 0 20px;  
+      color: var(--muted);  
+      font-size: 14px;  
+      line-height: 1.65;  
+      flex-grow: 1;  
+    }  
+  
+    .open-link {  
+      position: relative;  
+      z-index: 1;  
+      display: flex;  
+      align-items: center;  
+      justify-content: center;  
+      gap: 9px;  
+      text-align: center;  
+      min-height: 45px;  
+      padding: 12px;  
+      background: linear-gradient(100deg,#1769aa,#287be0);  
+      color: white;  
+      border: 1px solid rgba(130,199,255,.2);  
+      border-radius: 9px;  
+      text-decoration: none;  
+      font-size: 14px;  
+      font-weight: bold;  
+      transition: filter .2s, transform .2s;  
+    }  
+  
+    .open-link::after {  
+      content: "→";  
+      font-size: 17px;  
+      transition: transform .2s;  
+    }  
+  
+    .open-link:hover { filter: brightness(1.17); }  
+    .open-link:hover::after { transform: translateX(3px); }  
+  
+    #noResults {  
+      display: none;  
+      background: rgba(18,37,63,.88);  
+      border: 1px solid var(--border);  
+      border-radius: 12px;  
+      padding: 24px;  
+      text-align: center;  
+      color: var(--muted);  
+    }  
+  
+    footer {  
+      text-align: center;  
+      padding: 25px 18px;  
+      color: #91a6c0;  
+      font-size: 13px;  
+      line-height: 1.8;  
+      border-top: 1px solid var(--border);  
+      background: rgba(6,15,29,.4);  
+    }  
+  
+    @media (max-width: 520px) {  
+      header { padding: 46px 17px 42px; }  
+      .container { margin-top: 20px; }  
+      .top-actions { align-items: stretch; }  
+      .back-link, .pdf-button { flex: 1; }  
+      .card { min-height: 190px; }  
+    }  
+  
+    @media (prefers-reduced-motion: reduce) {  
+      *, *::before, *::after {  
+        scroll-behavior: auto !important;  
+        transition: none !important;  
+      }  
+    }  
+  
+    @media print {  
+      body { background: white; color: black; }  
+      body::before, .ambient { display: none; }  
+  
+      header {  
+        background: white;  
+        color: black;  
+        padding: 18px;  
+        border-bottom: 1px solid #ccc;  
+      }  
+  
+      header h1 { color: black; background: none; }  
+      header p, .card p, footer { color: #333; }  
+      .top-actions, .search-box, .open-link { display: none !important; }  
+      .category, .card h3 { color: #111; }  
+  
+      .card {  
+        break-inside: avoid;  
+        box-shadow: none;  
+        background: white;  
+        border: 1px solid #bbb;  
+      }  
+  
+      .card::before, .card::after, .category::before { display: none; }  
+      .calculator-section { break-inside: avoid; }  
+      footer { background: white; }  
+    }  
+  </style>  </head>  <body>  
+  <div class="ambient ambient-one"></div>  
+  <div class="ambient ambient-two"></div>    <header>  
+    <div class="header-content">  
+      <div class="eyebrow">  
+        <span class="status-dot"></span>  
+        Lifting · Rigging · Engineering  
+      </div>  <h1>Lifting &amp; Rigging Calculators</h1>  
+  <p>  
+    Study tools for lifting calculations, crane planning and rigging  
+    operations. Explore your tools in one organized workspace.  
+  </p>  
+</div>
 
-<header>
-  <h1>Lifting Study — Calculation Centre</h1>
-  <p>Practical lifting calculations and engineering reference tools</p>
-</header>
+  </header>    <main class="container">  
+    <div class="top-actions">  
+      <a class="back-link" href="../index.html">← Back to Home</a>  
+      <button class="pdf-button" type="button" onclick="window.print()">  
+        Save as PDF  
+      </button>  
+    </div>  <input  
+  id="search"  
+  class="search-box"  
+  type="search"  
+  placeholder="⌕  Search calculators by name..."  
+  aria-label="Search calculators"  
+>  
 
-<img class="banner" src="gasplant.png" alt="Industrial plant lifting environment"
-     onerror="this.style.display='none'">
+<p id="noResults" role="status">  
+  No calculators match your search. Try a different keyword.  
+</p>  
 
-<nav>
-  <a href="index.html">Home</a>
-  <a href="rigging.html">Rigging</a>
-  <a class="active" href="calculation.html">Open Calculation</a>
-  <a href="cranes.html">Cranes</a>
-  <a href="planning.html">Lift Planning</a>
-  <a href="safety.html">Safety</a>
-  <a href="study-notes.html">Study Notes</a>
-</nav>
+<section class="calculator-section">  
+  <h2 class="category">Weight &amp; Load Study</h2>  
+  <div class="grid">  
+    <article class="card">  
+      <h3>Material Weight Calculator</h3>  
+      <p>Calculate material weight using selected material density and volume.</p>  
+      <a class="open-link" href="calculation/material-weight-calculator.html">Open Calculator</a>  
+    </article>  
 
-<main class="container">
-  <section class="intro">
-    <div>
-      <span class="badge">ALL CALCULATORS IN ONE PLACE</span>
-      <h2>Open Calculation</h2>
-      <p>Use this page for preliminary crane geometry, rigging forces, load sharing,
-        centre of gravity, ground pressure and clearance calculations.</p>
-      <p class="muted">Enter consistent units. Angles are measured from the horizontal
-      unless a calculator says otherwise.</p>
-      <button class="primary no-print" onclick="window.print()">Print / Save as PDF</button>
-    </div>
-    <img src="lifting.png" alt="Lifting operation"
-         onerror="this.style.display='none'">
-  </section>
+    <article class="card">  
+      <h3>Center of Gravity Calculator</h3>  
+      <p>Study the combined center of gravity of components.</p>  
+      <a class="open-link" href="calculation/center-of-gravity-calculator.html">Open Calculator</a>  
+    </article>  
+  </div>  
+</section>  
 
-  <section class="panel">
-    <h2>Calculation tools</h2>
-    <p class="muted">Calculate each topic separately. Results are estimates and must be checked
-      against the actual lift configuration and approved engineering documents.</p>
+<section class="calculator-section">  
+  <h2 class="category">Sling, Shackle &amp; Wire Rope</h2>  
+  <div class="grid">  
+    <article class="card">  
+      <h3>Sling Length &amp; Angle Calculator</h3>  
+      <p>Study sling geometry using length, height, horizontal distance and angle inputs.</p>  
+      <a class="open-link" href="calculation/sling-length-angle-calculator.html">Open Calculator</a>  
+    </article>  
 
-    <div class="grid">
+    <article class="card">  
+      <h3>Sling Tension / SWL Calculator</h3>  
+      <p>Calculate sling tension and study safe working load conditions.</p>  
+      <a class="open-link" href="calculation/sling-tension-swl-calculator.html">Open Calculator</a>  
+    </article>  
 
-      <!-- 1. CRANE GEOMETRY -->
-      <article class="calc">
-        <h3>1. Crane Geometry</h3>
-        <p class="muted">Calculate a missing boom length, horizontal radius, vertical tip rise or boom angle.</p>
-        <label for="geoFind">Calculate</label>
-        <select id="geoFind" onchange="updateGeoFields()">
-          <option value="angle">Boom angle</option>
-          <option value="height">Vertical tip rise</option>
-          <option value="radius">Horizontal radius</option>
-          <option value="length">Boom length</option>
-        </select>
-        <label for="geoA">Known value A</label>
-        <select id="geoA" onchange="updateGeoFields()">
-          <option value="length">Boom length</option>
-          <option value="radius">Horizontal radius</option>
-          <option value="height">Vertical tip rise</option>
-          <option value="angle">Boom angle</option>
-        </select>
-        <label for="geoAv">Value A</label>
-        <input id="geoAv" type="number" min="0" step="any" placeholder="Enter value">
-        <label for="geoB">Known value B</label>
-        <select id="geoB" onchange="updateGeoFields()">
-          <option value="radius">Horizontal radius</option>
-          <option value="height">Vertical tip rise</option>
-          <option value="angle">Boom angle</option>
-          <option value="length">Boom length</option>
-        </select>
-        <label for="geoBv">Value B</label>
-        <input id="geoBv" type="number" min="0" step="any" placeholder="Enter value">
-        <button class="primary" onclick="calcGeometry()">Calculate</button>
-        <button class="secondary" onclick="resetCalc('geo')">Reset</button>
-        <div id="geoResult" class="result" aria-live="polite"></div>
-        <div class="formula">Idealised right triangle: radius = L cos θ; rise = L sin θ.
-          Actual crane geometry, boom deflection and hook block position may differ.</div>
-      </article>
+    <article class="card">  
+      <h3>Shackle WLL Calculator</h3>  
+      <p>Study shackle working load limits for lifting configurations.</p>  
+      <a class="open-link" href="calculation/shackle-wll-calculator.html">Open Calculator</a>  
+    </article>  
 
-      <!-- 2. SLING TENSION -->
-      <article class="calc">
-        <h3>2. Sling-Leg Tension</h3>
-        <p class="muted">Estimate equal load sharing across symmetric sling legs.</p>
-        <label for="slingWeight">Total suspended load (kg)</label>
-        <input id="slingWeight" type="number" min="0" step="any" placeholder="e.g. 5000">
-        <label for="slingLegs">Number of load-bearing sling legs</label>
-        <select id="slingLegs">
-          <option value="2">2 legs</option>
-          <option value="3">3 legs</option>
-          <option value="4">4 legs</option>
-        </select>
-        <label for="slingAngle">Angle from horizontal (degrees)</label>
-        <input id="slingAngle" type="number" min="1" max="90" step="any" value="60">
-        <button class="primary" onclick="calcSling()">Calculate</button>
-        <button class="secondary" onclick="resetCalc('sling')">Reset</button>
-        <div id="slingResult" class="result" aria-live="polite"></div>
-        <div class="formula">Idealised tension per leg = W ÷ (n sin θ). This assumes equal sharing
-          and a symmetric arrangement. Real sling forces may be higher.</div>
-      </article>
+    <article class="card">  
+      <h3>D/d Ratio Calculator</h3>  
+      <p>Calculate the ratio of bend diameter to rope diameter.</p>  
+      <a class="open-link" href="calculation/d-d-ratio-calculator.html">Open Calculator</a>  
+    </article>  
+  </div>  
+</section>  
 
-      <!-- 3. LOAD WEIGHT -->
-      <article class="calc">
-        <h3>3. Load Weight from Dimensions</h3>
-        <p class="muted">Estimate a uniform rectangular solid's mass from dimensions and density.</p>
-        <label for="matLength">Length (m)</label>
-        <input id="matLength" type="number" min="0" step="any">
-        <label for="matWidth">Width (m)</label>
-        <input id="matWidth" type="number" min="0" step="any">
-        <label for="matHeight">Height / thickness (m)</label>
-        <input id="matHeight" type="number" min="0" step="any">
-        <label for="matDensity">Material density (kg/m³)</label>
-        <input id="matDensity" type="number" min="0" step="any" placeholder="Steel ≈ 7850">
-        <label for="matExtras">Additional mass (kg), if any</label>
-        <input id="matExtras" type="number" min="0" step="any" value="0">
-        <button class="primary" onclick="calcLoad()">Calculate</button>
-        <button class="secondary" onclick="resetCalc('mat')">Reset</button>
-        <div id="matResult" class="result" aria-live="polite"></div>
-        <div class="formula">Mass = volume × density + additional mass. Use actual drawings,
-          weigh records or manufacturer data whenever available.</div>
-      </article>
+<section class="calculator-section">  
+  <h2 class="category">Crane &amp; Lift Planning</h2>  
+  <div class="grid">  
+    <article class="card">  
+      <h3>Crane Selection Calculator</h3>  
+      <p>Study crane selection for planned lifting operations.</p>  
+      <a class="open-link" href="calculation/crane-selection-calculator.html">Open Calculator</a>  
+    </article>  
 
-      <!-- 4. LOAD SHARE -->
-      <article class="calc">
-        <h3>4. Load Sharing</h3>
-        <p class="muted">Estimate reactions for a simply supported beam with a point load.</p>
-        <label for="beamSpan">Support spacing (m)</label>
-        <input id="beamSpan" type="number" min="0" step="any">
-        <label for="beamLoad">Point load (kN)</label>
-        <input id="beamLoad" type="number" min="0" step="any">
-        <label for="beamPosition">Distance from left support to load (m)</label>
-        <input id="beamPosition" type="number" min="0" step="any">
-        <button class="primary" onclick="calcBeam()">Calculate</button>
-        <button class="secondary" onclick="resetCalc('beam')">Reset</button>
-        <div id="beamResult" class="result" aria-live="polite"></div>
-        <div class="formula">For an ideal simply supported beam: Rleft = P(L − x)/L;
-          Rright = Px/L. Not valid for arbitrary multi-point rigging or flexible loads.</div>
-      </article>
+    <article class="card">  
+      <h3>Critical Lift Planning Calculator</h3>  
+      <p>Review key details for critical lift planning.</p>  
+      <a class="open-link" href="calculation/critical-lift-planning-calculator.html">Open Calculator</a>  
+    </article>  
 
-      <!-- 5. CENTRE OF GRAVITY -->
-      <article class="calc">
-        <h3>5. Centre of Gravity — Two Masses</h3>
-        <p class="muted">Calculate the centre of gravity along one axis for two known masses.</p>
-        <label for="cgM1">Mass 1 (kg)</label>
-        <input id="cgM1" type="number" min="0" step="any">
-        <label for="cgX1">Mass 1 position (m)</label>
-        <input id="cgX1" type="number" step="any">
-        <label for="cgM2">Mass 2 (kg)</label>
-        <input id="cgM2" type="number" min="0" step="any">
-        <label for="cgX2">Mass 2 position (m)</label>
-        <input id="cgX2" type="number" step="any">
-        <button class="primary" onclick="calcCG()">Calculate</button>
-        <button class="secondary" onclick="resetCalc('cg')">Reset</button>
-        <div id="cgResult" class="result" aria-live="polite"></div>
-        <div class="formula">xCG = (m₁x₁ + m₂x₂) ÷ (m₁ + m₂). Use a common datum for both positions.</div>
-      </article>
+    <article class="card">  
+      <h3>Superlift Study Calculator</h3>  
+      <p>Open the superlift study tool.</p>  
+      <a class="open-link" href="calculation/superlift-study-calculator.html">Open Calculator</a>  
+    </article>  
 
-      <!-- 6. GROUND PRESSURE -->
-      <article class="calc">
-        <h3>6. Ground Bearing Pressure</h3>
-        <p class="muted">Estimate average pressure from a known load and effective support area.</p>
-        <label for="groundLoad">Load on support (kN)</label>
-        <input id="groundLoad" type="number" min="0" step="any">
-        <label for="groundLength">Effective contact length (m)</label>
-        <input id="groundLength" type="number" min="0" step="any">
-        <label for="groundWidth">Effective contact width (m)</label>
-        <input id="groundWidth" type="number" min="0" step="any">
-        <button class="primary" onclick="calcGround()">Calculate</button>
-        <button class="secondary" onclick="resetCalc('ground')">Reset</button>
-        <div id="groundResult" class="result" aria-live="polite"></div>
-        <div class="formula">Average pressure = load ÷ area. Actual outrigger reactions and soil
-          bearing capacity require separate verification.</div>
-      </article>
+    <article class="card">  
+      <h3>Tailing Load Distribution Calculator</h3>  
+      <p>Study load distribution between cranes during tailing operations.</p>  
+      <a class="open-link" href="calculation/tailing-load-distribution-calculator.html">Open Calculator</a>  
+    </article>  
+  </div>  
+</section>  
 
-      <!-- 7. OBSTACLE CLEARANCE -->
-      <article class="calc">
-        <h3>7. Obstacle Clearance</h3>
-        <p class="muted">Estimate geometric clearance for a boom represented by a straight line.</p>
-        <label for="clearRadius">Horizontal boom radius (m)</label>
-        <input id="clearRadius" type="number" min="0" step="any">
-        <label for="clearRise">Boom tip rise above pivot (m)</label>
-        <input id="clearRise" type="number" min="0" step="any">
-        <label for="clearPivot">Pivot height above ground (m)</label>
-        <input id="clearPivot" type="number" min="0" step="any">
-        <label for="clearObstacleX">Obstacle distance horizontally from pivot (m)</label>
-        <input id="clearObstacleX" type="number" min="0" step="any">
-        <label for="clearObstacleH">Obstacle height above ground (m)</label>
-        <input id="clearObstacleH" type="number" min="0" step="any">
-        <label for="clearMargin">Required additional clearance (m)</label>
-        <input id="clearMargin" type="number" min="0" step="any" value="1">
-        <button class="primary" onclick="calcClearance()">Calculate</button>
-        <button class="secondary" onclick="resetCalc('clear')">Reset</button>
-        <div id="clearResult" class="result" aria-live="polite"></div>
-        <div class="formula">Assumes a straight, rigid boom line. Does not model boom deflection,
-          jib geometry, hook block, suspended load swing or crane motion.</div>
-      </article>
+<section class="calculator-section">  
+  <h2 class="category">Ground &amp; Outriggers</h2>  
+  <div class="grid">  
+    <article class="card">  
+      <h3>Ground Bearing Calculator</h3>  
+      <p>Study ground bearing pressure for lifting equipment and crane setups.</p>  
+      <a class="open-link" href="calculation/ground-bearing-calculator.html">Open Calculator</a>  
+    </article>  
+  </div>  
+</section>
 
-      <!-- 8. PERCENT CAPACITY -->
-      <article class="calc">
-        <h3>8. Crane Capacity Utilisation</h3>
-        <p class="muted">Compare the total planned load with the applicable chart capacity.</p>
-        <label for="capLoad">Total chart load basis (kg)</label>
-        <input id="capLoad" type="number" min="0" step="any">
-        <label for="capCapacity">Rated chart capacity at actual configuration (kg)</label>
-        <input id="capCapacity" type="number" min="0" step="any">
-        <button class="primary" onclick="calcCapacity()">Calculate</button>
-        <button class="secondary" onclick="resetCalc('cap')">Reset</button>
-        <div id="capResult" class="result" aria-live="polite"></div>
-        <div class="formula">Utilisation = planned chart load ÷ rated chart capacity × 100%.
-          Ensure the load basis and deductions match the crane manufacturer's chart.</div>
-      </article>
-
-    </div>
-  </section>
-
-  <section class="panel">
-    <h2>Engineering checks before using a result</h2>
-    <div class="warning">
-      <strong>Important:</strong> These tools are simplified estimates, not a substitute for
-      an approved lift plan or a qualified lifting engineer's review.
-    </div>
-    <ul>
-      <li>Confirm actual load weight, centre of gravity, lifting points and rigging weights.</li>
-      <li>Use the exact crane model, configuration, radius, boom/jib arrangement and load chart.</li>
-      <li>Account for deductions, reeving, wind, dynamic effects, side loading and manufacturer limits.</li>
-      <li>Verify sling angles, hitch factors, hardware WLL, load distribution and edge protection.</li>
-      <li>Check ground conditions, outrigger reactions, mats and underground services.</li>
-      <li>Confirm clearances along the entire lifting path, not just at the boom tip.</li>
-    </ul>
-    <button class="primary no-print" onclick="window.print()">Print / Save all calculations as PDF</button>
-  </section>
-
-  <section class="panel">
-    <h2>About the creator</h2>
-    <p><strong>Jawad Hussain</strong> — Lifting Engineer</p>
-    <p>Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
-    <p>Languages: Punjabi, Urdu and English</p>
-    <p><a href="https://www.instagram.com/jawad_wai9s/" target="_blank" rel="noopener noreferrer">Instagram: @jawad_wai9s</a></p>
-    <img src="jawad.jpeg" alt="Creator"
-         style="width:110px;height:110px;object-fit:cover;border-radius:50%"
-         onerror="this.style.display='none'">
-  </section>
-</main>
-
-<footer>
-  <p>© Lifting Study | Educational and preliminary engineering tools</p>
-</footer>
-
-<script>
-"use strict";
-
-function val(id) {
-  const el = document.getElementById(id);
-  if (!el || el.value.trim() === "") return NaN;
-  return Number(el.value);
-}
-function fmt(n, digits=3) {
-  if (!Number.isFinite(n)) return "Not available";
-  return n.toLocaleString(undefined, {maximumFractionDigits:digits});
-}
-function output(id, title, rows, error=false) {
-  const el = document.getElementById(id);
-  el.className = "result" + (error ? " error" : "");
-  el.style.display = "block";
-  if (error) {
-    el.innerHTML = "<h4>Check input</h4><p>" + title + "</p>";
-    return;
-  }
-  el.innerHTML = "<h4>" + title + "</h4><table>" +
-    rows.map(r => "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td></tr>").join("") +
-    "</table>";
-}
-function err(id, text) { output(id, text, [], true); }
-function need(id, values, condition) {
-  if (values.some(v => !Number.isFinite(v)) || !condition) {
-    err(id, "Enter valid values that meet the required geometry or physical constraints.");
-    return false;
-  }
-  return true;
-}
-function resetCalc(prefix) {
-  const ids = {
-    geo:["geoFind","geoA","geoAv","geoB","geoBv"],
-    sling:["slingWeight","slingLegs","slingAngle"],
-    mat:["matLength","matWidth","matHeight","matDensity","matExtras"],
-    beam:["beamSpan","beamLoad","beamPosition"],
-    cg:["cgM1","cgX1","cgM2","cgX2"],
-    ground:["groundLoad","groundLength","groundWidth"],
-    clear:["clearRadius","clearRise","clearPivot","clearObstacleX","clearObstacleH","clearMargin"],
-    cap:["capLoad","capCapacity"]
-  }[prefix] || [];
-  ids.forEach(id => {
-    const el = document.getElementById(id);
-    if (el) {
-      if (el.tagName === "SELECT") el.selectedIndex = 0;
-      else el.value = "";
-    }
-  });
-  const out = document.getElementById({
-    geo:"geoResult",sling:"slingResult",mat:"matResult",beam:"beamResult",
-    cg:"cgResult",ground:"groundResult",clear:"clearResult",cap:"capResult"
-  }[prefix]);
-  if (out) { out.style.display = "none"; out.innerHTML = ""; }
-  if (prefix === "geo") updateGeoFields();
-}
-function updateGeoFields() {
-  const find = document.getElementById("geoFind").value;
-  let a = document.getElementById("geoA").value;
-  let b = document.getElementById("geoB").value;
-  if (a === find) a = ["length","radius","height","angle"].find(x => x !== find && x !== b);
-  if (b === find || b === a) b = ["length","radius","height","angle"].find(x => x !== find && x !== a);
-  document.getElementById("geoA").value = a;
-  document.getElementById("geoB").value = b;
-  document.getElementById("geoAv").placeholder = a === "angle" ? "Degrees" : "Metres";
-  document.getElementById("geoBv").placeholder = b === "angle" ? "Degrees" : "Metres";
-}
-function calcGeometry() {
-  updateGeoFields();
-  const find = document.getElementById("geoFind").value;
-  const aName = document.getElementById("geoA").value;
-  const bName = document.getElementById("geoB").value;
-  const a = val("geoAv"), b = val("geoBv");
-  const v = { [aName]:a, [bName]:b };
-  if (!need("geoResult",[a,b],aName !== bName && a >= 0 && b >= 0)) return;
-
-  if (aName === "angle" && a > 90 || bName === "angle" && b > 90) {
-    return err("geoResult","Boom angle must be between 0° and 90° for this model.");
-  }
-  const L = v.length, R = v.radius, H = v.height;
-  const angle = v.angle;
-  let result;
-
-  if (find === "angle") {
-    if (L != null && R != null) {
-      if (L <= 0 || R > L) return err("geoResult","Boom length must be positive and radius cannot exceed length.");
-      result = Math.acos(R/L)*180/Math.PI;
-    } else if (L != null && H != null) {
-      if (L <= 0 || H > L) return err("geoResult","Boom length must be positive and rise cannot exceed length.");
-      result = Math.asin(H/L)*180/Math.PI;
-    } else if (R != null && H != null) {
-      if (R === 0 && H === 0) return err("geoResult","Radius and rise cannot both be zero.");
-      result = Math.atan2(H,R)*180/Math.PI;
-    }
-  } else if (find === "length") {
-    if (R != null && H != null) result = Math.hypot(R,H);
-    else if (R != null && angle != null) {
-      if (Math.cos(angle*Math.PI/180) <= 0) return err("geoResult","This angle cannot produce the requested boom length.");
-      result = R/Math.cos(angle*Math.PI/180);
-    } else if (H != null && angle != null) {
-      if (Math.sin(angle*Math.PI/180) <= 0) return err("geoResult","Rise cannot be calculated at zero degrees.");
-      result = H/Math.sin(angle*Math.PI/180);
-    }
-  } else if (find === "radius") {
-    if (L != null && H != null) {
-      if (H > L) return err("geoResult","Rise cannot exceed boom length.");
-      result = Math.sqrt(Math.max(0,L*L-H*H));
-    } else if (L != null && angle != null) result = L*Math.cos(angle*Math.PI/180);
-    else if (H != null && angle != null) {
-      if (Math.tan(angle*Math.PI/180) === 0) return err("geoResult","Cannot calculate radius from zero angle and rise.");
-      result = H/Math.tan(angle*Math.PI/180);
-    }
-  } else if (find === "height") {
-    if (L != null && R != null) {
-      if (R > L) return err("geoResult","Radius cannot exceed boom length.");
-      result = Math.sqrt(Math.max(0,L*L-R*R));
-    } else if (L != null && angle != null) result = L*Math.sin(angle*Math.PI/180);
-    else if (R != null && angle != null) result = R*Math.tan(angle*Math.PI/180);
-  }
-  if (!Number.isFinite(result) || result < 0) return err("geoResult","These values cannot produce a valid result.");
-  const labels = {angle:"Boom angle",height:"Vertical tip rise",radius:"Horizontal radius",length:"Boom length"};
-  output("geoResult","Calculated result",[[labels[find],fmt(result)+(find==="angle"?"°":" m")],
-    ["Known A",aName+" = "+fmt(a)+(aName==="angle"?"°":" m")],
-    ["Known B",bName+" = "+fmt(b)+(bName==="angle"?"°":" m")]]);
-}
-
-function calcSling() {
-  const W=val("slingWeight"), n=val("slingLegs"), deg=val("slingAngle");
-  if (!need("slingResult",[W,n,deg],W>0 && n>=2 && deg>0 && deg<=90))
-    return err("slingResult","Load must be positive and angle must be greater than 0° and no more than 90°.");
-  const T=W/(n*Math.sin(deg*Math.PI/180));
-  output("slingResult","Idealised sling tension",[
-    ["Load"," "+fmt(W)+" kg"],
-    ["Legs sharing load",String(n)],
-    ["Angle from horizontal",fmt(deg)+"°"],
-    ["Estimated tension per leg",fmt(T)+" kgf (approx.)"],
-    ["Estimated tension per leg",fmt(T*9.80665/1000)+" kN"]
-  ]);
-}
-
-function calcLoad() {
-  const L=val("matLength"),W=val("matWidth"),H=val("matHeight"),D=val("matDensity"),E=val("matExtras");
-  if (!need("matResult",[L,W,H,D,E],L>0 && W>0 && H>0 && D>0 && E>=0)) return;
-  const V=L*W*H, mass=V*D+E;
-  output("matResult","Estimated mass",[
-    ["Volume",fmt(V)+" m³"],["Density",fmt(D)+" kg/m³"],
-    ["Additional mass",fmt(E)+" kg"],["Estimated total mass",fmt(mass)+" kg"],
-    ["Estimated weight",fmt(mass*9.80665/1000)+" kN"]
-  ]);
-}
-
-function calcBeam() {
-  const L=val("beamSpan"),P=val("beamLoad"),x=val("beamPosition");
-  if (!need("beamResult",[L,P,x],L>0 && P>=0 && x>=0 && x<=L))
-    return err("beamResult","Span must be positive and load position must be between the supports.");
-  const left=P*(L-x)/L, right=P*x/L;
-  output("beamResult","Idealised support reactions",[
-    ["Left reaction",fmt(left)+" kN"],["Right reaction",fmt(right)+" kN"],
-    ["Total reactions",fmt(left+right)+" kN"]
-  ]);
-}
-
-function calcCG() {
-  const m1=val("cgM1"),x1=val("cgX1"),m2=val("cgM2"),x2=val("cgX2");
-  if (!need("cgResult",[m1,x1,m2,x2],m1>=0 && m2>=0 && m1+m2>0)) return;
-  const x=(m1*x1+m2*x2)/(m1+m2);
-  output("cgResult","Centre of gravity",[
-    ["Total mass",fmt(m1+m2)+" kg"],["CG position from datum",fmt(x)+" m"]
-  ]);
-}
-
-function calcGround() {
-  const P=val("groundLoad"),L=val("groundLength"),W=val("groundWidth");
-  if (!need("groundResult",[P,L,W],P>=0 && L>0 && W>0)) return;
-  const A=L*W, pressure=P/A;
-  output("groundResult","Average bearing pressure",[
-    ["Contact area",fmt(A)+" m²"],["Load",fmt(P)+" kN"],
-    ["Average pressure",fmt(pressure)+" kN/m² (kPa)"]
-  ]);
-}
-
-function calcClearance() {
-  const R=val("clearRadius"),H=val("clearRise"),P=val("clearPivot"),
-        X=val("clearObstacleX"),OH=val("clearObstacleH"),M=val("clearMargin");
-  if (!need("clearResult",[R,H,P,X,OH,M],R>0 && H>=0 && P>=0 && X>=0 && X<=R && OH>=0 && M>=0))
-    return err("clearResult","Enter valid values. Obstacle distance must lie between pivot and boom tip.");
-  const tip=P+H;
-  const lineHeight=P+(H/R)*X;
-  const clearance=lineHeight-OH;
-  const residual=clearance-M;
-  output("clearResult",residual>=0?"Geometric clearance meets the entered margin":"Geometric clearance is below the entered margin",[
-    ["Boom tip height above ground",fmt(tip)+" m"],
-    ["Estimated boom-line height at obstacle",fmt(lineHeight)+" m"],
-    ["Obstacle height",fmt(OH)+" m"],
-    ["Geometric clearance",fmt(clearance)+" m"],
-    ["Required margin",fmt(M)+" m"],
-    ["Clearance remaining after margin",fmt(residual)+" m"]
-  ]);
-}
-
-function calcCapacity() {
-  const load=val("capLoad"),capacity=val("capCapacity");
-  if (!need("capResult",[load,capacity],load>=0 && capacity>0)) return;
-  const pct=load/capacity*100;
-  output("capResult","Capacity utilisation estimate",[
-    ["Planned chart load basis",fmt(load)+" kg"],
-    ["Rated capacity entered",fmt(capacity)+" kg"],
-    ["Utilisation",fmt(pct)+"%"],
-    ["Difference to rated capacity",fmt(capacity-load)+" kg"]
-  ]);
-}
-updateGeoFields();
-</script>
-</body>
+  </main>    <footer>  
+    For study and planning support only. Verify calculations, equipment ratings,  
+    lift plans and operating conditions with qualified personnel before use.  
+  </footer>    <script>  
+    const searchInput = document.getElementById("search");  
+    const cards = Array.from(document.querySelectorAll(".card"));  
+    const sections = Array.from(document.querySelectorAll(".calculator-section"));  
+    const noResults = document.getElementById("noResults");  
+  
+    searchInput.addEventListener("input", function () {  
+      const query = this.value.trim().toLowerCase();  
+      let visibleCards = 0;  
+  
+      cards.forEach(function (card) {  
+        const matches = card.textContent.toLowerCase().includes(query);  
+        card.style.display = matches ? "" : "none";  
+        if (matches) visibleCards++;  
+      });  
+  
+      sections.forEach(function (section) {  
+        const hasVisibleCard = Array.from(section.querySelectorAll(".card"))  
+          .some(function (card) {  
+            return card.style.display !== "none";  
+          });  
+        section.style.display = hasVisibleCard ? "" : "none";  
+      });  
+  
+      noResults.style.display = visibleCards === 0 ? "block" : "none";  
+    });  
+  </script>  </body>  
 </html>
