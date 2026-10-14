@@ -14,8 +14,6 @@
     :root {
       --ink: #f8fafc;
       --muted: #d7e2f3;
-      --glass: rgba(255, 255, 255, 0.09);
-      --glass-border: rgba(255, 255, 255, 0.19);
     }
 
     * {
@@ -32,9 +30,9 @@
       color: var(--ink);
       font-family: "Segoe UI", Arial, sans-serif;
       background:
-        radial-gradient(circle at 8% 8%, rgba(34, 211, 238, .25), transparent 24rem),
-        radial-gradient(circle at 92% 20%, rgba(168, 85, 247, .25), transparent 26rem),
-        radial-gradient(circle at 50% 85%, rgba(16, 185, 129, .13), transparent 28rem),
+        radial-gradient(circle at 8% 8%, rgba(34,211,238,.25), transparent 24rem),
+        radial-gradient(circle at 92% 20%, rgba(168,85,247,.25), transparent 26rem),
+        radial-gradient(circle at 50% 85%, rgba(16,185,129,.13), transparent 28rem),
         linear-gradient(135deg, #071426 0%, #142653 48%, #34205c 100%);
       background-attachment: fixed;
       overflow-x: hidden;
@@ -45,16 +43,11 @@
       text-decoration: none;
     }
 
-    button {
-      font: inherit;
-    }
-
     .container {
       width: min(1160px, 92%);
       margin-inline: auto;
     }
 
-    /* Soft decorative circles */
     .background-art {
       position: fixed;
       inset: 0;
@@ -67,43 +60,41 @@
       position: absolute;
       border-radius: 50%;
       filter: blur(2px);
-      opacity: .45;
     }
 
     .orb-one {
       width: 250px;
       height: 250px;
-      background: radial-gradient(circle at 30% 30%, #67e8f9, #2563eb 70%, transparent);
       top: 20%;
       left: -100px;
+      background: radial-gradient(circle at 30% 30%, #67e8f9, #2563eb 70%, transparent);
       opacity: .19;
     }
 
     .orb-two {
       width: 340px;
       height: 340px;
-      background: radial-gradient(circle at 35% 35%, #f0abfc, #7c3aed 68%, transparent);
       top: 48%;
       right: -170px;
+      background: radial-gradient(circle at 35% 35%, #f0abfc, #7c3aed 68%, transparent);
       opacity: .17;
     }
 
     .orb-three {
       width: 180px;
       height: 180px;
-      background: radial-gradient(circle at 35% 35%, #a7f3d0, #059669 70%, transparent);
       bottom: 3%;
       left: 18%;
+      background: radial-gradient(circle at 35% 35%, #a7f3d0, #059669 70%, transparent);
       opacity: .13;
     }
 
-    /* Header */
     header {
       background:
-        linear-gradient(100deg, rgba(4, 13, 30, .89), rgba(15, 35, 67, .72)),
+        linear-gradient(100deg, rgba(4,13,30,.89), rgba(15,35,67,.72)),
         url("gasplant.png") center/cover no-repeat;
-      border-bottom: 1px solid var(--glass-border);
-      box-shadow: 0 12px 35px rgba(0, 0, 0, .17);
+      border-bottom: 1px solid rgba(255,255,255,.19);
+      box-shadow: 0 12px 35px rgba(0,0,0,.17);
     }
 
     .header-inner {
@@ -135,19 +126,19 @@
       border-radius: 12px;
       color: #172033;
       background: linear-gradient(135deg, #fde68a, #facc15);
-      box-shadow: 0 8px 20px rgba(250, 204, 21, .17);
       font-weight: 800;
       cursor: pointer;
+      box-shadow: 0 8px 20px rgba(250,204,21,.17);
       transition: transform .2s, box-shadow .2s;
     }
 
     .install-button:hover {
       transform: translateY(-2px);
-      box-shadow: 0 11px 25px rgba(250, 204, 21, .25);
+      box-shadow: 0 11px 25px rgba(250,204,21,.25);
     }
 
     nav {
-      background: rgba(4, 12, 29, .76);
+      background: rgba(4,12,29,.76);
       border-top: 1px solid rgba(255,255,255,.08);
     }
 
@@ -165,17 +156,15 @@
       border-radius: 9px;
       color: #e5edf9;
       font-size: .94rem;
-      transition: background .2s, color .2s;
     }
 
     .nav-links a:hover,
     .nav-links a:focus-visible {
-      background: rgba(56, 189, 248, .19);
+      background: rgba(56,189,248,.19);
       color: white;
       outline: none;
     }
 
-    /* Welcome panel */
     .welcome {
       position: relative;
       isolation: isolate;
@@ -186,9 +175,9 @@
       border: 1px solid rgba(255,255,255,.25);
       border-radius: 25px;
       background:
-        linear-gradient(120deg, rgba(4, 24, 50, .82), rgba(30, 41, 96, .76)),
+        linear-gradient(120deg, rgba(4,24,50,.82), rgba(30,41,96,.76)),
         url("lifting.png") center/cover no-repeat;
-      box-shadow: 0 20px 55px rgba(0, 0, 0, .23);
+      box-shadow: 0 20px 55px rgba(0,0,0,.23);
     }
 
     .welcome::before,
@@ -205,10 +194,10 @@
       height: 230px;
       top: -115px;
       right: -45px;
-      border: 1px solid rgba(125, 211, 252, .45);
+      border: 1px solid rgba(125,211,252,.45);
       box-shadow:
-        0 0 0 22px rgba(125, 211, 252, .045),
-        0 0 0 48px rgba(125, 211, 252, .035);
+        0 0 0 22px rgba(125,211,252,.045),
+        0 0 0 48px rgba(125,211,252,.035);
     }
 
     .welcome::after {
@@ -216,17 +205,17 @@
       height: 160px;
       bottom: -100px;
       left: -45px;
-      background: rgba(167, 139, 250, .18);
-      box-shadow: 0 0 0 24px rgba(167, 139, 250, .05);
+      background: rgba(167,139,250,.18);
+      box-shadow: 0 0 0 24px rgba(167,139,250,.05);
     }
 
     .welcome-label {
       display: inline-block;
       padding: 8px 13px;
       margin-bottom: 8px;
-      border: 1px solid rgba(186, 230, 253, .35);
+      border: 1px solid rgba(186,230,253,.35);
       border-radius: 100px;
-      background: rgba(14, 165, 233, .15);
+      background: rgba(14,165,233,.15);
       color: #bae6fd;
       font-size: .78rem;
       font-weight: 800;
@@ -239,7 +228,6 @@
       font-size: clamp(2rem, 5.2vw, 3.3rem);
       line-height: 1.13;
       letter-spacing: -.04em;
-      text-shadow: 0 3px 20px rgba(0,0,0,.2);
     }
 
     .welcome > p {
@@ -270,7 +258,7 @@
       background: linear-gradient(135deg, #38bdf8, #2563eb);
       color: white;
       font-weight: 800;
-      box-shadow: 0 8px 20px rgba(37, 99, 235, .25);
+      box-shadow: 0 8px 20px rgba(37,99,235,.25);
       transition: transform .2s, filter .2s;
     }
 
@@ -281,7 +269,7 @@
 
     .calculation-btn {
       background: linear-gradient(135deg, #34d399, #059669 55%, #047857);
-      box-shadow: 0 8px 20px rgba(5, 150, 105, .22);
+      box-shadow: 0 8px 20px rgba(5,150,105,.22);
     }
 
     #installAppMessage {
@@ -291,7 +279,6 @@
       font-size: .92rem;
     }
 
-    /* Section heading */
     .section-heading {
       margin: 40px 0 19px;
     }
@@ -299,7 +286,6 @@
     .section-heading h2 {
       margin: 0 0 9px;
       font-size: clamp(1.6rem, 4vw, 2.15rem);
-      letter-spacing: -.025em;
     }
 
     .section-heading p {
@@ -308,7 +294,6 @@
       line-height: 1.7;
     }
 
-    /* Mixed-colour study cards */
     .study-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -398,7 +383,6 @@
       border-radius: 15px;
       border: 1px solid rgba(255,255,255,.28);
       background: rgba(255,255,255,.16);
-      box-shadow: inset 0 1px rgba(255,255,255,.12);
       font-size: 1.7rem;
     }
 
@@ -417,23 +401,22 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 7px;
       min-height: 42px;
       margin-top: auto;
       padding: 10px 14px;
       border-radius: 10px;
       border: 1px solid rgba(255,255,255,.38);
-      background: rgba(8, 15, 35, .24);
+      background: rgba(8,15,35,.24);
       color: white;
       font-weight: 800;
       transition: background .2s;
     }
 
     .card-link:hover {
-      background: rgba(8, 15, 35, .45);
+      background: rgba(8,15,35,.45);
     }
 
-    /* Creator box: keeps original name, image and text */
+    /* About Creator */
     .creator {
       display: flex;
       align-items: center;
@@ -472,7 +455,7 @@
       padding: 25px 0;
       text-align: center;
       color: #cbd5e1;
-      background: rgba(4, 12, 29, .7);
+      background: rgba(4,12,29,.7);
       border-top: 1px solid rgba(255,255,255,.12);
       line-height: 1.7;
     }
@@ -498,10 +481,6 @@
       .creator {
         flex-direction: column;
         align-items: flex-start;
-      }
-
-      .study-card {
-        min-height: 205px;
       }
     }
 
@@ -589,9 +568,7 @@
             Learn about slings, shackles, hooks, master links, lifting beams,
             clamps, inspection requirements and working load limits.
           </p>
-          <a class="card-link" href="rigging.html">
-            Explore Accessories →
-          </a>
+          <a class="card-link" href="rigging.html">Explore Accessories →</a>
         </article>
 
         <article class="study-card cranes">
@@ -601,9 +578,7 @@
             Learn crane types, components, load charts, working radius,
             capacity and crane operating principles.
           </p>
-          <a class="card-link" href="cranes.html">
-            Explore Cranes →
-          </a>
+          <a class="card-link" href="cranes.html">Explore Cranes →</a>
         </article>
 
         <article class="study-card planning">
@@ -613,9 +588,7 @@
             Review lifting plans, risk assessments, ground conditions,
             load details and lifting-team responsibilities.
           </p>
-          <a class="card-link" href="planning.html">
-            Explore Lift Planning →
-          </a>
+          <a class="card-link" href="planning.html">Explore Lift Planning →</a>
         </article>
 
         <article class="study-card safety">
@@ -625,26 +598,20 @@
             Study safe lifting practices, hazards, exclusion zones,
             inspections and control measures.
           </p>
-          <a class="card-link" href="safety.html">
-            Explore Safety →
-          </a>
+          <a class="card-link" href="safety.html">Explore Safety →</a>
         </article>
       </div>
     </section>
 
-    <!-- Creator section retained with the existing name and image -->
-    <section class="creator" aria-label="About the creator">
-      <img
-        src="jawad.jpeg"
-        alt="Website creator"
-        onerror="this.style.display='none'"
-      >
+    <!-- Keep the original creator's name, image and description here. -->
+    <section class="creator" aria-label="About Creator">
+      <img src="jawad.jpeg" alt="Creator photo">
 
       <div>
-        <h2>About This Study Hub</h2>
+        <h2>About Creator</h2>
         <p>
-          A learning resource for lifting and rigging knowledge, practical
-          calculations, crane operations, lift planning and safe lifting.
+          <!-- Restore the exact creator name and original description from your
+               previous index.html here. -->
         </p>
       </div>
     </section>
