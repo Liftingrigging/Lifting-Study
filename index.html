@@ -3,216 +3,562 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#102b46">
-  <meta name="description" content="Lifting engineering study, crane calculations, rigging, safety and lift planning tools.">
-  <title>Lifting Study | Home</title>
+
+  <title>Lifting &amp; Rigging Study Hub</title>
+  <meta name="description" content="Lifting and rigging study notes, calculations, cranes, lift planning and safety.">
+  <meta name="theme-color" content="#0b1220">
+
+  <link rel="manifest" href="/Lifting-Study/manifest.json">
 
   <style>
-    * { box-sizing: border-box; }
+    :root {
+      --navy: #0b1220;
+      --text: #f8fafc;
+      --muted: #cbd5e1;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
     body {
       margin: 0;
       font-family: Arial, Helvetica, sans-serif;
-      color: #183047;
-      background: #f1f5f9;
+      color: var(--text);
+      background:
+        radial-gradient(circle at top left, #164e63, transparent 35%),
+        linear-gradient(135deg, #07111f, #172554 55%, #312e81);
+      min-height: 100vh;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1150px, 92%);
+      margin: 0 auto;
+    }
+
+    header {
+      background:
+        linear-gradient(rgba(3, 10, 25, .65), rgba(3, 10, 25, .82)),
+        url("gasplant.png") center/cover no-repeat;
+      border-bottom: 1px solid rgba(255,255,255,.14);
+    }
+
+    .header-inner {
+      min-height: 105px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      padding: 18px 0;
+      flex-wrap: wrap;
+    }
+
+    .brand h1 {
+      font-size: clamp(1.45rem, 4vw, 2.2rem);
+      margin: 0 0 8px;
+    }
+
+    .brand p {
+      margin: 0;
+      color: #dbeafe;
+      line-height: 1.5;
+    }
+
+    .header-install {
+      border: 0;
+      border-radius: 10px;
+      background: #facc15;
+      color: #172033;
+      padding: 12px 17px;
+      font-weight: 800;
+      cursor: pointer;
+      min-height: 44px;
+    }
+
+    .header-install:hover {
+      background: #fde047;
+    }
+
+    nav {
+      background: rgba(3, 10, 25, .82);
+      border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 0;
+      overflow-x: auto;
+    }
+
+    .nav-links a {
+      white-space: nowrap;
+      padding: 10px 13px;
+      border-radius: 8px;
+      color: #e2e8f0;
+      font-size: .94rem;
+    }
+
+    .nav-links a:hover {
+      background: rgba(56,189,248,.2);
+    }
+
+    /* Welcome box */
+    .welcome {
+      margin: 28px auto;
+      padding: clamp(24px, 5vw, 48px);
+      text-align: center;
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 20px;
+      background:
+        linear-gradient(rgba(4, 24, 48, .68), rgba(4, 24, 48, .72)),
+        url("lifting.png") center/cover no-repeat;
+      box-shadow: 0 16px 42px rgba(0,0,0,.2);
+    }
+
+    .welcome h2 {
+      font-size: clamp(2rem, 5vw, 3rem);
+      line-height: 1.15;
+      margin: 8px 0 14px;
+    }
+
+    .welcome p {
+      max-width: 760px;
+      margin: 0 auto;
+      color: #f1f5f9;
+      font-size: 1.03rem;
+      line-height: 1.8;
+    }
+
+    .welcome-buttons {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 22px;
+    }
+
+    .welcome-btn {
+      display: inline-flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 44px;
+      padding: 12px 18px;
+      border-radius: 8px;
+      background: #168bd2;
+      color: white;
+      font-weight: bold;
+      transition: background .2s, transform .2s;
+    }
+
+    .welcome-btn:hover {
+      background: #0874b8;
+      transform: translateY(-2px);
+    }
+
+    .calculation-btn {
+      background: #15803d;
+    }
+
+    .calculation-btn:hover {
+      background: #166534;
+    }
+
+    #installAppMessage {
+      min-height: 1.4em;
+      margin-top: 12px;
+      color: #fde68a;
+      font-size: .92rem;
+    }
+
+    /* Study boxes */
+    .section-heading {
+      margin: 38px 0 18px;
+    }
+
+    .section-heading h2 {
+      font-size: clamp(1.5rem, 4vw, 2rem);
+      margin: 0 0 8px;
+    }
+
+    .section-heading p {
+      color: var(--muted);
+      margin: 0;
       line-height: 1.6;
     }
-    header {
-      color: white;
-      padding: 34px 18px;
-      text-align: center;
-      background: linear-gradient(135deg, #102b46, #176b87);
-    }
-    header h1 { margin: 0 0 8px; font-size: clamp(28px, 5vw, 42px); }
-    header p { margin: 0; }
-    nav {
-      display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
-      gap: 8px;
-      padding: 12px;
-      background: #0b2035;
-    }
-    nav a {
-      color: white;
-      text-decoration: none;
-      padding: 9px 13px;
-      border-radius: 7px;
-      font-size: 14px;
-    }
-    nav a:hover, nav a:focus { background: #24506c; }
-    main { max-width: 1100px; margin: 24px auto; padding: 0 16px; }
-    .welcome {
-      overflow: hidden;
-      background: white;
-      border-radius: 16px;
-      box-shadow: 0 5px 22px #102b4612;
-      margin-bottom: 24px;
-    }
-    .welcome-image {
-      width: 100%;
-      height: 230px;
-      object-fit: cover;
-      display: block;
-      background: #dce7ef;
-    }
-    .welcome-content { padding: 24px; text-align: center; }
-    h2 { color: #123c59; margin-top: 0; }
-    .buttons {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    .btn {
-      display: inline-block;
-      padding: 12px 18px;
-      text-decoration: none;
-      border-radius: 8px;
-      font-weight: bold;
-      border: 0;
-      cursor: pointer;
-    }
-    .btn-primary { background: #126782; color: white; }
-    .btn-secondary { background: #e4edf4; color: #123c59; }
-    .btn:hover { filter: brightness(.95); }
-    .grid {
+
+    .study-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      margin-bottom: 42px;
     }
-    .card {
-      background: white;
-      padding: 21px;
-      border-radius: 12px;
-      box-shadow: 0 4px 16px #102b460d;
+
+    .study-card {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      min-width: 0;
+      min-height: 205px;
+      padding: 24px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.22);
+      box-shadow: 0 10px 25px rgba(0,0,0,.16);
+      transition: transform .2s;
     }
-    .card h3 { margin-top: 0; color: #126782; }
-    .card a { color: #126782; font-weight: bold; text-decoration: none; }
+
+    .study-card:hover {
+      transform: translateY(-3px);
+    }
+
+    .card-icon {
+      font-size: 2rem;
+      margin-bottom: 12px;
+    }
+
+    .study-card h3 {
+      font-size: 1.3rem;
+      margin: 0 0 10px;
+    }
+
+    .study-card p {
+      color: #f8fafc;
+      line-height: 1.65;
+      margin: 0 0 20px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      margin-top: auto;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: rgba(15,23,42,.3);
+      border: 1px solid rgba(255,255,255,.4);
+      font-weight: bold;
+    }
+
+    .card-link:hover {
+      background: rgba(15,23,42,.55);
+    }
+
+    .accessories {
+      background: linear-gradient(135deg, #0e7490, #155e75);
+    }
+
+    .cranes {
+      background: linear-gradient(135deg, #ea580c, #9a3412);
+    }
+
+    .planning {
+      background: linear-gradient(135deg, #15803d, #14532d);
+    }
+
+    .safety {
+      background: linear-gradient(135deg, #be123c, #881337);
+    }
+
+    .notes {
+      background: linear-gradient(135deg, #0369a1, #1e40af);
+    }
+
+    /* Creator section */
     .creator {
       display: flex;
       align-items: center;
-      gap: 22px;
-      background: white;
-      padding: 22px;
-      border-radius: 14px;
-      margin-top: 24px;
+      gap: 24px;
+      padding: 25px;
+      margin: 10px 0 42px;
+      border: 1px solid rgba(255,255,255,.16);
+      background: rgba(8,15,30,.58);
+      border-radius: 18px;
     }
-    .creator-photo {
-      width: 120px;
-      height: 120px;
+
+    .creator img {
+      width: 105px;
+      height: 105px;
+      flex-shrink: 0;
       object-fit: cover;
       border-radius: 50%;
-      border: 3px solid #d9e7ef;
-      flex-shrink: 0;
+      border: 3px solid #38bdf8;
     }
-    .creator h2 { margin-bottom: 4px; }
-    footer { text-align: center; padding: 24px 16px; color: #607386; font-size: 13px; }
-    @media (max-width: 550px) {
-      .creator { flex-direction: column; text-align: center; }
-      .welcome-content { padding: 20px 16px; }
+
+    .creator h2 {
+      margin: 0 0 8px;
+    }
+
+    .creator p {
+      color: var(--muted);
+      line-height: 1.7;
+      margin: 0;
+    }
+
+    footer {
+      padding: 24px 0;
+      text-align: center;
+      color: #cbd5e1;
+      background: rgba(3,10,25,.65);
+      border-top: 1px solid rgba(255,255,255,.12);
+      line-height: 1.7;
+    }
+
+    footer p {
+      margin: 5px 0;
+    }
+
+    @media (max-width: 650px) {
+      .study-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .header-inner {
+        align-items: flex-start;
+      }
+
+      .creator {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .welcome {
+        margin-top: 18px;
+      }
     }
   </style>
 </head>
+
 <body>
   <header>
-    <h1>Lifting Study</h1>
-    <p>Lifting Engineering • Crane Operations • Rigging • Safety</p>
+    <div class="container header-inner">
+      <div class="brand">
+        <h1>🏗️ Lifting &amp; Rigging Study Hub</h1>
+        <p>Knowledge, Calculations, Safety and Lift Planning</p>
+      </div>
+
+      <button class="header-install" id="installHubBtn" type="button">
+        📲 Install App
+      </button>
+    </div>
+
+    <nav aria-label="Main navigation">
+      <div class="container nav-links">
+        <a href="index.html">Home</a>
+        <a href="rigging.html">Lifting Accessories</a>
+        <a href="calculation.html">Calculations</a>
+        <a href="cranes.html">Cranes</a>
+        <a href="planning.html">Lift Planning</a>
+        <a href="safety.html">Safety</a>
+        <a href="study-notes.html">Study Notes</a>
+      </div>
+    </nav>
   </header>
 
-  <nav aria-label="Main navigation">
-    <a href="index.html">Home</a>
-    <a href="rigging.html">Rigging</a>
-    <a href="calculation.html">Calculations</a>
-    <a href="cranes.html">Cranes</a>
-    <a href="planning.html">Lifting Planning</a>
-    <a href="safety.html">Safety</a>
-    <a href="study-notes.html">Study Notes</a>
-  </nav>
-
-  <main>
+  <main class="container">
+    <!-- Welcome box: both buttons are here -->
     <section class="welcome">
-      <img class="welcome-image" src="lifting.png" alt="Lifting engineering and crane operations"
-           onerror="this.style.display='none'">
+      <h2>Welcome to Lifting &amp; Rigging Study Hub</h2>
 
-      <div class="welcome-content">
-        <h2>Welcome to Lifting Study</h2>
-        <p>
-          A study resource for lifting engineers, riggers, crane operators
-          and lifting professionals. Explore calculation tools, rigging
-          principles, crane information, safety guidance and lift planning.
-        </p>
+      <p>
+        Your learning resource for lifting operations, rigging equipment,
+        crane knowledge, lifting calculations, safety practices and lift planning.
+      </p>
 
-        <div class="buttons">
-          <a class="btn btn-primary" href="planning.html">📋 Open Lifting Planning</a>
-          <a class="btn btn-secondary" href="calculation.html">🧮 Open Calculator</a>
-          <a class="btn btn-secondary" href="rigging.html">🪝 Rigging Study</a>
-        </div>
+      <div class="welcome-buttons">
+        <a href="study-notes.html" class="welcome-btn">
+          Explore Study Notes
+        </a>
+
+        <a href="calculation.html" class="welcome-btn calculation-btn">
+          Open Calculations
+        </a>
+      </div>
+
+      <p id="installAppMessage" role="status" aria-live="polite"></p>
+    </section>
+
+    <!-- Study boxes: no separate Lifting Calculations box -->
+    <section id="study-topics">
+      <div class="section-heading">
+        <h2>📘 Explore Study Topics</h2>
+        <p>Choose a study topic to open its learning materials.</p>
+      </div>
+
+      <div class="study-grid">
+        <article class="study-card accessories">
+          <div class="card-icon">🪝</div>
+          <h3>Lifting Accessories</h3>
+          <p>
+            Learn about slings, shackles, hooks, master links, lifting beams,
+            clamps, inspection requirements and working load limits.
+          </p>
+          <a class="card-link" href="rigging.html">
+            Explore Accessories →
+          </a>
+        </article>
+
+        <article class="study-card cranes">
+          <div class="card-icon">🏗️</div>
+          <h3>Cranes</h3>
+          <p>
+            Learn crane types, components, load charts, working radius,
+            capacity and crane operating principles.
+          </p>
+          <a class="card-link" href="cranes.html">
+            Explore Cranes →
+          </a>
+        </article>
+
+        <article class="study-card planning">
+          <div class="card-icon">📋</div>
+          <h3>Lift Planning</h3>
+          <p>
+            Review lifting plans, risk assessments, ground conditions,
+            load details and lifting-team responsibilities.
+          </p>
+          <a class="card-link" href="planning.html">
+            Explore Lift Planning →
+          </a>
+        </article>
+
+        <article class="study-card safety">
+          <div class="card-icon">🦺</div>
+          <h3>Lifting Safety</h3>
+          <p>
+            Study safe lifting practices, hazards, exclusion zones,
+            inspections and control measures.
+          </p>
+          <a class="card-link" href="safety.html">
+            Explore Safety →
+          </a>
+        </article>
+
+        <article class="study-card notes">
+          <div class="card-icon">📚</div>
+          <h3>Study Notes</h3>
+          <p>
+            Open your study notes, MCQs, questions, answers and practice materials.
+          </p>
+          <a class="card-link" href="study-notes.html">
+            Explore Study Notes →
+          </a>
+        </article>
       </div>
     </section>
 
-    <section class="grid" aria-label="Study sections">
-      <article class="card">
-        <h3>🧮 Calculations</h3>
-        <p>Open the dedicated calculation page for its lifting calculation tools.</p>
-        <a href="calculation.html">Open Calculations →</a>
-      </article>
-
-      <article class="card">
-        <h3>📋 Lifting Planning</h3>
-        <p>Use the planning page for planning calculations and the lift checklist.</p>
-        <a href="planning.html">Open Planning →</a>
-      </article>
-
-      <article class="card">
-        <h3>🪝 Rigging</h3>
-        <p>Review rigging information and lifting accessories.</p>
-        <a href="rigging.html">Open Rigging →</a>
-      </article>
-
-      <article class="card">
-        <h3>🏗️ Cranes</h3>
-        <p>Study crane types, configurations and operational considerations.</p>
-        <a href="cranes.html">Open Cranes →</a>
-      </article>
-
-      <article class="card">
-        <h3>🦺 Safety</h3>
-        <p>Review lifting safety practices and risk controls.</p>
-        <a href="safety.html">Open Safety →</a>
-      </article>
-
-      <article class="card">
-        <h3>📚 Study Notes</h3>
-        <p>Explore lifting engineering notes and learning material.</p>
-        <a href="study-notes.html">Open Study Notes →</a>
-      </article>
-    </section>
-
-    <section class="creator">
-      <img class="creator-photo"
-           src="jawad-new.png"
-           alt="Jawad Hussain, Lifting Engineer"
-           onerror="this.onerror=null;this.src='jawad.jpeg';this.onerror=function(){this.style.display='none'}">
+    <section class="creator" aria-label="About this website">
+      <img
+        src="jawad.jpeg"
+        alt="Website creator"
+        onerror="this.style.display='none'"
+      >
 
       <div>
-        <h2>About the Creator</h2>
-        <p><strong>Jawad Hussain</strong></p>
-        <p>Lifting Engineer</p>
-        <p>Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
-        <p>Languages: Punjabi, Urdu and English</p>
+        <h2>About This Study Hub</h2>
         <p>
-          Instagram:
-          <a href="https://www.instagram.com/jawad_wai9s/"
-             target="_blank" rel="noopener noreferrer">@jawad_wai9s</a>
+          A learning resource for lifting and rigging knowledge, practical
+          calculations, crane operations, lift planning and safe lifting.
         </p>
       </div>
     </section>
   </main>
 
   <footer>
-    Lifting Study • Educational resource for lifting professionals.
-    Always follow approved lift plans, manufacturer instructions and site procedures.
+    <div class="container">
+      <p>© 2026 Lifting &amp; Rigging Study Hub</p>
+      <p>Study safely. Plan carefully. Lift responsibly.</p>
+    </div>
   </footer>
+
+  <script>
+    let deferredInstallPrompt = null;
+
+    const installHubBtn = document.getElementById("installHubBtn");
+    const installMsg = document.getElementById("installAppMessage");
+
+    function showInstallMessage(message) {
+      if (installMsg) {
+        installMsg.textContent = message;
+      }
+    }
+
+    function isAppInstalled() {
+      return window.matchMedia("(display-mode: standalone)").matches ||
+        window.navigator.standalone === true;
+    }
+
+    window.addEventListener("beforeinstallprompt", (event) => {
+      event.preventDefault();
+      deferredInstallPrompt = event;
+      showInstallMessage("Ready to install.");
+    });
+
+    window.addEventListener("appinstalled", () => {
+      deferredInstallPrompt = null;
+      installHubBtn.textContent = "✅ App Installed";
+      showInstallMessage("App installed successfully.");
+    });
+
+    installHubBtn.addEventListener("click", async () => {
+      if (isAppInstalled()) {
+        showInstallMessage("The app is already installed.");
+        return;
+      }
+
+      if (deferredInstallPrompt) {
+        try {
+          const promptEvent = deferredInstallPrompt;
+          deferredInstallPrompt = null;
+
+          await promptEvent.prompt();
+          const choice = await promptEvent.userChoice;
+
+          showInstallMessage(
+            choice.outcome === "accepted"
+              ? "Installation accepted. Follow the browser prompts."
+              : "Installation cancelled. You can try again later."
+          );
+        } catch (error) {
+          console.error("Install prompt error:", error);
+          showInstallMessage(
+            "Use your browser menu to choose Install app or Add to Home screen."
+          );
+        }
+
+        return;
+      }
+
+      const ua = navigator.userAgent || "";
+      const isIOS = /iPad|iPhone|iPod/.test(ua) ||
+        (navigator.platform === "MacIntel" &&
+         navigator.maxTouchPoints > 1);
+
+      showInstallMessage(
+        isIOS
+          ? "In Safari, tap Share, then Add to Home Screen."
+          : "Automatic installation is unavailable. Open your browser menu (⋮) and look for Install app or Add to Home screen."
+      );
+    });
+
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register(
+          "/Lifting-Study/service-worker.js"
+        ).catch((error) => {
+          console.error("Service worker registration failed:", error);
+        });
+      });
+    }
+  </script>
 </body>
 </html>
