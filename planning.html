@@ -1,328 +1,564 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Lift Planning Study</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#0b1220">
+  <title>Lift Planning | Lifting &amp; Rigging Study</title>
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: #0f172a;
-    color: #e5e7eb;
-}
+  <style>
+    * { box-sizing: border-box; }
 
-header {
-    background: #111827;
-    padding: 30px;
-    text-align: center;
-}
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: #172033;
+      background: linear-gradient(135deg, #dbeafe, #f5d0fe, #ffedd5);
+    }
 
-header h1 {
-    margin: 0;
-    color: #38bdf8;
-}
+    header {
+      padding: 30px 18px;
+      color: white;
+      text-align: center;
+      background: linear-gradient(120deg, #0b1220, #1d4ed8, #7c3aed);
+    }
 
-header p {
-    color: #cbd5e1;
-}
+    header h1 { margin: 0 0 8px; }
 
-nav {
-    background: #1e293b;
-    padding: 15px;
-    text-align: center;
-}
+    nav {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+      padding: 12px;
+      background: #0b1220;
+    }
 
-nav a {
-    color: white;
-    text-decoration: none;
-}
+    nav a {
+      color: white;
+      text-decoration: none;
+      padding: 7px 11px;
+      border-radius: 20px;
+    }
 
-.container {
-    max-width: 1000px;
-    margin: auto;
-    padding: 30px 20px;
-}
+    nav a:hover { background: #334155; }
 
-.topic {
-    background: #1e293b;
-    padding: 25px;
-    margin-bottom: 20px;
-    border-radius: 12px;
-    border: 1px solid #334155;
-}
+    main {
+      width: min(1100px, 94%);
+      margin: 25px auto;
+    }
 
-.topic h2 {
-    color: #38bdf8;
-}
+    .intro, .panel {
+      padding: 22px;
+      margin-bottom: 22px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.94);
+      box-shadow: 0 8px 24px rgba(15,23,42,.10);
+    }
 
-.topic p,
-.topic li {
-    line-height: 1.7;
-    color: #cbd5e1;
-}
+    .intro {
+      color: white;
+      background: linear-gradient(120deg, #0f766e, #2563eb, #7c3aed);
+    }
 
-.warning {
-    background: #422006;
-    border-left: 5px solid #f59e0b;
-    padding: 20px;
-    border-radius: 8px;
-}
+    h2 { margin-top: 0; }
 
-footer {
-    text-align: center;
-    padding: 30px;
-    background: #111827;
-    color: #94a3b8;
-}
-</style>
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    label {
+      display: block;
+      font-weight: bold;
+      font-size: .94rem;
+      margin-bottom: 5px;
+    }
+
+    input, select {
+      width: 100%;
+      min-width: 0;
+      padding: 11px;
+      font: inherit;
+      border: 1px solid #cbd5e1;
+      border-radius: 9px;
+      background: white;
+    }
+
+    .hint {
+      color: #475569;
+      font-size: .92rem;
+    }
+
+    button {
+      border: 0;
+      border-radius: 9px;
+      padding: 11px 15px;
+      margin-top: 12px;
+      background: #1d4ed8;
+      color: white;
+      font-weight: bold;
+      font: inherit;
+      cursor: pointer;
+    }
+
+    button:hover { background: #1e40af; }
+
+    .result {
+      margin-top: 15px;
+      padding: 14px;
+      border-radius: 10px;
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      overflow-wrap: anywhere;
+    }
+
+    .warning {
+      padding: 14px;
+      margin-top: 14px;
+      border-radius: 10px;
+      color: #7f1d1d;
+      background: #fef2f2;
+      border: 1px solid #fecaca;
+    }
+
+    .checklist label {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+      margin: 12px 0;
+      font-weight: normal;
+    }
+
+    .checklist input {
+      width: auto;
+      margin-top: 6px;
+      flex-shrink: 0;
+    }
+
+    .checklist h3 { margin-bottom: 6px; }
+
+    .formula {
+      font-family: "Courier New", monospace;
+      padding: 12px;
+      border-radius: 9px;
+      background: #f1f5f9;
+      overflow-wrap: anywhere;
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      color: #cbd5e1;
+      background: #0b1220;
+    }
+
+    @media (max-width: 680px) {
+      .grid, .field-grid { grid-template-columns: 1fr; }
+      .panel, .intro { padding: 17px; }
+    }
+  </style>
 </head>
 
 <body>
+  <header>
+    <h1>📋 Lift Planning &amp; Geometry</h1>
+    <p>Crane geometry, preliminary obstacle clearance, and lifting procedure</p>
+  </header>
 
-<header>
-    <h1>Lift Planning Study</h1>
-    <p>Study notes for planning safe lifting operations</p>
-</header>
+  <nav aria-label="Main navigation">
+    <a href="index.html">🏠 Home</a>
+    <a href="rigging.html">⛓️ Lifting Accessories</a>
+    <a href="calculation.html">🧮 Calculations</a>
+    <a href="cranes.html">🏗️ Cranes</a>
+    <a href="planning.html">📋 Lift Planning</a>
+    <a href="safety.html">🦺 Lifting Safety</a>
+    <a href="study-notes.html">📚 Study Notes</a>
+  </nav>
 
-<nav>
-    <a href="index.html">← Back to Home</a>
-</nav>
+  <main>
+    <section class="intro">
+      <h2>🎯 Lift Planning Study Tool</h2>
+      <p>
+        Estimate basic crane geometry, review obstacle-clearance
+        considerations, and follow a structured lift-planning checklist.
+      </p>
+    </section>
 
-<div class="container">
+    <section class="panel">
+      <h2>📐 1. Crane Radius, Height, Boom Length &amp; Angle</h2>
 
-    <div class="topic">
-        <h2>1. What is a Lift Plan?</h2>
-        <p>
-            A lift plan describes how a lifting operation is intended
-            to be carried out. It should contain the information,
-            controls and responsibilities required for the particular lift.
-        </p>
-    </div>
+      <p>
+        For a simplified right triangle, radius is the horizontal side,
+        vertical height is the perpendicular side, and boom length is
+        the hypotenuse. The angle is measured above the horizontal.
+      </p>
 
-    <div class="topic">
-        <h2>2. Load Information</h2>
-        <p>Before planning a lift, establish reliable information about:</p>
+      <div class="formula">
+        Boom length² = Radius² + Height²<br>
+        Radius = Boom length × cos(angle)<br>
+        Height = Boom length × sin(angle)<br>
+        tan(angle) = Height ÷ Radius
+      </div>
 
-        <ul>
-            <li>Verified load weight</li>
-            <li>Dimensions</li>
-            <li>Center of gravity</li>
-            <li>Lifting points</li>
-            <li>Load condition</li>
-            <li>Any special handling requirements</li>
-        </ul>
-    </div>
+      <p class="hint">
+        Enter any two suitable values. The calculator will solve for the
+        remaining geometry values where mathematically possible.
+      </p>
 
-    <div class="topic">
-        <h2>3. Rigging Arrangement</h2>
-        <p>
-            The rigging arrangement should consider suitable lifting
-            equipment, equipment capacity, connection points, sling
-            configuration, angles and load distribution.
-        </p>
-    </div>
+      <div class="field-grid">
+        <div>
+          <label for="radius">Horizontal radius (m)</label>
+          <input id="radius" type="number" min="0" step="any" placeholder="e.g. 12">
+        </div>
+        <div>
+          <label for="height">Vertical height (m)</label>
+          <input id="height" type="number" min="0" step="any" placeholder="e.g. 16">
+        </div>
+        <div>
+          <label for="boom">Boom length (m)</label>
+          <input id="boom" type="number" min="0.01" step="any" placeholder="e.g. 20">
+        </div>
+        <div>
+          <label for="angle">Boom angle above horizontal (°)</label>
+          <input id="angle" type="number" min="0" max="90" step="any" placeholder="e.g. 53.13">
+        </div>
+      </div>
 
-    <div class="topic">
-        <h2>4. Crane Selection</h2>
-        <p>
-            Crane selection should consider the required capacity,
-            operating radius, boom configuration, site access,
-            ground conditions and the manufacturer's load chart.
-        </p>
-    </div>
+      <button type="button" id="calculate-geometry">Calculate Geometry</button>
+      <button type="button" id="clear-geometry">Clear</button>
 
-    <div class="topic">
-        <h2>5. Risk Assessment</h2>
-        <p>
-            Identify hazards associated with the lifting operation and
-            establish appropriate control measures. Consider suspended
-            loads, people, structures, power lines, weather, ground
-            conditions and nearby activities.
-        </p>
-    </div>
+      <div class="result" id="geometry-result" aria-live="polite">
+        Enter values to calculate the missing geometry.
+      </div>
 
-    <div class="topic">
-        <h2>6. Method Statement</h2>
-        <p>
-            The method statement should explain the planned sequence
-            of work, responsibilities, equipment, communication,
-            controls and emergency arrangements.
-        </p>
-    </div>
+      <div class="warning">
+        <strong>Geometry limitation:</strong> this is a simplified model.
+        Actual crane radius is normally measured horizontally from the
+        crane's axis of rotation to the load line, as defined by the
+        manufacturer. Boom pivot height, boom head position, reeving,
+        deflection, load-line geometry, and configuration can affect
+        the real values. Do not use this result as a load-chart decision.
+      </div>
+    </section>
 
-    <div class="topic">
-        <h2>7. Exclusion Zone</h2>
-        <p>
-            Establish an appropriate controlled area around the lifting
-            operation to prevent unauthorized people from entering
-            hazardous areas.
-        </p>
-    </div>
+    <section class="panel">
+      <h2>🏢 2. Preliminary Obstacle-Clearance Estimator</h2>
 
-    <div class="topic">
-        <h2>8. Communication</h2>
-        <p>
-            Before starting, the lifting team should agree on the
-            communication method, signals and responsibilities between
-            the operator, banksman, rigger and other involved personnel.
-        </p>
-    </div>
+      <p>
+        Use this section to check a simplified boom-to-building geometry.
+        The boom is represented as a straight line from its pivot to its
+        tip. The building is represented by a vertical face at a known
+        horizontal distance from the pivot.
+      </p>
 
-    <div class="topic">
-        <h2>9. Weather and Site Conditions</h2>
-        <p>
-            Weather, wind, visibility, ground conditions and site
-            restrictions should be considered before and during the lift.
-            Manufacturer limits and site requirements must be followed.
-        </p>
-    </div>
+      <div class="field-grid">
+        <div>
+          <label for="pivot-height">Boom pivot height above ground (m)</label>
+          <input id="pivot-height" type="number" min="0" step="any" placeholder="e.g. 2.5">
+        </div>
+        <div>
+          <label for="boom-length-clear">Boom length (m)</label>
+          <input id="boom-length-clear" type="number" min="0.01" step="any" placeholder="e.g. 30">
+        </div>
+        <div>
+          <label for="boom-angle-clear">Boom angle above horizontal (°)</label>
+          <input id="boom-angle-clear" type="number" min="0" max="90" step="any" placeholder="e.g. 60">
+        </div>
+        <div>
+          <label for="building-distance">Horizontal distance to building face from pivot (m)</label>
+          <input id="building-distance" type="number" min="0" step="any" placeholder="e.g. 10">
+        </div>
+        <div>
+          <label for="building-height">Building height above ground (m)</label>
+          <input id="building-height" type="number" min="0" step="any" placeholder="e.g. 12">
+        </div>
+        <div>
+          <label for="required-clearance">Required minimum clearance (m)</label>
+          <input id="required-clearance" type="number" min="0" step="any" placeholder="Set by lift plan">
+        </div>
+      </div>
 
-    <div class="topic">
-        <h2>10. Pre-Lift Meeting</h2>
-        <p>
-            A pre-lift meeting can be used to review the plan,
-            responsibilities, hazards, communication methods,
-            equipment and emergency arrangements with the lifting team.
-        </p>
-    </div>
+      <button type="button" id="calculate-clearance">Estimate Clearance</button>
 
-    <div class="warning">
-        <strong>Important Safety Notice</strong>
-        <p>
-            This page is for study and reference only. An actual lifting
-            operation must be supported by an approved lift plan,
-            appropriate engineering calculations, manufacturer information,
-            applicable regulations and competent-person verification.
-        </p>
-    </div>
+      <div class="result" id="clearance-result" aria-live="polite">
+        Enter all values to estimate the boom-to-building distance.
+      </div>
 
-</div>
+      <div class="warning">
+        <strong>Important:</strong> there is no single universal boom-to-building
+        clearance distance that applies to every lifting operation. The
+        required separation must be established by a competent lift planner
+        using the site conditions, crane and boom movement, load path,
+        deflection, wind, tolerances, and applicable local rules.
+        This simplified calculation checks only a vertical building face
+        in the same plane as the boom. It does not model the load, boom
+        width, swing, building projections, or the full three-dimensional path.
+        Do not use it as the sole basis for authorizing a lift.
+      </div>
+    </section>
 
-<footer>
-    <p>Lifting & Rigging Study Hub</p>
-</footer>
-<button class="pdf-download-btn" onclick="window.print()">
-    📥 Download This Study Material as PDF
-</button>
+    <section class="panel">
+      <h2>📏 3. Geometry Formula Reference</h2>
 
-<style>
-.pdf-download-btn {
-    background: #187443;
-    color: white;
-    padding: 13px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 15px 0;
-}
+      <h3>Pythagorean theorem</h3>
+      <p class="formula">L² = R² + H²</p>
+      <p>Where L = simplified boom length, R = horizontal radius, H = vertical rise.</p>
 
-.pdf-download-btn:hover {
-    background: #105b32;
-}
+      <h3>Trigonometry</h3>
+      <p class="formula">
+        sin(θ) = H / L<br>
+        cos(θ) = R / L<br>
+        tan(θ) = H / R
+      </p>
 
-@media print {
-    nav,
-    footer,
-    .pdf-download-btn,
-    button {
-        display: none !important;
+      <p>
+        If radius and height are known, calculate boom length with
+        √(R² + H²), and angle with arctan(H / R). If boom length and
+        angle are known, calculate radius with L × cos(θ) and height
+        with L × sin(θ).
+      </p>
+    </section>
+
+    <section class="panel checklist">
+      <h2>🦺 4. Step-by-Step Lifting Procedure</h2>
+      <p class="hint">
+        Use this as a study checklist, not a substitute for your site's
+        approved lifting procedure or permit requirements.
+      </p>
+
+      <h3>Stage 1 — Planning and authorization</h3>
+      <label><input type="checkbox"> Confirm the scope, load weight, dimensions, centre of gravity, and lifting points from reliable information.</label>
+      <label><input type="checkbox"> Classify the lift according to the site's lifting procedure and identify any critical or engineered-lift requirements.</label>
+      <label><input type="checkbox"> Select a suitable crane and configuration using the manufacturer's load chart for the actual radius, boom length, angle, counterweight, reeving, and operating conditions.</label>
+      <label><input type="checkbox"> Prepare and approve the lift plan, risk assessment, method statement, permits, and communication plan as required.</label>
+
+      <h3>Stage 2 — Site and equipment checks</h3>
+      <label><input type="checkbox"> Verify ground-bearing capacity, outrigger support, crane level, underground services, and exclusion-zone requirements.</label>
+      <label><input type="checkbox"> Inspect the crane, rigging accessories, hooks, safety devices, and lifting points; verify identification and inspection status.</label>
+      <label><input type="checkbox"> Check the complete load route for buildings, structures, pipework, overhead services, people, and other obstacles.</label>
+      <label><input type="checkbox"> Confirm weather and wind limits against the crane manufacturer and the approved lift plan.</label>
+
+      <h3>Stage 3 — Briefing and test lift</h3>
+      <label><input type="checkbox"> Conduct a pre-lift briefing covering roles, signals, radio communication, emergency actions, and stop-work authority.</label>
+      <label><input type="checkbox"> Establish barricades and an exclusion zone; keep people clear of suspended loads and pinch points.</label>
+      <label><input type="checkbox"> Attach the load using the approved rigging arrangement and verify sling angles, load distribution, and secure connections.</label>
+      <label><input type="checkbox"> Perform a controlled trial lift where required to confirm balance, rigging, brakes, and load control.</label>
+
+      <h3>Stage 4 — Lifting and movement</h3>
+      <label><input type="checkbox"> Lift smoothly under the designated signaler's direction; avoid shock loading, side pulling, and uncontrolled movement.</label>
+      <label><input type="checkbox"> Maintain clearance from structures and utilities; use approved tag lines where suitable and safe.</label>
+      <label><input type="checkbox"> Stop if visibility, communication, wind, ground conditions, load behaviour, or clearance becomes unsafe.</label>
+      <label><input type="checkbox"> Keep personnel away from beneath the suspended load and never allow anyone to enter a danger zone.</label>
+
+      <h3>Stage 5 — Landing and close-out</h3>
+      <label><input type="checkbox"> Land the load on a prepared, stable support and secure it against movement before releasing rigging.</label>
+      <label><input type="checkbox"> Remove rigging only when safe, then inspect and store accessories as required.</label>
+      <label><input type="checkbox"> Remove barriers when authorized, close permits, report issues, and record the lift according to site procedure.</label>
+
+      <div class="result" id="checklist-progress" aria-live="polite">
+        0 of 18 checklist items completed.
+      </div>
+      <button type="button" id="reset-checklist">Reset Checklist</button>
+    </section>
+
+    <section class="panel">
+      <h2>⚠️ Safety and standards note</h2>
+      <p>
+        Apply the current regulations, crane manufacturer's instructions,
+        site lifting procedure, and applicable standards for your location
+        and industry. Requirements can differ by jurisdiction and lift type.
+        This page is a learning aid; it does not approve a lift, replace a
+        competent person's assessment, or establish a universal clearance rule.
+      </p>
+    </section>
+  </main>
+
+  <footer>
+    <p>⚙️ &copy; 2026 Lifting &amp; Rigging Study Hub</p>
+  </footer>
+
+  <script>
+    const $ = (id) => document.getElementById(id);
+
+    function readNumber(id) {
+      const raw = $(id).value.trim();
+      if (raw === "") return null;
+      const value = Number(raw);
+      return Number.isFinite(value) ? value : NaN;
     }
 
-    body {
-        background: white;
-        color: black;
+    function fmt(value) {
+      return Number(value).toLocaleString(undefined, {
+        maximumFractionDigits: 3
+      });
     }
 
-    main {
-        width: 100%;
-        margin: 0;
+    function validNonNegative(value) {
+      return value !== null && Number.isFinite(value) && value >= 0;
     }
 
-    .section-card {
-        box-shadow: none;
-        break-inside: avoid;
+    $("calculate-geometry").addEventListener("click", () => {
+      let R = readNumber("radius");
+      let H = readNumber("height");
+      let L = readNumber("boom");
+      let angle = readNumber("angle");
+      const result = $("geometry-result");
+
+      const values = [R, H, L, angle];
+      if (values.some(v => Number.isNaN(v))) {
+        result.textContent = "Please enter valid numbers.";
+        return;
+      }
+
+      if ([R, H, L].some(v => v !== null && v < 0) ||
+          (L !== null && L === 0) ||
+          (angle !== null && (angle < 0 || angle > 90))) {
+        result.textContent = "Lengths cannot be negative, boom length must be greater than zero, and angle must be between 0° and 90°.";
+        return;
+      }
+
+      const known = [R, H, L, angle].filter(v => v !== null).length;
+      if (known < 2) {
+        result.textContent = "Enter at least two values to calculate the remaining geometry.";
+        return;
+      }
+
+      const eps = 1e-9;
+      const rad = d => d * Math.PI / 180;
+      const deg = r => r * 180 / Math.PI;
+
+      // Iteratively derive values from available consistent pairs.
+      for (let i = 0; i < 5; i++) {
+        if (R !== null && H !== null) {
+          if (L === null) L = Math.hypot(R, H);
+          if (R > eps) {
+            const a = deg(Math.atan2(H, R));
+            if (angle === null) angle = a;
+          } else if (angle === null && H > eps) {
+            angle = 90;
+          }
+        }
+
+        if (L !== null && angle !== null) {
+          if (R === null) R = L * Math.cos(rad(angle));
+          if (H === null) H = L * Math.sin(rad(angle));
+        }
+
+        if (L !== null && R !== null && H === null && L >= R) {
+          H = Math.sqrt(Math.max(0, L * L - R * R));
+        }
+
+        if (L !== null && H !== null && R === null && L >= H) {
+          R = Math.sqrt(Math.max(0, L * L - H * H));
+        }
+
+        if (R !== null && L !== null && H !== null && angle === null) {
+          angle = deg(Math.atan2(H, R));
+        }
+      }
+
+      if ([R, H, L, angle].some(v => v !== null && !Number.isFinite(v))) {
+        result.textContent = "The values cannot be calculated. Check your inputs.";
+        return;
+      }
+
+      if ((R !== null && R < -eps) || (H !== null && H < -eps) ||
+          (L !== null && L <= 0)) {
+        result.textContent = "The inputs are not physically valid for this simplified model.";
+        return;
+      }
+
+      if (R !== null && H !== null && L !== null) {
+        const expected = Math.hypot(R, H);
+        if (Math.abs(expected - L) > Math.max(0.05, L * 0.01)) {
+          result.innerHTML = "<strong>Inconsistent values.</strong> The entered measurements do not satisfy the right-triangle relationship. Please check them and try again.";
+          return;
+        }
+      }
+
+      result.innerHTML =
+        "<strong>Calculated geometry (simplified):</strong><br>" +
+        "Horizontal radius: " + (R === null ? "Not determined" : fmt(R) + " m") + "<br>" +
+        "Vertical rise: " + (H === null ? "Not determined" : fmt(H) + " m") + "<br>" +
+        "Boom length: " + (L === null ? "Not determined" : fmt(L) + " m") + "<br>" +
+        "Angle above horizontal: " + (angle === null ? "Not determined" : fmt(angle) + "°") +
+        "<br><span class='hint'>Use verified crane geometry and the manufacturer's load chart for real lifting decisions.</span>";
+    });
+
+    $("clear-geometry").addEventListener("click", () => {
+      ["radius", "height", "boom", "angle"].forEach(id => $(id).value = "");
+      $("geometry-result").textContent = "Enter values to calculate the missing geometry.";
+    });
+
+    $("calculate-clearance").addEventListener("click", () => {
+      const pivot = readNumber("pivot-height");
+      const length = readNumber("boom-length-clear");
+      const angle = readNumber("boom-angle-clear");
+      const distance = readNumber("building-distance");
+      const building = readNumber("building-height");
+      const required = readNumber("required-clearance");
+      const result = $("clearance-result");
+
+      const values = [pivot, length, angle, distance, building, required];
+
+      if (values.some(v => v === null || !Number.isFinite(v))) {
+        result.textContent = "Enter all six values to calculate the estimate.";
+        return;
+      }
+
+      if (pivot < 0 || length <= 0 || angle < 0 || angle > 90 ||
+          distance < 0 || building < 0 || required < 0) {
+        result.textContent = "Use non-negative heights and distances, positive boom length, and an angle from 0° to 90°.";
+        return;
+      }
+
+      const boomHorizontalReach = length * Math.cos(angle * Math.PI / 180);
+      if (distance > boomHorizontalReach) {
+        result.textContent = "The building face is beyond the horizontal reach of this simplified boom line. This model cannot estimate clearance at that location.";
+        return;
+      }
+
+      const boomHeightAtFace =
+        pivot + distance * Math.tan(angle * Math.PI / 180);
+      const verticalGap = boomHeightAtFace - building;
+
+      result.innerHTML =
+        "<strong>Preliminary geometric estimate:</strong><br>" +
+        "Boom height at building face: " + fmt(boomHeightAtFace) + " m<br>" +
+        "Building height: " + fmt(building) + " m<br>" +
+        "Vertical gap (boom line minus building top): " + fmt(verticalGap) + " m<br>" +
+        "User-entered clearance target: " + fmt(required) + " m<br>" +
+        (verticalGap >= required
+          ? "<strong>Geometric screen:</strong> the calculated vertical gap meets the entered target in this simplified model."
+          : "<strong>Geometric screen:</strong> the calculated vertical gap does not meet the entered target.") +
+        "<br><span class='hint'>This is a vertical gap, not the shortest boom-to-building distance. It does not approve the lift or prove safe clearance.</span>";
+    });
+
+    const checklist = Array.from(
+      document.querySelectorAll(".checklist input[type='checkbox']")
+    );
+
+    function updateProgress() {
+      const completed = checklist.filter(item => item.checked).length;
+      $("checklist-progress").textContent =
+        completed + " of " + checklist.length + " checklist items completed.";
     }
 
-    a {
-        color: black;
-        text-decoration: none;
-    }
-}
-</style>
-    
+    checklist.forEach(item => item.addEventListener("change", updateProgress));
 
-<style>
-.pdf-download-btn {
-    background: #187443;
-    color: white;
-    padding: 13px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    margin: 15px 0;
-}
-
-.pdf-download-btn:hover {
-    background: #105b32;
-}
-
-@media print {
-    nav,
-    footer,
-    .pdf-download-btn,
-    button {
-        display: none !important;
-    }
-
-    body {
-        background: white;
-        color: black;
-    }
-
-    main {
-        width: 100%;
-        margin: 0;
-    }
-
-    .section-card {
-        box-shadow: none;
-        break-inside: avoid;
-    }
-
-    a {
-        color: black;
-        text-decoration: none;
-    }
-}
-</style>
-    <!-- Save as PDF option -->
-<div class="pdf-save-option">
-  <button type="button" onclick="window.print()">Save as PDF</button>
-</div>
-
-<style>
-  .pdf-save-option {
-    text-align: center;
-    margin: 24px auto;
-  }
-  .pdf-save-option button {
-    padding: 10px 18px;
-    border: 1px solid #ccc;
-    border-radius: 6px;
-    background: white;
-    color: #222;
-    font-size: 15px;
-    cursor: pointer;
-  }
-  @media print {
-    .pdf-save-option { display: none !important; }
-  }
-</style>
+    $("reset-checklist").addEventListener("click", () => {
+      checklist.forEach(item => item.checked = false);
+      updateProgress();
+    });
+  </script>
 </body>
 </html>
