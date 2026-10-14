@@ -3,402 +3,562 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#102a43">
-<title>Lifting Planning Tools</title>
+<meta name="theme-color" content="#102d46">
+<title>Lift Calculations | Lifting Study</title>
 <style>
-:root{--navy:#102a43;--blue:#1769aa;--cyan:#00b4d8;--green:#16845b;--border:#d9e5ef;--text:#203448}
-*{box-sizing:border-box}
-body{margin:0;font-family:Arial,Helvetica,sans-serif;color:var(--text);background:linear-gradient(135deg,#eaf5ff,#f7faff 50%,#e9f9f4);line-height:1.6}
-header{color:white;padding:35px 18px;text-align:center;background:linear-gradient(120deg,rgba(9,35,58,.94),rgba(23,105,170,.85)),url("gasplant.png") center/cover}
-header h1{margin:0;font-size:clamp(1.8rem,5vw,2.7rem)}
-header p{margin:8px 0 0}
-nav{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:12px;background:#102a43}
-nav a{color:white;text-decoration:none;padding:8px 12px;border-radius:8px}
-nav a:hover{background:#1769aa}
-main{max-width:1100px;margin:auto;padding:20px 14px 45px}
-.intro{padding:24px;border-radius:16px;color:white;margin-bottom:20px;background:linear-gradient(120deg,rgba(16,42,67,.88),rgba(23,105,170,.78)),url("lifting.png") center/cover}
-.panel{background:white;border:1px solid var(--border);border-radius:16px;padding:22px;margin:18px 0;box-shadow:0 5px 20px rgba(16,42,67,.06)}
-.panel h2{margin-top:0;color:var(--navy)}
-.panel h3{color:var(--blue);margin-bottom:8px}
-.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
-.field{min-width:0}
-label{display:block;font-weight:700;margin-bottom:5px}
-input,select{width:100%;min-width:0;padding:11px 12px;border:1px solid #bdcddd;border-radius:9px;background:white;color:var(--text);font:inherit}
-input:focus,select:focus{outline:2px solid #80caff;border-color:var(--blue)}
-.help,.small{font-size:.9rem;color:#52697c}
-.actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:17px}
-button{border:0;border-radius:9px;padding:11px 16px;font-weight:700;font-size:.95rem;cursor:pointer;background:var(--blue);color:white}
-button:hover{filter:brightness(.94)}
-button.secondary{background:#52697c}
-.results{margin-top:16px;padding:16px;border-radius:12px;background:#f0f7ff;border:1px solid #cfe3f6}
-.result-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
-.result{background:white;border:1px solid var(--border);border-radius:10px;padding:15px;min-width:0}
-.result .name{font-size:.9rem;color:#52697c;font-weight:700}
-.result .value{font-size:1.45rem;font-weight:800;color:var(--navy);overflow-wrap:anywhere}
-.status{padding:10px 12px;border-radius:8px;margin-top:12px}
-.status.warn{background:#fff5df;color:#754600}
-.status.good{background:#e5f8ee;color:#155c3b}
-.status.bad{background:#ffeded;color:#8b2222}
-.hidden{display:none!important}
-.checklist label{display:flex;gap:10px;align-items:flex-start;padding:9px 0;border-bottom:1px solid #edf1f5;font-weight:400}
-.checklist input{width:18px;height:18px;margin-top:4px;flex:0 0 auto}
-.progress{height:10px;background:#e7eef5;border-radius:10px;overflow:hidden}
-.progress-bar{height:100%;width:0;background:linear-gradient(90deg,#00b4d8,#16845b)}
-.creator{display:flex;align-items:center;gap:18px;flex-wrap:wrap}
-.creator img{width:110px;height:110px;object-fit:cover;border-radius:50%;border:4px solid #d8edff}
-footer{text-align:center;background:var(--navy);color:white;padding:22px}
-@media(max-width:650px){.grid,.result-grid{grid-template-columns:1fr}.panel{padding:16px}.intro{padding:18px}}
-@media print{
- body{background:white;color:#111}
- header,nav,.actions,.no-print,footer{display:none!important}
- main{max-width:none;padding:0}
- .panel{box-shadow:none;border:1px solid #aaa;break-inside:avoid}
- .intro{background:white;color:#111;border:1px solid #aaa}
- .results{break-inside:avoid}
+:root {
+  --navy:#102d46; --blue:#176b87; --cyan:#22b8cf;
+  --bg:#edf4f8; --card:#fff; --text:#193348;
+  --muted:#60778a; --line:#d8e4ec; --green:#157347;
+  --red:#b42318; --orange:#a45a00;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0; font-family:Arial,Helvetica,sans-serif;
+  background:linear-gradient(145deg,#e8f4fa,#f8fbfd 55%,#e0edf4);
+  color:var(--text); line-height:1.55;
+}
+header {
+  color:white; padding:28px 18px;
+  background:linear-gradient(120deg,#102d46,#176b87,#1598ad);
+  text-align:center;
+}
+header h1 { margin:0 0 8px; font-size:clamp(26px,4vw,40px); }
+header p { margin:0; opacity:.92; }
+.banner {
+  display:block; width:100%; max-height:240px; object-fit:cover;
+}
+nav {
+  display:flex; flex-wrap:wrap; gap:8px; justify-content:center;
+  padding:12px; background:#0c2338;
+}
+nav a {
+  color:white; text-decoration:none; padding:9px 13px;
+  border-radius:8px; font-size:14px;
+}
+nav a:hover,nav a.active { background:#176b87; }
+.container { max-width:1150px; margin:auto; padding:22px 14px 45px; }
+.intro,.panel {
+  background:var(--card); border:1px solid var(--line);
+  border-radius:15px; padding:20px; margin-bottom:18px;
+  box-shadow:0 5px 20px #1933480c;
+}
+.intro { display:grid; grid-template-columns:1.4fr 1fr; gap:20px; align-items:center; }
+.intro img { width:100%; max-height:230px; object-fit:cover; border-radius:10px; }
+h2 { margin:0 0 12px; color:var(--navy); }
+h3 { color:var(--blue); margin:20px 0 8px; }
+p { margin-top:6px; }
+.muted { color:var(--muted); font-size:14px; }
+.grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; }
+.calc {
+  background:#fff; border:1px solid var(--line); border-radius:14px;
+  padding:18px; min-width:0;
+}
+.calc h3 { margin-top:0; }
+label { display:block; font-size:14px; font-weight:700; margin:12px 0 5px; }
+input,select {
+  width:100%; min-width:0; padding:11px 12px; border:1px solid #b8cbd8;
+  border-radius:8px; font-size:16px; color:var(--text); background:white;
+}
+input:focus,select:focus { outline:2px solid #22b8cf66; border-color:var(--blue); }
+button {
+  border:0; border-radius:8px; padding:11px 14px; font-size:14px;
+  font-weight:700; cursor:pointer; margin:10px 5px 0 0;
+}
+.primary { color:white; background:var(--blue); }
+.secondary { color:var(--navy); background:#e5eef4; }
+button:hover { filter:brightness(.96); }
+.result {
+  display:none; margin-top:15px; padding:14px; border-radius:10px;
+  background:#eef7fa; border:1px solid #c7e1eb; overflow-wrap:anywhere;
+}
+.result.error { background:#fff1f0; border-color:#f0b9b5; color:var(--red); }
+.result h4 { margin:0 0 8px; }
+.result table { width:100%; border-collapse:collapse; }
+.result td { padding:7px 5px; border-bottom:1px solid #d6e6ec; vertical-align:top; }
+.result td:last-child { text-align:right; font-weight:700; }
+.formula { font-size:13px; color:var(--muted); margin-top:10px; }
+.warning {
+  background:#fff7e8; border:1px solid #f1d39b; color:#704b08;
+  border-radius:10px; padding:13px; margin:14px 0;
+}
+.badge { display:inline-block; background:#e1f3f7; color:#12586a; padding:3px 8px; border-radius:99px; font-size:12px; }
+.full { grid-column:1/-1; }
+footer { text-align:center; padding:25px; color:#d9e9f1; background:#0c2338; }
+footer a { color:#6ee7f9; }
+@media(max-width:760px) {
+  .grid,.intro { grid-template-columns:1fr; }
+  .container { padding:14px 10px 30px; }
+  .panel,.calc,.intro { padding:15px; }
+  nav a { padding:8px 10px; }
+}
+@media print {
+  nav,button,.no-print { display:none!important; }
+  body { background:white; }
+  .panel,.calc,.intro { box-shadow:none; break-inside:avoid; }
+  .result { display:block!important; }
 }
 </style>
 </head>
 <body>
+
 <header>
-<h1>Crane &amp; Lifting Planning Tools</h1>
-<p>Practical geometry checks and lift planning preparation</p>
+  <h1>Lifting Study — Calculation Centre</h1>
+  <p>Practical lifting calculations and engineering reference tools</p>
 </header>
 
+<img class="banner" src="gasplant.png" alt="Industrial plant lifting environment"
+     onerror="this.style.display='none'">
+
 <nav>
-<a href="index.html">Home</a>
-<a href="rigging.html">Rigging</a>
-<a href="calculation.html">Calculations</a>
-<a href="cranes.html">Cranes</a>
-<a href="planning.html">Planning</a>
-<a href="safety.html">Safety</a>
-<a href="study-notes.html">Study Notes</a>
+  <a href="index.html">Home</a>
+  <a href="rigging.html">Rigging</a>
+  <a class="active" href="calculation.html">Open Calculation</a>
+  <a href="cranes.html">Cranes</a>
+  <a href="planning.html">Lift Planning</a>
+  <a href="safety.html">Safety</a>
+  <a href="study-notes.html">Study Notes</a>
 </nav>
 
-<main>
-<section class="intro">
-<h2>Lift Planning Workspace</h2>
-<p>Calculate crane geometry, check building clearance, and prepare your lift planning checklist.</p>
-<div class="actions no-print">
-<button onclick="savePDF()">Save / Print PDF</button>
-</div>
-</section>
+<main class="container">
+  <section class="intro">
+    <div>
+      <span class="badge">ALL CALCULATORS IN ONE PLACE</span>
+      <h2>Open Calculation</h2>
+      <p>Use this page for preliminary crane geometry, rigging forces, load sharing,
+        centre of gravity, ground pressure and clearance calculations.</p>
+      <p class="muted">Enter consistent units. Angles are measured from the horizontal
+      unless a calculator says otherwise.</p>
+      <button class="primary no-print" onclick="window.print()">Print / Save as PDF</button>
+    </div>
+    <img src="lifting.png" alt="Lifting operation"
+         onerror="this.style.display='none'">
+  </section>
 
-<!-- CRANE GEOMETRY CALCULATOR -->
-<section class="panel" id="craneGeometry">
-<h2>1. Crane Geometry Calculator</h2>
-<p class="help">Select the two values you know, enter them, then select the value you want to calculate.</p>
+  <section class="panel">
+    <h2>Calculation tools</h2>
+    <p class="muted">Calculate each topic separately. Results are estimates and must be checked
+      against the actual lift configuration and approved engineering documents.</p>
 
-<div class="grid">
-<div class="field">
-<label for="knownOne">First known value</label>
-<select id="knownOne" onchange="updateGeometryForm()">
-<option value="length">Boom length</option>
-<option value="radius">Horizontal radius</option>
-<option value="angle">Boom angle</option>
-</select>
-</div>
-<div class="field">
-<label for="knownTwo">Second known value</label>
-<select id="knownTwo" onchange="updateGeometryForm()">
-<option value="radius">Horizontal radius</option>
-<option value="angle">Boom angle</option>
-<option value="length">Boom length</option>
-</select>
-</div>
-<div class="field">
-<label for="findValue">Calculate which value?</label>
-<select id="findValue" onchange="updateGeometryForm()">
-<option value="angle">Boom angle</option>
-<option value="length">Boom length</option>
-<option value="radius">Horizontal radius</option>
-</select>
-</div>
-</div>
+    <div class="grid">
 
-<div class="grid" style="margin-top:14px">
-<div class="field" id="knownOneField">
-<label id="knownOneLabel" for="knownOneInput">Boom length (m)</label>
-<input id="knownOneInput" type="number" min="0" step="any" placeholder="Enter value">
-</div>
-<div class="field" id="knownTwoField">
-<label id="knownTwoLabel" for="knownTwoInput">Horizontal radius (m)</label>
-<input id="knownTwoInput" type="number" min="0" step="any" placeholder="Enter value">
-</div>
-</div>
+      <!-- 1. CRANE GEOMETRY -->
+      <article class="calc">
+        <h3>1. Crane Geometry</h3>
+        <p class="muted">Calculate a missing boom length, horizontal radius, vertical tip rise or boom angle.</p>
+        <label for="geoFind">Calculate</label>
+        <select id="geoFind" onchange="updateGeoFields()">
+          <option value="angle">Boom angle</option>
+          <option value="height">Vertical tip rise</option>
+          <option value="radius">Horizontal radius</option>
+          <option value="length">Boom length</option>
+        </select>
+        <label for="geoA">Known value A</label>
+        <select id="geoA" onchange="updateGeoFields()">
+          <option value="length">Boom length</option>
+          <option value="radius">Horizontal radius</option>
+          <option value="height">Vertical tip rise</option>
+          <option value="angle">Boom angle</option>
+        </select>
+        <label for="geoAv">Value A</label>
+        <input id="geoAv" type="number" min="0" step="any" placeholder="Enter value">
+        <label for="geoB">Known value B</label>
+        <select id="geoB" onchange="updateGeoFields()">
+          <option value="radius">Horizontal radius</option>
+          <option value="height">Vertical tip rise</option>
+          <option value="angle">Boom angle</option>
+          <option value="length">Boom length</option>
+        </select>
+        <label for="geoBv">Value B</label>
+        <input id="geoBv" type="number" min="0" step="any" placeholder="Enter value">
+        <button class="primary" onclick="calcGeometry()">Calculate</button>
+        <button class="secondary" onclick="resetCalc('geo')">Reset</button>
+        <div id="geoResult" class="result" aria-live="polite"></div>
+        <div class="formula">Idealised right triangle: radius = L cos θ; rise = L sin θ.
+          Actual crane geometry, boom deflection and hook block position may differ.</div>
+      </article>
 
-<div class="actions no-print">
-<button onclick="calculateGeometry()">Calculate</button>
-<button class="secondary" onclick="resetGeometry()">Reset</button>
-</div>
-<div id="geoResults" class="results hidden" aria-live="polite"></div>
-</section>
+      <!-- 2. SLING TENSION -->
+      <article class="calc">
+        <h3>2. Sling-Leg Tension</h3>
+        <p class="muted">Estimate equal load sharing across symmetric sling legs.</p>
+        <label for="slingWeight">Total suspended load (kg)</label>
+        <input id="slingWeight" type="number" min="0" step="any" placeholder="e.g. 5000">
+        <label for="slingLegs">Number of load-bearing sling legs</label>
+        <select id="slingLegs">
+          <option value="2">2 legs</option>
+          <option value="3">3 legs</option>
+          <option value="4">4 legs</option>
+        </select>
+        <label for="slingAngle">Angle from horizontal (degrees)</label>
+        <input id="slingAngle" type="number" min="1" max="90" step="any" value="60">
+        <button class="primary" onclick="calcSling()">Calculate</button>
+        <button class="secondary" onclick="resetCalc('sling')">Reset</button>
+        <div id="slingResult" class="result" aria-live="polite"></div>
+        <div class="formula">Idealised tension per leg = W ÷ (n sin θ). This assumes equal sharing
+          and a symmetric arrangement. Real sling forces may be higher.</div>
+      </article>
 
-<!-- OBSTACLE CLEARANCE CALCULATOR -->
-<section class="panel" id="obstacleClearance">
-<h2>2. Obstacle Clearance Calculator</h2>
-<p class="help">Calculate vertical clearance above the roof and horizontal clearance from the building's near edge to the boom's roof-height crossing.</p>
+      <!-- 3. LOAD WEIGHT -->
+      <article class="calc">
+        <h3>3. Load Weight from Dimensions</h3>
+        <p class="muted">Estimate a uniform rectangular solid's mass from dimensions and density.</p>
+        <label for="matLength">Length (m)</label>
+        <input id="matLength" type="number" min="0" step="any">
+        <label for="matWidth">Width (m)</label>
+        <input id="matWidth" type="number" min="0" step="any">
+        <label for="matHeight">Height / thickness (m)</label>
+        <input id="matHeight" type="number" min="0" step="any">
+        <label for="matDensity">Material density (kg/m³)</label>
+        <input id="matDensity" type="number" min="0" step="any" placeholder="Steel ≈ 7850">
+        <label for="matExtras">Additional mass (kg), if any</label>
+        <input id="matExtras" type="number" min="0" step="any" value="0">
+        <button class="primary" onclick="calcLoad()">Calculate</button>
+        <button class="secondary" onclick="resetCalc('mat')">Reset</button>
+        <div id="matResult" class="result" aria-live="polite"></div>
+        <div class="formula">Mass = volume × density + additional mass. Use actual drawings,
+          weigh records or manufacturer data whenever available.</div>
+      </article>
 
-<div class="grid">
-<div class="field">
-<label for="centerDistance">Crane centre to building near edge (m)</label>
-<input id="centerDistance" type="number" min="0" step="any" value="20">
-</div>
-<div class="field">
-<label for="buildingLength">Building length (m)</label>
-<input id="buildingLength" type="number" min="0" step="any" value="12">
-</div>
-<div class="field">
-<label for="buildingHeight">Roof height above ground (m)</label>
-<input id="buildingHeight" type="number" min="0" step="any" value="15">
-</div>
-<div class="field">
-<label for="obstacleLength">Boom length (m)</label>
-<input id="obstacleLength" type="number" min="0.01" step="any" value="40">
-</div>
-<div class="field">
-<label for="obstacleAngle">Boom angle above horizontal (°)</label>
-<input id="obstacleAngle" type="number" min="0.01" max="90" step="any" value="50">
-</div>
-<div class="field">
-<label for="craneBaseHeight">Boom base height above ground (m)</label>
-<input id="craneBaseHeight" type="number" min="0" step="any" value="2">
-</div>
-<div class="field">
-<label for="extraClearance">Required clearance above roof (m)</label>
-<input id="extraClearance" type="number" min="0" step="any" value="2">
-</div>
-</div>
+      <!-- 4. LOAD SHARE -->
+      <article class="calc">
+        <h3>4. Load Sharing</h3>
+        <p class="muted">Estimate reactions for a simply supported beam with a point load.</p>
+        <label for="beamSpan">Support spacing (m)</label>
+        <input id="beamSpan" type="number" min="0" step="any">
+        <label for="beamLoad">Point load (kN)</label>
+        <input id="beamLoad" type="number" min="0" step="any">
+        <label for="beamPosition">Distance from left support to load (m)</label>
+        <input id="beamPosition" type="number" min="0" step="any">
+        <button class="primary" onclick="calcBeam()">Calculate</button>
+        <button class="secondary" onclick="resetCalc('beam')">Reset</button>
+        <div id="beamResult" class="result" aria-live="polite"></div>
+        <div class="formula">For an ideal simply supported beam: Rleft = P(L − x)/L;
+          Rright = Px/L. Not valid for arbitrary multi-point rigging or flexible loads.</div>
+      </article>
 
-<div class="actions no-print">
-<button onclick="calculateClearance()">Calculate Clearance</button>
-<button class="secondary" onclick="resetClearance()">Reset</button>
-</div>
-<div id="clearanceResults" class="results hidden" aria-live="polite"></div>
-</section>
+      <!-- 5. CENTRE OF GRAVITY -->
+      <article class="calc">
+        <h3>5. Centre of Gravity — Two Masses</h3>
+        <p class="muted">Calculate the centre of gravity along one axis for two known masses.</p>
+        <label for="cgM1">Mass 1 (kg)</label>
+        <input id="cgM1" type="number" min="0" step="any">
+        <label for="cgX1">Mass 1 position (m)</label>
+        <input id="cgX1" type="number" step="any">
+        <label for="cgM2">Mass 2 (kg)</label>
+        <input id="cgM2" type="number" min="0" step="any">
+        <label for="cgX2">Mass 2 position (m)</label>
+        <input id="cgX2" type="number" step="any">
+        <button class="primary" onclick="calcCG()">Calculate</button>
+        <button class="secondary" onclick="resetCalc('cg')">Reset</button>
+        <div id="cgResult" class="result" aria-live="polite"></div>
+        <div class="formula">xCG = (m₁x₁ + m₂x₂) ÷ (m₁ + m₂). Use a common datum for both positions.</div>
+      </article>
 
-<!-- LIFT PLANNING CHECKLIST -->
-<section class="panel" id="liftChecklist">
-<h2>3. Lift Planning Checklist</h2>
-<p class="help">Tick items after verification by the responsible lifting team.</p>
-<div class="progress"><div class="progress-bar" id="progressBar"></div></div>
-<p id="progressText" class="small">0 of 12 items complete</p>
+      <!-- 6. GROUND PRESSURE -->
+      <article class="calc">
+        <h3>6. Ground Bearing Pressure</h3>
+        <p class="muted">Estimate average pressure from a known load and effective support area.</p>
+        <label for="groundLoad">Load on support (kN)</label>
+        <input id="groundLoad" type="number" min="0" step="any">
+        <label for="groundLength">Effective contact length (m)</label>
+        <input id="groundLength" type="number" min="0" step="any">
+        <label for="groundWidth">Effective contact width (m)</label>
+        <input id="groundWidth" type="number" min="0" step="any">
+        <button class="primary" onclick="calcGround()">Calculate</button>
+        <button class="secondary" onclick="resetCalc('ground')">Reset</button>
+        <div id="groundResult" class="result" aria-live="polite"></div>
+        <div class="formula">Average pressure = load ÷ area. Actual outrigger reactions and soil
+          bearing capacity require separate verification.</div>
+      </article>
 
-<div class="checklist" id="checklistItems">
-<label><input type="checkbox"> Confirm load weight, dimensions, centre of gravity, and lifting points.</label>
-<label><input type="checkbox"> Verify crane configuration and manufacturer's load chart.</label>
-<label><input type="checkbox"> Confirm operating radius throughout the complete lift path.</label>
-<label><input type="checkbox"> Check boom length, boom angle, and jib configuration.</label>
-<label><input type="checkbox"> Verify building, structure, and overhead obstacle clearances.</label>
-<label><input type="checkbox"> Confirm ground bearing capacity and outrigger support.</label>
-<label><input type="checkbox"> Check rigging weight, sling angles, and lifting accessories.</label>
-<label><input type="checkbox"> Confirm wind limits and expected weather conditions.</label>
-<label><input type="checkbox"> Establish exclusion zones and communication arrangements.</label>
-<label><input type="checkbox"> Confirm power-line and underground-service precautions.</label>
-<label><input type="checkbox"> Review the lift sequence with the competent lifting team.</label>
-<label><input type="checkbox"> Obtain required permits, approvals, and pre-lift inspection.</label>
-</div>
-<div class="actions no-print">
-<button class="secondary" onclick="resetChecklist()">Reset Checklist</button>
-</div>
-</section>
+      <!-- 7. OBSTACLE CLEARANCE -->
+      <article class="calc">
+        <h3>7. Obstacle Clearance</h3>
+        <p class="muted">Estimate geometric clearance for a boom represented by a straight line.</p>
+        <label for="clearRadius">Horizontal boom radius (m)</label>
+        <input id="clearRadius" type="number" min="0" step="any">
+        <label for="clearRise">Boom tip rise above pivot (m)</label>
+        <input id="clearRise" type="number" min="0" step="any">
+        <label for="clearPivot">Pivot height above ground (m)</label>
+        <input id="clearPivot" type="number" min="0" step="any">
+        <label for="clearObstacleX">Obstacle distance horizontally from pivot (m)</label>
+        <input id="clearObstacleX" type="number" min="0" step="any">
+        <label for="clearObstacleH">Obstacle height above ground (m)</label>
+        <input id="clearObstacleH" type="number" min="0" step="any">
+        <label for="clearMargin">Required additional clearance (m)</label>
+        <input id="clearMargin" type="number" min="0" step="any" value="1">
+        <button class="primary" onclick="calcClearance()">Calculate</button>
+        <button class="secondary" onclick="resetCalc('clear')">Reset</button>
+        <div id="clearResult" class="result" aria-live="polite"></div>
+        <div class="formula">Assumes a straight, rigid boom line. Does not model boom deflection,
+          jib geometry, hook block, suspended load swing or crane motion.</div>
+      </article>
 
-<section class="panel">
-<h2>About the Creator</h2>
-<div class="creator">
-<img src="jawad.jpeg" alt="Creator photo" onerror="this.style.display='none'">
-<div>
-<h3>Jawad Hussain</h3>
-<p><strong>Lifting Engineer</strong></p>
-<p>Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
-<p>Languages: Punjabi, Urdu, English</p>
-<p><a href="https://www.instagram.com/jawad_wai9s/" target="_blank" rel="noopener">Instagram: @jawad_wai9s</a></p>
-</div>
-</div>
-</section>
+      <!-- 8. PERCENT CAPACITY -->
+      <article class="calc">
+        <h3>8. Crane Capacity Utilisation</h3>
+        <p class="muted">Compare the total planned load with the applicable chart capacity.</p>
+        <label for="capLoad">Total chart load basis (kg)</label>
+        <input id="capLoad" type="number" min="0" step="any">
+        <label for="capCapacity">Rated chart capacity at actual configuration (kg)</label>
+        <input id="capCapacity" type="number" min="0" step="any">
+        <button class="primary" onclick="calcCapacity()">Calculate</button>
+        <button class="secondary" onclick="resetCalc('cap')">Reset</button>
+        <div id="capResult" class="result" aria-live="polite"></div>
+        <div class="formula">Utilisation = planned chart load ÷ rated chart capacity × 100%.
+          Ensure the load basis and deductions match the crane manufacturer's chart.</div>
+      </article>
 
-<section class="panel">
-<h2>Important Safety Note</h2>
-<p>These calculators provide simplified geometric estimates only. They do not establish crane capacity or prove that the complete boom envelope clears a building. Actual boom configuration, deflection, jib arrangement, crane orientation, and load movement may affect clearances.</p>
-<p>Verify the full lift path, crane capacity, and configuration using the manufacturer's documents and an approved lift plan reviewed by a competent lifting professional.</p>
-</section>
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Engineering checks before using a result</h2>
+    <div class="warning">
+      <strong>Important:</strong> These tools are simplified estimates, not a substitute for
+      an approved lift plan or a qualified lifting engineer's review.
+    </div>
+    <ul>
+      <li>Confirm actual load weight, centre of gravity, lifting points and rigging weights.</li>
+      <li>Use the exact crane model, configuration, radius, boom/jib arrangement and load chart.</li>
+      <li>Account for deductions, reeving, wind, dynamic effects, side loading and manufacturer limits.</li>
+      <li>Verify sling angles, hitch factors, hardware WLL, load distribution and edge protection.</li>
+      <li>Check ground conditions, outrigger reactions, mats and underground services.</li>
+      <li>Confirm clearances along the entire lifting path, not just at the boom tip.</li>
+    </ul>
+    <button class="primary no-print" onclick="window.print()">Print / Save all calculations as PDF</button>
+  </section>
+
+  <section class="panel">
+    <h2>About the creator</h2>
+    <p><strong>Jawad Hussain</strong> — Lifting Engineer</p>
+    <p>Phalia, Mandi Bahauddin, Punjab, Pakistan</p>
+    <p>Languages: Punjabi, Urdu and English</p>
+    <p><a href="https://www.instagram.com/jawad_wai9s/" target="_blank" rel="noopener noreferrer">Instagram: @jawad_wai9s</a></p>
+    <img src="jawad.jpeg" alt="Creator"
+         style="width:110px;height:110px;object-fit:cover;border-radius:50%"
+         onerror="this.style.display='none'">
+  </section>
 </main>
 
 <footer>
-<p>Crane &amp; Lifting Planning Tools</p>
-<p class="small" style="color:#d7e7f5">Plan carefully. Verify independently. Lift safely.</p>
+  <p>© Lifting Study | Educational and preliminary engineering tools</p>
 </footer>
 
 <script>
-const geometryInfo={
- length:{label:"Boom length",unit:"m"},
- radius:{label:"Horizontal radius",unit:"m"},
- angle:{label:"Boom angle",unit:"°"}
-};
+"use strict";
 
-function updateGeometryForm(){
- const one=document.getElementById("knownOne");
- const two=document.getElementById("knownTwo");
- const find=document.getElementById("findValue");
+function val(id) {
+  const el = document.getElementById(id);
+  if (!el || el.value.trim() === "") return NaN;
+  return Number(el.value);
+}
+function fmt(n, digits=3) {
+  if (!Number.isFinite(n)) return "Not available";
+  return n.toLocaleString(undefined, {maximumFractionDigits:digits});
+}
+function output(id, title, rows, error=false) {
+  const el = document.getElementById(id);
+  el.className = "result" + (error ? " error" : "");
+  el.style.display = "block";
+  if (error) {
+    el.innerHTML = "<h4>Check input</h4><p>" + title + "</p>";
+    return;
+  }
+  el.innerHTML = "<h4>" + title + "</h4><table>" +
+    rows.map(r => "<tr><td>" + r[0] + "</td><td>" + r[1] + "</td></tr>").join("") +
+    "</table>";
+}
+function err(id, text) { output(id, text, [], true); }
+function need(id, values, condition) {
+  if (values.some(v => !Number.isFinite(v)) || !condition) {
+    err(id, "Enter valid values that meet the required geometry or physical constraints.");
+    return false;
+  }
+  return true;
+}
+function resetCalc(prefix) {
+  const ids = {
+    geo:["geoFind","geoA","geoAv","geoB","geoBv"],
+    sling:["slingWeight","slingLegs","slingAngle"],
+    mat:["matLength","matWidth","matHeight","matDensity","matExtras"],
+    beam:["beamSpan","beamLoad","beamPosition"],
+    cg:["cgM1","cgX1","cgM2","cgX2"],
+    ground:["groundLoad","groundLength","groundWidth"],
+    clear:["clearRadius","clearRise","clearPivot","clearObstacleX","clearObstacleH","clearMargin"],
+    cap:["capLoad","capCapacity"]
+  }[prefix] || [];
+  ids.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      if (el.tagName === "SELECT") el.selectedIndex = 0;
+      else el.value = "";
+    }
+  });
+  const out = document.getElementById({
+    geo:"geoResult",sling:"slingResult",mat:"matResult",beam:"beamResult",
+    cg:"cgResult",ground:"groundResult",clear:"clearResult",cap:"capResult"
+  }[prefix]);
+  if (out) { out.style.display = "none"; out.innerHTML = ""; }
+  if (prefix === "geo") updateGeoFields();
+}
+function updateGeoFields() {
+  const find = document.getElementById("geoFind").value;
+  let a = document.getElementById("geoA").value;
+  let b = document.getElementById("geoB").value;
+  if (a === find) a = ["length","radius","height","angle"].find(x => x !== find && x !== b);
+  if (b === find || b === a) b = ["length","radius","height","angle"].find(x => x !== find && x !== a);
+  document.getElementById("geoA").value = a;
+  document.getElementById("geoB").value = b;
+  document.getElementById("geoAv").placeholder = a === "angle" ? "Degrees" : "Metres";
+  document.getElementById("geoBv").placeholder = b === "angle" ? "Degrees" : "Metres";
+}
+function calcGeometry() {
+  updateGeoFields();
+  const find = document.getElementById("geoFind").value;
+  const aName = document.getElementById("geoA").value;
+  const bName = document.getElementById("geoB").value;
+  const a = val("geoAv"), b = val("geoBv");
+  const v = { [aName]:a, [bName]:b };
+  if (!need("geoResult",[a,b],aName !== bName && a >= 0 && b >= 0)) return;
 
- // Keep all three selections unique.
- if(one.value===two.value){
-   two.value=["length","radius","angle"].find(v=>v!==one.value&&v!==find.value)||["length","radius","angle"].find(v=>v!==one.value);
- }
- if(find.value===one.value){
-   find.value=["length","radius","angle"].find(v=>v!==one.value&&v!==two.value);
- }
- if(find.value===two.value){
-   find.value=["length","radius","angle"].find(v=>v!==one.value&&v!==two.value);
- }
+  if (aName === "angle" && a > 90 || bName === "angle" && b > 90) {
+    return err("geoResult","Boom angle must be between 0° and 90° for this model.");
+  }
+  const L = v.length, R = v.radius, H = v.height;
+  const angle = v.angle;
+  let result;
 
- document.getElementById("knownOneLabel").textContent=geometryInfo[one.value].label+" ("+geometryInfo[one.value].unit+")";
- document.getElementById("knownTwoLabel").textContent=geometryInfo[two.value].label+" ("+geometryInfo[two.value].unit+")";
- document.getElementById("knownOneInput").placeholder="Enter "+geometryInfo[one.value].label.toLowerCase();
- document.getElementById("knownTwoInput").placeholder="Enter "+geometryInfo[two.value].label.toLowerCase();
+  if (find === "angle") {
+    if (L != null && R != null) {
+      if (L <= 0 || R > L) return err("geoResult","Boom length must be positive and radius cannot exceed length.");
+      result = Math.acos(R/L)*180/Math.PI;
+    } else if (L != null && H != null) {
+      if (L <= 0 || H > L) return err("geoResult","Boom length must be positive and rise cannot exceed length.");
+      result = Math.asin(H/L)*180/Math.PI;
+    } else if (R != null && H != null) {
+      if (R === 0 && H === 0) return err("geoResult","Radius and rise cannot both be zero.");
+      result = Math.atan2(H,R)*180/Math.PI;
+    }
+  } else if (find === "length") {
+    if (R != null && H != null) result = Math.hypot(R,H);
+    else if (R != null && angle != null) {
+      if (Math.cos(angle*Math.PI/180) <= 0) return err("geoResult","This angle cannot produce the requested boom length.");
+      result = R/Math.cos(angle*Math.PI/180);
+    } else if (H != null && angle != null) {
+      if (Math.sin(angle*Math.PI/180) <= 0) return err("geoResult","Rise cannot be calculated at zero degrees.");
+      result = H/Math.sin(angle*Math.PI/180);
+    }
+  } else if (find === "radius") {
+    if (L != null && H != null) {
+      if (H > L) return err("geoResult","Rise cannot exceed boom length.");
+      result = Math.sqrt(Math.max(0,L*L-H*H));
+    } else if (L != null && angle != null) result = L*Math.cos(angle*Math.PI/180);
+    else if (H != null && angle != null) {
+      if (Math.tan(angle*Math.PI/180) === 0) return err("geoResult","Cannot calculate radius from zero angle and rise.");
+      result = H/Math.tan(angle*Math.PI/180);
+    }
+  } else if (find === "height") {
+    if (L != null && R != null) {
+      if (R > L) return err("geoResult","Radius cannot exceed boom length.");
+      result = Math.sqrt(Math.max(0,L*L-R*R));
+    } else if (L != null && angle != null) result = L*Math.sin(angle*Math.PI/180);
+    else if (R != null && angle != null) result = R*Math.tan(angle*Math.PI/180);
+  }
+  if (!Number.isFinite(result) || result < 0) return err("geoResult","These values cannot produce a valid result.");
+  const labels = {angle:"Boom angle",height:"Vertical tip rise",radius:"Horizontal radius",length:"Boom length"};
+  output("geoResult","Calculated result",[[labels[find],fmt(result)+(find==="angle"?"°":" m")],
+    ["Known A",aName+" = "+fmt(a)+(aName==="angle"?"°":" m")],
+    ["Known B",bName+" = "+fmt(b)+(bName==="angle"?"°":" m")]]);
 }
 
-function calculateGeometry(){
- const one=document.getElementById("knownOne").value;
- const two=document.getElementById("knownTwo").value;
- const find=document.getElementById("findValue").value;
- const v1=Number(document.getElementById("knownOneInput").value);
- const v2=Number(document.getElementById("knownTwoInput").value);
-
- if(one===two||find===one||find===two){
-   showResult("geoResults",message("bad","Select two different known values and a different value to calculate."));
-   return;
- }
- if(document.getElementById("knownOneInput").value.trim()===""||
-    document.getElementById("knownTwoInput").value.trim()===""||
-    !Number.isFinite(v1)||!Number.isFinite(v2)||v1<0||v2<0){
-   showResult("geoResults",message("bad","Enter valid non-negative values in both input fields."));
-   return;
- }
-
- const values={};
- values[one]=v1;
- values[two]=v2;
- let result;
-
- if(find==="angle"){
-   const L=values.length,R=values.radius;
-   if(!(L>0)||R>L){
-     showResult("geoResults",message("bad","Boom length must be greater than zero, and horizontal radius cannot exceed boom length."));
-     return;
-   }
-   result=Math.acos(Math.min(1,Math.max(-1,R/L)))*180/Math.PI;
- }else if(find==="radius"){
-   const L=values.length,A=values.angle;
-   if(!(L>0)||A>90){
-     showResult("geoResults",message("bad","Enter a positive boom length and an angle between 0° and 90°."));
-     return;
-   }
-   result=L*Math.cos(A*Math.PI/180);
- }else{
-   const R=values.radius,A=values.angle;
-   if(A>90|| (Math.abs(Math.cos(A*Math.PI/180))<1e-10&&R>1e-8)){
-     showResult("geoResults",message("bad","These values do not produce a valid straight-boom geometry."));
-     return;
-   }
-   result=R/Math.cos(A*Math.PI/180);
- }
- if(!Number.isFinite(result)){
-   showResult("geoResults",message("bad","Unable to calculate with these values. Check your inputs."));
-   return;
- }
- showResult("geoResults",`<h3>Calculated Result</h3><div class="result-grid">${resultCard(geometryInfo[find].label,result,geometryInfo[find].unit)}</div>`);
+function calcSling() {
+  const W=val("slingWeight"), n=val("slingLegs"), deg=val("slingAngle");
+  if (!need("slingResult",[W,n,deg],W>0 && n>=2 && deg>0 && deg<=90))
+    return err("slingResult","Load must be positive and angle must be greater than 0° and no more than 90°.");
+  const T=W/(n*Math.sin(deg*Math.PI/180));
+  output("slingResult","Idealised sling tension",[
+    ["Load"," "+fmt(W)+" kg"],
+    ["Legs sharing load",String(n)],
+    ["Angle from horizontal",fmt(deg)+"°"],
+    ["Estimated tension per leg",fmt(T)+" kgf (approx.)"],
+    ["Estimated tension per leg",fmt(T*9.80665/1000)+" kN"]
+  ]);
 }
 
-function resetGeometry(){
- document.getElementById("knownOne").value="length";
- document.getElementById("knownTwo").value="radius";
- document.getElementById("findValue").value="angle";
- document.getElementById("knownOneInput").value="";
- document.getElementById("knownTwoInput").value="";
- hideResult("geoResults");
- updateGeometryForm();
+function calcLoad() {
+  const L=val("matLength"),W=val("matWidth"),H=val("matHeight"),D=val("matDensity"),E=val("matExtras");
+  if (!need("matResult",[L,W,H,D,E],L>0 && W>0 && H>0 && D>0 && E>=0)) return;
+  const V=L*W*H, mass=V*D+E;
+  output("matResult","Estimated mass",[
+    ["Volume",fmt(V)+" m³"],["Density",fmt(D)+" kg/m³"],
+    ["Additional mass",fmt(E)+" kg"],["Estimated total mass",fmt(mass)+" kg"],
+    ["Estimated weight",fmt(mass*9.80665/1000)+" kN"]
+  ]);
 }
 
-function numberValue(id){
- const el=document.getElementById(id);
- if(!el||el.value.trim()==="")return NaN;
- return Number(el.value);
-}
-function showResult(id,html){
- const el=document.getElementById(id);
- el.innerHTML=html;
- el.classList.remove("hidden");
-}
-function hideResult(id){document.getElementById(id).classList.add("hidden")}
-function fmt(value){
- return Number.isFinite(value)?value.toLocaleString(undefined,{minimumFractionDigits:2,maximumFractionDigits:2}):"Not available";
-}
-function resultCard(label,value,unit="m"){
- return `<div class="result"><div class="name">${label}</div><div class="value">${fmt(value)} ${unit}</div></div>`;
-}
-function message(type,text){return `<div class="status ${type}">${text}</div>`}
-
-function calculateClearance(){
- const D=numberValue("centerDistance");
- const W=numberValue("buildingLength");
- const H=numberValue("buildingHeight");
- const L=numberValue("obstacleLength");
- const A=numberValue("obstacleAngle");
- const B=numberValue("craneBaseHeight");
- const C=numberValue("extraClearance");
-
- if(![D,W,H,L,A,B,C].every(Number.isFinite)||D<0||W<0||H<0||L<=0||A<=0||A>90||B<0||C<0){
-   showResult("clearanceResults",message("bad","Check all inputs. Distances and heights must be non-negative, boom length positive, and angle greater than 0° and no more than 90°."));
-   return;
- }
-
- const rad=A*Math.PI/180;
- const horizontalReach=L*Math.cos(rad);
- const near=D;
- const far=D+W;
- const nearHeight=B+near*Math.tan(rad);
- const farHeight=B+far*Math.tan(rad);
- const verticalClearance=Math.min(nearHeight-H,farHeight-H);
- const requiredRoofHeight=H+C;
- const roofCrossX=(requiredRoofHeight-B)/Math.tan(rad);
- const horizontalClearance=D-roofCrossX;
-
- let html=`<h3>Clearance Results</h3><div class="result-grid">
- ${resultCard("Vertical clearance",verticalClearance)}
- ${resultCard("Horizontal clearance",horizontalClearance)}
- </div>`;
-
- if(far>horizontalReach+1e-8){
-   html+=message("warn","The far building edge is beyond the boom's horizontal reach in this simplified model. These values do not establish that the lift is feasible.");
- }else if(verticalClearance<C){
-   html+=message("bad","The boom centreline does not provide the required clearance above the roof across the entered building length.");
- }else if(horizontalClearance<0){
-   html+=message("warn","The boom centreline reaches the required roof-clearance height over the building footprint. Review the full boom envelope before proceeding.");
- }else{
-   html+=message("good","The simplified geometry meets the entered vertical clearance and places the roof-height crossing before the near edge. Verify the complete boom envelope and actual crane configuration.");
- }
- html+=`<p class="small">Vertical clearance is the minimum boom-centreline height above the roof at the near and far edges. Horizontal clearance is the signed distance from the near edge to the boom-centreline point at roof height plus required clearance. Positive means before the near edge; negative means over the building footprint.</p>`;
- showResult("clearanceResults",html);
-}
-function resetClearance(){
- const defaults={centerDistance:20,buildingLength:12,buildingHeight:15,obstacleLength:40,obstacleAngle:50,craneBaseHeight:2,extraClearance:2};
- Object.entries(defaults).forEach(([id,value])=>document.getElementById(id).value=value);
- hideResult("clearanceResults");
+function calcBeam() {
+  const L=val("beamSpan"),P=val("beamLoad"),x=val("beamPosition");
+  if (!need("beamResult",[L,P,x],L>0 && P>=0 && x>=0 && x<=L))
+    return err("beamResult","Span must be positive and load position must be between the supports.");
+  const left=P*(L-x)/L, right=P*x/L;
+  output("beamResult","Idealised support reactions",[
+    ["Left reaction",fmt(left)+" kN"],["Right reaction",fmt(right)+" kN"],
+    ["Total reactions",fmt(left+right)+" kN"]
+  ]);
 }
 
-function updateChecklist(){
- const boxes=[...document.querySelectorAll("#checklistItems input[type=checkbox]")];
- const checked=boxes.filter(box=>box.checked).length;
- document.getElementById("progressBar").style.width=(checked/boxes.length*100)+"%";
- document.getElementById("progressText").textContent=`${checked} of ${boxes.length} items complete`;
+function calcCG() {
+  const m1=val("cgM1"),x1=val("cgX1"),m2=val("cgM2"),x2=val("cgX2");
+  if (!need("cgResult",[m1,x1,m2,x2],m1>=0 && m2>=0 && m1+m2>0)) return;
+  const x=(m1*x1+m2*x2)/(m1+m2);
+  output("cgResult","Centre of gravity",[
+    ["Total mass",fmt(m1+m2)+" kg"],["CG position from datum",fmt(x)+" m"]
+  ]);
 }
-function resetChecklist(){
- document.querySelectorAll("#checklistItems input[type=checkbox]").forEach(box=>box.checked=false);
- updateChecklist();
+
+function calcGround() {
+  const P=val("groundLoad"),L=val("groundLength"),W=val("groundWidth");
+  if (!need("groundResult",[P,L,W],P>=0 && L>0 && W>0)) return;
+  const A=L*W, pressure=P/A;
+  output("groundResult","Average bearing pressure",[
+    ["Contact area",fmt(A)+" m²"],["Load",fmt(P)+" kN"],
+    ["Average pressure",fmt(pressure)+" kN/m² (kPa)"]
+  ]);
 }
-document.querySelectorAll("#checklistItems input[type=checkbox]").forEach(box=>box.addEventListener("change",updateChecklist));
-function savePDF(){window.print()}
-updateGeometryForm();
+
+function calcClearance() {
+  const R=val("clearRadius"),H=val("clearRise"),P=val("clearPivot"),
+        X=val("clearObstacleX"),OH=val("clearObstacleH"),M=val("clearMargin");
+  if (!need("clearResult",[R,H,P,X,OH,M],R>0 && H>=0 && P>=0 && X>=0 && X<=R && OH>=0 && M>=0))
+    return err("clearResult","Enter valid values. Obstacle distance must lie between pivot and boom tip.");
+  const tip=P+H;
+  const lineHeight=P+(H/R)*X;
+  const clearance=lineHeight-OH;
+  const residual=clearance-M;
+  output("clearResult",residual>=0?"Geometric clearance meets the entered margin":"Geometric clearance is below the entered margin",[
+    ["Boom tip height above ground",fmt(tip)+" m"],
+    ["Estimated boom-line height at obstacle",fmt(lineHeight)+" m"],
+    ["Obstacle height",fmt(OH)+" m"],
+    ["Geometric clearance",fmt(clearance)+" m"],
+    ["Required margin",fmt(M)+" m"],
+    ["Clearance remaining after margin",fmt(residual)+" m"]
+  ]);
+}
+
+function calcCapacity() {
+  const load=val("capLoad"),capacity=val("capCapacity");
+  if (!need("capResult",[load,capacity],load>=0 && capacity>0)) return;
+  const pct=load/capacity*100;
+  output("capResult","Capacity utilisation estimate",[
+    ["Planned chart load basis",fmt(load)+" kg"],
+    ["Rated capacity entered",fmt(capacity)+" kg"],
+    ["Utilisation",fmt(pct)+"%"],
+    ["Difference to rated capacity",fmt(capacity-load)+" kg"]
+  ]);
+}
+updateGeoFields();
 </script>
 </body>
 </html>
