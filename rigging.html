@@ -1,219 +1,507 @@
-<section id="lifting-accessories-library">
-<style>
-#lifting-accessories-library{font-family:Arial,sans-serif;color:#edf5ff;background:linear-gradient(135deg,#081827,#174564,#10253d);padding:22px;border-radius:18px}
-#lifting-accessories-library *{box-sizing:border-box}
-#lifting-accessories-library h2{font-size:30px}
-#lifting-accessories-library h3{margin:8px 0}
-#lifting-accessories-library p,#lifting-accessories-library li{line-height:1.65}
-#lifting-accessories-library .muted{color:#c5d7e6}
-#lifting-accessories-library .controls{display:flex;gap:10px;flex-wrap:wrap;margin:20px 0}
-#lifting-accessories-library input,#lifting-accessories-library select{flex:1;min-width:180px;padding:13px;border-radius:8px;border:1px solid #7892a9;background:#102b40;color:white;font-size:16px}
-#lifting-accessories-library .cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:14px}
-#lifting-accessories-library .card{background:#193a53;border:1px solid #41627b;border-radius:12px;padding:17px;display:flex;flex-direction:column}
-#lifting-accessories-library button{padding:12px;border:0;border-radius:8px;background:#f6bd35;color:#14283a;font-weight:bold;cursor:pointer}
-#lifting-accessories-library button:focus-visible{outline:3px solid white;outline-offset:2px}
-#lifting-accessories-library .detail{margin-top:24px;padding:22px;border:1px solid #68859b;border-radius:14px;background:#0c2032}
-#lifting-accessories-library .detail[hidden]{display:none!important}
-#lifting-accessories-library .columns{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,270px),1fr));gap:12px}
-#lifting-accessories-library .panel{padding:15px;background:#18364d;border-radius:10px;margin-top:12px}
-#lifting-accessories-library h4{color:#ffd166;margin-bottom:6px}
-#lifting-accessories-library .warning{padding:14px;background:#343a40;border-left:4px solid #f6bd35;margin:14px 0}
-#lifting-accessories-library .small{font-size:12px;color:#c5d7e6}
-</style>
+<section id="lifting-accessories-library" class="la-library">
+  <style>
+    #lifting-accessories-library{font-family:Arial,sans-serif;color:#172536;line-height:1.55;margin:24px auto;max-width:1200px}
+    #lifting-accessories-library *{box-sizing:border-box}
+    #lifting-accessories-library .la-hero{background:linear-gradient(135deg,#10283f,#176a78);color:#fff;border-radius:16px;padding:26px}
+    #lifting-accessories-library .la-hero h2{margin:0 0 8px;font-size:clamp(24px,4vw,34px)}
+    #lifting-accessories-library .la-tools{display:grid;grid-template-columns:2fr 1fr;gap:10px;margin:18px 0}
+    #lifting-accessories-library input,#lifting-accessories-library select{width:100%;min-height:44px;padding:10px 12px;border:1px solid #bdc9d5;border-radius:8px;font-size:16px;background:#fff;color:#172536}
+    #lifting-accessories-library .la-layout{display:grid;grid-template-columns:minmax(220px,290px) minmax(0,1fr);gap:18px;align-items:start}
+    #lifting-accessories-library .la-panel{border:1px solid #d7e0e8;border-radius:12px;padding:16px;background:#fff}
+    #lifting-accessories-library .la-gear-list{display:grid;gap:8px}
+    #lifting-accessories-library .la-gear-btn{width:100%;text-align:left;border:1px solid #d6e0e8;background:#f7f9fb;padding:12px;border-radius:8px;cursor:pointer;color:#173147;font-size:15px}
+    #lifting-accessories-library .la-gear-btn[aria-pressed=true]{background:#e3f3f4;border-color:#147783;font-weight:700}
+    #lifting-accessories-library .la-gear-btn small{display:block;color:#52687b;margin-top:3px;font-weight:400}
+    #lifting-accessories-library .la-detail h3{margin:0 0 6px;font-size:27px}
+    #lifting-accessories-library .la-tag{display:inline-block;background:#e9f1f5;border-radius:20px;padding:4px 9px;font-size:12px;margin:3px 3px 8px 0}
+    #lifting-accessories-library .la-detail h4{margin:18px 0 6px;color:#175c6a}
+    #lifting-accessories-library .la-detail ul{padding-left:22px;margin-top:6px}
+    #lifting-accessories-library .la-detail li{margin:4px 0}
+    #lifting-accessories-library .la-callout{background:#fff5df;border-left:4px solid #d69a25;padding:12px;margin:14px 0;border-radius:6px}
+    #lifting-accessories-library .la-note{background:#eef6f8;padding:12px;border-radius:8px;margin:12px 0}
+    #lifting-accessories-library .la-btn{border:0;border-radius:8px;padding:11px 15px;background:#126d79;color:#fff;font-weight:700;cursor:pointer;margin:5px 5px 5px 0;min-height:42px}
+    #lifting-accessories-library .la-btn.secondary{background:#34495e}
+    #lifting-accessories-library .la-table-wrap{overflow-x:auto}
+    #lifting-accessories-library table{border-collapse:collapse;width:100%;font-size:14px;margin:10px 0}
+    #lifting-accessories-library th,#lifting-accessories-library td{border:1px solid #d7e0e8;padding:8px;text-align:left;vertical-align:top}
+    #lifting-accessories-library th{background:#eaf1f5}
+    #lifting-accessories-library .la-swatch{display:inline-block;width:13px;height:13px;border-radius:3px;margin-right:5px;border:1px solid #888}
+    #lifting-accessories-library .la-visual{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0}
+    #lifting-accessories-library .la-visual div{background:#f1f5f8;border-radius:8px;padding:12px;text-align:center}
+    #lifting-accessories-library .la-visual strong{display:block;font-size:18px;color:#176a78}
+    #lifting-accessories-library .la-muted{color:#56697a;font-size:13px}
+    #lifting-accessories-library .la-footer{font-size:12px;color:#56697a;margin-top:18px;border-top:1px solid #d7e0e8;padding-top:12px}
+    @media(max-width:720px){#lifting-accessories-library .la-layout{grid-template-columns:1fr}#lifting-accessories-library .la-tools{grid-template-columns:1fr}#lifting-accessories-library .la-visual{grid-template-columns:1fr 1fr}}
+    @media print{body *{visibility:hidden!important}#la-print-area,#la-print-area *{visibility:visible!important}#la-print-area{position:absolute;left:0;top:0;width:100%;padding:0!important;border:0!important}#lifting-accessories-library .la-no-print{display:none!important}#lifting-accessories-library{max-width:none;margin:0;font-size:11pt}#lifting-accessories-library .la-hero{background:#fff!important;color:#111!important;border:1px solid #aaa;padding:12px}#lifting-accessories-library .la-panel{border:0;padding:8px}#lifting-accessories-library .la-detail h3{font-size:20pt}#lifting-accessories-library table{font-size:9pt;break-inside:avoid}#lifting-accessories-library h4{break-after:avoid}}
+  </style>
 
-<header>
- <p style="color:#ffd166;letter-spacing:2px">TECHNICAL TRAINING LIBRARY</p>
- <h2>Lifting Accessories</h2>
- <p class="muted">Select any accessory to view its purpose, types, components, inspection and safety guidance.</p>
-</header>
+  <div class="la-hero">
+    <h2>Lifting & Rigging Accessories Library</h2>
+    <p>Equipment purpose • identification • inspection • capacity guidance • safe use</p>
+    <p class="la-muted" style="color:#e4f3f7">Select a gear item to open its reference sheet. Use the individual PDF button to print or save that sheet.</p>
+  </div>
 
-<div class="controls">
- <input id="laSearch" type="search" placeholder="Search lifting gear..." aria-label="Search accessories">
- <select id="laFilter" aria-label="Filter accessories">
-  <option value="all">All accessories</option>
-  <option value="hardware">Rigging hardware</option>
-  <option value="slings">Slings</option>
-  <option value="below-hook">Below-hook devices</option>
- </select>
-</div>
+  <div class="la-tools la-no-print">
+    <input id="laSearch" type="search" placeholder="Search gear, parts, inspection, standards…" aria-label="Search lifting equipment">
+    <select id="laFilter" aria-label="Filter equipment category">
+      <option value="all">All equipment categories</option>
+      <option value="slings">Slings and chain assemblies</option>
+      <option value="connectors">Shackles, hooks and links</option>
+      <option value="hardware">Lifting points and hardware</option>
+      <option value="devices">Manual and powered lifting devices</option>
+      <option value="belowhook">Below-hook lifting equipment</option>
+    </select>
+  </div>
 
-<div id="laCards" class="cards"></div>
+  <div class="la-layout">
+    <aside class="la-panel la-no-print">
+      <h3 style="margin-top:0">Equipment list</h3>
+      <div id="laGearList" class="la-gear-list" aria-live="polite"></div>
+      <p id="laCount" class="la-muted"></p>
+    </aside>
 
-<div id="laDetail" class="detail" hidden aria-live="polite">
- <button id="laBack" type="button">← Back to accessories</button>
- <div id="laInfo"></div>
-</div>
+    <main id="laDetail" class="la-panel la-detail" aria-live="polite">
+      <div id="la-print-area">
+        <h3 id="laTitle">Select a lifting gear item</h3>
+        <p id="laIntro">Choose an item from the equipment list to view its reference sheet.</p>
+        <div id="laTags"></div>
+        <div id="laInfo"></div>
+      </div>
+      <div class="la-no-print">
+        <button class="la-btn" id="laSavePdf" type="button">Save this gear sheet as PDF</button>
+        <button class="la-btn secondary" id="laPrintAll" type="button">Print complete library</button>
+        <p class="la-muted">PDF uses your browser's print window. Select “Save as PDF” as the destination.</p>
+      </div>
+    </main>
+  </div>
 
-<div class="warning">
- <strong>Safety:</strong> This educational overview does not replace manufacturer instructions, applicable standards, an approved lifting plan, or inspection by a competent person.
-</div>
+  <div class="la-footer">
+    Training reference only. This library is not a substitute for equipment certificates, manufacturer instructions,
+    competent-person inspection, a lift plan, or approved site requirements. Standards editions and project requirements
+    must be verified before use.
+  </div>
 
-<script>
-(function(){
-"use strict";
-const root=document.getElementById("lifting-accessories-library");
-if(!root||root.dataset.ready==="yes")return;
-root.dataset.ready="yes";
+  <script>
+  (function(){
+    "use strict";
+    const root=document.getElementById("lifting-accessories-library");
+    if(!root || root.dataset.laReady==="1") return;
+    root.dataset.laReady="1";
 
-const gear=[
-{
-name:"Lifting Shackles",cat:"hardware",
-definition:"A rated connecting fitting used to connect compatible slings, lifting points and rigging components.",
-purpose:"To form a secure connection in an approved lifting arrangement.",
-types:["Anchor or bow shackle","Chain or D shackle","Screw-pin shackle","Bolt-type safety-pin shackle"],
-parts:["Shackle body or bow","Removable pin","Pin thread and securing arrangement","Identification and WLL markings"],
-inspection:["Check body and pin for cracks, bending, corrosion and excessive wear.","Verify pin identity, fit, seating and security.","Check identification markings and manufacturer discard limits.","Quarantine damaged or mismatched parts."],
-safety:["Never replace a pin with an unverified bolt.","Do not side-load unless explicitly permitted by the manufacturer.","Never exceed WLL or modify the shackle."],
-standard:"Potential reference: EN 13889 and ASME B30.26, where applicable. Verify the exact product scope and current edition."
-},
-{
-name:"Wire Rope Slings",cat:"slings",
-definition:"A flexible lifting assembly made from wire rope with designed end terminations.",
-purpose:"To lift loads where wire rope construction and fittings are suitable for the task.",
-types:["Single-leg sling","Multi-leg sling","Endless sling","Sling with eyes or fittings"],
-parts:["Wires and strands","Core","Eye or loop termination","Thimble where fitted","Ferrule or other designed termination","Identification tag"],
-inspection:["Check for broken wires, kinks, crushing and distortion.","Inspect eyes, thimbles, ferrules and fittings.","Check corrosion, heat damage and identification.","Use the applicable construction-specific rejection criteria."],
-safety:["Protect from sharp edges.","Never knot or informally shorten a sling.","Use the rated capacity for the actual hitch and configuration."],
-standard:"Potential references: EN 13414 series and ASME B30.9, as applicable."
-},
-{
-name:"Alloy Steel Chain Slings",cat:"slings",
-definition:"A lifting assembly made from suitable rated alloy-steel lifting chain and compatible components.",
-purpose:"Industrial lifting when the chain sling is suitable for the load and service environment.",
-types:["Single-leg","Two-leg","Three-leg","Four-leg","Endless chain sling"],
-parts:["Lifting chain","Master link","Intermediate links where fitted","Connecting links","Hooks or other end fittings","Identification tag"],
-inspection:["Check links for cracks, elongation, nicks and deformation.","Inspect hooks, links, pins and safety catches.","Look for heat damage, corrosion and chemical damage.","Apply manufacturer discard limits."],
-safety:["Use compatible rated components only.","Do not weld or heat-treat chain without an authorised process.","Observe temperature and chemical exposure limits."],
-standard:"Potential references: EN 818 series and ASME B30.9, as applicable."
-},
-{
-name:"Synthetic Webbing Slings",cat:"slings",
-definition:"A flexible lifting sling made from synthetic textile webbing with designed eyes or fittings.",
-purpose:"Lifting compatible loads where flexibility and surface protection are important.",
-types:["Flat webbing sling","Multi-ply webbing sling","Endless webbing sling"],
-parts:["Webbing body","Lifting eyes","Reinforcement","Stitching","Identification label"],
-inspection:["Check for cuts, tears, abrasion and damaged stitching.","Look for melting, glazing, chemical damage and heat damage.","Check label readability and traceability.","Follow manufacturer rejection criteria."],
-safety:["Protect against sharp edges and hot surfaces.","Never knot or twist a sling to shorten it.","Verify chemical compatibility and temperature limits."],
-standard:"Potential references: EN 1492 series and ASME B30.9, as applicable."
-},
-{
-name:"Synthetic Round Slings",cat:"slings",
-definition:"An endless synthetic lifting sling with load-bearing fibres enclosed in a protective cover.",
-purpose:"Lifting compatible loads using a flexible round-sling assembly.",
-types:["Endless round sling","Round sling with protective sleeve","Special-purpose round sling"],
-parts:["Load-bearing core","Protective cover","Identification label","Additional protective sleeve where fitted"],
-inspection:["Inspect the cover for cuts, abrasion, melting and chemical damage.","Look for exposed or damaged load-bearing fibres.","Check the label and manufacturer's discard criteria.","Quarantine if core damage is suspected."],
-safety:["An intact cover does not prove the core is undamaged.","Use edge protection and observe temperature limits.","Never exceed the rated capacity for the hitch."],
-standard:"Potential references: EN 1492 series and ASME B30.9, as applicable."
-},
-{
-name:"Lifting Hooks",cat:"hardware",
-definition:"A rated load-engaging fitting that connects a lifting assembly to a compatible attachment.",
-purpose:"To engage an approved lifting point or load attachment.",
-types:["Eye hook","Clevis hook","Swivel hook","Self-locking hook","Special-purpose hook"],
-parts:["Hook body","Throat and bowl","Tip","Shank or attachment","Latch or locking mechanism where fitted","Identification marks"],
-inspection:["Check for cracks, bending, twist and excessive throat opening.","Inspect latch and locking mechanisms.","Check pins, threads, attachments and identification.","Follow the manufacturer's rejection criteria."],
-safety:["Seat the load in the bowl, not on the tip.","Avoid unapproved side loading.","A latch does not replace correct load engagement."],
-standard:"Potential reference: ASME B30.10 and applicable product standards for the hook type."
-},
-{
-name:"Master Links",cat:"hardware",
-definition:"A rated link used at the upper end of a sling assembly to connect sling legs to an approved hook.",
-purpose:"To provide a designed connection point for multi-leg sling assemblies.",
-types:["Master link","Master-link assembly","Intermediate link"],
-parts:["Main link","Intermediate links where designed","Connecting elements","Identification and rating marks"],
-inspection:["Check links for cracks, wear, deformation and corrosion.","Verify all connecting components are compatible and secured.","Confirm rating for the actual number and arrangement of legs.","Check traceability and manufacturer limits."],
-safety:["Do not overcrowd the link with incompatible fittings.","Verify the hook fits correctly.","Do not mix components without manufacturer approval."],
-standard:"Potential references: applicable EN 1677 and EN 818 series requirements, depending on the component."
-},
-{
-name:"Eyebolts and Lifting Points",cat:"hardware",
-definition:"An engineered attachment designed to connect lifting equipment to a load or structure.",
-purpose:"Providing a specified attachment point for a lifting arrangement.",
-types:["Shoulder eyebolt","Swivel lifting point","Fixed lifting point","Other purpose-designed attachment"],
-parts:["Eye or attachment head","Body or shank","Thread","Shoulder or seating face where designed","Fastening features","Identification marks"],
-inspection:["Inspect threads, body, eye and seating surfaces.","Check for cracks, bending, corrosion and thread damage.","Verify correct installation and specified torque where required.","Confirm the supporting structure is suitable."],
-safety:["Do not assume a standard eyebolt is suitable for angular loading.","Follow exact orientation, installation and load-angle limits.","Never use damaged threads or an unverified lifting point."],
-standard:"Use the product-specific standard and manufacturer documentation for the exact lifting-point design."
-},
-{
-name:"Lifting and Spreader Beams",cat:"below-hook",
-definition:"Engineered below-hook devices designed to support a load or distribute forces through specified lifting points.",
-purpose:"To control load geometry, attachment spacing and sling forces as defined by the design.",
-types:["Lifting beam","Spreader beam","Adjustable beam","Purpose-designed lifting device"],
-parts:["Main structural member","Upper suspension points","Lower load attachment points","Pins and end fittings","Adjustment and locking mechanisms where fitted","Identification plate"],
-inspection:["Inspect members, welds, pins, holes and attachment points.","Check deformation, cracks, corrosion and missing locking devices.","Verify rating plate and inspection records.","Follow the engineered inspection requirements."],
-safety:["Use only in the approved configuration and rated capacity.","Do not change attachment positions without engineering approval.","Confirm load plan, centre of gravity and headroom."],
-standard:"Potential reference: ASME B30.20 and applicable local below-hook device requirements."
-}
-];
+    const gear=[
+      {
+        id:"web",name:"Synthetic Web Sling",category:"slings",
+        short:"Flat woven sling",
+        definition:"A flat sling made from synthetic webbing, commonly polyester, with sewn eyes or fitted end attachments.",
+        purpose:"Lifting loads where a flexible, relatively soft contact surface helps reduce marking or damage.",
+        types:["Endless","Flat eye-and-eye","Reversed-eye","Multi-leg assemblies when specifically designed and tagged"],
+        parts:["Webbing body","Sewn eyes or protective sleeves","Identification label","Stitching","End fittings, if fitted"],
+        checks:["Confirm the label is legible and identifies WLL, length, material and configuration.","Check for cuts, tears, pulled or broken stitching, abrasion, melting, chemical damage and UV deterioration.","Check eyes, sleeves and fittings for damage or incompatibility.","Remove from service if the label is missing or damage is beyond the manufacturer's criteria."],
+        safety:["Protect the sling from sharp edges; use suitable edge protection.","Do not knot, twist, shorten with makeshift methods or shock-load the sling.","Do not use a damaged sling or exceed its tagged WLL.","Verify chemical and temperature compatibility with the manufacturer."],
+        standards:"Potential references: EN 1492-1; ASME B30.9 where adopted; manufacturer instructions; site lifting procedure.",
+        capacityTitle:"Colour and nominal WLL guide",
+        table:[["Webbing colour","Common nominal EN 1492-1 WLL"],["Purple","1 tonne"],["Green","2 tonnes"],["Yellow","3 tonnes"],["Grey","4 tonnes"],["Red","5 tonnes"],["Brown","6 tonnes"],["Blue","8 tonnes"],["Orange","10 tonnes"],["Orange / multiple identification stripes","Higher capacities may use multiple stripes; verify the actual label"]],
+        capacityNote:"Colours are a recognition aid, not proof of WLL. Colours and capacities may differ by region, product or manufacturer. The label and certificate govern.",
+        hitchTitle:"Hitch configuration guidance",
+        hitchTable:[["Configuration","General guidance"],["Vertical / straight","Use the tagged configuration rating."],["Basket","Capacity depends on sling angle, load balance and contact geometry; do not assume exactly 2×."],["Choker","Typically lower than straight lift; use the maker's choker rating."],["Multi-leg","Use the rated assembly tag and approved angle range. Unequal loading can overload one leg."]],
+        hitchNote:"There is no universal hitch factor for every web sling. Use the sling maker's chart for the exact product, hitch, angle and edge conditions."
+      },
+      {
+        id:"round",name:"Synthetic Round Sling",category:"slings",short:"Endless load-bearing core",
+        definition:"An endless textile sling containing load-bearing yarns inside a protective cover.",
+        purpose:"Flexible lifting of loads with reduced risk of surface marking when correctly selected and protected.",
+        types:["Endless round sling","Colour-coded variants","Protective-sleeve variants"],
+        parts:["Load-bearing core","Protective cover","Identification label","Optional wear sleeve"],
+        checks:["Inspect the cover for cuts, punctures, abrasion, heat damage, chemical attack and exposed core yarns.","Check label and rated capacity.","Look for local bulges, inconsistent diameter or damaged seams.","If load-bearing yarns may be damaged or the label is unreadable, quarantine for competent assessment."],
+        safety:["Never lift with a cut or seriously damaged cover if the core condition cannot be confirmed.","Use edge protection and avoid dragging under a load.","Follow manufacturer restrictions for temperature and chemicals."],
+        standards:"Potential references: EN 1492-2; ASME B30.9 where adopted; manufacturer instructions.",
+        capacityTitle:"Colour identification",
+        table:[["Common colour","Nominal WLL commonly associated with EN round slings"],["Purple","1 tonne"],["Green","2 tonnes"],["Yellow","3 tonnes"],["Grey","4 tonnes"],["Red","5 tonnes"],["Brown","6 tonnes"],["Blue","8 tonnes"],["Orange","10 tonnes"]],
+        capacityNote:"Colour is not enough to identify the rating. Read the sewn label and verify the product standard and maker's chart.",
+        hitchTitle:"Hitch and angle",
+        hitchTable:[["Use","Check"],["Straight","Confirm tag WLL."],["Choker","Use maker's choker rating and minimum bend requirements."],["Basket","Use rated basket configuration and account for angle and load contact."],["Sharp edges","Protect the cover and core with suitable edge protection."]],
+        hitchNote:"Never calculate capacity from colour alone."
+      },
+      {
+        id:"wire",name:"Wire Rope Sling",category:"slings",short:"Steel wire rope assembly",
+        definition:"A lifting assembly made from wire rope with approved terminations such as swaged or ferrule-secured eyes, sockets or thimbles.",
+        purpose:"Lifting applications requiring steel wire rope's strength, durability and resistance to certain environments.",
+        types:["Single-leg","Multi-leg","Wire rope with thimbles","Socketed assemblies"],
+        parts:["Wire rope","Ferrule or socket","Thimble where fitted","Eye or end fitting","Identification tag"],
+        checks:["Check for broken wires, kinks, crushing, birdcaging, corrosion and heat damage.","Inspect ferrules, sockets, eyes and thimbles for movement, cracks or deformation.","Check for diameter reduction and damage against the manufacturer's rejection criteria.","Confirm identification and certificate traceability."],
+        safety:["Avoid bending over sharp edges or undersized sheaves.","Do not repair or splice a lifting sling unless an approved manufacturer procedure permits it.","Do not use kinked, birdcaged or otherwise rejected rope.","Keep hands away from pinch points."],
+        standards:"Potential references: EN 13414 series; ASME B30.9 where adopted; manufacturer instructions.",
+        capacityTitle:"Capacity considerations",
+        table:[["Factor","Effect"],["Leg angle","Changes leg tension in multi-leg lifts."],["Termination","Capacity depends on eye, ferrule, socket and construction."],["Bend radius","Small bends can reduce performance and damage rope."],["Hitch","Choker and basket ratings are product-specific."]],
+        capacityNote:"Do not infer WLL from rope diameter alone. Use the certified assembly tag and manufacturer's table.",
+        hitchTitle:"Configuration checks",
+        hitchTable:[["Configuration","Required check"],["Straight","Assembly tag and end termination rating."],["Choker","Maker's choker rating and rope bend radius."],["Basket","Angle, bend radius and contact geometry."],["Multi-leg","Assembly WLL at the actual included angle."]],
+        hitchNote:"For multi-leg lifting, use the certified assembly rating for the actual angle."
+      },
+      {
+        id:"chain",name:"Alloy Steel Chain Sling",category:"slings",short:"Grade-marked chain assembly",
+        definition:"A lifting assembly using alloy steel chain, connectors and master links designed and certified for lifting service.",
+        purpose:"Lifting robust loads where a rated chain assembly is suitable for the environment and application.",
+        types:["Single-leg","Two-leg","Three-leg","Four-leg","Adjustable assemblies with approved shortening devices"],
+        parts:["Load chain","Master link","Intermediate links","Connecting links","Hooks","Shortening clutch, if fitted","Identification tag"],
+        checks:["Confirm chain grade and traceable identification.","Inspect every link for wear, stretch, nicks, cracks, gouges, corrosion, heat damage and twisting.","Inspect hooks, latches, links and shortening components.","Verify no unauthorized repairs, welded links or substituted components."],
+        safety:["Never mix chain grades or components without documented compatibility approval.","Never assume Grade 30 or Grade 40 general-purpose chain is suitable for lifting.","Use only a complete assembly with approved lifting WLL and traceable tag.","Protect chain from sharp corners and avoid shock loading."],
+        standards:"Potential references: EN 818 series; ASME B30.9 where adopted; manufacturer instructions and site procedures.",
+        capacityTitle:"Chain grades — critical distinction",
+        table:[["Grade marking","Guidance"],["Grade 30","General-purpose chain grade; do not use for lifting unless specifically approved, designed, marked and certified for that service."],["Grade 40","Not automatically a lifting-chain grade; verify the exact product certification and intended service."],["Grade 80 / 8","Common alloy lifting-chain grade in approved sling systems."],["Grade 100 / 10","Higher-strength lifting-chain grade available in compatible systems."],["Grade 120 / 12","Available for some engineered lifting systems; verify compatibility and certification."]],
+        capacityNote:"Grade number alone does not establish WLL. Chain diameter, grade, assembly design, leg count, angle, fittings and manufacturer rating all matter.",
+        hitchTitle:"Multi-leg chain angle guidance",
+        hitchTable:[["Included angle between legs","General tension factor per leg versus vertical"],["0°","1.000"],["30°","0.518"],["60°","0.577"],["90°","0.707"],["120°","1.000"]],
+        hitchNote:"The factor table is a geometric illustration for a symmetric two-leg arrangement only. Real sling WLL limits, unequal loading, hitch factors and manufacturer rules govern. Do not use this table alone to rate a lift."
+      },
+      {
+        id:"shackle",name:"Lifting Shackle",category:"connectors",short:"Rated bow or dee connector",
+        definition:"A rated connector consisting of a body and removable pin, manufactured and marked for a defined lifting WLL.",
+        purpose:"Connecting slings, lifting points and compatible rigging components.",
+        types:["Bow / anchor shackle","Dee / chain shackle","Screw-pin","Bolt-type safety pin"],
+        parts:["Bow or body","Pin","Pin threads","Manufacturer and WLL markings"],
+        checks:["Verify WLL and traceable markings.","Inspect body and pin for cracks, bending, wear, corrosion and damaged threads.","Check that pin is the correct original type and seats properly.","Check deformation against manufacturer limits and confirm sling contact does not side-load the body."],
+        safety:["Do not replace the pin with a bolt.","Avoid side loading unless the manufacturer provides an explicit derating chart.","Do not use a shackle with a bent body, damaged pin or unreadable rating.","Secure bolt-type pins as instructed by the manufacturer."],
+        standards:"Potential references: EN 13889; ASME B30.26 where adopted; manufacturer instructions.",
+        capacityTitle:"Shackle angle and loading",
+        table:[["Loading condition","Action"],["In-line axial loading","Use the marked WLL in the approved configuration."],["Side loading","Use only if permitted; apply the exact maker's reduction chart."],["Multiple sling legs on pin","Check pin bending, included angle and manufacturer restrictions."],["Pin contact","Ensure correct seating and no concentrated or incompatible contact."]],
+        capacityNote:"There is no universal angle-to-capacity table for all shackles. Some products permit defined side loading with reductions; others prohibit it. Use the exact model's chart.",
+        hitchTitle:"Angle chart — selection checklist",
+        hitchTable:[["Angle / condition","Required action"],["0° side load (axial)","Confirm manufacturer's definition of zero angle."],["Up to 45°","Use maker's stated side-load reduction if permitted."],["45°–90°","Do not extrapolate; consult the specific product chart."],["Beyond approved range","Do not use without explicit manufacturer approval."]],
+        hitchNote:"Never apply sling-leg angle factors directly to a shackle WLL."
+      },
+      {
+        id:"hook",name:"Lifting Hook",category:"connectors",short:"Rated lifting hook",
+        definition:"A lifting component designed to connect a load or sling and marked with a rated capacity.",
+        purpose:"Connecting slings and attachments to lifting machinery or load points.",
+        types:["Eye hook","Clevis hook","Swivel hook","Self-locking hook","Foundry / special-purpose hook"],
+        parts:["Hook body","Throat","Saddle","Tip","Latch or locking mechanism","Shank / eye / clevis","WLL marking"],
+        checks:["Inspect throat opening and profile against maker limits.","Check for cracks, twist, wear, gouges, corrosion and heat damage.","Check latch operation and attachment compatibility.","Confirm swivel action if fitted and verify markings."],
+        safety:["Never load the hook tip or latch.","Do not side-load unless expressly rated for it.","Do not heat, weld, bend or repair a hook without an approved manufacturer process.","Keep the load seated in the hook saddle."],
+        standards:"Potential references: EN 1677 series for components; ASME B30.10 where adopted; manufacturer instructions.",
+        capacityTitle:"Hook capacity and angle",
+        table:[["Condition","Guidance"],["Axial load in saddle","Use marked WLL and specified configuration."],["Tip loading","Prohibited unless the design explicitly permits it."],["Side load / out-of-plane load","Use only if manufacturer explicitly rates it."],["Multi-leg assembly","Check hook rating and included-angle limits for the exact hook."]],
+        capacityNote:"Hook WLL is not a universal angle chart. A hook may have special restrictions for side load, tip loading, swivel orientation and multi-leg use.",
+        hitchTitle:"Angle chart — verification",
+        hitchTable:[["Condition","Check"],["Single vertical connection","Marked WLL and seating."],["Two-leg sling","Assembly and hook ratings at the actual included angle."],["Side loading","Maker's model-specific chart."],["Self-locking hook","Confirm locking mechanism fully engages."]],
+        hitchNote:"Do not use an assumed generic angle derating for hooks."
+      },
+      {
+        id:"master",name:"Master Link and Master Link Assembly",category:"connectors",short:"Top connection for multi-leg slings",
+        definition:"A rated link or link assembly that connects sling legs to a crane hook or other rated connection.",
+        purpose:"Providing a compatible top connection for one-, two-, three- or four-leg sling assemblies.",
+        types:["Oblong master link","Master link assembly","Sub-assemblies for multiple sling legs"],
+        parts:["Main link","Sub-links, where fitted","Identification and WLL marking","Compatible connectors"],
+        checks:["Inspect for cracks, wear, distortion, corrosion and heat damage.","Check sub-links and contact points for wear or binding.","Confirm WLL and leg configuration against the assembly tag.","Verify compatibility with crane hook and connecting components."],
+        safety:["Do not force several fittings into a link not designed for them.","Do not assume the top link WLL equals every multi-leg assembly WLL.","Avoid cross-loading and incompatible contact radii.","Use only traceable components approved as a system."],
+        standards:"Potential references: EN 1677 series; EN 818 series for chain sling systems; ASME B30.9 where adopted.",
+        capacityTitle:"Capacity and angle checks",
+        table:[["Condition","Check"],["Single-leg assembly","Top-link rating and assembly tag."],["Multi-leg assembly","Assembly WLL at actual included angle."],["Sub-link arrangement","Number and placement of legs allowed by maker."],["Crane hook compatibility","Link opening and seating must be compatible."]],
+        capacityNote:"The link's own WLL does not automatically establish the rating of the complete sling assembly.",
+        hitchTitle:"Included angle reference",
+        hitchTable:[["Included angle","Action"],["Up to 90°","Verify assembly rating at that angle."],["90°–120°","Use only if rated for this range."],["Over 120°","Do not assume permitted; follow assembly manufacturer's limit."]],
+        hitchNote:"A master link is not a substitute for checking every component in the load path."
+      },
+      {
+        id:"eyebolt",name:"Eyebolts and Lifting Points",category:"hardware",short:"Threaded or fixed lifting attachment",
+        definition:"A rated lifting point designed to connect a load to rigging, using a specified mounting arrangement.",
+        purpose:"Providing an engineered lifting attachment on a machine, structure or component.",
+        types:["Shoulder eyebolt","Plain-pattern eyebolt for axial loading only","Swivel lifting point","Rotating lifting point"],
+        parts:["Eye or bail","Shank / threaded stud","Shoulder or seating face","Nut or mounting thread","WLL and orientation markings"],
+        checks:["Verify thread type, size, engagement and parent-material suitability.","Check eye, shoulder, thread and swivel for cracks, deformation, wear or corrosion.","Confirm installation torque and seating against manufacturer instructions.","Verify angle-specific WLL and correct orientation."],
+        safety:["Never assume an ordinary eyebolt is rated for angular loading.","Shoulder eyebolts require correct seating; poor seating can reduce capacity.","Use engineered lifting points for multi-directional loads.","Confirm the host structure can withstand the lifting forces."],
+        standards:"Potential references: ASME B30.26 where adopted; applicable product standard and manufacturer instructions.",
+        capacityTitle:"Angular loading",
+        table:[["Condition","Guidance"],["Axial load","Use the marked axial WLL."],["Angular load","Use the exact model's angle-reduction chart."],["Swivel / rotating point","Orient and install as specified."],["Threaded attachment","Check full engagement and parent material."]],
+        capacityNote:"No single angle chart applies to all eyebolts or lifting points.",
+        hitchTitle:"Before loading",
+        hitchTable:[["Check","Requirement"],["Angle","Confirm permitted loading direction."],["Mounting","Correct thread, engagement and torque."],["Structure","Verify strength of the attached load."],["Inspection","Check threads and moving parts."]],
+        hitchNote:"A rated lifting point does not make an unverified host structure safe."
+      },
+      {
+        id:"turnbuckle",name:"Turnbuckle",category:"hardware",short:"Adjustable tensioning device",
+        definition:"An adjustable threaded device used to tension or adjust a compatible assembly.",
+        purpose:"Taking up slack or adjusting tension in systems designed for the device's rated service.",
+        types:["Jaw-jaw","Eye-eye","Hook-hook","Jaw-eye"],
+        parts:["Body","Right-hand thread","Left-hand thread","End fittings","Locking features, if provided"],
+        checks:["Check body, threads, end fittings and pins for cracks, deformation, wear and corrosion.","Confirm thread engagement and manufacturer locking method.","Verify traceable rating and intended application.","Check for bending or off-axis loading."],
+        safety:["Do not assume every turnbuckle is rated for lifting.","Use only products specifically rated and approved for the intended load path.","Do not exceed engagement or extension limits.","Do not shock-load or side-load unless permitted."],
+        standards:"Use applicable product/manufacturer requirements and site approval. Confirm whether the item is rated for lifting or tensioning only.",
+        capacityTitle:"Capacity checks",
+        table:[["Parameter","Check"],["WLL / rating","Must be explicitly marked or traceable."],["Thread engagement","Follow manufacturer minimum."],["Loading direction","Axial loading unless otherwise approved."],["End fittings","Must be compatible and rated."]],
+        capacityNote:"A tensioning device is not automatically a lifting accessory. Do not lift suspended loads unless specifically approved.",
+        hitchTitle:"Safe adjustment",
+        hitchTable:[["Step","Check"],["Before adjustment","Unload or safely control stored energy."],["During use","Keep within maker's extension limits."],["After adjustment","Secure locking features as specified."]],
+        hitchNote:"Do not use as a substitute for a rated sling leg or connector."
+      },
+      {
+        id:"clamp",name:"Lifting Clamps",category:"hardware",short:"Plate or material gripping device",
+        definition:"A purpose-built device that grips a defined material or geometry using a specified clamping mechanism.",
+        purpose:"Lifting steel plate, beams, drums, or other materials only with a clamp designed for that exact application.",
+        types:["Vertical plate clamp","Horizontal plate clamp","Beam clamp","Drum clamp","Special-purpose clamp"],
+        parts:["Body","Jaw / gripping cam","Hinge or pivot","Locking mechanism","WLL and plate-thickness markings"],
+        checks:["Inspect teeth/cam, jaw surfaces, pins, springs, locking devices and body.","Confirm the material thickness, hardness and surface condition are within the maker's range.","Check minimum load and WLL markings.","Verify no unauthorized modifications or worn gripping surfaces."],
+        safety:["Do not substitute a vertical clamp for horizontal lifting or vice versa.","Use the required number and orientation of clamps.","Do not lift coated, oily or unsuitable surfaces unless permitted.","Follow the maker's restrictions for plate thickness and load direction."],
+        standards:"Potential references: applicable clamp manufacturer's instructions; relevant lifting-device standards and site procedures.",
+        capacityTitle:"Capacity factors",
+        table:[["Factor","Why it matters"],["Material thickness","Clamp may have a limited gripping range."],["Surface condition","Oil, scale or coating can affect grip."],["Direction","Vertical and horizontal clamps are not interchangeable."],["WLL","Use the marked rating for the exact model."]],
+        capacityNote:"Never estimate clamp capacity from size or appearance.",
+        hitchTitle:"Angle and orientation",
+        hitchTable:[["Application","Check"],["Vertical plate lift","Use a clamp approved for vertical lifting."],["Horizontal plate lift","Use approved clamp arrangement and sling geometry."],["Beam clamp","Verify flange range and load direction."]],
+        hitchNote:"Use only in the orientation and application specified by the manufacturer."
+      },
+      {
+        id:"chainblock",name:"Manual Chain Block / Chain Hoist",category:"devices",short:"Hand-operated lifting hoist",
+        definition:"A manual hoist that lifts a load using a hand chain, gearing, load chain and load brake.",
+        purpose:"Controlled lifting and lowering where the hoist's rated capacity, suspension and environment are suitable.",
+        types:["Standard manual chain block","Low-headroom type","Lever-operated chain hoist"],
+        parts:["Suspension hook","Hand chain","Load chain","Gear train","Load brake","Load hook and latch","Body and WLL label"],
+        checks:["Inspect hooks, latches, chain links, body, suspension point and label.","Check chain for twists, corrosion, wear, elongation and damage.","Check brake and operation according to the manufacturer's procedure.","Remove from service for abnormal noise, slipping brake or damaged chain."],
+        safety:["Never exceed WLL or use a hoist to pull sideways unless rated for it.","Do not leave a suspended load unattended.","Do not use the load chain as a sling.","Do not operate if the brake or controls are abnormal."],
+        standards:"Potential references: EN 13157 for manual lifting equipment; ASME B30.16 where adopted; manufacturer instructions.",
+        capacityTitle:"Selection and use",
+        table:[["Item","Check"],["Rated capacity","Hoist WLL must exceed the planned load as required by the lift plan."],["Suspension","Support structure and attachment must be rated."],["Lift height","Confirm sufficient chain and headroom."],["Inspection","Follow the maker's periodic inspection requirements."]],
+        capacityNote:"WLL is a limit, not a target. Account for the complete load path and approved lifting plan.",
+        hitchTitle:"Operation",
+        hitchTable:[["Before lifting","Check"],["Setup","Hoist aligned with the load."],["Lifting","No shock loading or side pull."],["Lowering","Keep personnel clear and control the load."]],
+        hitchNote:"Do not use a hoist as a personnel-lifting device unless specifically designed and approved for that purpose."
+      },
+      {
+        id:"lever",name:"Lever Hoist / Lever Block",category:"devices",short:"Lever-operated lifting and pulling device",
+        definition:"A manually operated device using a lever and ratchet mechanism to lift, lower or tension a load within its rated application.",
+        purpose:"Controlled positioning or tensioning where the model and application permit the intended load direction.",
+        types:["Lever hoist","Ratchet lever puller","Compact lever block"],
+        parts:["Lever handle","Selector","Brake / ratchet","Load chain","Top hook","Bottom hook","Identification label"],
+        checks:["Inspect chain, hooks, latches, brake, selector, handle and body.","Confirm free movement and proper brake function.","Check markings and manufacturer's rejection limits.","Quarantine if the mechanism slips or chain is damaged."],
+        safety:["Do not extend the handle with a pipe.","Do not exceed WLL or shock-load.","Do not use a puller in a lifting application unless the manufacturer approves it.","Keep hands clear of chain and ratchet pinch points."],
+        standards:"Potential references: EN 13157 where applicable; ASME B30.21 where adopted; manufacturer instructions.",
+        capacityTitle:"Capacity checks",
+        table:[["Check","Guidance"],["WLL","Use the rating for the exact model."],["Direction","Confirm permitted lifting/pulling direction."],["Chain","Do not use the chain as a sling."],["Brake","Verify correct operation before loading."]],
+        capacityNote:"A lever hoist and a lever puller may have different approved applications even if they look similar.",
+        hitchTitle:"Use sequence",
+        hitchTable:[["Step","Action"],["Position","Align device and load."],["Test","Take up slack and verify secure connection."],["Move","Operate smoothly within rated application."],["Finish","Safely unload and inspect."]],
+        hitchNote:"Never stand in line with a tensioned chain or attachment."
+      },
+      {
+        id:"winch",name:"Winch",category:"devices",short:"Drum-and-rope pulling or lifting device",
+        definition:"A manual, electric, hydraulic or pneumatic device that winds rope or cable onto a drum.",
+        purpose:"Pulling or lifting loads only where the winch, rope, anchorage and rigging system are designed for that duty.",
+        types:["Manual winch","Electric winch","Hydraulic winch","Capstan winch","Lifting-rated winch"],
+        parts:["Drum","Wire rope or approved line","Drive","Brake","Controls","Fairlead","Anchorage","WLL or line-pull rating"],
+        checks:["Check rope, drum, spooling, fairlead, brake, controls and anchorage.","Confirm rope end termination and required drum wraps.","Check for damaged wires, crushing, corrosion or kinks.","Verify rating at the actual drum layer and operating condition."],
+        safety:["Do not assume a pulling winch is suitable for suspended lifting.","Keep clear of rope bights and recoil zones.","Do not exceed the maker's line-pull or duty rating.","Use suitable anchorage and guarding."],
+        standards:"Use the applicable winch product standard, manufacturer instructions and site lifting procedure; verify lifting certification.",
+        capacityTitle:"Capacity considerations",
+        table:[["Factor","Effect"],["Drum layer","Available line pull can decrease as rope layers increase."],["Rope","Must match winch and termination specifications."],["Brake","Must be approved for suspended load duty where applicable."],["Anchorage","Must withstand the design load."],["Duty","Pulling rating is not automatically a lifting WLL."]],
+        capacityNote:"Use the manufacturer's chart for the actual rope layer, line speed and duty. Do not derive WLL from motor power.",
+        hitchTitle:"Pre-use checks",
+        hitchTable:[["Area","Check"],["Rope path","No snags or incompatible sheaves."],["Brake","Function test per manufacturer."],["Anchorage","Verified and rated."],["Exclusion zone","Clear of rope recoil and load path."]],
+        hitchNote:"Only a winch approved for lifting should be used to suspend a load."
+      },
+      {
+        id:"beamclamp",name:"Beam Clamp / Beam Trolley",category:"hardware",short:"Flange-mounted attachment",
+        definition:"A rated attachment fitted to a suitable beam flange; a trolley may allow horizontal movement along the beam.",
+        purpose:"Providing a suspension or travel point for compatible lifting equipment.",
+        types:["Fixed beam clamp","Push trolley","Geared trolley","Powered trolley"],
+        parts:["Clamp plates","Adjustment spindle","Locking components","Trolley wheels, if fitted","Suspension point","WLL marking"],
+        checks:["Check flange width and thickness against the approved range.","Inspect threads, plates, pins, wheels, brakes and markings.","Confirm beam and support structure capacity.","Check that the device is correctly seated and secured."],
+        safety:["Do not exceed flange limits or use on unverified structures.","Prevent unintended trolley travel.","Avoid side pull unless explicitly approved.","Use compatible hoist and attachment."],
+        standards:"Potential references: applicable EN 13157/hoist requirements where relevant; ASME B30 series where adopted; manufacturer instructions.",
+        capacityTitle:"Capacity checks",
+        table:[["Parameter","Check"],["WLL","Device rating and application."],["Beam","Structural rating, flange dimensions and condition."],["Side load","Only if approved by manufacturer."],["Trolley","Travel, wheel and flange compatibility."]],
+        capacityNote:"A clamp rating does not prove the supporting beam is adequate.",
+        hitchTitle:"Installation",
+        hitchTable:[["Step","Check"],["Fit","Correct flange and adjustment."],["Secure","Locking components properly fitted."],["Test","Test travel and suspension before service."]],
+        hitchNote:"A competent person should verify the support structure and installation."
+      },
+      {
+        id:"beam",name:"Lifting Beam / Spreader Beam",category:"belowhook",short:"Engineered below-hook device",
+        definition:"An engineered below-hook device that distributes load through designated lifting points.",
+        purpose:"Managing sling geometry, headroom or load stability in a designed lifting arrangement.",
+        types:["Lifting beam","Spreader beam","Adjustable spreader","Modular lifting frame"],
+        parts:["Main structure","Top lifting points","Bottom lifting points","Pins","Adjustable sections","Identification plate"],
+        checks:["Verify certificate, WLL, configuration and approved drawing.","Inspect welds, structure, pins, holes, lifting lugs and corrosion.","Confirm adjustable sections and pins are locked in the approved position.","Check all lifting points and rigging connections."],
+        safety:["Never change the configuration without engineering approval.","Do not use an unmarked or uncertified beam.","Respect load distribution, centre of gravity and approved pick points.","Use only the specified rigging arrangement."],
+        standards:"Potential references: ASME BTH-1 and B30.20 where adopted; applicable design code and site requirements.",
+        capacityTitle:"Capacity and configuration",
+        table:[["Parameter","Why it matters"],["WLL","Applies only to the certified configuration."],["Pick-point spacing","Changes structural forces."],["Load distribution","Unequal loading can overload points."],["Rigging angle","Affects forces in slings and beam connections."]],
+        capacityNote:"Capacity must come from the engineered drawing and nameplate for the exact configuration.",
+        hitchTitle:"Lift planning",
+        hitchTable:[["Check","Requirement"],["Configuration","Match drawing and certificate."],["Load","Confirm weight and centre of gravity."],["Connections","Verify all rigging WLLs."],["Trial lift","Follow approved lift plan."]],
+        hitchNote:"Do not infer beam capacity from dimensions or appearance."
+      },
+      {
+        id:"eyepad",name:"Lifting Lug / Padeye",category:"hardware",short:"Engineered attachment plate",
+        definition:"A structural lifting attachment designed as part of a load or structure.",
+        purpose:"Transferring lifting forces into the parent structure through a verified design.",
+        types:["Plate lug","Padeye","Trunnion","Engineered temporary lifting point"],
+        parts:["Lug plate","Hole / pin bearing area","Welds or bolts","Reinforcement","Parent structure","Identification where required"],
+        checks:["Verify approved engineering drawing and inspection records.","Inspect welds, hole, bearing surfaces, distortion, cracks and corrosion.","Check parent structure and reinforcement.","Confirm pin size, fit and loading direction."],
+        safety:["Never weld on a lifting lug without approved engineering control.","Do not assume the lug rating without its design basis.","Use only in approved directions and configurations.","Check the full load path, not just the lug."],
+        standards:"Use the approved design code, applicable inspection requirements and project lifting procedure.",
+        capacityTitle:"Design-dependent capacity",
+        table:[["Factor","Check"],["Load direction","Out-of-plane loads may be critical."],["Pin / hole","Bearing, tear-out and fit."],["Weld / bolts","Design and inspection acceptance."],["Parent structure","Local and global strength."]],
+        capacityNote:"No generic angle chart can establish padeye capacity.",
+        hitchTitle:"Before use",
+        hitchTable:[["Check","Requirement"],["Drawing","Approved design and WLL."],["Inspection","Required weld/NDE records."],["Connection","Compatible pin and rigging."],["Orientation","Match engineered load direction."]],
+        hitchNote:"Use only after the responsible engineer/competent person confirms the lug is fit for the planned lift."
+      },
+      {
+        id:"drum",name:"Drum Lifter",category:"belowhook",short:"Purpose-built drum attachment",
+        definition:"A dedicated lifting device that grips or supports drums of a specified size and construction.",
+        purpose:"Lifting and moving drums within the device's approved use.",
+        types:["Vertical drum lifter","Horizontal drum lifter","Drum grab","Drum lifting frame"],
+        parts:["Gripping jaws or support","Locking mechanism","Suspension eye","WLL plate","Contact pads"],
+        checks:["Inspect jaws, locking parts, pins, welds, contact pads and WLL plate.","Confirm compatibility with drum diameter, weight and material.","Check for deformation or worn gripping surfaces.","Function-test as instructed by the manufacturer."],
+        safety:["Do not use on a drum type outside the approved range.","Keep the drum stable and personnel clear.","Do not lift a damaged drum unless a specific approved method is used.","Use only the specified orientation."],
+        standards:"Manufacturer-specific device requirements and approved site procedures.",
+        capacityTitle:"Capacity checks",
+        table:[["Parameter","Check"],["Drum type","Exact approved geometry."],["WLL","Marked device rating."],["Locking","Positive engagement."],["Orientation","Vertical or horizontal as specified."]],
+        capacityNote:"Do not assume a clamp designed for one drum style works with another.",
+        hitchTitle:"Pre-use",
+        hitchTable:[["Step","Action"],["Inspect","Check jaws and lock."],["Fit","Place device as specified."],["Test","Take a small controlled load and verify engagement."]],
+        hitchNote:"Follow the manufacturer's test and operating instructions."
+      },
+      {
+        id:"plateclamp",name:"Plate Clamp",category:"belowhook",short:"Material-specific gripping clamp",
+        definition:"A clamp designed to grip plate or sheet material within a defined thickness and loading direction.",
+        purpose:"Handling plates with an approved clamp arrangement.",
+        types:["Vertical plate clamp","Horizontal plate clamp","Locking plate clamp","Wide-jaw clamp"],
+        parts:["Clamp body","Jaw","Cam / gripping teeth","Locking lever","Hinge pin","WLL and thickness markings"],
+        checks:["Check jaw/cam wear and tooth condition.","Inspect body, pins, springs, locking system and markings.","Verify thickness range and material hardness.","Remove from service if the locking mechanism or grip is defective."],
+        safety:["Use correct clamp type and quantity.","Do not lift outside the marked thickness range.","Do not use on oily, coated or unsuitable material unless approved.","Do not place hands between plates or at pinch points."],
+        standards:"Applicable clamp manufacturer requirements and site lifting procedures.",
+        capacityTitle:"Use conditions",
+        table:[["Condition","Check"],["Plate thickness","Within stated minimum and maximum."],["Surface","Suitable for grip."],["Load direction","Approved vertical or horizontal use."],["Quantity","As specified by lift design and maker."]],
+        capacityNote:"WLL may depend on material and surface condition.",
+        hitchTitle:"Configuration",
+        hitchTable:[["Application","Action"],["Vertical lift","Use rated vertical clamp."],["Horizontal movement","Use approved horizontal arrangement."],["Multiple clamps","Follow the engineered lifting arrangement."]],
+        hitchNote:"Do not mix different clamp models without approval."
+      },
+      {
+        id:"pulley",name:"Snatch Block / Pulley Block",category:"belowhook",short:"Rope direction or mechanical advantage device",
+        definition:"A block containing one or more sheaves used with compatible rope and rated attachments.",
+        purpose:"Changing rope direction or creating a designed pulling arrangement.",
+        types:["Fixed sheave block","Snatch block","Multi-sheave block"],
+        parts:["Sheave","Side plates","Axle","Latch / opening side plate","Hook or shackle","WLL markings"],
+        checks:["Inspect sheave groove, axle, side plates, latch and attachment.","Confirm rope diameter and construction are compatible.","Check rotation and signs of cracking, wear or deformation.","Verify the block's rating for the intended arrangement."],
+        safety:["Do not assume block WLL equals line pull or system capacity.","Account for forces at the anchor and attachment.","Keep clear of rope bights and recoil zones.","Use only compatible rope and sheave diameter."],
+        standards:"Applicable block and rigging manufacturer requirements; relevant site procedures.",
+        capacityTitle:"System capacity",
+        table:[["Factor","Check"],["Line pull","Depends on rope arrangement and friction."],["Anchor load","Can exceed line pull in some arrangements."],["Rope compatibility","Diameter and construction must match."],["Block rating","Follow maker's definition of WLL."]],
+        capacityNote:"Do not use a simple multiplier without a reviewed rigging calculation.",
+        hitchTitle:"Before use",
+        hitchTable:[["Check","Requirement"],["Attachment","Rated and correctly seated."],["Rope","Compatible and properly reeved."],["Anchor","Verified for resultant force."],["Zone","Keep personnel clear."]],
+        hitchNote:"Use a competent rigger to verify the complete reeving arrangement."
+      }
+    ];
 
-const cards=root.querySelector("#laCards");
-const detail=root.querySelector("#laDetail");
-const info=root.querySelector("#laInfo");
-const search=root.querySelector("#laSearch");
-const filter=root.querySelector("#laFilter");
+    const list=root.querySelector("#laGearList");
+    const search=root.querySelector("#laSearch");
+    const filter=root.querySelector("#laFilter");
+    const title=root.querySelector("#laTitle");
+    const intro=root.querySelector("#laIntro");
+    const tags=root.querySelector("#laTags");
+    const info=root.querySelector("#laInfo");
+    const save=root.querySelector("#laSavePdf");
+    const printAll=root.querySelector("#laPrintAll");
+    let selected=null;
 
-function safe(s){
- return String(s).replace(/[&<>"']/g,function(c){
-  return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
- });
-}
-function list(arr){
- return "<ul>"+arr.map(v=>"<li>"+safe(v)+"</li>").join("")+"</ul>";
-}
-function renderCards(){
- const q=search.value.trim().toLowerCase();
- const cat=filter.value;
- const shown=gear.filter(g=>
-  (cat==="all"||g.cat===cat)&&
-  (g.name+" "+g.definition+" "+g.purpose+" "+g.types.join(" ")).toLowerCase().includes(q)
- );
- cards.innerHTML="";
- if(!shown.length){
-  cards.innerHTML="<p>No matching accessories found. Try another search.</p>";
-  return;
- }
- shown.forEach(g=>{
-  const card=document.createElement("article");
-  card.className="card";
-  const title=document.createElement("h3");
-  title.textContent=g.name;
-  const desc=document.createElement("p");
-  desc.textContent=g.definition;
-  const btn=document.createElement("button");
-  btn.type="button";
-  btn.textContent="View full details →";
-  btn.addEventListener("click",()=>showDetails(g.name));
-  card.append(title,desc,btn);
-  cards.appendChild(card);
- });
-}
-function showDetails(name){
- const g=gear.find(x=>x.name===name);
- if(!g)return;
- info.innerHTML=
-  "<h2>"+safe(g.name)+"</h2>"+
-  "<div class='columns'>"+
-  "<div class='panel'><h4>1. Definition</h4><p>"+safe(g.definition)+"</p></div>"+
-  "<div class='panel'><h4>2. Purpose and applications</h4><p>"+safe(g.purpose)+"</p></div>"+
-  "<div class='panel'><h4>3. Types</h4>"+list(g.types)+"</div>"+
-  "<div class='panel'><h4>4. Main parts</h4>"+list(g.parts)+"</div>"+
-  "<div class='panel'><h4>5. Inspection method</h4>"+list(g.inspection)+"</div>"+
-  "<div class='panel'><h4>6. Safety precautions</h4>"+list(g.safety)+"</div>"+
-  "</div><div class='panel'><h4>7. Standards reference</h4><p>"+safe(g.standard)+"</p>"+
-  "<p class='small'>Confirm the current edition, exact product scope, local legal requirements and manufacturer instructions. This is not a certification statement.</p></div>"+
-  "<div class='warning'><strong>Inspection decision:</strong> Acceptance or rejection of actual equipment must follow the applicable criteria and a competent person's procedures.</div>";
- detail.hidden=false;
- detail.scrollIntoView({behavior:"auto",block:"start"});
-}
-root.querySelector("#laBack").addEventListener("click",function(){
- detail.hidden=true;
- cards.scrollIntoView({behavior:"auto",block:"start"});
-});
-search.addEventListener("input",renderCards);
-filter.addEventListener("change",renderCards);
-renderCards();
-})();
-</script>
+    function esc(s){
+      return String(s==null?"":s).replace(/[&<>"']/g,function(c){
+        return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+      });
+    }
+    function listHtml(arr){
+      return "<ul>"+(arr||[]).map(x=>"<li>"+esc(x)+"</li>").join("")+"</ul>";
+    }
+    function tableHtml(rows){
+      if(!rows||!rows.length)return "";
+      return '<div class="la-table-wrap"><table><tbody>'+
+        rows.map((row,i)=>"<tr>"+row.map(cell=>i===0?"<th>"+esc(cell)+"</th>":"<td>"+esc(cell)+"</td>").join("")+"</tr>").join("")+
+        "</tbody></table></div>";
+    }
+    function renderList(){
+      const q=search.value.trim().toLowerCase();
+      const cat=filter.value;
+      const matches=gear.filter(g=>(cat==="all"||g.category===cat)&&
+        (q===""||(g.name+" "+g.short+" "+g.definition+" "+g.parts.join(" ")+" "+g.checks.join(" ")).toLowerCase().includes(q)));
+      list.innerHTML=matches.map(g=>'<button type="button" class="la-gear-btn" data-gear="'+esc(g.id)+'" aria-pressed="'+(selected&&selected.id===g.id?'true':'false')+'">'+
+        esc(g.name)+'<small>'+esc(g.short)+'</small></button>').join("")||"<p>No matching equipment found.</p>";
+      root.querySelector("#laCount").textContent=matches.length+" item(s) shown";
+      list.querySelectorAll("[data-gear]").forEach(btn=>btn.addEventListener("click",()=>{
+        const g=gear.find(item=>item.id===btn.dataset.gear);
+        if(g)renderDetail(g);
+      }));
+    }
+    function renderDetail(g){
+      selected=g;
+      title.textContent=g.name;
+      intro.textContent=g.definition;
+      tags.innerHTML='<span class="la-tag">'+esc(g.category)+'</span><span class="la-tag">Training reference</span>';
+      info.innerHTML=
+        '<h4>Purpose</h4><p>'+esc(g.purpose)+'</p>'+
+        '<h4>Types</h4>'+listHtml(g.types)+
+        '<h4>Main parts</h4>'+listHtml(g.parts)+
+        '<h4>Inspection checklist</h4>'+listHtml(g.checks)+
+        '<h4>Safe use</h4>'+listHtml(g.safety)+
+        '<h4>'+esc(g.capacityTitle||"Capacity considerations")+'</h4>'+tableHtml(g.table)+
+        '<div class="la-callout">'+esc(g.capacityNote||"Use the marked WLL and manufacturer's instructions.")+'</div>'+
+        '<h4>'+esc(g.hitchTitle||"Configuration guidance")+'</h4>'+tableHtml(g.hitchTable)+
+        '<div class="la-note">'+esc(g.hitchNote||"Confirm the exact product rating before use.")+'</div>'+
+        '<h4>Standards and documentation</h4><p>'+esc(g.standards)+'</p>'+
+        '<h4>Documentation to verify</h4>'+listHtml([
+          "Manufacturer identification, model and serial/traceability details where applicable.",
+          "Marked WLL and permitted configuration.",
+          "Valid certificate or conformity documentation required by the project.",
+          "Inspection status and the site's lifting-equipment register."
+        ])+
+        '<div class="la-callout"><strong>Safety limitation:</strong> this page is general reference material. It does not certify the item, determine an actual lift capacity, or replace a competent-person decision.</div>';
+      save.disabled=false;
+      renderList();
+    }
+    function printSheet(all){
+      const area=root.querySelector("#la-print-area");
+      if(!all&&!selected){alert("Select a gear item first.");return;}
+      const originalTitle=document.title;
+      const printWindow=window.open("","_blank");
+      if(!printWindow){
+        alert("Your browser blocked the print window. Allow pop-ups for this site and try again.");
+        return;
+      }
+      let content="";
+      if(all){
+        content=gear.map(g=>'<article class="sheet"><h2>'+esc(g.name)+'</h2><p>'+esc(g.definition)+'</p>'+
+          '<h3>Purpose</h3><p>'+esc(g.purpose)+'</p>'+
+          '<h3>Types</h3>'+listHtml(g.types)+
+          '<h3>Parts</h3>'+listHtml(g.parts)+
+          '<h3>Inspection</h3>'+listHtml(g.checks)+
+          '<h3>Safe use</h3>'+listHtml(g.safety)+
+          '<h3>'+esc(g.capacityTitle||"Capacity considerations")+'</h3>'+tableHtml(g.table)+
+          '<p><strong>Capacity note:</strong> '+esc(g.capacityNote||"Verify the manufacturer rating.")+'</p>'+
+          '<h3>'+esc(g.hitchTitle||"Configuration guidance")+'</h3>'+tableHtml(g.hitchTable)+
+          '<p>'+esc(g.hitchNote||"Verify manufacturer instructions.")+'</p>'+
+          '<h3>Standards and documentation</h3><p>'+esc(g.standards)+'</p></article>').join("");
+      }else{
+        content=area.innerHTML;
+      }
+      printWindow.document.open();
+      printWindow.document.write('<!doctype html><html><head><meta charset="utf-8"><title>'+
+        esc(all?"Lifting Accessories Library":selected.name+" - Gear Sheet")+'</title><style>'+
+        'body{font:12px Arial,sans-serif;color:#172536;line-height:1.45;margin:22px}h1{font-size:24px}h2{font-size:20px;color:#145c69}h3{margin-top:16px;color:#145c69}table{border-collapse:collapse;width:100%;margin:8px 0}th,td{border:1px solid #ccd5dd;padding:6px;text-align:left;vertical-align:top}th{background:#eaf1f5}li{margin:3px 0}.sheet{page-break-after:always;break-after:page}.sheet:last-child{page-break-after:auto}.la-btn{display:none}.la-callout,.la-note{padding:8px;border:1px solid #d8e0e6;margin:8px 0}'+
+        '</style></head><body><h1>Lifting &amp; Rigging Study</h1><p>Training reference — verify the actual item rating, current standards, manufacturer chart and approved site procedure.</p>'+
+        content+
+        '<hr><p><strong>Safety notice:</strong> This reference is not a lifting plan, equipment certificate, engineering calculation or inspection release. Always use the marked WLL and approved manufacturer instructions.</p>'+
+        '<script>window.onload=function(){setTimeout(function(){window.print()},250)};<\/script></body></html>');
+      printWindow.document.close();
+      document.title=originalTitle;
+    }
+    search.addEventListener("input",renderList);
+    filter.addEventListener("change",renderList);
+    save.addEventListener("click",()=>printSheet(false));
+    printAll.addEventListener("click",()=>printSheet(true));
+    renderList();
+    if(gear.length)renderDetail(gear[0]);
+  })();
+  </script>
 </section>
