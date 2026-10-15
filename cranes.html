@@ -337,7 +337,14 @@ root.querySelector("#clFilter").addEventListener("change",renderList);
 root.querySelector("#clSave").addEventListener("click",()=>printSheets(false));
 root.querySelector("#clPrintAll").addEventListener("click",()=>printSheets(true));
 renderList();
-renderDetail(cranes[0]);
+
+if (cranes.length > 0) {
+  renderDetail(cranes[0]);
+  console.log("Crane library loaded:", cranes.length);
+} else {
+  root.querySelector("#clTitle").textContent = "No crane data available";
+  root.querySelector("#clIntro").textContent = "The crane list is empty.";
+}
 })();
 </script>
 </section>
