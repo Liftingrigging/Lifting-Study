@@ -1,444 +1,583 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Explore Cranes | Lifting Study</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#073763">
+<title>Explore Cranes | Lifting Study</title>
 
-  <style>
-    * { box-sizing: border-box; }
-
-    body {
-      margin: 0;
-      padding: 20px;
-      font-family: Arial, sans-serif;
-      background: #f4f7fb;
-      color: #172033;
-    }
-
-    .cl {
-      max-width: 1200px;
-      margin: auto;
-    }
-
-    .cl h1 { margin-bottom: 8px; }
-    .cl p { line-height: 1.6; }
-
-    .cl-controls {
-      display: grid;
-      grid-template-columns: 1fr 220px;
-      gap: 12px;
-      margin: 20px 0;
-    }
-
-    .cl input, .cl select, .cl button {
-      width: 100%;
-      padding: 12px;
-      border: 1px solid #cbd5e1;
-      border-radius: 8px;
-      font: inherit;
-    }
-
-    .cl button {
-      cursor: pointer;
-      background: #075985;
-      color: white;
-      border: 0;
-      font-weight: 600;
-    }
-
-    .cl button:hover { background: #0c4a6e; }
-
-    .cl-layout {
-      display: grid;
-      grid-template-columns: 280px minmax(0, 1fr);
-      gap: 18px;
-      align-items: start;
-    }
-
-    .cl-panel {
-      background: white;
-      border: 1px solid #dbe3ee;
-      border-radius: 12px;
-      padding: 18px;
-    }
-
-    .cl-list {
-      display: grid;
-      gap: 8px;
-    }
-
-    .cl-item {
-      width: 100%;
-      text-align: left;
-      background: #f1f5f9 !important;
-      color: #172033 !important;
-      border: 1px solid #dbe3ee !important;
-    }
-
-    .cl-item.active {
-      background: #e0f2fe !important;
-      border-color: #0284c7 !important;
-    }
-
-    .cl-detail h2 { margin-top: 0; }
-
-    .cl-tag {
-      display: inline-block;
-      padding: 5px 9px;
-      margin: 3px;
-      border-radius: 20px;
-      background: #e0f2fe;
-      color: #075985;
-      font-size: 13px;
-    }
-
-    .cl-diagram {
-      min-height: 150px;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      margin: 16px 0;
-      border-radius: 10px;
-      background: #eff6ff;
-      font-size: 64px;
-    }
-
-    .cl-detail h3 { margin-bottom: 6px; }
-
-    .cl-detail li { margin-bottom: 6px; line-height: 1.5; }
-
-    .cl-actions {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 10px;
-      margin-top: 20px;
-    }
-
-    .cl-actions button { flex: 1 1 160px; }
-
-    .cl-secondary { background: #334155 !important; }
-
-    .cl-empty {
-      padding: 20px;
-      color: #64748b;
-      text-align: center;
-    }
-
-    @media (max-width: 720px) {
-      body { padding: 12px; }
-      .cl-controls, .cl-layout { grid-template-columns: 1fr; }
-    }
-
-    @media print {
-      .cl-controls, .cl-list-panel, .cl-actions { display: none !important; }
-      body { padding: 0; background: white; }
-      .cl-panel { border: 0; }
-    }
-  </style>
+<style>
+:root {
+  --navy:#073763;
+  --blue:#075985;
+  --sky:#eaf5ff;
+  --line:#c8dff5;
+  --text:#172b45;
+  --muted:#52677f;
+  --white:#ffffff;
+  --green:#087f68;
+  --orange:#a65c00;
+  --red:#b42332;
+  --purple:#6338a5;
+}
+* { box-sizing:border-box; }
+body {
+  margin:0;
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  background:
+    radial-gradient(ellipse at top left,#c8e7ff 0,transparent 38%),
+    linear-gradient(145deg,#eaf5ff,#f7fbff 45%,#dceeff);
+  min-height:100vh;
+}
+button,input,select { font:inherit; }
+button { cursor:pointer; }
+button:focus-visible,input:focus-visible,select:focus-visible {
+  outline:3px solid #f5b942;
+  outline-offset:2px;
+}
+.hero {
+  padding:30px 22px;
+  color:white;
+  background:linear-gradient(120deg,#052c55,#075985 65%,#087eaa);
+  border-bottom:4px solid #46b9ef;
+}
+.hero-inner,.container { max-width:1450px; margin:auto; }
+.hero h1 { font-size:clamp(28px,4vw,46px); margin:0 0 8px; }
+.hero p { max-width:800px; line-height:1.65; margin:0; color:#e5f3ff; }
+.hero-label {
+  display:inline-block;
+  margin-bottom:12px;
+  border:1px solid #9edbff;
+  border-radius:30px;
+  padding:6px 12px;
+  font-size:12px;
+  font-weight:700;
+  letter-spacing:1px;
+}
+.container { padding:20px; }
+.toolbar {
+  display:grid;
+  grid-template-columns:minmax(200px,1fr) minmax(180px,270px) auto;
+  gap:12px;
+  margin-bottom:18px;
+}
+.toolbar input,.toolbar select {
+  min-width:0;
+  width:100%;
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:white;
+  color:var(--text);
+}
+.btn {
+  border:0;
+  border-radius:9px;
+  padding:12px 16px;
+  color:white;
+  background:var(--blue);
+  font-weight:700;
+}
+.btn:hover { filter:brightness(1.1); }
+.btn.dark { background:#334155; }
+.layout {
+  display:grid;
+  grid-template-columns:270px minmax(0,1fr);
+  gap:18px;
+  align-items:start;
+}
+.panel {
+  min-width:0;
+  background:rgba(255,255,255,.95);
+  border:1px solid var(--line);
+  border-radius:15px;
+  overflow:hidden;
+  box-shadow:0 8px 26px rgba(14,70,120,.07);
+}
+.panel-heading {
+  padding:16px;
+  color:white;
+  background:linear-gradient(110deg,#064579,#087eaa);
+}
+.panel-heading h2 { margin:0; font-size:20px; }
+.panel-body { padding:15px; }
+.crane-list { display:grid; gap:8px; }
+.crane-choice {
+  display:block;
+  width:100%;
+  padding:12px;
+  text-align:left;
+  border:1px solid #d6e5f5;
+  border-radius:9px;
+  color:var(--text);
+  background:#f7fbff;
+}
+.crane-choice:hover { background:#e8f4ff; }
+.crane-choice.active {
+  background:#dcefff;
+  border:2px solid #0284c7;
+  padding:11px;
+}
+.crane-choice strong { display:block; margin-bottom:4px; }
+.crane-choice small { color:var(--muted); }
+.side-note {
+  margin-top:15px;
+  padding:15px;
+  border-radius:11px;
+  background:linear-gradient(145deg,#e5f3ff,#f8fbff);
+  line-height:1.6;
+}
+.detail-top {
+  padding:21px;
+  color:white;
+  background:linear-gradient(115deg,#064579,#087eaa);
+}
+.detail-top h2 { margin:0 0 7px; font-size:clamp(22px,3vw,31px); }
+.detail-top p { margin:0; line-height:1.65; color:#e8f5ff; }
+.tags { display:flex; gap:7px; flex-wrap:wrap; margin-top:12px; }
+.tag {
+  padding:5px 9px;
+  border-radius:30px;
+  background:#e1f2ff;
+  color:#075985;
+  font-size:12px;
+  font-weight:700;
+}
+.stats {
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+  padding:15px;
+}
+.stat {
+  padding:13px;
+  border:1px solid var(--line);
+  border-radius:9px;
+  background:linear-gradient(145deg,#f0f8ff,#fff);
+}
+.stat strong { display:block; font-size:12px; color:var(--blue); margin-bottom:7px; }
+.stat span { font-size:14px; line-height:1.5; overflow-wrap:anywhere; }
+.cards {
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:12px;
+  padding:0 15px 15px;
+}
+.info-card {
+  min-width:0;
+  border:1px solid var(--line);
+  border-radius:11px;
+  overflow:hidden;
+  background:white;
+}
+.info-card h3 {
+  margin:0;
+  padding:12px;
+  font-size:15px;
+  background:#eaf5ff;
+  color:#064579;
+  border-bottom:1px solid var(--line);
+}
+.info-card ul,.info-card ol { margin:0; padding:14px 15px 14px 32px; }
+.info-card li { margin:0 0 8px; line-height:1.55; font-size:13px; }
+.info-card li:last-child { margin-bottom:0; }
+.info-card.green h3 { background:#e4f7f1; color:#086653; border-color:#c2ebde; }
+.info-card.orange h3 { background:#fff3d9; color:#945000; border-color:#ffe1a5; }
+.info-card.red h3 { background:#fff0f1; color:#a21f2d; border-color:#ffd0d4; }
+.info-card.purple h3 { background:#f1eaff; color:#6338a5; border-color:#e1d0ff; }
+.info-card.teal h3 { background:#e1f7f7; color:#086b70; border-color:#c4eeee; }
+.full { grid-column:1/-1; }
+.notice {
+  margin:0 15px 15px;
+  padding:14px;
+  border-left:4px solid #e0a12a;
+  border-radius:7px;
+  background:#fff8e8;
+  font-size:13px;
+  line-height:1.65;
+}
+.actions {
+  display:flex;
+  flex-wrap:wrap;
+  gap:10px;
+  padding:0 15px 18px;
+}
+.actions .btn { flex:1 1 180px; }
+.footer {
+  padding:24px 15px;
+  text-align:center;
+  color:white;
+  background:#073763;
+  line-height:1.8;
+}
+#resultCount { color:var(--muted); font-size:12px; }
+.empty { padding:14px; color:var(--muted); }
+@media(max-width:900px) {
+  .layout { grid-template-columns:1fr; }
+  .crane-list { grid-template-columns:repeat(2,minmax(0,1fr)); }
+}
+@media(max-width:650px) {
+  .container { padding:12px; }
+  .toolbar { grid-template-columns:1fr; }
+  .stats { grid-template-columns:repeat(2,minmax(0,1fr)); }
+  .cards { grid-template-columns:1fr; }
+  .full { grid-column:auto; }
+  .crane-list { grid-template-columns:1fr; }
+}
+@media print {
+  body { background:white; }
+  .hero { padding:12px; print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+  .container { padding:0; }
+  .toolbar,.sidebar,.actions,.footer { display:none!important; }
+  .layout { display:block; }
+  .panel { border:0; box-shadow:none; }
+  .detail-top,.panel-heading,.info-card h3 { print-color-adjust:exact; -webkit-print-color-adjust:exact; }
+  .info-card,.stat { break-inside:avoid; }
+}
+</style>
 </head>
 
 <body>
-<section id="crane-library" class="cl">
-  <h1>Explore Cranes</h1>
-  <p>Select a crane to explore its applications, main components, safety checks, and operating considerations.</p>
+<header class="hero">
+  <div class="hero-inner">
+    <span class="hero-label">LIFTING STUDY • CRANE SAFETY</span>
+    <h1>Crane Library</h1>
+    <p>Explore crane types, components, lifting accessories, inspection points, hazards and safe operating practices. A practical study reference for lifting personnel.</p>
+  </div>
+</header>
 
-  <div class="cl-controls">
-    <input id="craneSearch" type="search" placeholder="Search cranes..." aria-label="Search cranes">
-    <select id="craneCategory" aria-label="Filter by crane category">
+<div class="container">
+  <div class="toolbar">
+    <input id="craneSearch" type="search" placeholder="Search crane types, parts or applications..." aria-label="Search crane library">
+    <select id="craneCategory" aria-label="Filter crane category">
       <option value="all">All crane types</option>
       <option value="mobile">Mobile cranes</option>
       <option value="fixed">Fixed cranes</option>
       <option value="industrial">Industrial cranes</option>
       <option value="special">Special-purpose cranes</option>
     </select>
+    <button class="btn" id="printAll">Print all crane sheets / PDF</button>
   </div>
 
-  <div class="cl-layout">
-    <aside class="cl-panel cl-list-panel">
-      <h2>Crane Library</h2>
-      <div id="craneList" class="cl-list"></div>
-      <p id="craneCount" aria-live="polite"></p>
+  <div class="layout">
+    <aside class="panel sidebar">
+      <div class="panel-heading"><h2>Crane Library</h2></div>
+      <div class="panel-body">
+        <div id="craneList" class="crane-list"></div>
+        <p id="resultCount" aria-live="polite"></p>
+        <div class="side-note">
+          <strong>Safe lifting starts with planning.</strong>
+          <p>Use competent personnel, suitable equipment, verified load information and an approved lifting plan.</p>
+        </div>
+      </div>
     </aside>
 
-    <main id="craneDetail" class="cl-panel cl-detail" aria-live="polite">
-      <h2>Choose a crane</h2>
-      <p>Select a crane from the list to view its details.</p>
-    </main>
+    <main id="craneDetail" class="panel" aria-live="polite"></main>
   </div>
-</section>
+</div>
+
+<footer class="footer">
+  <strong>Safe Lifting • Competent Inspection • Responsible Operations</strong><br>
+  Educational reference only — always verify current requirements for your equipment and location.
+</footer>
 
 <script>
 (function () {
-  "use strict";
+"use strict";
 
-  const cranes = [
-    {
-      id: "truck",
-      name: "Truck-Mounted Crane",
-      category: "mobile",
-      icon: "🚚",
-      description: "A crane mounted on a truck chassis for lifting at multiple locations.",
-      applications: ["Construction projects", "Equipment installation", "General material handling"],
-      components: ["Carrier vehicle", "Boom", "Hoist and hook", "Outriggers", "Counterweight where fitted"],
-      checks: ["Inspect the boom, hook, wire rope and rigging.", "Deploy outriggers according to the manufacturer’s instructions.", "Check ground bearing capacity and setup level.", "Confirm the load chart and rated capacity."],
-      hazards: ["Overturning", "Overhead power lines", "Excessive radius", "Unstable ground"],
-      categoryLabel: "Mobile crane"
-    },
-    {
-      id: "crawler",
-      name: "Crawler Crane",
-      category: "mobile",
-      icon: "🏗️",
-      description: "A crane supported by crawler tracks, often used for heavy lifting on large projects.",
-      applications: ["Infrastructure", "Heavy construction", "Industrial projects"],
-      components: ["Crawler tracks", "Boom", "Hoist system", "Counterweight", "Operator cab"],
-      checks: ["Inspect tracks and travel path.", "Verify boom configuration and load chart.", "Check counterweights and connections.", "Assess ground stability along the lifting route."],
-      hazards: ["Ground settlement", "Boom configuration errors", "Load swing", "Traveling with an unsuitable load"],
-      categoryLabel: "Mobile crane"
-    },
-    {
-      id: "tower",
-      name: "Tower Crane",
-      category: "fixed",
-      icon: "🏗️",
-      description: "A tall fixed crane commonly used to lift materials on building construction sites.",
-      applications: ["High-rise buildings", "Building materials", "Large construction sites"],
-      components: ["Mast", "Jib", "Trolley", "Hoist", "Slewing unit", "Foundation or climbing system"],
-      checks: ["Verify inspection and erection records.", "Check limit switches and safety devices.", "Inspect ropes, hook and trolley.", "Follow wind-speed limits and site lifting plans."],
-      hazards: ["High winds", "Collision with nearby cranes", "Falling objects", "Unsafe access"],
-      categoryLabel: "Fixed crane"
-    },
-    {
-      id: "rough-terrain",
-      name: "Rough-Terrain Crane",
-      category: "mobile",
-      icon: "🚜",
-      description: "A mobile crane designed for maneuvering on rough or uneven construction terrain.",
-      applications: ["Remote construction sites", "Industrial maintenance", "Uneven-site lifting"],
-      components: ["All-terrain tires", "Boom", "Outriggers", "Hoist", "Carrier chassis"],
-      checks: ["Check tire condition and chassis.", "Set up on suitable ground.", "Deploy outriggers as specified.", "Use the correct load chart for the configuration."],
-      hazards: ["Sloping ground", "Overturning", "Poor visibility", "Unexpected ground movement"],
-      categoryLabel: "Mobile crane"
-    },
-    {
-      id: "overhead",
-      name: "Overhead Bridge Crane",
-      category: "industrial",
-      icon: "🏭",
-      description: "A crane that moves loads along elevated runway rails inside facilities.",
-      applications: ["Factories", "Warehouses", "Maintenance workshops"],
-      components: ["Bridge girder", "End trucks", "Runway rails", "Trolley", "Hoist"],
-      checks: ["Inspect the hook, hoist and ropes or chain.", "Check brakes and travel limits.", "Inspect runway and visible structural components.", "Test controls and warning devices as required."],
-      hazards: ["Suspended loads", "Crushing points", "Overloading", "Unintended movement"],
-      categoryLabel: "Industrial crane"
-    },
-    {
-      id: "gantry",
-      name: "Gantry Crane",
-      category: "industrial",
-      icon: "🏗️",
-      description: "A crane supported by legs that travel on wheels or rails at ground level.",
-      applications: ["Ports", "Shipyards", "Outdoor storage yards"],
-      components: ["Main girder", "Supporting legs", "Hoist trolley", "Wheels or rail bogies", "Controls"],
-      checks: ["Inspect wheels and rails.", "Check hoist and lifting accessories.", "Confirm the load is within the rated capacity.", "Keep the travel path clear."],
-      hazards: ["Crushing during travel", "Wind exposure", "Uneven travel surfaces", "Load swing"],
-      categoryLabel: "Industrial crane"
-    },
-    {
-      id: "jib",
-      name: "Jib Crane",
-      category: "fixed",
-      icon: "⚙️",
-      description: "A crane with a horizontal or angled jib used for localized lifting.",
-      applications: ["Workstations", "Machine shops", "Assembly areas"],
-      components: ["Jib arm", "Mast or wall bracket", "Hoist", "Slewing mechanism", "Anchors"],
-      checks: ["Inspect the jib arm and mounting points.", "Check anchors and fasteners.", "Inspect hoist, hook and controls.", "Confirm the working radius and rated capacity."],
-      hazards: ["Anchor failure", "Overloading", "Pinch points", "Uncontrolled rotation"],
-      categoryLabel: "Fixed crane"
-    },
-    {
-      id: "floating",
-      name: "Floating Crane",
-      category: "special",
-      icon: "🚢",
-      description: "A crane mounted on a floating platform for marine and offshore lifting.",
-      applications: ["Port construction", "Marine salvage", "Offshore projects"],
-      components: ["Floating platform", "Crane boom", "Hoist", "Mooring system", "Ballast system"],
-      checks: ["Review marine conditions and lift plan.", "Verify platform stability and ballast arrangements.", "Inspect crane and rigging.", "Confirm communications and emergency arrangements."],
-      hazards: ["Vessel motion", "Weather and sea state", "Changing load dynamics", "Mooring failure"],
-      categoryLabel: "Special-purpose crane"
-    },
-    {
-      id: "articulating",
-      name: "Articulating Boom Crane",
-      category: "mobile",
-      icon: "🚛",
-      description: "A crane with a jointed boom that folds for transport and extends for lifting.",
-      applications: ["Truck loading", "Delivery operations", "Construction materials"],
-      components: ["Articulated boom", "Hydraulic cylinders", "Stabilizers", "Hook or attachment", "Controls"],
-      checks: ["Inspect hydraulic hoses and cylinders.", "Deploy stabilizers correctly.", "Check attachments and lifting points.", "Follow the capacity chart for the actual boom position."],
-      hazards: ["Hydraulic failure", "Unstable setup", "Pinch points", "Overloading at extended reach"],
-      categoryLabel: "Mobile crane"
-    }
-  ];
+const cranes = [
+{
+ id:"truck", name:"Truck-Mounted Crane", category:"mobile",
+ label:"Mobile crane", capacity:"Manufacturer load chart", reach:"Configuration dependent",
+ applications:["Construction and site deliveries","Equipment installation","Utility and maintenance work"],
+ parts:["Truck chassis and carrier","Boom base and boom extensions","Slewing unit and turntable","Hoist winch, drum and wire rope","Hook block, hook and safety latch","Hydraulic pumps, cylinders and hoses","Outriggers, stabilizers and pads","Counterweight, where fitted","Operator controls and cab","Load moment indicator (LMI), where fitted"],
+ devices:["Wire rope and reeving system","Hook block and swivel hook","Slings, shackles and lifting points","Spreader beam or lifting beam, when required","Outrigger mats or suitable load-spreading pads","Remote control, where fitted","Level indicator and rated-capacity system","Tag lines where specified by the lift plan"],
+ inspections:["Check the hook for deformation, cracks and latch damage.","Inspect wire ropes for broken wires, kinks, crushing, corrosion and other discard criteria.","Check boom sections, pins, retainers, welds and visible structural damage.","Inspect hydraulic hoses, cylinders and connections for leaks or damage.","Check outrigger operation, pads, locking devices and ground conditions.","Verify brakes, controls, limit switches and safety indicators according to the manual.","Confirm the load chart matches boom length, radius, counterweight and outrigger setup.","Check lifting accessories have identification and valid inspection status where required."],
+ hazards:["Overturning due to poor ground or incorrect setup","Contact with overhead electrical lines","Overloading at extended radius","Crushing near outriggers and rotating structure","Load swing, dropped loads and poor communication"],
+ safe:["Set up on ground assessed as suitable for the applied loads.","Deploy stabilizers as directed by the manufacturer.","Establish the exclusion zone and a clear communication method.","Never use a capacity estimate instead of the applicable load chart."]
+},
+{
+ id:"crawler", name:"Crawler Crane", category:"mobile",
+ label:"Mobile crane", capacity:"Manufacturer load chart", reach:"Boom configuration dependent",
+ applications:["Heavy construction","Bridge and infrastructure projects","Industrial plant installation"],
+ parts:["Crawler tracks and track frames","Lower and upper carriages","Boom sections and connecting pins","Boom hoist system","Main and auxiliary hoists","Wire ropes, sheaves and hook blocks","Slewing ring and drive","Counterweight system","Operator cab and controls","Safety monitoring systems"],
+ devices:["Main hook and auxiliary hook","Wire rope and reeving components","Slings, shackles and lifting beams","Travel alarms and warning devices","Load moment indicator, where fitted","Ground mats or engineered working platform"],
+ inspections:["Inspect crawler tracks, rollers, idlers and travel mechanisms.","Inspect boom chords, lacing, pins and retaining devices.","Check hoist ropes, sheaves, drums and hook blocks.","Verify counterweight installation against the configuration instructions.","Check brakes, operating controls, alarms and safety devices.","Confirm ground bearing and stability for lifting and travel.","Verify load chart, boom angle, radius and reeving configuration.","Inspect rigging and ensure load weight and centre of gravity are known."],
+ hazards:["Ground failure beneath tracks","Boom or rigging configuration errors","Load swing and suspended-load exposure","Collision during travel or slewing","High wind and visibility restrictions"],
+ safe:["Use the specified configuration and approved assembly procedure.","Keep personnel clear of the load and moving tracks.","Use a planned travel route and qualified signalling personnel.","Follow manufacturer wind limits and lift planning requirements."]
+},
+{
+ id:"tower", name:"Tower Crane", category:"fixed",
+ label:"Fixed crane", capacity:"Load chart by radius", reach:"Jib and trolley dependent",
+ applications:["High-rise construction","Concrete and steel placement","Vertical material movement"],
+ parts:["Foundation and anchor system","Mast sections and connections","Slewing ring and slewing mechanism","Counter-jib and counterweights","Working jib and trolley","Hoist drum, rope and hook block","Climbing frame, where fitted","Operator cab and controls","Trolley and hoist limit devices","Anti-collision systems, where fitted"],
+ devices:["Lifting hook and block","Wire rope and sheaves","Slings, shackles and lifting beams","Trolley and hoist limit switches","Anemometer or wind-speed monitor","Load and moment monitoring system","Anti-collision or zoning equipment, where fitted"],
+ inspections:["Verify erection, foundation, ties and climbing records are complete.","Inspect mast joints, bolts, pins and visible structural condition.","Inspect ropes, sheaves, hook block and lifting accessories.","Check trolley travel, hoist brakes, slewing and limit devices.","Verify rated capacity indicators and safety systems operate as specified.","Check wind monitoring and applicable operating limits.","Review anti-collision and zoning arrangements where installed.","Confirm inspection and maintenance records are current."],
+ hazards:["High winds and gusts","Collision with nearby cranes or structures","Falling objects","Uncontrolled load swing","Unsafe access or unauthorized adjustments"],
+ safe:["Only authorized, competent personnel may erect, climb or dismantle the crane.","Apply the manufacturer's wind limits and out-of-service procedure.","Use approved anti-collision controls and coordinated lifting plans.","Never bypass limit switches or protective devices."]
+},
+{
+ id:"rough", name:"Rough-Terrain Crane", category:"mobile",
+ label:"Mobile crane", capacity:"Manufacturer load chart", reach:"Configuration dependent",
+ applications:["Uneven construction sites","Remote project work","Industrial maintenance"],
+ parts:["All-wheel-drive chassis","Tires and axles","Boom and telescoping sections","Slewing platform","Hydraulic system","Outriggers and stabilizers","Hoist winch and wire rope","Hook block","Counterweight, where fitted","Controls and safety monitoring"],
+ devices:["Hook block and hook latch","Slings and shackles","Outrigger pads and mats","Load moment indicator","Level indicator","Radio or approved communication devices","Warning alarms and lights"],
+ inspections:["Check tires, wheels, steering and travel brakes.","Inspect boom, pins, hoses and hydraulic cylinders.","Inspect hoist rope, hook block and lifting accessories.","Check stabilizers, pads, locking arrangements and level.","Verify load chart for the actual setup and boom configuration.","Check warning alarms, brakes and protective systems.","Assess ground slope, bearing capacity and obstructions.","Confirm operator visibility and safe travel arrangements."],
+ hazards:["Instability on sloping or weak ground","Overturning during lifting","Blind spots and vehicle movement","Hydraulic failure","Overhead obstructions and electrical lines"],
+ safe:["Use only approved setup configurations and load-chart conditions.","Avoid lifting on slopes unless the manufacturer explicitly permits it.","Keep the work area clear and use a signal person when needed.","Do not move with a suspended load unless specifically permitted and planned."]
+},
+{
+ id:"overhead", name:"Overhead Bridge Crane", category:"industrial",
+ label:"Industrial crane", capacity:"Rated capacity marking", reach:"Runway and bridge limits",
+ applications:["Factories and production lines","Workshops and maintenance bays","Warehouses and industrial handling"],
+ parts:["Bridge girders","End trucks and wheel assemblies","Runway rails and supporting structure","Trolley frame","Hoist motor and gearbox","Drum or chain wheel","Wire rope or load chain","Hook block","Brakes, controls and end stops"],
+ devices:["Wire rope or chain hoist","Hook and safety latch","Slings and shackles","Pendant control or radio remote","Travel and hoist limit switches","Audible warning device","Overload protection where fitted"],
+ inspections:["Inspect hooks, latches, rope or chain and reeving.","Check hoist and bridge travel brakes.","Check end stops, travel limits and warning devices.","Inspect visible wheels, rails and structural damage.","Test controls and emergency stop as instructed.","Check load identification and accessories before use.","Look for unusual noise, drift, vibration or overheating.","Keep inspection, maintenance and defect records."],
+ hazards:["Crushing between a moving load and fixed objects","Overloading or side pulling","Dropped loads from damaged accessories","Unexpected bridge or trolley movement","Personnel beneath suspended loads"],
+ safe:["Do not pull a load sideways unless the equipment is designed and approved for it.","Keep hands clear of pinch points and moving wheels.","Never stand or allow others to stand under a suspended load.","Isolate and report defective equipment before further use."]
+},
+{
+ id:"gantry", name:"Gantry Crane", category:"industrial",
+ label:"Industrial crane", capacity:"Rated capacity marking", reach:"Runway and span limits",
+ applications:["Ports and container yards","Shipyards and fabrication yards","Outdoor storage and assembly"],
+ parts:["Main girder","Supporting legs","End carriages and wheels","Rail or travel system","Trolley and hoist","Wire rope or chain","Hook block","Brakes and travel drives","Controls and safety devices"],
+ devices:["Hook block and lifting hook","Slings, shackles and lifting beams","Travel alarms and warning lights","Rail clamps or storm restraints, where fitted","Limit switches","Remote control","Load monitoring devices, where fitted"],
+ inspections:["Inspect girders, legs, connections and visible welds.","Check rails, wheels, travel drives and end stops.","Inspect hook, rope or chain, hoist and brakes.","Verify travel limits and audible/visual warnings.","Check rail clamps or storm restraints when applicable.","Confirm the travel path is clear.","Verify the load and accessories are within their ratings.","Check wind-related restrictions and out-of-service instructions."],
+ hazards:["Crushing during gantry travel","Rail or wheel defects","Wind exposure outdoors","Load swing and dropped loads","Overloading or incorrect rigging"],
+ safe:["Keep all people clear of the moving gantry and its legs.","Use designated walkways and warning systems.","Follow wind limits and storm securing procedures.","Ensure the load is balanced and the travel path is unobstructed."]
+},
+{
+ id:"jib", name:"Jib Crane", category:"fixed",
+ label:"Fixed crane", capacity:"Rated capacity at working radius", reach:"Jib length and rotation limits",
+ applications:["Workstations and assembly lines","Machine shops","Localized maintenance lifting"],
+ parts:["Mast or wall bracket","Jib arm","Trolley, where fitted","Hoist and drive","Slewing bearing or pivot","Anchors and foundation","Hook and lifting rope or chain","Controls and limit devices"],
+ devices:["Chain or wire-rope hoist","Hook and latch","Slings and shackles","Trolley travel stops","Slewing stops","Pendant or remote controls","Mounting bolts and anchor system"],
+ inspections:["Inspect jib arm, mast and visible welds.","Check anchors, mounting bolts and supporting structure.","Inspect hoist chain or rope, hook and latch.","Check trolley movement, brakes and stops.","Check slewing function and rotation limits.","Verify rated capacity markings are readable.","Watch for abnormal movement, deformation or looseness.","Confirm maintenance and examination records are available."],
+ hazards:["Failure of anchors or supporting structure","Overloading at the outer radius","Pinch points during slewing","Side pulling and load swing","Damaged hoist or lifting accessories"],
+ safe:["Never exceed the rated capacity for the working radius.","Do not modify anchors or mounting structure without engineering approval.","Keep people clear of the load's swing path.","Do not use defective hoists or accessories."]
+},
+{
+ id:"floating", name:"Floating Crane", category:"special",
+ label:"Special-purpose crane", capacity:"Approved marine lift plan", reach:"Crane and vessel dependent",
+ applications:["Port construction","Marine salvage","Offshore lifting projects"],
+ parts:["Floating platform or vessel","Crane pedestal and slewing system","Boom and hoist system","Wire ropes and hook blocks","Ballast and stability systems","Mooring or positioning system","Marine power and control systems","Load and environmental monitoring"],
+ devices:["Marine-rated rigging and lifting accessories","Hooks and lifting beams","Load monitoring instruments","Mooring and anchoring equipment","Communications and emergency equipment","Weather and sea-state monitoring"],
+ inspections:["Review vessel and crane inspection records.","Inspect crane structure, ropes, hooks and rigging.","Verify ballast, stability and mooring arrangements.","Check vessel motions, weather, sea state and environmental limits.","Confirm lift plan accounts for dynamic loading.","Verify communications, emergency response and exclusion zones.","Check certification and suitability of marine lifting accessories.","Confirm all operational limits and stop-work criteria."],
+ hazards:["Vessel heave, roll and pitch","Changing load dynamics","Weather and sea-state deterioration","Mooring or positioning failure","Marine personnel exposure and dropped loads"],
+ safe:["Use a lift plan developed for the actual marine conditions.","Stop lifting when defined environmental limits are exceeded.","Coordinate crane, vessel and deck teams through agreed communications.","Do not use ordinary land-crane assumptions for dynamic marine lifts."]
+},
+{
+ id:"articulating", name:"Articulating Boom Crane", category:"mobile",
+ label:"Mobile crane", capacity:"Load chart by boom position", reach:"Articulated boom configuration",
+ applications:["Truck loading and unloading","Delivery of construction materials","Industrial service and maintenance"],
+ parts:["Vehicle chassis and mounting frame","Articulated boom sections","Hydraulic cylinders and hoses","Slewing column","Stabilizers and support pads","Hoist or lifting attachment","Controls and emergency stop","Load monitoring devices, where fitted"],
+ devices:["Approved hook or attachment","Slings and shackles","Hydraulic stabilizers","Remote control, where fitted","Overload or capacity system, where fitted","Load restraint equipment for transport","Outrigger mats where needed"],
+ inspections:["Inspect boom sections, pins and retainers.","Check hydraulic hoses, cylinders, connections and leaks.","Inspect hooks, latches and lifting accessories.","Check stabilizers, mounting frame and support pads.","Test control functions and emergency stop as specified.","Verify load chart for boom position and extension.","Confirm the truck is secured and the work area is clear.","Check operator authorization and maintenance records."],
+ hazards:["Overturning from incorrect stabilizer setup","Hydraulic pressure or hose failure","Pinch points at boom joints","Overloading at extended reach","Vehicle instability and overhead obstructions"],
+ safe:["Operate within the correct load chart and boom configuration.","Use stabilizers as directed by the manufacturer.","Never place hands near articulated joints during movement.","Do not use the crane if the mounting structure or hydraulic system is defective."]
+}
+];
 
-  const list = document.getElementById("craneList");
-  const detail = document.getElementById("craneDetail");
-  const search = document.getElementById("craneSearch");
-  const category = document.getElementById("craneCategory");
-  const count = document.getElementById("craneCount");
+const generalDevices = [
+"Slings: textile, chain or wire-rope types selected for the lift",
+"Shackles and connectors with legible identification and suitable WLL",
+"Spreader or lifting beam where required by the load geometry",
+"Certified lifting points and purpose-designed attachments",
+"Tag lines where suitable and specified by the lift plan",
+"Load monitoring and limiting devices fitted to the crane",
+"Outrigger mats or ground protection where required",
+"Communication equipment and warning devices"
+];
 
-  let selectedId = "truck";
+const generalChecks = [
+"Verify the crane identification, rated capacity and current examination status.",
+"Inspect the hook, safety latch, ropes or chains and visible terminations.",
+"Check boom or structural members for deformation, cracks or damage.",
+"Inspect hydraulic or electrical systems for leaks, damage or abnormal condition.",
+"Test controls, brakes, emergency stops, alarms and limits as specified by the manufacturer.",
+"Check outriggers, stabilizers, pads, rails or tracks as applicable.",
+"Confirm lifting accessories are suitable, identifiable and within their inspection status.",
+"Verify the load weight, centre of gravity, lifting points and load chart.",
+"Assess ground conditions, weather, nearby hazards and access.",
+"Confirm the lift plan, exclusion zone, signals and emergency arrangements."
+];
 
-  function escapeHTML(value) {
-    return String(value).replace(/[&<>"']/g, function (char) {
-      return {
-        "&": "&amp;",
-        "<": "&lt;",
-        ">": "&gt;",
-        '"': "&quot;",
-        "'": "&#39;"
-      }[char];
-    });
+const generalSafety = [
+"Only trained, authorized and competent personnel should operate or direct the lift.",
+"Never exceed the rated capacity or use a load chart for the wrong configuration.",
+"Do not lift loads of unknown weight or with an unverified centre of gravity.",
+"Never stand or allow anyone to travel beneath a suspended load.",
+"Keep clear of pinch points, rotating structures and suspended-load paths.",
+"Maintain required clearance from electrical lines; follow applicable local rules.",
+"Use agreed signals and a designated signal person where visibility is restricted.",
+"Stop work if conditions become unsafe, communications fail or the plan changes.",
+"Never bypass, defeat or ignore protective devices.",
+"Report defects, isolate unsafe equipment and follow the site defect process."
+];
+
+const hazards = [
+"Overturning caused by weak ground, incorrect setup or overloading",
+"Falling loads due to unsuitable rigging or attachment failure",
+"Crushing and trapping between the load, crane and nearby structures",
+"Contact with power lines or other overhead obstructions",
+"Unexpected movement, mechanical failure or loss of control",
+"Wind, poor visibility or adverse environmental conditions",
+"Incorrect configuration, load chart or radius assessment",
+"Poor communication, inadequate exclusion zones or unauthorized access"
+];
+
+const standards = [
+"LEEA publications and training guidance relevant to lifting equipment and accessories.",
+"Applicable crane and lifting-equipment standards, such as relevant EN 13000 or EN 13135 provisions where applicable.",
+"Relevant standards for the actual equipment type, such as overhead crane or hoist requirements.",
+"Manufacturer operating, inspection, maintenance and discard instructions.",
+"Applicable national legislation, site lifting procedures and risk assessment requirements.",
+"TÜV inspection or certification requirements applicable to the specific equipment, jurisdiction and service."
+];
+
+function esc(v) {
+  return String(v).replace(/[&<>"']/g, function(c) {
+    return {"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c];
+  });
+}
+function list(items, ordered) {
+  const tag = ordered ? "ol" : "ul";
+  return "<" + tag + ">" + items.map(x => "<li>" + esc(x) + "</li>").join("") + "</" + tag + ">";
+}
+function card(title, items, color, ordered) {
+  return '<section class="info-card ' + (color || "") + '">' +
+    "<h3>" + esc(title) + "</h3>" + list(items, !!ordered) + "</section>";
+}
+
+const listNode = document.getElementById("craneList");
+const detailNode = document.getElementById("craneDetail");
+const searchNode = document.getElementById("craneSearch");
+const categoryNode = document.getElementById("craneCategory");
+const countNode = document.getElementById("resultCount");
+let selectedId = "truck";
+
+function filteredCranes() {
+  const q = searchNode.value.trim().toLowerCase();
+  const cat = categoryNode.value;
+  return cranes.filter(c => {
+    const searchable = [
+      c.name,c.label,c.applications.join(" "),c.parts.join(" "),
+      c.devices.join(" "),c.inspections.join(" "),c.hazards.join(" ")
+    ].join(" ").toLowerCase();
+    return searchable.includes(q) && (cat === "all" || c.category === cat);
+  });
+}
+
+function renderList() {
+  const filtered = filteredCranes();
+  listNode.innerHTML = "";
+  countNode.textContent = filtered.length + " crane type(s) found.";
+
+  if (!filtered.length) {
+    listNode.innerHTML = '<div class="empty">No matches. Try another search or category.</div>';
+    detailNode.innerHTML = '<div class="panel-body"><h2>No cranes found</h2><p>Change your search terms to continue.</p></div>';
+    return;
   }
 
-  function renderList() {
-    const query = search.value.trim().toLowerCase();
-    const selectedCategory = category.value;
-
-    const filtered = cranes.filter(function (crane) {
-      const text = [
-        crane.name,
-        crane.description,
-        crane.categoryLabel,
-        ...crane.applications
-      ].join(" ").toLowerCase();
-
-      return text.includes(query) &&
-        (selectedCategory === "all" || crane.category === selectedCategory);
-    });
-
-    list.innerHTML = "";
-
-    if (filtered.length === 0) {
-      list.innerHTML = '<div class="cl-empty">No cranes match your search.</div>';
-    } else {
-      filtered.forEach(function (crane) {
-        const button = document.createElement("button");
-        button.type = "button";
-        button.className = "cl-item" + (crane.id === selectedId ? " active" : "");
-        button.dataset.craneId = crane.id;
-        button.textContent = crane.icon + "  " + crane.name;
-        list.appendChild(button);
-      });
-    }
-
-    count.textContent = filtered.length + " crane type(s) found.";
-
-    if (!filtered.some(function (crane) { return crane.id === selectedId; })) {
-      if (filtered.length) {
-        selectedId = filtered[0].id;
-        renderList();
-        renderDetail(selectedId);
-      } else {
-        detail.innerHTML = "<h2>No results</h2><p>Try another search or category.</p>";
-      }
-    }
-  }
-
-  function makeList(items) {
-    return "<ul>" + items.map(function (item) {
-      return "<li>" + escapeHTML(item) + "</li>";
-    }).join("") + "</ul>";
-  }
-
-  function renderDetail(id) {
-    const crane = cranes.find(function (item) {
-      return item.id === id;
-    });
-
-    if (!crane) {
-      detail.innerHTML = "<h2>Crane not found</h2>";
-      return;
-    }
-
-    selectedId = id;
-
-    detail.innerHTML =
-      "<h2>" + escapeHTML(crane.icon + " " + crane.name) + "</h2>" +
-      '<span class="cl-tag">' + escapeHTML(crane.categoryLabel) + "</span>" +
-      "<p>" + escapeHTML(crane.description) + "</p>" +
-      '<div class="cl-diagram" role="img" aria-label="' +
-      escapeHTML(crane.name) + ' symbol">' + escapeHTML(crane.icon) + "</div>" +
-      "<h3>Typical Applications</h3>" + makeList(crane.applications) +
-      "<h3>Main Components</h3>" + makeList(crane.components) +
-      "<h3>Pre-use Safety Checks</h3>" + makeList(crane.checks) +
-      "<h3>Key Hazards</h3>" + makeList(crane.hazards) +
-      "<p><strong>Important:</strong> This is general study information, not a substitute for the crane manufacturer's instructions, an approved lift plan, or applicable regulations.</p>" +
-      '<div class="cl-actions">' +
-        '<button type="button" id="cranePrintOne">Print / Save PDF</button>' +
-        '<button type="button" id="cranePrintAll" class="cl-secondary">Print All Crane Sheets</button>' +
-      "</div>";
-
-    renderList();
-
-    document.getElementById("cranePrintOne").addEventListener("click", function () {
-      printSheets([crane]);
-    });
-
-    document.getElementById("cranePrintAll").addEventListener("click", function () {
-      printSheets(cranes);
-    });
-  }
-
-  function printSheets(items) {
-    const printWindow = window.open("", "_blank");
-
-    if (!printWindow) {
-      alert("Please allow pop-ups for this page to print or save as PDF.");
-      return;
-    }
-
-    const pages = items.map(function (crane) {
-      return '<section class="sheet">' +
-        "<h1>" + escapeHTML(crane.name) + "</h1>" +
-        "<p><strong>Category:</strong> " + escapeHTML(crane.categoryLabel) + "</p>" +
-        "<p>" + escapeHTML(crane.description) + "</p>" +
-        "<h2>Typical Applications</h2>" + makeList(crane.applications) +
-        "<h2>Main Components</h2>" + makeList(crane.components) +
-        "<h2>Pre-use Safety Checks</h2>" + makeList(crane.checks) +
-        "<h2>Key Hazards</h2>" + makeList(crane.hazards) +
-        "<p><strong>Note:</strong> Always follow manufacturer instructions, the approved lift plan, and applicable regulations.</p>" +
-        "</section>";
-    }).join("");
-
-    printWindow.document.write(
-      "<!DOCTYPE html><html><head><title>Crane Study Sheets</title>" +
-      '<meta charset="UTF-8"><style>' +
-      "body{font-family:Arial,sans-serif;color:#172033;line-height:1.5;padding:20px}" +
-      ".sheet{page-break-after:always;break-after:page;padding:10px}" +
-      "h1{color:#075985}li{margin-bottom:6px}" +
-      "@media print{button{display:none}}" +
-      "</style></head><body>" + pages +
-      '<script>window.onload=function(){window.print();};<\/script>' +
-      "</body></html>"
-    );
-
-    printWindow.document.close();
-  }
-
-  search.addEventListener("input", renderList);
-  category.addEventListener("change", renderList);
-
-  list.addEventListener("click", function (event) {
-    const button = event.target.closest("button[data-crane-id]");
-    if (!button) return;
-    renderDetail(button.dataset.craneId);
+  filtered.forEach(c => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "crane-choice" + (c.id === selectedId ? " active" : "");
+    b.dataset.id = c.id;
+    b.innerHTML = "<strong>" + esc(c.name) + "</strong><small>" + esc(c.label) + "</small>";
+    listNode.appendChild(b);
   });
 
-  renderList();
+  if (!filtered.some(c => c.id === selectedId)) selectedId = filtered[0].id;
   renderDetail(selectedId);
+}
+
+function renderDetail(id) {
+  const c = cranes.find(x => x.id === id);
+  if (!c) return;
+  selectedId = id;
+
+  const stats = [
+    ["Crane category",c.label],
+    ["Rated capacity","Refer to the crane rating / load chart"],
+    ["Working radius","Confirm from actual configuration"],
+    ["Main use",c.applications[0]]
+  ];
+
+  detailNode.innerHTML =
+    '<div class="detail-top"><h2>' + esc(c.name) + '</h2>' +
+    '<p>' + esc(c.applications.join(" • ")) + '</p>' +
+    '<div class="tags"><span class="tag">' + esc(c.label) +
+    '</span><span class="tag">Safety study reference</span></div></div>' +
+    '<div class="stats">' + stats.map(s =>
+      '<div class="stat"><strong>' + esc(s[0]) + '</strong><span>' + esc(s[1]) + '</span></div>'
+    ).join("") + '</div>' +
+    '<div class="cards">' +
+    card("Key Components / Crane Parts",c.parts,"",true) +
+    card("Related Devices / Lifting Accessories",c.devices.concat(generalDevices.slice(0,3)),"green",false) +
+    card("Pre-use Safety Inspection",c.inspections.concat(generalChecks.slice(0,3)),"orange",true) +
+    card("Safety-related Information",c.safe.concat(generalSafety.slice(0,4)),"red",false) +
+    card("Key Hazards",c.hazards.concat(hazards.slice(0,3)),"purple",false) +
+    card("Standards & Guidance",standards,"teal",false) +
+    card("Safe Work Sequence",[
+      "Plan: identify the load, lifting points, crane configuration, radius and route.",
+      "Assess: review risk assessment, ground, weather, obstructions and personnel exposure.",
+      "Inspect: complete the required pre-use checks and verify accessory suitability.",
+      "Brief: agree roles, signals, exclusion zone, communications and stop-work criteria.",
+      "Lift: take the slack slowly, verify balance and continue only under safe control.",
+      "Set down: ensure stable support, release rigging safely and secure equipment.",
+      "Record: report defects and complete required logs after the operation."
+    ],"full",true) +
+    '</div>' +
+    '<div class="notice"><strong>Important compliance note:</strong> Inspection intervals, competent-person examination, certification, discard criteria and statutory requirements depend on the equipment, jurisdiction, service conditions and applicable standard. This guide does not certify equipment or replace the manufacturer's manual, a formal thorough examination, or an approved lift plan.</div>' +
+    '<div class="actions"><button type="button" class="btn" id="printSelected">Print this crane / Save PDF</button>' +
+    '<button type="button" class="btn dark" id="printAllInside">Print all crane sheets</button></div>';
+
+  Array.from(listNode.querySelectorAll("button")).forEach(b => {
+    b.classList.toggle("active",b.dataset.id === selectedId);
+  });
+
+  document.getElementById("printSelected").addEventListener("click", () => printSheets([c]));
+  document.getElementById("printAllInside").addEventListener("click", () => printSheets(cranes));
+}
+
+function printSheets(items) {
+  const w = window.open("","_blank");
+  if (!w) {
+    alert("Your browser blocked the print window. Allow pop-ups for this site and try again.");
+    return;
+  }
+
+  const page = items.map(c =>
+    '<article class="sheet"><h1>' + esc(c.name) + '</h1><p><b>Category:</b> ' + esc(c.label) + '</p>' +
+    '<p>' + esc(c.applications.join(" • ")) + '</p>' +
+    '<h2>Key Components / Crane Parts</h2>' + list(c.parts,true) +
+    '<h2>Related Devices / Accessories</h2>' + list(c.devices.concat(generalDevices.slice(0,3)),false) +
+    '<h2>Pre-use Safety Inspection</h2>' + list(c.inspections.concat(generalChecks.slice(0,3)),true) +
+    '<h2>Safety Information</h2>' + list(c.safe.concat(generalSafety.slice(0,4)),false) +
+    '<h2>Key Hazards</h2>' + list(c.hazards,false) +
+    '<h2>Standards and Guidance</h2>' + list(standards,false) +
+    '<p><b>Note:</b> Educational reference only. Verify applicable standards, legislation, manufacturer instructions and inspection requirements.</p></article>'
+  ).join("");
+
+  w.document.open();
+  w.document.write('<!DOCTYPE html><html><head><meta charset="utf-8"><title>Crane Study Sheets</title>' +
+    '<style>body{font:14px Arial,sans-serif;line-height:1.5;color:#172b45;margin:25px}h1{color:#075985;border-bottom:2px solid #075985;padding-bottom:8px}h2{font-size:17px;color:#075985;margin-top:20px}li{margin-bottom:5px}.sheet{page-break-after:always;break-after:page}.sheet:last-child{page-break-after:auto;break-after:auto}@media print{body{margin:12mm}}</style>' +
+    '</head><body>' + page + '<script>window.onload=function(){window.print();};<\/script></body></html>');
+  w.document.close();
+}
+
+listNode.addEventListener("click", function(e) {
+  const button = e.target.closest("button[data-id]");
+  if (!button) return;
+  renderDetail(button.dataset.id);
+});
+searchNode.addEventListener("input",renderList);
+categoryNode.addEventListener("change",renderList);
+document.getElementById("printAll").addEventListener("click",() => printSheets(cranes));
+
+renderList();
 })();
 </script>
 </body>
