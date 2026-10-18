@@ -516,18 +516,45 @@ function render(){
  });
  updateStats();
 }
-function markCard(card,i){
- const q=all[i],selected=card.querySelector("input:checked");
- const fb=card.querySelector(".feedback");
- card.querySelectorAll(".option").forEach((el,j)=>{
-  el.classList.remove("correct","incorrect");
-  if(j===q[2])el.classList.add("correct");
-  if(selected && j===Number(selected.value) && j!==q[2])el.classList.add("incorrect");
- });
- if(!selected){fb.className="feedback";fb.textContent="Not answered.";return;}
- const good=Number(selected.value)===q[2];
- fb.className="feedback "+(good?"good":"bad");
- fb.textContent=(good?"Correct. ":"Incorrect. ")+"Answer: "+String.fromCharCode(65+q[2])+". "+q[2+q[2]+1]+" — "+q[7];
+function markCard(card, i) {
+  const q = all[i];
+  const correctIndex = Number(q[6]);
+  const selected = card.querySelector("input:checked");
+  const fb = card.querySelector(".feedback");
+
+  card.querySelectorAll(".option").forEach((el, j) => {
+    el.classList.remove("correct", "incorrect");
+
+    if (j === correctIndex) {
+      el.classList.add("correct");
+    }
+
+    if (
+      selected &&
+      j === Number(selected.value) &&
+      j !== correctIndex
+    ) {
+      el.classList.add("incorrect");
+    }
+  });
+
+  if (!selected) {
+    fb.className = "feedback";
+    fb.textContent = "Not answered.";
+    return;
+  }
+
+  const good = Number(selected.value) === correctIndex;
+
+  fb.className = "feedback " + (good ? "good" : "bad");
+  fb.textContent =
+    (good ? "Correct. " : "Incorrect. ") +
+    "Answer: " +
+    String.fromCharCode(65 + correctIndex) +
+    ". " +
+    q[2 + correctIndex] +
+    " — " +
+    q[7];
 }
 function updateStats(){
  let answered=0,correct=0;
