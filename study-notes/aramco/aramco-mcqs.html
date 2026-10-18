@@ -560,8 +560,12 @@ function updateStats(){
  let answered=0,correct=0;
  all.forEach((q,i)=>{
   const selected=document.querySelector(`input[name="q${i}"]:checked`);
-  if(selected){answered++;if(Number(selected.value)===q[2])correct++;}
- });
+  if (selected) {
+  answered++;
+  if (Number(selected.value) === Number(q[6])) {
+    correct++;
+  }
+}
  document.getElementById("answered").textContent=answered;
  document.getElementById("correct").textContent=correct;
  document.getElementById("score").textContent=answered?Math.round(correct/answered*100)+"%":"—";
