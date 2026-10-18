@@ -576,8 +576,22 @@ function checkAnswers(){
  all.forEach((q,i)=>{const card=document.getElementById("q"+i);if(card)markCard(card,i);});
  updateStats();
 }
-function buildKey(){
- keyContent.innerHTML=all.map((q,i)=>`<div class="key-item"><strong>${i+1}. ${String.fromCharCode(65+q[2])} — ${esc(q[2+q[2]+1])}</strong><br>${esc(q[7])}</div>`).join("");
+function buildKey() {
+  keyContent.innerHTML = all.map((q, i) => {
+    const correctIndex = Number(q[6]);
+    const correctOption = q[2 + correctIndex];
+
+    return `
+      <div class="key-item">
+        <strong>
+          ${i + 1}. ${String.fromCharCode(65 + correctIndex)}
+          — ${esc(correctOption)}
+        </strong>
+        <br>
+        ${esc(q[7])}
+      </div>
+    `;
+  }).join("");
 }
 function toggleKey(){
  if(answerKey.style.display==="block"){answerKey.style.display="none";}
